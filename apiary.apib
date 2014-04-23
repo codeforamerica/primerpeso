@@ -1,0 +1,64 @@
+FORMAT: 1A
+HOST: http://www.incentivesapi.com
+
+# Incentives
+Incentives API provides a structured directory of incentives.
+
+# Group All Incentive Programs
+Incentives related resources of the **Incentives API**
+
+## Incentive [/incentives/{id}]
+A single Incentive Program object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Incentive to perform action with. Has example value.
+
+### Retrieve an Incentive Program [GET]
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            { 
+              "id": 2, 
+              "title": "Research And Development Tax Credit",
+              "governing_law": ["Law 73"],
+              "governing_agency": {
+                "name": "PRIDCO",
+                "phone": "17871234567",
+              }, // managed by only one;  Change this to object?
+              "eligibility_criteria": [
+                {revenue: }
+              ],
+            }
+
+
+
+
+# Group Saved Examples - NON WORKING
+
+### Remove a Note [DELETE]
++ Response 204
+
+
+## Notes Collection [/notes]
+### List all Notes [GET]
++ Response 200 (application/json)
+
+        [{
+          "id": 1, "title": "Jogging in park"
+        }, {
+          "id": 2, "title": "Pick-up posters from post-office"
+        }]
+
+### Create a Note [POST]
++ Request (application/json)
+
+        { "title": "Buy cheese and bread for breakfast." }
+
++ Response 201 (application/json)
+
+        { "id": 3, "title": "Buy cheese and bread for breakfast." }
