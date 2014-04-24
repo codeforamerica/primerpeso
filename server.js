@@ -1,53 +1,74 @@
-var express = require('express'),
-  // express.js standard scaffolding components (some overkill here)
-  routes = require('./routes'),
-  http = require('http'),
-  // https = require('https'),
-  path = require('path'),
-  http_auth = require('http-auth'),
+/**
+ * Module dependencies.
+ */
+var express = require('express');
+var http = require('http');
+var path = require('path');
+var mongoose = require('mongoose');
+var compress = require('compression');
+var logger = require('morgan');
+var bodyParser = require('body-parser');
+var errorHandler = require('errorhandler');
 
-  // other useful stuff
-  request = require('request'),
-  qs = require('querystring'),
-  solr = require('solr-client'),
-  url = require('url'),
-  moment = require('moment'), // momentjs.com
-  S = require('string'); // stringjs.com
+// Utilities.
+var _ = require('underscore');
+var request = require('request');
+var qs = require('querystring');
+var solr = require('solr-client');
+var url = require('url');
+var moment = require('moment'); // momentjs.com
+var S = require('string'); // stringjs.com
 
-var config = require('./config');
+// @TODO session handling / cookieparser
+// @TODO user management
+// @TODO csrf protection
+// @TODO Express Compress?
+// @TODO Logging?
+// @TODO errorHandler.
+// @TODO Express Validator
+// @TODO Passport
+// @TODO -- http-auth
 
+
+var config = require('./config/config.js');
+
+/**
+ * Load controllers.
+ */
+//var apiController = require('./controllers/api');
+
+
+/**
+ * Create Express server.
+ */
 var app = express();
 
-// http basic auth, if required in config
-if (config.app.require_http_basic_auth) {
-  var basic = http_auth.basic(config.app.http_basic_auth);
-  app.use(http_auth.connect(basic));
-}
+/**
+ * Mongoose configuration.
+ */
+mongoose.connect(config.db);
+mongoose.connection.on('error', function() {
+  console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
+});
 
-// Create Solr client
-var solr_client = solr.createClient();
-solr_client.autoCommit = true; // Switch on "auto commit"
+/**
+ * Express configuration.
+ */
 
-// all environments
-// (express.js standard scaffolding -- see http://expressjs.com/guide.html#executable )
-// some of this is unused/overkill at the moment
-// app.set('port', config.app.port);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
-app.use(app.router);
-app.use(require('less-middleware')(__dirname + '/public'));
-app.use(express.static(path.join(__dirname, 'public')));
+var hour = 3600000;
+var day = hour * 24;
+var week = day * 7;
 
-// Development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+// Settings.
+app.set('port', process.env.PORT || 3000);
+
+// Middleware.
+app.use(compress());
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
+// Pre Route.
 
 // Allow cross-site queries (CORS)
 app.get('*', function(req, res, next) {
@@ -66,11 +87,41 @@ app.options('*', function(req, res) {
   res.send('supported options: GET, OPTIONS [non-CORS]');
 });
 
+/**
+ * Boot Solr
+ */
+var solr_client = solr.createClient();
+solr_client.autoCommit = true; // Switch on "auto commit"
+
+
+/**
+ * Application routes.
+ */
+
+
+
 // Versioning = anti pattern. Breaking changes should be done by route alteration.
-app.get('/v0/', function(req, res) {
+app.get('/', function(req, res) {
   res.send('FBOpen APi v0. See http://docs.fbopen.apiary.io for initial documentation.');
 });
 
 app.get('/v0/hello', function(req, res){
   res.send('Hello World');
 });
+
+/**
+ * 500 Error Handler.
+ * As of Express 4.0 it must be placed at the end of all routes.
+ */
+
+app.use(errorHandler());
+
+
+/**
+ * Start Express server.
+ */
+app.listen(app.get('port'), function() {
+  console.log("✔ Express server listening on port %d in %s mode", app.get('port'), app.get('env'));
+});
+
+module.exports = app;
