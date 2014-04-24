@@ -98,7 +98,7 @@ solr_client.autoCommit = true; // Switch on "auto commit"
  * Application routes.
  */
 
-
+// @TODO -- integrate routing with http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4
 
 // Versioning = anti pattern. Breaking changes should be done by route alteration.
 app.get('/', function(req, res) {
