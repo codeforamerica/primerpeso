@@ -1,0 +1,4 @@
+/dist/
+/node_modules/
+/vendor/bower/
+/test/coverage/
