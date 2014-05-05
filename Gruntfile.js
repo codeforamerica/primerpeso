@@ -104,8 +104,11 @@ module.exports = function(grunt) {
     copy: {
       release: {
         files: [
-          { src: ["client/app/**"], dest: "dist/" },
-          { src: "vendor/**", dest: "dist/" }
+          { expand: true,
+		cwd: 'client/',
+		src: ["app/**", "vendor/**"],
+		dest: "dist/"
+          }
         ]
       }
     },
