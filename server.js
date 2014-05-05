@@ -2,6 +2,7 @@
  * Module dependencies.
  */
 var express = require('express');
+var cors = require('cors');
 var http = require('http');
 var path = require('path');
 var elasticsearch = require('elasticsearch');
