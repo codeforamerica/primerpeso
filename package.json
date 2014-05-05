@@ -7,20 +7,20 @@
     "test": "mocha"
   },
   "dependencies": {
+    "body-parser": "~1.0.2",
+    "chai": "~1.9.1",
+    "compression": "~1.0.1",
+    "dotenv": "~0.2.8",
+    "elasticsearch": "^2.1.4",
+    "errorhandler": "~1.0.0",
     "express": "~4.0.0",
     "mocha": "~1.18.2",
-    "mongoose": "~3.8.8",
-    "chai": "~1.9.1",
-    "supertest": "~0.10.0",
-    "solr-client": "~0.2.9",
-    "underscore": "~1.6.0",
-    "string": "~1.8.0",
     "moment": "~2.6.0",
-    "dotenv": "~0.2.8",
-    "body-parser": "~1.0.2",
-    "request": "~2.34.0",
-    "compression": "~1.0.1",
+    "mongoose": "~3.8.8",
     "morgan": "~1.0.0",
-    "errorhandler": "~1.0.0"
+    "request": "~2.34.0",
+    "string": "~1.8.0",
+    "supertest": "~0.10.0",
+    "underscore": "~1.6.0"
   }
 }
