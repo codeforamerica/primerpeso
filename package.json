@@ -10,6 +10,7 @@
     "body-parser": "~1.0.2",
     "chai": "~1.9.1",
     "compression": "~1.0.1",
+    "cors": "^2.2.0",
     "dotenv": "~0.2.8",
     "elasticsearch": "^2.1.4",
     "errorhandler": "~1.0.0",
