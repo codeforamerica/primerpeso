@@ -71,8 +71,6 @@ app.use(bodyParser.urlencoded());
 // Allow cross-site queries (CORS)
 app.use(cors());
 // Pre Route.
-
-
 app.options('*', function(req, res) {
   res.set({
     'Access-Control-Allow-Origin': '*',
@@ -83,6 +81,9 @@ app.options('*', function(req, res) {
   res.send('supported options: GET, OPTIONS [non-CORS]');
 });
 
+// Statics
+app.use('/', express.static(path.join(__dirname, 'dist')));
+
 
 /**
  * Application routes.
@@ -91,9 +92,9 @@ app.options('*', function(req, res) {
 // @TODO -- integrate routing with http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4
 
 // Versioning = anti pattern. Breaking changes should be done by route alteration.
-app.get('/', function(req, res) {
+/*app.get('/', function(req, res) {
   res.send('FBOpen APi v0. See http://docs.fbopen.apiary.io for initial documentation.');
-});
+});*/
 
 app.get('/v0/hello', function(req, res){
   res.send('Hello World');

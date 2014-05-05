@@ -3,17 +3,17 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     // Wipe out previous builds and test reporting.
-    clean: ["dist/", "test/reports"],
+    clean: ["dist/", "client/test/reports"],
 
     // Run your source code through JSHint's defaults.
-    jshint: ["app/**/*.js"],
+    jshint: ["client/app/**/*.js"],
 
     // This task uses James Burke's excellent r.js AMD builder to take all
     // modules and concatenate them into a single file.
     requirejs: {
       release: {
         options: {
-          mainConfigFile: "app/config.js",
+          mainConfigFile: "client/app/config.js",
           generateSourceMaps: true,
           include: ["main"],
           out: "dist/source.min.js",
@@ -50,14 +50,14 @@ module.exports = function(grunt) {
       // development file path.
       "dist/styles.css": {
         // Point this to where your `index.css` file is location.
-        src: "app/styles/index.css",
+        src: "client/app/styles/index.css",
 
         // The relative path to use for the @imports.
-        paths: ["app/styles"],
+        paths: ["client/app/styles"],
 
         // Rewrite image paths during release to be relative to the `img`
         // directory.
-        forceRelative: "/app/img/"
+        forceRelative: "/client/app/img/"
       }
     },
 
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
     copy: {
       release: {
         files: [
-          { src: ["app/**"], dest: "dist/" },
+          { src: ["client/app/**"], dest: "dist/" },
           { src: "vendor/**", dest: "dist/" }
         ]
       }
@@ -145,24 +145,24 @@ module.exports = function(grunt) {
         ],
 
         preprocessors: {
-          "app/**/*.js": "coverage"
+          "client/app/**/*.js": "coverage"
         },
 
         coverageReporter: {
           type: "lcov",
-          dir: "test/coverage"
+          dir: "client/test/coverage"
         },
 
         files: [
           // You can optionally remove this or swap out for a different expect.
           "vendor/bower/chai/chai.js",
           "vendor/bower/requirejs/require.js",
-          "test/runner.js",
+          "client/test/runner.js",
 
-          { pattern: "app/**/*.*", included: false },
+          { pattern: "client/app/**/*.*", included: false },
           // Derives test framework from Karma configuration.
           {
-            pattern: "test/<%= karma.options.frameworks[0] %>/**/*.spec.js",
+            pattern: "client/test/<%= karma.options.frameworks[0] %>/**/*.spec.js",
             included: false
           },
           { pattern: "vendor/**/*.js", included: false }
@@ -187,7 +187,7 @@ module.exports = function(grunt) {
 
     coveralls: {
       options: {
-        coverage_dir: "test/coverage/"
+        coverage_dir: "client/test/coverage/"
       }
     }
   });
