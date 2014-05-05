@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server",
-    "test": "mocha"
+    "test": "mocha",
     "test": "grunt karma:run"
   },
   "dependencies": {
