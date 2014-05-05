@@ -41,7 +41,6 @@
     "karma-phantomjs-launcher": "~0.1.0",
     "karma-coverage": "~0.1.0"
   },
-
   "peerDependencies": {
     "generator-bbb": "*",
     "bower": "*",
