@@ -4,6 +4,7 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
+var elasticsearch = require('elasticsearch');
 var mongoose = require('mongoose');
 var compress = require('compression');
 var logger = require('morgan');
@@ -14,7 +15,6 @@ var errorHandler = require('errorhandler');
 var _ = require('underscore');
 var request = require('request');
 var qs = require('querystring');
-var solr = require('solr-client');
 var url = require('url');
 var moment = require('moment'); // momentjs.com
 var S = require('string'); // stringjs.com
@@ -88,11 +88,13 @@ app.options('*', function(req, res) {
 });
 
 /**
- * Boot Solr
+ * Boot Elastic Search
  */
-var solr_client = solr.createClient();
-solr_client.autoCommit = true; // Switch on "auto commit"
 
+var elasticClient = new elasticsearch.Client({
+    host: 'localhost:9200',
+    log: 'trace'
+});
 
 /**
  * Application routes.
