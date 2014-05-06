@@ -82,7 +82,8 @@ app.options('*', function(req, res) {
 });
 
 // Statics
-app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(path.join(__dirname, 'client')));
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 
 /**

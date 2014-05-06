@@ -204,6 +204,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-cssmin");
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-compress");
+  grunt.loadNpmTasks('grunt-nodemon');
 
   // Third-party tasks.
   grunt.loadNpmTasks("grunt-karma");
