@@ -73,27 +73,6 @@ module.exports = function(grunt) {
       }
     },
 
-    server: {
-      options: {
-        host: "0.0.0.0",
-        port: 8000
-      },
-
-      development: {},
-
-      release: {
-        options: {
-          prefix: "dist"
-        }
-      },
-
-      test: {
-        options: {
-          forever: false,
-          port: 8001
-        }
-      }
-    },
 
     processhtml: {
       release: {
@@ -195,7 +174,65 @@ module.exports = function(grunt) {
       options: {
         coverage_dir: "client/test/coverage/"
       }
-    }
+    },
+    inject: {
+		  single: {
+		    scriptSrc: 'client/devtools/workflow.js',
+		    files: {
+		      'client/index.html': 'client/index.html'
+		    }
+		  }
+		},
+    concurrent: {
+      dev: {
+        tasks: ['nodemon', 'node-inspector', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
+    },
+    nodemon: {
+		  dev: {
+		    script: 'server.js',
+		    options: {
+		      nodeArgs: ['--debug'],
+		      env: {
+		        PORT: '3737'
+		      },
+		      // Omit this property if you aren't serving HTML files and
+		      // don't want to open a browser tab on start
+		      callback: function (nodemon) {
+		        nodemon.on('log', function (event) {
+		          console.log(event.colour);
+		        });
+
+		        // opens browser on initial server start
+		        nodemon.on('config:update', function () {
+		          // Delay before server listens on port
+		          setTimeout(function() {
+		            require('open')('http://localhost:3737');
+		          }, 1000);
+		        });
+
+		        // refreshes browser when server reboots
+		        nodemon.on('restart', function () {
+		          // Delay before server listens on port
+		          setTimeout(function() {
+		            require('fs').writeFileSync('.rebooted', 'rebooted');
+		          }, 1000);
+		        });
+		      }
+		    }
+		  },
+		},
+		watch: {
+  		server: {
+    		files: ['.rebooted'],
+    		options: {
+      		livereload: true
+    		}
+  		}
+		}
   });
 
   // Grunt contribution tasks.
@@ -205,6 +242,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-copy");
   grunt.loadNpmTasks("grunt-contrib-compress");
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-node-inspector');
+  grunt.loadNpmTasks('grunt-node-inspector');
+  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-inject');
+
+
 
   // Third-party tasks.
   grunt.loadNpmTasks("grunt-karma");
@@ -212,7 +255,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-processhtml");
 
   // Grunt BBB tasks.
-  grunt.loadNpmTasks("grunt-bbb-server");
   grunt.loadNpmTasks("grunt-bbb-requirejs");
   grunt.loadNpmTasks("grunt-bbb-styles");
 
@@ -225,5 +267,10 @@ module.exports = function(grunt) {
     "requirejs",
     "styles",
     "cssmin",
+  ]);
+
+  grunt.registerTask("server", [
+    //"inject",
+    "nodemon"
   ]);
 };

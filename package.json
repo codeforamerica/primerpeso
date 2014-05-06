@@ -26,20 +26,25 @@
   "devDependencies": {
     "bbb": "~0.2.0",
     "grunt": "~0.4.1",
+    "grunt-concurrent": "^0.5.0",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.6.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-inject": "^0.1.1",
     "grunt-karma": "~0.8.2",
     "grunt-karma-coveralls": "~2.3.0",
+    "grunt-node-inspector": "^0.1.5",
     "grunt-nodemon": "^0.2.1",
     "grunt-processhtml": "~0.3.0",
     "karma-coverage": "~0.1.0",
     "karma-jasmine": "~0.1.0",
     "karma-mocha": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
-    "karma-qunit": "~0.1.0"
+    "karma-qunit": "~0.1.0",
+    "open": "0.0.5"
   },
   "peerDependencies": {
     "generator-bbb": "*",
