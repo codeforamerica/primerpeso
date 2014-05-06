@@ -55,6 +55,9 @@ module.exports = function(grunt) {
         // The relative path to use for the @imports.
         paths: ["client/app/styles"],
 
+        // Prefix.
+        prefix: "./client/app/styles/",
+
         // Rewrite image paths during release to be relative to the `img`
         // directory.
         forceRelative: "/client/app/img/"
