@@ -30,7 +30,7 @@ var S = require('string'); // stringjs.com
 // @TODO -- http-auth
 
 
-var config = require('./config/config.js');
+var config = require('./server/config/config.js');
 
 /**
  * Load controllers.
