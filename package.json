@@ -21,7 +21,8 @@
     "request": "~2.34.0",
     "string": "~1.8.0",
     "supertest": "~0.10.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "elasticsearch": "~2.1.4"
   },
   "devDependencies": {
     "bbb": "~0.2.0",

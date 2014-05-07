@@ -6,6 +6,7 @@ var cors = require('cors');
 var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
+var elasticsearch = require('elasticsearch');
 var compress = require('compression');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
@@ -70,6 +71,7 @@ app.use(bodyParser.urlencoded());
 
 // Allow cross-site queries (CORS)
 app.use(cors());
+
 // Pre Route.
 app.options('*', function(req, res) {
   res.set({
@@ -86,6 +88,13 @@ app.options('*', function(req, res) {
 app.use('/', express.static(path.join(__dirname, 'client')));
 //app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
+/**
+ *  Boot Elastic Search
+ */
+var elasticClient = new elasticsearch.Client({
+  host: 'localhost:9200',
+  log: 'trace'
+});
 
 /**
  * Application routes.
