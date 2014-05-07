@@ -44,7 +44,8 @@
     "karma-mocha": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma-qunit": "~0.1.0",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "node-inspector": "~0.7.3"
   },
   "peerDependencies": {
     "generator-bbb": "*",

@@ -82,8 +82,9 @@ app.options('*', function(req, res) {
 });
 
 // Statics
+// @TODO -- clean me up biatch
 app.use('/', express.static(path.join(__dirname, 'client')));
-app.use('/dist', express.static(path.join(__dirname, 'dist')));
+//app.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 
 /**
