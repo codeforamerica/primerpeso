@@ -45,6 +45,7 @@
     "supertest": "^0.11.0",
     "mstring": "^0.1.2",
     "inquirer": "^0.4.1",
-    "colors": "^0.6.2"
+    "colors": "^0.6.2",
+    "lorem-ipsum": "~1.0.1"
   }
 }

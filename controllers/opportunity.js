@@ -1,6 +1,11 @@
 var Opp = require('../models/Opportunity');
+var reqMuncher = require('../helpers/reqMuncher');
 
 module.exports = function(app) {
+  // Hijack the request for testing purposes.
+  if(app.get('env') == 'development') {
+    app.use('/opportunity/create', reqMuncher.munchOppRequest);
+  }
   app.post('/opportunity/create', oppCreate);
 }
 

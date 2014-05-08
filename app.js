@@ -61,8 +61,8 @@ var week = day * 7;
 /**
  * CSRF Whitelist
  */
-
-var whitelist = ['/url1', '/url2'];
+// @TODO -- ya know.
+var whitelist = ['/opportunity/create', '/'];
 
 /**
  * Express configuration.
