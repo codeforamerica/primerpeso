@@ -33,16 +33,12 @@ var S = require('string'); // stringjs.com
 
 var config = require('./server/config/config.js');
 
-/**
- * Load controllers.
- */
-//var apiController = require('./controllers/api');
-
 
 /**
  * Create Express server.
  */
-var app = express();
+
+var server = express();
 
 /**
  * Mongoose configuration.
@@ -61,19 +57,19 @@ var day = hour * 24;
 var week = day * 7;
 
 // Settings.
-app.set('port', process.env.PORT || 3000);
+server.set('port', process.env.PORT || 3000);
 
 // Middleware.
-app.use(compress());
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+server.use(compress());
+server.use(logger('dev'));
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded());
 
 // Allow cross-site queries (CORS)
-app.use(cors());
+server.use(cors());
 
 // Pre Route.
-app.options('*', function(req, res) {
+server.options('*', function(req, res) {
   res.set({
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
@@ -85,8 +81,8 @@ app.options('*', function(req, res) {
 
 // Statics
 // @TODO -- clean me up biatch
-app.use('/', express.static(path.join(__dirname, 'client')));
-//app.use('/dist', express.static(path.join(__dirname, 'dist')));
+server.use('/', express.static(path.join(__dirname, 'client')));
+//server.use('/dist', express.static(path.join(__dirname, 'dist')));
 
 /**
  *  Boot Elastic Search
@@ -99,31 +95,26 @@ var elasticClient = new elasticsearch.Client({
 /**
  * Application routes.
  */
-
-// @TODO -- integrate routing with http://scotch.io/tutorials/javascript/build-a-restful-api-using-node-and-express-4
-
 // Versioning = anti pattern. Breaking changes should be done by route alteration.
-/*app.get('/', function(req, res) {
-  res.send('FBOpen APi v0. See http://docs.fbopen.apiary.io for initial documentation.');
-});*/
+// @TODO -- verify routing practices are in check with express 4 routing pattern.
 
-app.get('/v0/hello', function(req, res){
-  res.send('Hello World');
-});
+require('./server/controllers/opportunity')(server, elasticClient);
+
+
 
 /**
  * 500 Error Handler.
  * As of Express 4.0 it must be placed at the end of all routes.
  */
 
-app.use(errorHandler());
+server.use(errorHandler());
 
 
 /**
  * Start Express server.
  */
-app.listen(app.get('port'), function() {
-  console.log("✔ Express server listening on port %d in %s mode", app.get('port'), app.get('env'));
+server.listen(server.get('port'), function() {
+  console.log("✔ Express server listening on port %d in %s mode", server.get('port'), server.get('env'));
 });
 
-module.exports = app;
+module.exports = server;
