@@ -1,5 +1,3 @@
-.DS_Store
-
 lib-cov
 *.seed
 *.log
@@ -8,14 +6,17 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.swp
 
 pids
+logs
 results
+tmp
 
-node_modules
 npm-debug.log
-
-data
-
-/dist/
-.rebooted
+node_modules
+.env
+.idea
+*.iml
+.DS_Store
+Thumbs.db
