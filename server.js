@@ -92,7 +92,7 @@ app.use('/', express.static(path.join(__dirname, 'client')));
  *  Boot Elastic Search
  */
 var elasticClient = new elasticsearch.Client({
-  host: 'localhost:9200',
+  host: 'localhost:9200', // for some reason 9300 causes errors.
   log: 'trace'
 });
 
