@@ -1,10 +1,25 @@
+
+
+module.exports = function(app) {
+  app.get('/', index);
+  app.get('/fundme', fundmeWizard);
+};
+
 /**
  * GET /
  * Home page.
  */
 
-exports.index = function(req, res) {
+var index = function(req, res) {
   res.render('home', {
-    title: 'Home'
+    title: 'Home',
+    bodyClass: 'home',
+  });
+};
+
+var fundmeWizard = function(req, res, next) {
+  res.render('fundmeWizard', {
+    title: 'FundMe',
+    bodyClass: 'fundmeWizard'
   });
 };

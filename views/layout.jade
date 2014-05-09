@@ -10,7 +10,7 @@ html
     title #{title} | Fund Me
     != css('styles')
     != js('application')
-  body
+  body(class=bodyClass)
     #wrap
       include partials/navigation
       .container
