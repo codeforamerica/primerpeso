@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h2.page-header Advanced Form Example
+  form#form-3(action='#')
+    h3 Account
+    fieldset
+      legend Account Information
+      label(for='userName-2') User name *
+      input#userName-2.required(name='userName', type='text')
+      label(for='password-2') Password *
+      input#password-2.required(name='password', type='text')
+      label(for='confirm-2') Confirm Password *
+      input#confirm-2.required(name='confirm', type='text')
+      p (*) Mandatory
+    h3 Profile
+    fieldset
+      legend Profile Information
+      label(for='name-2') First name *
+      input#name-2.required(name='name', type='text')
+      label(for='surname-2') Last name *
+      input#surname-2.required(name='surname', type='text')
+      label(for='email-2') Email *
+      input#email-2.required.email(name='email', type='text')
+      label(for='address-2') Address
+      input#address-2(name='address', type='text')
+      label(for='age-2') Age (The warning step will show up if age is less than 18) *
+      input#age-2.required.number(name='age', type='text')
+      p (*) Mandatory
+    h3 Warning
+    fieldset
+      legend You are to young
+      p Please go away ;-)
+    h3 Finish
+    fieldset
+      legend Terms and Conditions
+      input#acceptTerms-2.required(name='acceptTerms', type='checkbox')
+      label(for='acceptTerms-2') I agree with the Terms and Conditions.
