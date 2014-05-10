@@ -1,4 +1,4 @@
-
+var OppQuery = require('../models/OppQuery');
 
 module.exports = function(app) {
   app.get('/', index);
@@ -20,6 +20,8 @@ var index = function(req, res) {
 var fundmeWizard = function(req, res, next) {
   res.render('fundmeWizard', {
     title: 'FundMe',
-    bodyClass: 'fundmeWizard'
+    bodyClass: 'fundmeWizard',
+    formHTML: OppQuery.getQueryForm()
   });
+
 };
