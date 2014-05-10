@@ -28,7 +28,7 @@ dotenv.load();
  * Load controllers.
  */
 
-var homeController = require('./controllers/home');
+// @TODO -- dep this
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 
@@ -117,6 +117,7 @@ app.use(function(req, res, next) {
 
 require('./controllers/opportunity')(app);
 require('./controllers/home')(app);
+require('./controllers/oppquery')(app);
 
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

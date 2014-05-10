@@ -17,7 +17,7 @@ $(document).ready(function() {
       console.log(currentIndex);
       var form = $(this);
       console.log(form);
-      //form.submit();
+      form.submit();
 	  }
 	});
 });
