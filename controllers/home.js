@@ -21,7 +21,7 @@ var fundmeWizard = function(req, res, next) {
   res.render('fundmeWizard', {
     title: 'FundMe',
     bodyClass: 'fundmeWizard',
-    formHTML: OppQuery.getQueryForm()
+    form: OppQuery.getQueryForm()
   });
 
 };

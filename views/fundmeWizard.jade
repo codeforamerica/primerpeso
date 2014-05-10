@@ -1,34 +1,39 @@
 extends layout
 
 block content
-  h2.page-header Advanced Form Example
+  h2.page-header Fund Me
   form#form-3(action='#')
-    != formHTML
-  //
-    h3 Account
+    h3 #{form.aboutYou.title}
     fieldset
-      legend Account Information
-      label(for='userName-2') User name *
-      input#userName-2.required(name='userName', type='text')
-      label(for='password-2') Password *
-      input#password-2.required(name='password', type='text')
-      label(for='confirm-2') Confirm Password *
-      input#confirm-2.required(name='confirm', type='text')
+      fieldset
+        h4 #{form.aboutYou.gender.label}
+        each choice, cVal in form.aboutYou.gender.choices
+          div.radio
+            label #{choice}
+              input(type='radio', name=form.aboutYou.gender.name, value=cVal)
+      fieldset
+        h4 #{form.aboutYou.age.label}
+        each choice, cVal in form.aboutYou.age.choices
+          div.radio
+            label #{choice}
+              input(type='radio', name=form.aboutYou.age.name, value=cVal)
       p (*) Mandatory
-    h3 Profile
+
+    h3 #{form.purpose.title}
     fieldset
-      legend Profile Information
-      label(for='name-2') First name *
-      input#name-2.required(name='name', type='text')
-      label(for='surname-2') Last name *
-      input#surname-2.required(name='surname', type='text')
-      label(for='email-2') Email *
-      input#email-2.required.email(name='email', type='text')
-      label(for='address-2') Address
-      input#address-2(name='address', type='text')
-      label(for='age-2') Age (The warning step will show up if age is less than 18) *
-      input#age-2.required.number(name='age', type='text')
+      fieldset
+        h4 #{form.purpose.needed_for.label}
+        each choice, cVal in form.purpose.needed_for.choices
+          div.radio
+            label #{choice}
+              input(type='radio', name=form.purpose.needed_for.name, value=cVal)
+      fieldset
+        h4 #{form.purpose.investing_own.label}
+          div.checkbox
+            label #{choice}
+              input(type='checkbox', name=form.purpose.investing_own.name, value=cVal)
       p (*) Mandatory
+
     h3 Warning
     fieldset
       legend You are to young
