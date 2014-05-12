@@ -1,4 +1,4 @@
-include mixins/custom/forms.jade
+include mixins/forms.jade
 
 extends layout
 
@@ -7,14 +7,14 @@ block content
   form#fundMeWizard(action='#')
     h3 #{form.aboutYou.title}
     fieldset
-      +choiceFieldSet(form.aboutYou.gender)
-      +choiceFieldSet(form.aboutYou.age)
+      +choiceField(form.aboutYou.gender)
+      +choiceField(form.aboutYou.age)
       p (*) Mandatory
 
     h3 #{form.purpose.title}
     fieldset
-      +choiceFieldSet(form.purpose.needed_for)
-      +choiceFieldSet(form.purpose.investing_own)
+      +choiceField(form.purpose.needed_for)
+      +choiceField(form.purpose.investing_own)
       p (*) Mandatory
 
 

@@ -1,0 +1,10 @@
+// Attributes brough in implicitly
+// See http://jade-lang.com/reference/#mixins
+mixin choiceField(formOptions)
+  .form-group
+    h4 #{formOptions.label}
+    each choice, cVal in formOptions.choices
+      // TODO look at exploding classes
+      div(class=formOptions.type)
+        label #{choice}
+          input(type=formOptions.type, name=formOptions.name, value=cVal)
