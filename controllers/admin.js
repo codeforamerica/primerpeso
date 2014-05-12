@@ -1,8 +1,11 @@
 var OppQuery = require('../models/OppQuery');
+var authPolicies = require('../policies/auth');
 
 // TODO -- express routing the right way.
 module.exports = function(app) {
-  app.get('/', index);
+  // Policy middleware.
+  app.use('/admin', authPolicies.admin);
+  app.get('/admin/new', index);
 };
 
 /**
