@@ -23,5 +23,6 @@ var oppQueryExecute = function(req, res, next) {
   var query = new OppQuery({ query: req.query });
   query.save(function(err, savedQuery){
     // Execute search here, render results;
+    res.json(savedQuery);
   });
 };
