@@ -24,12 +24,14 @@ oppQuerySchema.statics.getQueryForm = function() {
     gender: {
       choices: { male: 'Male', female: 'Female' },
       label: 'What is your Gender?',
-      name: 'gender'
+      name: 'gender',
+      type: 'radio'
     },
     age: {
       choices: { '16-25': '16-25', '26-40': '26-40' },
       label: 'How old are you?',
       name: 'age',
+      type: 'radio'
     },
   };
   // End Step 1
@@ -39,6 +41,7 @@ oppQuerySchema.statics.getQueryForm = function() {
     needed_for: {
       label: 'What do you need this finance for?',
       name: 'needed_for',
+      type: 'checkbox',
       choices: {
         'start_business': 'Start A Business',
         'start_business': 'Relocate A Business'
@@ -47,6 +50,7 @@ oppQuerySchema.statics.getQueryForm = function() {
     investing_own: {
       label: 'I am investing my own money in this venture',
       name: 'investing_own',
+      type: 'checkbox',
       choices: {
         '0': 'No',
         '1': 'Yes'
