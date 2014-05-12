@@ -20,6 +20,10 @@ var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 
+// Policies -- @TODO better structure.
+
+var authPolicy = require('./policies/auth');
+
 // Load dotenv.
 var dotenv = require('dotenv');
 dotenv.load();
@@ -111,6 +115,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Policy middleware.
+app.use('/admin', authPolicy.admin);
+
+
 /**
  * Application routes.
  */
@@ -119,7 +127,7 @@ require('./controllers/opportunity')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 
-app.get('/login', userController.getLogin);
+/*app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 app.get('/forgot', userController.getForgot);
@@ -134,6 +142,7 @@ app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+*/
 
 /**
  * 500 Error Handler.
