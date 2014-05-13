@@ -8,3 +8,9 @@ mixin choiceField(formOptions)
       div(class=formOptions.type)
         label #{choice}
           input(type=formOptions.type, name=formOptions.name, value=cVal)
+
+mixin textField(formOptions)
+  .form-group
+    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    div(class="col-sm-10")
+      input(type=formOptions.type class="form-control" placeholder=formOptions.placeholder)
