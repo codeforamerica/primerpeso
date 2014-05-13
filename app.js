@@ -19,7 +19,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
-var admin = require('node-django-admin');
+var admin = require('./custom/fundme-admin');
 
 // Load dotenv.
 var dotenv = require('dotenv');

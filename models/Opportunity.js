@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var _ = require('underscore');
-var admin = require('node-django-admin');
+var admin = require('../custom/fundme-admin');
 
 var opSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },

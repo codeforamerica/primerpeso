@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 var _ = require('underscore');
-var admin = require('node-django-admin');
-
-
+var admin = require('../custom/fundme-admin');
 
 var oppQuerySchema = new mongoose.Schema({
   query: mongoose.Schema.Types.Mixed

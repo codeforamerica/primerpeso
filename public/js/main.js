@@ -4,6 +4,7 @@ $(document).ready(function() {
 	  bodyTag: "fieldset",
 	  transitionEffect: "slideLeft",
     saveState: true,
+    titleTemplate: '<span class="monkey">#index#.</span> #title#',
 	  //onStepChanging: function (event, currentIndex, newIndex) {
 	      //$("#form-3").validate().settings.ignore = ":disabled,:hidden";
 	      //return $("#form-3").valid();
