@@ -1,0 +1,24 @@
+extends layouts/default
+
+block content
+  #list
+    #list-top
+      h2= title
+      #new
+        a.btn.btn-xs.btn-default(href="#{base}/#{path}/new", role="button") New &raquo;
+
+    //- .table-bordered
+    table.table.table-striped.table-hover.table-condensed
+      thead
+        tr
+          each f in list
+            th= fields[f].header || capitalizeFirstLetter(f)
+          th
+      tbody
+        each d in data
+          tr
+            each f in list
+              td= d[f]
+            td
+              a.btn.btn-xs.btn-default(href="#{base}/#{path}/#{d._id}/edit") edit
+
