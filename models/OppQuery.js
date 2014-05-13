@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var _ = require('underscore');
+var admin = require('node-django-admin');
 
 
 
@@ -15,6 +16,25 @@ oppQuerySchema.pre('save', function(next) {
 if (process.env.NODE_ENV == 'production') {
   oppQuerySchema.set('autoIndex', false);
 }
+
+oppQuerySchema.statics.load = function(id, cb) {
+  this.findOne({ _id : id }).exec(cb);
+};
+
+oppQuerySchema.statics.list = function(options, cb) {
+  var criteria = options.criteria || {};
+  var order = options.order || {'name': 1};
+
+  this.find(criteria)
+    .sort(order)
+    .limit(options.perPage)
+    .skip(options.perPage * options.page)
+    .exec(cb);
+}
+
+/**
+ * Method for generating the query form.
+ */
 
 oppQuerySchema.statics.getQueryForm = function() {
   // @TODO -- feed some of this from the op model?
@@ -60,6 +80,25 @@ oppQuerySchema.statics.getQueryForm = function() {
   return { 'aboutYou': aboutYou, 'purpose': purpose };
 };
 
+/**
+ * Register model in Mongoose
+ */
+
 var oppQueryModel = mongoose.model('OppQuery', oppQuerySchema);
+
+/**
+ * Register model in admin
+ */
+admin.add({
+  path: 'oppQueries',
+  model: 'OppQuery',
+  list: [ 'query' ],
+  edit: [ 'query' ],
+  fields: {
+    'query': {
+       header: 'Query'
+    }
+  }
+});
 
 module.exports = oppQueryModel;

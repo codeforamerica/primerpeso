@@ -19,6 +19,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
+var admin = require('node-django-admin');
 
 // Load dotenv.
 var dotenv = require('dotenv');
@@ -120,6 +121,8 @@ require('./controllers/opportunity')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
+admin.config(app, mongoose, '/admin');
+
 
 /*app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);

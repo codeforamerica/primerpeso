@@ -1,4 +1,4 @@
-doctype 5
+doctype html
 html
   include ../includes/head
 
@@ -18,7 +18,7 @@ html
               a(href="#{base}") Home
             li.dropdown
               a.dropdown-toggle(href="#" data-toggle="dropdown")= "Models "
-                b.caret              
+                b.caret
               ul.dropdown-menu
                 each item in menu
                   - var cls = item == path ? "active" : ""
@@ -49,11 +49,11 @@ html
             each item in menu
               - var cls = item == path ? "list-group-item active" : "list-group-item"
               a(class=cls, href="#{base}/#{item}")= capitalizeFirstLetter(item)
-          
+
           //- p
           //-   a.btn.btn-default(href="#", role="button") View details &raquo;
 
         .col-md-10
           block content
-          
+
     include ../includes/end
