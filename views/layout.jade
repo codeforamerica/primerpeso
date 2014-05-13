@@ -17,7 +17,11 @@ html
         include partials/flash
         if isAdminPath
           include partials/admin_sidebar.jade
-        block content
+          .col-md-8
+            block content
+        else
+          block content
+
     include partials/footer
     script.
       var _gaq = _gaq || [];

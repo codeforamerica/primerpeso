@@ -1,15 +1,6 @@
-.row
-  .col-md-2
-    h2 Models
-
-    //- .dropdown.theme-dropdown.open.clearfix
-    //-   ul.dropdown-menu(role="menu", style="position:static;")
-    //-     each item in menu
-    //-       - var cls = item == path ? "active" : ""
-    //-       li(class=cls)
-    //-         a(role="menuitem", tabindex="-1", href="#{base}/#{item}")= capitalizeFirstLetter(item)
-
-    .list-group
-      each item in menu
-        - var cls = item == path ? "list-group-item active" : "list-group-item"
-        a(class=cls, href="#{base}/#{item}")= capitalizeFirstLetter(item)
+.col-md-2
+  h2 Models
+  .list-group
+    each item in menu
+      - var cls = item == path ? "list-group-item active" : "list-group-item"
+      a(class=cls, href="#{base}/#{item}")= capitalizeFirstLetter(item)
