@@ -6,7 +6,7 @@ module.exports = function(req, res, next) {
   console.log(req.path);
   console.log('run check');
   if (!req.user) {
-    req.flash('errors', {msg: 'You are not authorized to enter Admin.'});
+    req.flash('errors', { msg: 'You are not authorized to enter Admin.'} );
     return res.redirect('/login');
   }
 
