@@ -15,6 +15,8 @@ html
       include partials/navigation
       .container
         include partials/flash
+        if isAdminPath
+          include partials/admin_sidebar.jade
         block content
     include partials/footer
     script.

@@ -96,10 +96,13 @@ app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
 });
+// Set up locals via middleware
 app.use(function(req, res, next) {
   res.locals.user = req.user;
+  res.locals.path = req.path;
   next();
 });
+
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 app.use(function(req, res, next) {

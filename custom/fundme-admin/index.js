@@ -24,6 +24,7 @@ exports.config = function(app, mongoose_app, base) {
     res.locals.capitalizeFirstLetter = capitalizeFirstLetter;
     res.locals.base = base_url;
     res.locals.menu = paths;
+    res.locals.isAdminPath = true;
     next();
   });
 
