@@ -21,6 +21,12 @@ oppQuerySchema.statics.getQueryForm = function() {
   // Step 1
   var aboutYou = {
     title: 'About You As A Business Owner',
+    name: {
+      label: 'What is your Gender?',
+      name: 'name-field',
+      type: 'text',
+      placeholder: 'Name',
+    },
     gender: {
       choices: { male: 'Male', female: 'Female' },
       label: 'What is your Gender?',
