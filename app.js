@@ -96,6 +96,7 @@ app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
 });
+
 // Set up locals via middleware
 app.use(function(req, res, next) {
   res.locals.user = req.user;
@@ -116,6 +117,10 @@ app.use(function(req, res, next) {
 });
 
 
+// Access Policy;
+app.use('/admin', require('./policies/admin'));
+
+
 /**
  * Application routes.
  */
@@ -123,13 +128,13 @@ app.use(function(req, res, next) {
 require('./controllers/opportunity')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
-require('./controllers/admin')(app);
+
 admin.config(app, mongoose, '/admin');
 
 
-/*app.get('/login', userController.getLogin);
+app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
+/*app.get('/logout', userController.logout);
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
 app.get('/reset/:token', userController.getReset);

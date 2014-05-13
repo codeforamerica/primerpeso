@@ -19,7 +19,7 @@ exports.config = function(app, mongoose_app, base) {
   mongoose = mongoose_app;
   base_url = base.replace(/\/$/, "");  // remove trailing slash from base url
 
-  // middleware to expose some helper functions and vars to templates
+  // Middleware to expose some helper functions and vars to templates
   app.use('/admin', function(req, res, next) {
     res.locals.capitalizeFirstLetter = capitalizeFirstLetter;
     res.locals.base = base_url;
