@@ -12,7 +12,7 @@ var opSchema = new mongoose.Schema({
 		default: 'No',
 		choices: [ 'No', 'Yes' ],
 		label: 'Can Be Reapplied For',
-		widget: 'dropdown'
+		widget: 'select'
 	},
 	/*eligibleBizLoc: [{
 		type: String,
@@ -34,7 +34,7 @@ var opSchema = new mongoose.Schema({
 	applicationCost: { type: Number, required: true, label: 'Application Cost' },
 	//deadline: { type: Date, required: true, label: 'Application Deadline', widget: 'date' },
 	avgApplyTime: { type: String, required: true, label: 'Average Application Time' },
-	//benefitType: [{ type: String, required: true, label: 'Type of Benefit', widget: 'dropdown' }],
+	//benefitType: [{ type: String, required: true, label: 'Type of Benefit', widget: 'select' }],
 	//benefitDescription: [{ type: String, required: true, label: 'Benefit Description', widget: 'textArea' }],
 	/*agency: {
 		name: { type: String, required: true, label: 'Agency Name' },
@@ -47,13 +47,13 @@ var opSchema = new mongoose.Schema({
 	bizEligibility: {
 		minYearsInBiz: { type: String, required: true, label: 'Minimum Years in Business' },
 		eligibleEntityTypes: [{ type: String, widget: 'checkbox', required: true, label: 'Eligible Entity Types' }],
-		currentEmp: { type: String, widget: 'multiDropDown', required: true, label: 'Current Employees Required to be Eligible' },
-		annualRev: { type: String, label: 'Annual Revenue your company must have', widget: 'multiDropDown' },
+		currentEmp: { type: String, widget: 'multiselect', required: true, label: 'Current Employees Required to be Eligible' },
+		annualRev: { type: String, label: 'Annual Revenue your company must have', widget: 'multiselect' },
 		eligibleIndustries: [{
 			type: String,
 			required: true,
 			label: 'Eligible Industries',
-			widget: 'multiDropDown'
+			widget: 'multiselect'
 		}],
 	},
 	audienceEligibility: {

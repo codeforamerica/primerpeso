@@ -2,7 +2,8 @@ var forms = require('forms')
   , fields = forms.fields
   , widgets = forms.widgets
   , validators = forms.validators
-  , _ = require('underscore');
+  , _ = require('underscore')
+  , S = require('string');
 
 var _fields = {
   'String': 'string',
@@ -48,6 +49,14 @@ function getFormField(path, eachFieldParams) {
     else if (fieldOptions.type == 'String') {
       fieldOptions.widget = 'text';
     }
+  }
+  // Prep choices on multiple choice objects.
+  if (fieldOptions.choices) {
+    var choicesObject = {};
+    _.each(fieldOptions.choices, function(element, index) {
+      choicesObject[element] = element;
+    });
+    fieldOptions.choices = choicesObject;
   }
   return fieldOptions;
 

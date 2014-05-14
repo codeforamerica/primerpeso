@@ -4,8 +4,18 @@
 mixin makeField(formOptions)
   if formOptions.widget == "textArea"
     +textAreaField(formOptions)
+  if formOptions.widget == "select"
+    +choiceSelectField(formOptions)
   else
     +textField(formOptions)
+
+mixin choiceSelectField(formOptions)
+  .form-group
+    h4 #{formOptions.label}
+    select(class="form-control" name=formOptions.name)
+      each choice, cVal in formOptions.choices
+        // TODO look at exploding classes
+        option(value=cVal) #{choice}
 
 mixin choiceField(formOptions)
   .form-group
