@@ -100,11 +100,11 @@
     * Field: Dropdown
     * Required: True
     * Options:
-        * Just Starting - Less Than A Year
-        * 1
-        * 2
-        * 3
-        * More than 3
+        * Just Starting - Less Than 3 months
+        * Between 3 months and 1 year
+        * 2 years
+        * 3 years
+        * More than 4 years
 
 * Eligible Entity Types
     * Type: String
@@ -132,7 +132,13 @@
     * Not Required
     * Field: Drop-Down
     * Options
-        * Unknown
+        * 0–100,000
+        * 100,000-499,999
+        * 500,000-999,999
+        * 1 million-4,9 million
+        * 5 million-9,9 million
+        * More than 10 million
+      
 
 * Eligible Industries.
     *  Type String
