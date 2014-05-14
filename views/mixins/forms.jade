@@ -1,5 +1,12 @@
 // Attributes brough in implicitly
 // See http://jade-lang.com/reference/#mixins
+
+mixin makeField(formOptions)
+  if formOptions.widget == "textArea"
+    +textAreaField(formOptions)
+  else
+    +textField(formOptions)
+
 mixin choiceField(formOptions)
   .form-group
     h4 #{formOptions.label}
@@ -7,10 +14,16 @@ mixin choiceField(formOptions)
       // TODO look at exploding classes
       div(class=formOptions.type)
         label #{choice}
-          input(type=formOptions.type, name=formOptions.name, value=cVal)
+          input(type=formOptions.widget, name=formOptions.name, value=cVal)
 
 mixin textField(formOptions)
   .form-group
     label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
     div(class="col-sm-10")
-      input(type=formOptions.type class="form-control" placeholder=formOptions.placeholder)
+      input(type=formOptions.widget name=formOptions.name class="form-control" placeholder=formOptions.placeholder)
+
+mixin textAreaField(formOptions)
+  .form-group
+    label(form=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    div(class="col-sm-10")
+      textarea(class="form-control" rows="3" name=formOptions.name)

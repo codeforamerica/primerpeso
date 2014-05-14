@@ -14,8 +14,7 @@ block content
       input(type="hidden", name="_doc_id", value=id)
 
       each f in edit
-        +makeField(field[f])
-        //.form-group
+        .form-group
           - var type = field[f].widget || 'text'
           - var header = field[f].header
           label.col-sm-2.control-label(for=f)= header + ':'
