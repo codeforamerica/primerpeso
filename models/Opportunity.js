@@ -2,54 +2,70 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 var S = require('string');
 var admin = require('../custom/fundme-admin');
+var formMaker = require('../custom/formMaker');
 
 var opSchema = new mongoose.Schema({
-  title: { type: String, required: true, unique: true },
-  purpose: { type: String, required: true },
-  reappliable: { type: Boolean, default: false, choices: ['No', 'Yes'] },
-  // REVIEW
-  // @TODO -- store multi property or check for array in paths?
-  eligibleBizLoc: [{
-    type: String,
-    required: true,
-    choiceOther: false,
-    choices: [
-      'Anywhere In Puerto Rico',
-      'Municipality in Puerto Rico',
-      'Region in Puerto Rico',
-      'Outside of Puerto Rico',
-    ]
-  }],
-  // REVIEW
-  disqualifyingFactors: { type: String, required: true, default: 'none' },
-  paperwork: [{ type: String }],
-  applicationCost: { type: Number, required: true },
-  deadline: { type: Date, required: true },
-  avgApplyTime: { type: Date, required: true },
-  benefitType: [{ type: String, required: true }],
-  benefitDescription: [{ type: String, required: true }],
-  agency: {
-    name: { type: String, required: true },
-    agencyContact: {
-      name: { type: String, required: true },
-      email: { type: String, required: true },
-      phone: { type: String, required: true }
-    }
-  },
-
-  bizEligibility: {
-    minYearsInBiz: { type: String, required: true },
-    eligibleEntityTypes: [{ type: String, required: true }],
-    currentEmp: { type: String, required: true },
-    annualRev: { type: String },
-    eligibleIndustries: [{ type: String, required: true}],
-  },
-
-  audienceEligibility: {
-    gender: { type: String, required: true },
-    age: { type: Number, required: true },
-    additionalDemographics: [{ type: String, required: true}]
-  }
+	title:  { type: String, required: true, unique: true, label: 'Program Title' },
+	purpose: { type: String, required: true, label: 'Purpose', fieldType: 'longText' },
+	reAppliable: {
+		type: Boolean,
+		default: false,
+		choices: [ 'No', 'Yes' ],
+		label: 'Can Be Reapplied For',
+		fieldType: 'dropdown'
+	},
+	eligibleBizLoc: [{
+		type: String,
+		required: true,
+		choiceOther: false,
+		label: 'Eligible Business Location',
+		fieldType: 'radio',
+		choices: [
+		  'Anywhere In Puerto Rico',
+		  'Municipality in Puerto Rico',
+		  'Region in Puerto Rico',
+		  'Outside of Puerto Rico'
+		]
+	}],
+	disqualifyingFactors: {
+		type: String, required: true, default: 'none', label: 'Disqualifying Factors', fieldType: 'longText'
+	},
+	paperwork: [{ type: String, label: 'Paperwork Required', fieldType: 'longText' }],
+	applicationCost: { type: Number, required: true, label: 'Paperwork Required' },
+	deadline: { type: Date, required: true, label: 'Application Deadline', fieldType: 'date' },
+	avgApplyTime: { type: Date, required: true, label: 'Average Application Time' },
+	benefitType: [{ type: String, required: true, label: 'Type of Benefit', fieldType: 'dropdown' }],
+	benefitDescription: [{ type: String, required: true, label: 'Benefit Description', fieldType: 'longText' }],
+	agency: {
+		name: { type: String, required: true, label: 'Agency Name' },
+		agencyContact: {
+			name: { type: String, required: true, label: 'Agency Contact Name' },
+			email: { type: String, required: true, label: 'Agency Contact Email', fieldType: 'email' },
+			phone: { type: String, required: true, label: 'Agency Contact Phone', fieldType: 'phone' }
+		}
+	},
+	bizEligibility: {
+		minYearsInBiz: { type: String, required: true, label: 'Minimum Years in Business' },
+		eligibleEntityTypes: [{ type: String, fieldType: 'checkbox', required: true, label: 'Eligible Entity Types' }],
+		currentEmp: { type: String, fieldType: 'multiDropDown', required: true, label: 'Current Employees Required to be Eligible' },
+		annualRev: { type: String, label: 'Annual Revenue your company must have', fieldType: 'multiDropDown' },
+		eligibleIndustries: [{
+			type: String,
+			required: true,
+			label: 'Eligible Industries',
+			fieldType: 'multiDropDown'
+		}],
+	},
+	audienceEligibility: {
+		gender: { type: String, required: true, label: 'Gender', fieldType: 'radio' },
+		age: { type: Number, required: true, label: 'Age' },
+		additionalDemographics:[{
+			type: String,
+			required: true,
+			label: 'Additional Demographics',
+			fieldType: 'checkbox'
+		}]
+	}
 });
 
 opSchema.pre('save', function(next) {
@@ -76,52 +92,8 @@ opSchema.statics.list = function(options, cb) {
     .exec(cb);
 };
 
-opSchema.statics.getEditFormFields = function() {
-  // The field object acts ONLY as overrides.
-  var fields = {
-    // TODO -- see about passing attributes through
-    // fall back to short text for no type
-    title: { label: 'Program Title'},
-    purpose: { label: 'Purpose', type: 'longText' },
-    reAppliable: { label: 'Can Be Reapplied For', type: 'dropdown' },
-    // REVIEW
-    eligibleBizLoc: { label: 'Eligible Business Location', type: 'radio'},
-    // REVIEW
-    disqualifyingFactors: { label: 'Disqualifying Factors', type: 'longText'},
-    paperwork: { label: 'Paperwork Required', type: 'longText' },
-    applicationCost: { label: 'Paperwork Required'},
-    deadline: { label: 'Application Deadline', type: 'date' },
-    avgApplyTime: { label: 'Average Application Time'},
-    benefitType: { label: 'Type of Benefit', type: 'dropdown'},
-    benefitDescription: { label: 'Benefit Description', type: 'longText' },
-    agency: {
-      name: { label: 'Agency Name' },
-      agencyContact: {
-        name: { label: 'Agency Contact Name' },
-        email: { label: 'Agency Contact Email', type: 'email'},
-        phone: { label: 'Agency Contact Phone', type: 'phone' }
-      }
-    },
-
-    bizEligibility: {
-      minYearsInBiz: { label: 'Minimum Years in Business' },
-      eligibleEntityTypes: { label: 'Eligible Entity Types', type:'checkbox' },
-      currentEmp: { label: 'Current Employees Required to be Eligible', type:'multiDropDown'  },
-      annualRev: { label: 'Annual Revenue your company must have', type: 'multiDropDown' },
-      eligibleIndustries: { label: 'Eligible Industries', type: 'multiDropDown' },
-    },
-
-    audienceEligibility: {
-      gender: { label: 'Gender', type: 'radio' },
-      age: { label: 'Age' },
-      additionalDemographics: { label: 'Additional Demographics', type: 'checkbox' }
-    }
-  };
-
-  // @TODO -- run a POSTPROCESS to add mongoose things like required;
-  // name
-  //
-
+opSchema.statics.getForm = function(object) {
+  formMaker.makeForm(opSchema, object);
 }
 
 
