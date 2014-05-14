@@ -1,15 +1,27 @@
 var mongoose = require('mongoose');
 var _ = require('underscore');
+var S = require('string');
 var admin = require('../custom/fundme-admin');
 
 var opSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
   purpose: { type: String, required: true },
-  reappliable: { type: Boolean, default: false },
+  reappliable: { type: Boolean, default: false, choices: ['No', 'Yes'],
   // REVIEW
-  eligibleBizLoc: { type: String, required: true },
+  // @TODO -- store multi property or check for array in paths?
+  eligibleBizLoc: [{
+    type: String,
+    required: true,
+    choiceOther: false,
+    choices: [
+      'Anywhere In Puerto Rico',
+      'Municipality in Puerto Rico',
+      'Region in Puerto Rico',
+      'Outside of Puerto Rico',
+    ]
+  }],
   // REVIEW
-  disqualifyingFactors: {type: String, required: true, default: 'none'},
+  disqualifyingFactors: { type: String, required: true, default: 'none' },
   paperwork: [{ type: String }],
   applicationCost: { type: Number, required: true },
   deadline: { type: Date, required: true },
@@ -62,6 +74,54 @@ opSchema.statics.list = function(options, cb) {
     .limit(options.perPage)
     .skip(options.perPage * options.page)
     .exec(cb);
+};
+
+opSchema.statics.getEditFormFields = function() {
+  // The field object acts ONLY as overrides.
+  var fields = {
+    // TODO -- see about passing attributes through
+    // fall back to short text for no type
+    title: { label: 'Program Title'},
+    purpose: { label: 'Purpose', type: 'longText' },
+    reAppliable: { label: 'Can Be Reapplied For', type: 'dropdown' },
+    // REVIEW
+    eligibleBizLoc: { label: 'Eligible Business Location', type: 'radio'},
+    // REVIEW
+    disqualifyingFactors: { label: 'Disqualifying Factors' type: 'longText'},
+    paperwork: { label: 'Paperwork Required', type: 'longText' },
+    applicationCost: { label: 'Paperwork Required'},
+    deadline: { label: 'Application Deadline', type: 'date' },
+    avgApplyTime: { label: 'Average Application Time'},
+    benefitType: { label: 'Type of Benefit', type: 'dropdown'},
+    benefitDescription: { label: 'Benefit Description', type: 'longText' },
+    agency: {
+      name: { label: 'Agency Name' },
+      agencyContact: {
+        name: { label: 'Agency Contact Name' },
+        email: { label: 'Agency Contact Email', type: 'email'},
+        phone: { label: 'Agency Contact Phone', type: 'phone' }
+      }
+    },
+
+    bizEligibility: {
+      minYearsInBiz: { label: 'Minimum Years in Business' },
+      eligibleEntityTypes: [{ type: String, required: true }],
+      currentEmp: { type: String, required: true },
+      annualRev: { type: String },
+      eligibleIndustries: [{ type: String, required: true}],
+    },
+
+    audienceEligibility: {
+      gender: { type: String, required: true },
+      age: { type: Number, required: true },
+      additionalDemographics: [{ type: String, required: true}]
+    }
+  };
+
+  // @TODO -- run a POSTPROCESS to add mongoose things like required;
+  // name
+  //
+
 }
 
 
@@ -71,17 +131,13 @@ var opModel = mongoose.model('Opportunity', opSchema);
  * Register model in admin
  */
 
-admin.add({
+/*admin.add({
   path: 'opportunities',
   model: 'Opportunity',
   list: [ 'name' ],
   edit: [ 'name' ],
-  fields: {
-    'name': {
-       header: 'Name'
-    }
-  }
-});
+  fields: opModel.getEditFormFields()
+});*/
 
 
 module.exports = opModel;
