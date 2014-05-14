@@ -6,7 +6,7 @@ var admin = require('../custom/fundme-admin');
 var opSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
   purpose: { type: String, required: true },
-  reappliable: { type: Boolean, default: false, choices: ['No', 'Yes'],
+  reappliable: { type: Boolean, default: false, choices: ['No', 'Yes'] },
   // REVIEW
   // @TODO -- store multi property or check for array in paths?
   eligibleBizLoc: [{
@@ -87,7 +87,7 @@ opSchema.statics.getEditFormFields = function() {
     // REVIEW
     eligibleBizLoc: { label: 'Eligible Business Location', type: 'radio'},
     // REVIEW
-    disqualifyingFactors: { label: 'Disqualifying Factors' type: 'longText'},
+    disqualifyingFactors: { label: 'Disqualifying Factors', type: 'longText'},
     paperwork: { label: 'Paperwork Required', type: 'longText' },
     applicationCost: { label: 'Paperwork Required'},
     deadline: { label: 'Application Deadline', type: 'date' },
@@ -105,16 +105,16 @@ opSchema.statics.getEditFormFields = function() {
 
     bizEligibility: {
       minYearsInBiz: { label: 'Minimum Years in Business' },
-      eligibleEntityTypes: [{ type: String, required: true }],
-      currentEmp: { type: String, required: true },
-      annualRev: { type: String },
-      eligibleIndustries: [{ type: String, required: true}],
+      eligibleEntityTypes: { label: 'Eligible Entity Types', type:'checkbox' },
+      currentEmp: { label: 'Current Employees Required to be Eligible', type:'multiDropDown'  },
+      annualRev: { label: 'Annual Revenue your company must have', type: 'multiDropDown' },
+      eligibleIndustries: { label: 'Eligible Industries', type: 'multiDropDown' },
     },
 
     audienceEligibility: {
-      gender: { type: String, required: true },
-      age: { type: Number, required: true },
-      additionalDemographics: [{ type: String, required: true}]
+      gender: { label: 'Gender', type: 'radio' },
+      age: { label: 'Age' },
+      additionalDemographics: { label: 'Additional Demographics', type: 'checkbox' }
     }
   };
 

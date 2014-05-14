@@ -39,7 +39,8 @@
     "request": "^2.34.0",
     "uglify-js": "^2.4.13",
     "underscore": "^1.6.0",
-    "validator": "^3.11.0"
+    "validator": "^3.11.0",
+    "string": "~1.8.1"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
