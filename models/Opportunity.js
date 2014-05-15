@@ -5,7 +5,7 @@ var admin = require('../custom/fundme-admin');
 var formMaker = require('../custom/formMaker');
 
 var opSchema = new mongoose.Schema({
-	title:  { type: String, required: true, unique: true, label: 'Program Title' },
+	title:  { type: String, required: true, unique: true, label: 'Program Title', includeList: true },
 	purpose: { type: String, required: true, label: 'Purpose', widget: 'textArea' },
 	reAppliable: {
 		type: String,
@@ -14,7 +14,7 @@ var opSchema = new mongoose.Schema({
 		label: 'Can Be Reapplied For',
 		widget: 'select'
 	},
-	/*eligibleBizLoc: [{
+	eligibleBizLoc: [{
 		type: String,
 		required: true,
 		choiceOther: false,
@@ -26,7 +26,7 @@ var opSchema = new mongoose.Schema({
 		  'Region in Puerto Rico',
 		  'Outside of Puerto Rico'
 		]
-	}],*/
+	}],
 	disqualifyingFactors: {
 		type: String, required: true, default: 'none', label: 'Disqualifying Factors', widget: 'textArea'
 	},
@@ -93,28 +93,33 @@ opSchema.statics.list = function(options, cb) {
 };
 
 
-
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
   var form = formMaker.create(schema);
+  console.log(form.fields);
   return form.fields;
 }
 
 opSchema.statics.getAdminVisibilityList = function(op) {
-	var visibility = ['title'];
-  /*if (op == 'list') {
-    visibility.push
-  }*/
-  if (op == 'edit') {
-    visibility.push(
-      "purpose",
-      "reAppliable",
-      "disqualifyingFactors",
-      "applicationCost",
-      "avgApplyTime"
-    );
-  }
+  // Exclude from edit = exclude=true
+  // Include in list = includeList=true
+  var opKey = op == 'list' ? 'includeList' : 'exclude';
+	var visibility = [];
+  var paths = opSchema.paths;
+  var excludeAllways = ['__v', '_id'];
+  _.each(paths, function(path, pathIndex) {
+    if (!_.contains(excludeAllways, pathIndex)) {
 
+      if (path.options.includeList && op == 'list')
+        visibility.push(pathIndex);
+
+      if (!path.options.exclude && op == 'edit')
+        visibility.push(pathIndex);
+    }
+  });
+
+  console.log('OP: ' + op);
+  console.log(visibility);
   return visibility;
 }
 
@@ -125,6 +130,7 @@ var opModel = mongoose.model('Opportunity', opSchema);
  * Register model in admin
  */
 
+// TODO refactor this shit.
 admin.add({
   path: 'opportunities',
   model: 'Opportunity',

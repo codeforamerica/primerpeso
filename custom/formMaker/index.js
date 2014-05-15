@@ -5,19 +5,6 @@ var forms = require('forms')
   , _ = require('underscore')
   , S = require('string');
 
-var _fields = {
-  'String': 'string',
-  'Number': 'number',
-  'Password': 'password',
-  'Email': 'email',
-  'Date': 'string',
-  'Boolean': 'boolean'
-}
-
-function convert_mongoose_field(mongoose_field) {
-  return fields[_fields[mongoose_field] || fields.string];
-}
-
 function getFormField(path, eachFieldParams) {
 	var _field = null;
 	// If exclusion is asked for, exclude.
@@ -59,16 +46,14 @@ function getFormField(path, eachFieldParams) {
     fieldOptions.choices = choicesObject;
   }
   return fieldOptions;
-
-
 }
 
 
 
 module.exports.create = function (schema, extraParams) {
-  var paths = schema.paths
-  , virtuals = schema.virtuals
-  , params = {};
+  var paths = schema.paths;
+  var virtuals = schema.virtuals;
+  var params = {};
   var form = {fields: {}};
   // Form Wide Defaults.
   var formOptions = _.extend({
@@ -89,7 +74,6 @@ module.exports.create = function (schema, extraParams) {
   }
   params = _.extend({}, params, extra_params);*/
   //var form = forms.create(params);
-  console.log(form);
   return form;
 }
 

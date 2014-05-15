@@ -2,11 +2,15 @@
 // See http://jade-lang.com/reference/#mixins
 
 mixin makeField(formOptions)
+  //h6 #{formOptions.widget}
   if formOptions.widget == "textArea"
+    //h6 #{formOptions.name}
     +textAreaField(formOptions)
-  if formOptions.widget == "select"
+  else if formOptions.widget == "select"
+    //h6 #{formOptions.name}
     +choiceSelectField(formOptions)
   else
+    //h6 #{formOptions.name}
     +textField(formOptions)
 
 mixin choiceSelectField(formOptions)
