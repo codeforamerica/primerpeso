@@ -15,22 +15,6 @@ block content
 
       each f in edit
         +makeField(field[f])
-        //.form-group
-          - var type = field[f].widget || 'text'
-          - var header = field[f].header
-          label.col-sm-2.control-label(for=f)= header + ':'
-          .col-sm-10
-            if type == 'sel' || type == 'ref'
-              - var sel = ((doc.isNew) ? doc[f] : doc[f][field[f].display] || doc[f])
-              select.form-control(id=f, name=path+'['+f+']', placeholder='Enter '+header)
-                each v in field[f].values
-                  if v == sel
-                    option(value=v, selected)= v
-                  else
-                    option(value=v)= v
-            else
-              input.form-control(id=f, type=type, name=path+'['+f+']', value=doc[f], placeholder='Enter '+header)
-
       .form-group
         .col-sm-2
         .col-sm-10

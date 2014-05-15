@@ -52,7 +52,7 @@ var opSchema = new mongoose.Schema({
     ],
   }],
 	benefitDescription: [{ type: String, required: true, label: 'Benefit Description', widget: 'textArea' }],
-	/*agency: {
+	agency: {
 		name: { type: String, required: true, label: 'Agency Name' },
 		agencyContact: {
 			name: { type: String, required: true, label: 'Agency Contact Name' },
@@ -61,27 +61,60 @@ var opSchema = new mongoose.Schema({
 		}
 	},
 	bizEligibility: {
-		minYearsInBiz: { type: String, required: true, label: 'Minimum Years in Business' },
-		eligibleEntityTypes: [{ type: String, widget: 'checkbox', required: true, label: 'Eligible Entity Types' }],
-		currentEmp: { type: String, widget: 'multiselect', required: true, label: 'Current Employees Required to be Eligible' },
-		annualRev: { type: String, label: 'Annual Revenue your company must have', widget: 'multiselect' },
+		minYearsInBiz: {
+      type: String,
+      required: true,
+      label: 'Minimum Years in Business'
+    },
+		eligibleEntityTypes: [{
+      type: String,
+      widget: 'checkbox',
+      required: true,
+      label: 'Eligible Entity Types',
+      choices: ['one', 'two']
+    }],
+		currentEmp: {
+      type: String,
+      widget: 'multiSelect',
+      required: true,
+      label: 'Current Employees Required to be Eligible',
+      choices: ['one', 'two']
+    },
+		annualRev: {
+      type: String,
+      label: 'Annual Revenue your company must have',
+      widget: 'multiSelect',
+      choices: ['one', 'two']
+    },
 		eligibleIndustries: [{
 			type: String,
 			required: true,
 			label: 'Eligible Industries',
-			widget: 'multiselect'
+			widget: 'multiSelect',
+      choices: ['one', 'two']
 		}],
 	},
 	audienceEligibility: {
-		gender: { type: String, required: true, label: 'Gender', widget: 'radio' },
-		age: { type: Number, required: true, label: 'Age' },
+		gender: {
+      type: String,
+      required: true,
+      label: 'Gender',
+      widget: 'radio',
+      choices: ['Male', 'Female']
+    },
+		age: {
+      type: Number,
+      required: true,
+      label: 'Age'
+    },
 		additionalDemographics:[{
 			type: String,
 			required: true,
 			label: 'Additional Demographics',
-			widget: 'checkbox'
+			widget: 'checkbox',
+      choices: ['student', 'veteran', 'minority']
 		}]
-	}*/
+	}
 });
 
 opSchema.pre('save', function(next) {
