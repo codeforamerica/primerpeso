@@ -1,47 +1,94 @@
-var forms = require('forms')
-  , fields = forms.fields
-  , widgets = forms.widgets
-  , validators = forms.validators
-  , _ = require('underscore')
-  , S = require('string');
 
-// TODO make schemas conform to node-forms api
+var _ = require('underscore')
+var S = require('string');
+
+/*var forms = require('forms');
+var fields = forms.fields;
+var widgets = forms.widgets;
+var validators = forms.validators;*/
+
+// Default methods for doing shit.
+
+var getWidget = function(fieldOptions) {
+  var widget = fieldOptions.widget || null;
+
+  if (!fieldOptions.widget) {
+    // Let's default to something here
+    if (fieldOptions.type == 'Number')
+      widget = 'number';
+
+    else if (fieldOptions.type == 'String')
+      widget = 'text';
+  }
+  return widget;
+}
+
+var getLabel = function(fieldOptions) {
+  // If label has been passed, return it.
+  var label = fieldOptions.label || '';
+  if (!S(label).isEmpty()) {
+    return fieldOptions.label;
+  }
+  if (S(fieldOptions.name).contains('.')) {
+    return S(fieldOptions.name.split('.').pop()).humanize().s;
+  }
+  return S(fieldOptions.name).humanize().s;
+}
+
+/**
+ * Build the choices object of labels and values
+ */
+var buildChoices = function(choicesList) {
+  var choices = {};
+  // Choices list should always be coming in as ARRAY!
+  _.each(choicesList, function(element, index) {
+    // TODO -- account for callbacks given on object
+    choices[element] = element;
+  });
+
+  return choices;
+}
+
+/**
+ * Get the array that contains the list of choices.
+ */
+var getChoices = function(fieldOptions) {
+  var choices = fieldOptions.choices || [];
+  if (_.isFunction(choices))
+    choices = choices(fieldOptions);
+
+  return choices;
+}
+
 function getFormField(path, eachFieldParams) {
-	var _field = null;
-	// If exclusion is asked for, exclude.
-	if (path.options.exclude)
-		return _field;
-
 	// Provide some sane defaults.
   var fieldParams = _.extend({
-
+    // TODO this could be used for mapping conditions from schema like string to field, etc.
+    getWidgetMethod: getWidget,
+    getChoiceListMethod: getChoices,
+    buildChoicesMethod: buildChoices,
+    getLabelMethod: getLabel
   }, eachFieldParams);
 
   // Adjust for arrays.
   // Mongoose schema arrays hold a caster object which we need to get to --
   // Cuz that's where the honey is.
   var fieldOptions = _.isEmpty(path.caster) ? path.options : path.caster.options;
-  fieldOptions.type = path.instance;
+  // @TODO fix me.
   fieldOptions.name = path.path;
-  fieldOptions.header = fieldOptions.label;
-  // Let's do some logic to get the field type going.
-  if (!fieldOptions.widget) {
-    // Let's default to something here
-    if (fieldOptions.type == 'Number') {
-      fieldOptions.widget = 'number';
-    }
-    else if (fieldOptions.type == 'String') {
-      fieldOptions.widget = 'text';
-    }
-  }
-  // Prep choices on multiple choice objects.
-  if (fieldOptions.choices) {
-    var choicesObject = {};
-    _.each(fieldOptions.choices, function(element, index) {
-      choicesObject[element] = element;
-    });
-    fieldOptions.choices = choicesObject;
-  }
+  fieldOptions.label = fieldParams.getLabelMethod(fieldOptions);
+  console.log(fieldOptions.label);
+  _.extend(fieldOptions, {
+    type: path.instance,
+    header: fieldOptions.label // @TODO -- No me gusta esto
+  });
+
+  // Get Field Type
+  fieldOptions.widget = fieldParams.getWidgetMethod(fieldOptions)
+  // Get Choices
+  var choiceList = fieldParams.getChoiceListMethod(fieldOptions);
+  fieldOptions.choices = fieldParams.buildChoicesMethod(choiceList);
+
   return fieldOptions;
 }
 
@@ -56,32 +103,11 @@ module.exports.create = function (schema, extraParams) {
   var formOptions = _.extend({
     eachFieldParams: {}
   }, extraParams);
-  for (var pathName in paths) {
-    var path = paths[pathName];
-    //console.log(pathName);
-    if (pathName == 'eligibleBizLoc' || pathName == 'title') {
-      console.log(paths[pathName])
-    }
+  _.each(paths, function(path, pathName) {
     var field = getFormField(path, formOptions.eachFieldParams);
     form.fields[pathName] = field;
-  }
-  /*for (var virtName in virtuals) {
-    var virt = virtuals[virtName];
-    virt.path = virtName;
-    var field = get_field(virt, form_name, form_category);
-    if (field)
-      params = _.extend(params, field);
-  }
-  params = _.extend({}, params, extra_params);*/
-  //var form = forms.create(params);
+  })
+  // @TODO -- handle virtuals as well.
   return form;
 }
 
-module.exports.fields = fields;
-module.exports.widgets = widgets;
-module.exports.validators = validators;
-module.exports.createForm = function (params, extra_params) {
-  params = _.extend({}, params, extra_params);
-  var form = forms.create(params)
-  return form;
-}

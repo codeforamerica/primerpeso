@@ -36,6 +36,6 @@ mixin textField(formOptions)
 
 mixin textAreaField(formOptions)
   .form-group
-    label(form=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
     div(class="col-sm-10")
       textarea(class="form-control" rows="3" name=formOptions.name)

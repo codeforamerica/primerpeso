@@ -4,21 +4,20 @@ var S = require('string');
 var admin = require('../custom/fundme-admin');
 var formMaker = require('../custom/formMaker');
 
+// TODO -- look at possibly using enum string validators to generate choices.
 var opSchema = new mongoose.Schema({
 	title:  { type: String, required: true, unique: true, label: 'Program Title', includeList: true },
-	purpose: { type: String, required: true, label: 'Purpose', widget: 'textArea' },
-	reAppliable: {
+	purpose: { type: String, required: true, widget: 'textArea' },
+	canBeReappliedFor: {
 		type: String,
 		default: 'No',
 		choices: [ 'No', 'Yes' ],
-		label: 'Can Be Reapplied For',
 		widget: 'select'
 	},
-	eligibleBizLoc: [{
+	eligibleBusinessLocation: [{
 		type: String,
 		required: true,
 		choiceOther: false,
-		label: 'Eligible Business Location',
 		widget: 'radio',
 		choices: [
 		  'Anywhere In Puerto Rico',
@@ -28,17 +27,19 @@ var opSchema = new mongoose.Schema({
 		]
 	}],
 	disqualifyingFactors: {
-		type: String, required: true, default: 'none', label: 'Disqualifying Factors', widget: 'textArea'
+		type: String,
+    required: true,
+    default: 'none',
+    widget: 'textArea'
 	},
-	paperwork: [{ type: String, label: 'Paperwork Required', widget: 'textArea' }],
-	applicationCost: { type: Number, required: true, label: 'Application Cost' },
-	deadline: { type: Date, required: true, label: 'Application Deadline', widget: 'date' },
-	avgApplyTime: { type: String, required: true, label: 'Average Application Time' },
-  // TODO -- abstract choices to freaking clalbacks.
+	paperworkRequired: [{ type: String, widget: 'textArea' }],
+	applicationCost: { type: Number, required: true},
+	applicationDeadline: { type: Date, required: true, widget: 'date' },
+	avgApplicationTime: { type: String, required: true },
+  // TODO -- abstract choices to freaking callbacks.
 	benefitType: [{
     type: String,
     required: true,
-    label: 'Type of Benefit',
     widget: 'select',
     choices: [
       'Tax Break',
@@ -51,7 +52,7 @@ var opSchema = new mongoose.Schema({
       'Other'
     ],
   }],
-	benefitDescription: [{ type: String, required: true, label: 'Benefit Description', widget: 'textArea' }],
+	benefitDescription: [{ type: String, required: true, widget: 'textArea' }],
 	agency: {
 		name: { type: String, required: true, label: 'Agency Name' },
 		agencyContact: {
@@ -61,35 +62,30 @@ var opSchema = new mongoose.Schema({
 		}
 	},
 	bizEligibility: {
-		minYearsInBiz: {
+		minimumYearsInBusiness: {
       type: String,
       required: true,
-      label: 'Minimum Years in Business'
     },
 		eligibleEntityTypes: [{
       type: String,
       widget: 'checkbox',
       required: true,
-      label: 'Eligible Entity Types',
       choices: ['one', 'two']
     }],
-		currentEmp: {
+		currentEmployeesRequired: {
       type: String,
       widget: 'multiSelect',
       required: true,
-      label: 'Current Employees Required to be Eligible',
       choices: ['one', 'two']
     },
-		annualRev: {
+		annualRevenue: {
       type: String,
-      label: 'Annual Revenue your company must have',
       widget: 'multiSelect',
       choices: ['one', 'two']
     },
 		eligibleIndustries: [{
 			type: String,
 			required: true,
-			label: 'Eligible Industries',
 			widget: 'multiSelect',
       choices: ['one', 'two']
 		}],
@@ -98,19 +94,16 @@ var opSchema = new mongoose.Schema({
 		gender: {
       type: String,
       required: true,
-      label: 'Gender',
       widget: 'radio',
       choices: ['Male', 'Female']
     },
 		age: {
       type: Number,
       required: true,
-      label: 'Age'
     },
 		additionalDemographics:[{
 			type: String,
 			required: true,
-			label: 'Additional Demographics',
 			widget: 'checkbox',
       choices: ['student', 'veteran', 'minority']
 		}]
@@ -167,8 +160,8 @@ opSchema.statics.getAdminVisibilityList = function(op) {
     }
   });
 
-  console.log('OP: ' + op);
-  console.log(visibility);
+  //console.log('OP: ' + op);
+ // console.log(visibility);
   return visibility;
 }
 
