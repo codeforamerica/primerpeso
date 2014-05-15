@@ -5,6 +5,7 @@ var forms = require('forms')
   , _ = require('underscore')
   , S = require('string');
 
+// TODO make schemas conform to node-forms api
 function getFormField(path, eachFieldParams) {
 	var _field = null;
 	// If exclusion is asked for, exclude.
@@ -16,16 +17,12 @@ function getFormField(path, eachFieldParams) {
 
   }, eachFieldParams);
 
-
-  var fieldOptions = path.options;
+  // Adjust for arrays.
+  // Mongoose schema arrays hold a caster object which we need to get to --
+  // Cuz that's where the honey is.
+  var fieldOptions = _.isEmpty(path.caster) ? path.options : path.caster.options;
   fieldOptions.type = path.instance;
   fieldOptions.name = path.path;
-  /*if (fieldOptions.type == undefined) {
-  	console.log(path.path);
-  	console.log(path.instance);
-  	console.log(path.options);
-  }*/
-
   fieldOptions.header = fieldOptions.label;
   // Let's do some logic to get the field type going.
   if (!fieldOptions.widget) {
@@ -62,6 +59,9 @@ module.exports.create = function (schema, extraParams) {
   for (var pathName in paths) {
     var path = paths[pathName];
     //console.log(pathName);
+    if (pathName == 'eligibleBizLoc' || pathName == 'title') {
+      console.log(paths[pathName])
+    }
     var field = getFormField(path, formOptions.eachFieldParams);
     form.fields[pathName] = field;
   }

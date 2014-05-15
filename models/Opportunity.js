@@ -30,12 +30,28 @@ var opSchema = new mongoose.Schema({
 	disqualifyingFactors: {
 		type: String, required: true, default: 'none', label: 'Disqualifying Factors', widget: 'textArea'
 	},
-	//paperwork: [{ type: String, label: 'Paperwork Required', widget: 'textArea' }],
+	paperwork: [{ type: String, label: 'Paperwork Required', widget: 'textArea' }],
 	applicationCost: { type: Number, required: true, label: 'Application Cost' },
-	//deadline: { type: Date, required: true, label: 'Application Deadline', widget: 'date' },
+	deadline: { type: Date, required: true, label: 'Application Deadline', widget: 'date' },
 	avgApplyTime: { type: String, required: true, label: 'Average Application Time' },
-	//benefitType: [{ type: String, required: true, label: 'Type of Benefit', widget: 'select' }],
-	//benefitDescription: [{ type: String, required: true, label: 'Benefit Description', widget: 'textArea' }],
+  // TODO -- abstract choices to freaking clalbacks.
+	benefitType: [{
+    type: String,
+    required: true,
+    label: 'Type of Benefit',
+    widget: 'select',
+    choices: [
+      'Tax Break',
+      'Loan',
+      'Credit',
+      'Grant',
+      'Reimbursement',
+      'Salary Reimbursement',
+      'Exemption',
+      'Other'
+    ],
+  }],
+	benefitDescription: [{ type: String, required: true, label: 'Benefit Description', widget: 'textArea' }],
 	/*agency: {
 		name: { type: String, required: true, label: 'Agency Name' },
 		agencyContact: {
@@ -96,7 +112,7 @@ opSchema.statics.list = function(options, cb) {
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
   var form = formMaker.create(schema);
-  console.log(form.fields);
+  //console.log(form.fields);
   return form.fields;
 }
 

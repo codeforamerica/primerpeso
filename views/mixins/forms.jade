@@ -9,6 +9,8 @@ mixin makeField(formOptions)
   else if formOptions.widget == "select"
     //h6 #{formOptions.name}
     +choiceSelectField(formOptions)
+  else if formOptions.widget == "radio" || formOptions.widget == "checkbox"
+    +choiceField(formOptions)
   else
     //h6 #{formOptions.name}
     +textField(formOptions)
