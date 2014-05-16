@@ -2,11 +2,6 @@
 var _ = require('underscore')
 var S = require('string');
 
-/*var forms = require('forms');
-var fields = forms.fields;
-var widgets = forms.widgets;
-var validators = forms.validators;*/
-
 // Default methods for doing shit.
 
 var getWidget = function(fieldOptions) {
@@ -29,10 +24,7 @@ var getLabel = function(fieldOptions) {
   if (!S(label).isEmpty()) {
     return fieldOptions.label;
   }
-  if (S(fieldOptions.name).contains('.')) {
-    return S(fieldOptions.name.split('.').pop()).humanize().s;
-  }
-  return S(fieldOptions.name).humanize().s;
+  return S(fieldOptions.directName).humanize().s;
 }
 
 /**
@@ -83,6 +75,12 @@ function getFormField(path, eachFieldParams) {
   _.extend(fieldParams, fieldOptions.fieldParams);
 
   fieldOptions.name = path.path;
+  fieldOptions.directName = path.path;
+  // Give direct name -- the element key directly.
+  if (S(path.path).contains('.')) {
+    fieldOptions.directName = path.path.split('.').pop();
+  }
+
   fieldOptions.label = fieldParams.getLabelMethod(fieldOptions);
   _.extend(fieldOptions, {
     type: path.instance,

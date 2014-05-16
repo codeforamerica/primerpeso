@@ -13,13 +13,7 @@ exports = module.exports = function(mongoose) {
       type: String,
       required: true,
       choiceOther: false,
-      widget: 'radio',
-      choices: [
-        'Anywhere In Puerto Rico',
-        'Municipality in Puerto Rico',
-        'Region in Puerto Rico',
-        'Outside of Puerto Rico'
-      ]
+      widget: 'checkbox',
     }],
     disqualifyingFactors: {
       type: String,
@@ -36,17 +30,7 @@ exports = module.exports = function(mongoose) {
       type: String,
       required: true,
       widget: 'select',
-      choices: [
-        'Tax Break',
-        'Loan',
-        'Credit',
-        'Grant',
-        'Reimbursement',
-        'Salary Reimbursement',
-        'Exemption',
-        'Other'
-      ],
-    }],
+   }],
     benefitDescription: [{ type: String, required: true, widget: 'textArea' }],
     agency: {
       name: { type: String, required: true, label: 'Agency Name' },
@@ -65,24 +49,20 @@ exports = module.exports = function(mongoose) {
         type: String,
         widget: 'checkbox',
         required: true,
-        choices: ['one', 'two']
       }],
       currentEmployeesRequired: {
         type: String,
         widget: 'multiSelect',
         required: true,
-        choices: ['one', 'two']
       },
       annualRevenue: {
         type: String,
         widget: 'multiSelect',
-        choices: ['one', 'two']
       },
       eligibleIndustries: [{
         type: String,
         required: true,
         widget: 'multiSelect',
-        choices: ['one', 'two']
       }],
     },
     audienceEligibility: {
