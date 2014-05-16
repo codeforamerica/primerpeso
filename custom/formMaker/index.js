@@ -38,11 +38,10 @@ var getLabel = function(fieldOptions) {
 /**
  * Build the choices object of labels and values
  */
-var buildChoices = function(choicesList) {
+var buildChoices = function(fieldOptions, fieldParams) {
+  var choicesList = fieldParams.getChoicesMethod(fieldOptions);
   var choices = {};
-  // Choices list should always be coming in as ARRAY!
   _.each(choicesList, function(element, index) {
-    // TODO -- account for callbacks given on object
     choices[element] = element;
   });
 
@@ -54,18 +53,22 @@ var buildChoices = function(choicesList) {
  */
 var getChoices = function(fieldOptions) {
   var choices = fieldOptions.choices || [];
-  if (_.isFunction(choices))
-    choices = choices(fieldOptions);
-
+  if (_.isEmpty(choices)) {
+    if (_.isFunction(choices))
+      choices = choices(fieldOptions);
+  }
   return choices;
 }
 
+/**
+ * Build the form field
+ */
 function getFormField(path, eachFieldParams) {
 	// Provide some sane defaults.
   var fieldParams = _.extend({
     // TODO this could be used for mapping conditions from schema like string to field, etc.
     getWidgetMethod: getWidget,
-    getChoiceListMethod: getChoices,
+    getChoicesMethod: getChoices,
     buildChoicesMethod: buildChoices,
     getLabelMethod: getLabel
   }, eachFieldParams);
@@ -75,9 +78,12 @@ function getFormField(path, eachFieldParams) {
   // Cuz that's where the honey is.
   var fieldOptions = _.isEmpty(path.caster) ? path.options : path.caster.options;
   // @TODO fix me.
+  // Override any eachFieldParams with stuff directly coming from the field.
+  // @TODO is this really needed or just bullshit?
+  _.extend(fieldParams, fieldOptions.fieldParams);
+
   fieldOptions.name = path.path;
   fieldOptions.label = fieldParams.getLabelMethod(fieldOptions);
-  console.log(fieldOptions.label);
   _.extend(fieldOptions, {
     type: path.instance,
     header: fieldOptions.label // @TODO -- No me gusta esto
@@ -86,8 +92,7 @@ function getFormField(path, eachFieldParams) {
   // Get Field Type
   fieldOptions.widget = fieldParams.getWidgetMethod(fieldOptions)
   // Get Choices
-  var choiceList = fieldParams.getChoiceListMethod(fieldOptions);
-  fieldOptions.choices = fieldParams.buildChoicesMethod(choiceList);
+  fieldOptions.choices = fieldParams.buildChoicesMethod(fieldOptions, fieldParams);
 
   return fieldOptions;
 }
