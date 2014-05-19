@@ -1,4 +1,3 @@
-
 var loremIpsum = require('lorem-ipsum');
 
 exports.munchOppRequest = function(req, res, next) {
