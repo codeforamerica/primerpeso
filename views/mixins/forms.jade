@@ -13,20 +13,23 @@ mixin makeField(formOptions)
 
 mixin choiceSelectField(formOptions)
   .form-group
-    h4 #{formOptions.label}
-    select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
-      each choice, cVal in formOptions.choices
-        // TODO look at exploding classes
-        option(value=cVal) #{choice}
+    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    div(class="col-sm-4")
+      select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
+        each choice, cVal in formOptions.choices
+          // TODO look at exploding classes
+          option(value=cVal) #{choice}
 
 mixin choiceField(formOptions)
   .form-group
-    h4 #{formOptions.label}
-    each choice, cVal in formOptions.choices
-      // TODO look at exploding classes
-      div(class=formOptions.type)
-        label #{choice}
+    //h4 #{formOptions.label}
+    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    div(class="col-sm-4")
+      each choice, cVal in formOptions.choices
+        // TODO look at exploding classes
+        div(class=formOptions.type)
           input(type=formOptions.widget, name=formOptions.name, value=cVal)
+          label #{choice}
 
 mixin textField(formOptions)
   .form-group
