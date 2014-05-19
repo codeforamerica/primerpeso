@@ -76,9 +76,15 @@ function getFormField(path, eachFieldParams) {
 
   fieldOptions.name = path.path;
   fieldOptions.directName = path.path;
+  fieldOptions.path = path.path;
   // Give direct name -- the element key directly.
   if (S(path.path).contains('.')) {
-    fieldOptions.directName = path.path.split('.').pop();
+    var brokenPath = path.path.split('.');
+    // Break to array for form name.
+    fieldOptions.name = "";
+    _.each(brokenPath, function(element, index){
+      fieldOptions.name += index == 0 ? element : "[" + element + "]";
+    });
   }
 
   fieldOptions.label = fieldParams.getLabelMethod(fieldOptions);

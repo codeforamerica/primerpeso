@@ -3,8 +3,6 @@
  */
 
 var path = require('path');
-var S = require('string');
-var _ = require('underscore');
 
 var paths = [],
     info  = {};
@@ -100,29 +98,25 @@ function edit(req, res) {
 }
 
 function save(req, res) {
-  console.log(req.body);
   console.log('save triger');
-  var id = req.params.id
-  var modelName = req.params.path
-  var Model = mongoose.model(info[modelName].model);
-  var data = req.body;
-
+  var id = req.params.id,
+      p = req.params.path,
+      Model = mongoose.model(info[p].model);
 
   Model.findOne({_id: id}, function(err, doc) {
     if (err) console.log(err);
-    // @todo this was bring in refs via processFormFields.
-    console.log(doc);
-    console.log(req.body);
-    if (!id) {
-      doc = new Model(req.body[modelName]);
-      doc.password = '123change';
-    }
-    else {
-      updateFromObject(doc, req.body[modelName]);
-    }
-    doc.save(function(err) {
-      if (err) console.log(err);
-      return res.redirect(base_url + '/' + modelName);
+    processFormFields(info[p], req.body[p], function() {
+      if (!id) {
+        doc = new Model(req.body[p]);
+        doc.password = '123change';
+      }
+      else {
+        updateFromObject(doc, req.body[p]);
+      }
+      doc.save(function(err) {
+        if (err) console.log(err);
+        return res.redirect(base_url + '/' + p);
+      });
     });
   });
 }
