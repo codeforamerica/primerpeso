@@ -80,6 +80,7 @@ function getFormField(path, eachFieldParams) {
   // Give direct name -- the element key directly.
   if (S(path.path).contains('.')) {
     var brokenPath = path.path.split('.');
+    fieldOptions.directName = brokenPath.pop();
     // Break to array for form name.
     fieldOptions.name = "";
     _.each(brokenPath, function(element, index){
