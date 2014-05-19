@@ -1,7 +1,7 @@
 // @TODO -- REMOVE THIS FROM GIT
 module.exports = {
 
-  db: process.env.MONGODB|| 'mongodb://localhost:27017/fundme3',
+  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/fundme3',
 
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 
