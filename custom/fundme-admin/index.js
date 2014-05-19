@@ -1,6 +1,7 @@
 /**
  * Admin.js
  */
+
 var path = require('path');
 
 var paths = [],
@@ -85,7 +86,6 @@ function edit(req, res) {
       doc = new Model();
     }
     processEditFields(meta, doc, function() {
-    	console.log(meta);
       res.render('admin/edit', {
         meta:  meta,
         doc:   doc,

@@ -13,7 +13,7 @@ mixin makeField(formOptions)
 
 mixin choiceSelectField(formOptions)
   .form-group
-    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    +fieldLabel(formOptions)
     div(class="col-sm-4")
       select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
         each choice, cVal in formOptions.choices
@@ -22,8 +22,7 @@ mixin choiceSelectField(formOptions)
 
 mixin choiceField(formOptions)
   .form-group
-    //h4 #{formOptions.label}
-    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    +fieldLabel(formOptions)
     div(class="col-sm-4")
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
@@ -33,12 +32,19 @@ mixin choiceField(formOptions)
 
 mixin textField(formOptions)
   .form-group
-    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    +fieldLabel(formOptions)
     div(class="col-sm-10")
       input(type=formOptions.widget name=formOptions.name class="form-control" placeholder=formOptions.placeholder)
 
 mixin textAreaField(formOptions)
   .form-group
-    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    +fieldLabel(formOptions)
     div(class="col-sm-10")
       textarea(class="form-control" rows="3" name=formOptions.name)
+
+// Helpers
+
+mixin fieldLabel(formOptions)
+  label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
+    unless !formOptions.required
+    span.required *
