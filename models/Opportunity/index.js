@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 var S = require('string');
 var admin = require('../../custom/fundme-admin');
-var formMaker = require('../../custom/formMaker');
+var Form = require('../../custom/formMaker/form');
 var opSchema = require('./schema')(mongoose);
 var choicesGetter = require('./choices');
 
@@ -34,7 +34,7 @@ opSchema.statics.list = function(options, cb) {
 
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
-  var form = new formMaker.Form(schema, {
+  var form = new Form(schema, {
     eachFieldOptions: { methods: { getChoicesMethod: choicesGetter} }
   });
   var fields = form.getFields();
