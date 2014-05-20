@@ -34,12 +34,12 @@ opSchema.statics.list = function(options, cb) {
 
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
-  var form = formMaker.create(schema, {
-    eachFieldParams: {
-      getChoicesMethod: choicesGetter
-    }
+  var form = new formMaker.Form(schema, {
+    eachFieldOptions: { methods: { getChoicesMethod: choicesGetter} }
   });
-  return form.fields;
+  var fields = form.getFields();
+  console.log(fields);
+  return form.getFields();
 }
 
 opSchema.statics.getAdminVisibilityList = function(op) {

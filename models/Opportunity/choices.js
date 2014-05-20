@@ -69,15 +69,15 @@ var choiceSet = {
 };
 
 
-exports = module.exports = function(fieldOptions) {
-  var choices = fieldOptions.choices || [];
+exports = module.exports = function(fieldObject) {
+  var choices = fieldObject.options.choices || [];
   if (_.isEmpty(choices)) {
     // Give function callback a priority;
     if (_.isFunction(choices))
-      choices = choices(fieldOptions);
+      choices = choices(fieldObject);
 
-    if (!_.isEmpty(choiceSet[fieldOptions.directName]))
-      choices = choiceSet[fieldOptions.directName];
+    if (!_.isEmpty(choiceSet[fieldObject.getName('direct')]))
+      choices = choiceSet[fieldObject.getName('direct')];
   }
 
   return choices;
