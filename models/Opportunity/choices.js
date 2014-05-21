@@ -1,7 +1,7 @@
 var _ = require('underscore');
 var S = require('string');
 
-var choiceSet = {
+exports = module.exports = {
   canBeReappliedFor: ['No', 'Yes'],
   eligibleBusinessLocation: [
     'Anywhere In Puerto Rico',
@@ -65,21 +65,6 @@ var choiceSet = {
     'Management of Companies and Enterprises',
     'Administrative Support, Waste Management and Remediation Services'
   ]
-
 };
 
-
-exports = module.exports = function(fieldObject) {
-  var choices = fieldObject.options.choices || [];
-  if (_.isEmpty(choices)) {
-    // Give function callback a priority;
-    if (_.isFunction(choices))
-      choices = choices(fieldObject);
-
-    if (!_.isEmpty(choiceSet[fieldObject.getName('direct')]))
-      choices = choiceSet[fieldObject.getName('direct')];
-  }
-
-  return choices;
-}
 

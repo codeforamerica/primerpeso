@@ -4,7 +4,7 @@ var S = require('string');
 var admin = require('../../custom/fundme-admin');
 var Form = require('../../custom/formMaker/form');
 var opSchema = require('./schema')(mongoose);
-var choicesGetter = require('./choices');
+var choicesList = require('./choices');
 
 
 opSchema.pre('save', function(next) {
@@ -34,12 +34,12 @@ opSchema.statics.list = function(options, cb) {
 
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
-  var form = new Form(schema, {
-    eachFieldOptions: { methods: { getChoicesMethod: choicesGetter} }
+  var form = Form.fromSchema(schema, {
+    choices: choicesList,
   });
-  var fields = form.getFields();
-  console.log(fields);
-  return form.getFields();
+  form.buildFields();
+  var fields = form.getFieldsForRender();
+  return fields;
 }
 
 opSchema.statics.getAdminVisibilityList = function(op) {
