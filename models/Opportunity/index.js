@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 var S = require('string');
 var admin = require('../../custom/fundme-admin');
-var Form = require('../../custom/formMaker/form');
+var Form = require('nodeFormer');
 var opSchema = require('./schema')(mongoose);
 var choicesList = require('./choices');
 
