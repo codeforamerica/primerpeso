@@ -35,7 +35,7 @@ opSchema.statics.list = function(options, cb) {
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
   var form = Form.fromSchema(schema, {
-    choices: choicesList,
+    choicesList: choicesList,
   });
   form.buildFields();
   var fields = form.getFieldsForRender();
@@ -60,8 +60,6 @@ opSchema.statics.getAdminVisibilityList = function(op) {
     }
   });
 
-  //console.log('OP: ' + op);
- // console.log(visibility);
   return visibility;
 }
 

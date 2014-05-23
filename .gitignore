@@ -12,7 +12,7 @@ pids
 logs
 results
 tmp
-custom/nodeFormer
+custom/contrib
 
 npm-debug.log
 node_modules
