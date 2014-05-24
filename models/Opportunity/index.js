@@ -12,10 +12,6 @@ opSchema.pre('save', function(next) {
   return next();
 });
 
-if (process.env.NODE_ENV == 'production') {
-  opSchema.set('autoIndex', false);
-}
-
 opSchema.statics.load = function(id, cb) {
   this.findOne({ _id : id }).exec(cb);
 };

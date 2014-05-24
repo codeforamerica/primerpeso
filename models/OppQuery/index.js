@@ -1,19 +1,15 @@
 var mongoose = require('mongoose');
 var _ = require('underscore');
-var admin = require('../custom/fundme-admin');
+var admin = require('../../custom/fundme-admin');
+var Form = require('nodeFormer');
+var oppQuerySchema = require('./schema')(mongoose);
+var choicesList = require('./choices');
 
-var oppQuerySchema = new mongoose.Schema({
-  query: mongoose.Schema.Types.Mixed
-});
 
 oppQuerySchema.pre('save', function(next) {
   console.log('presave');
   return next();
 });
-
-if (process.env.NODE_ENV == 'production') {
-  oppQuerySchema.set('autoIndex', false);
-}
 
 oppQuerySchema.statics.load = function(id, cb) {
   this.findOne({ _id : id }).exec(cb);
@@ -33,8 +29,18 @@ oppQuerySchema.statics.list = function(options, cb) {
 /**
  * Method for generating the query form.
  */
+oppQuerySchema.statics.buildFormFields = function() {
+  var schema = opSchema;
+  var form = Form.fromSchema(schema, {
+    choicesList: choicesList,
+  });
+  form.buildFields();
+  var fields = form.getFieldsForRender();
+  return fields;
+}
 
-oppQuerySchema.statics.getQueryForm = function() {
+
+/*oppQuerySchema.statics.getQueryForm = function() {
   // @TODO -- feed some of this from the op model?
   // Step 1
   var aboutYou = {
@@ -82,7 +88,7 @@ oppQuerySchema.statics.getQueryForm = function() {
     },
   };
   return { 'aboutYou': aboutYou, 'purpose': purpose };
-};
+};*/
 
 /**
  * Register model in Mongoose
