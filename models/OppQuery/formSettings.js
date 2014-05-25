@@ -2,7 +2,33 @@ var _ = require('underscore');
 var S = require('string');
 
 var choices = {};
-var formConfig = {};
+var formConfig = {
+  form: {
+    useHierarchyForSections: true,
+    sections: {
+      aboutYou: {
+	label: 'About you as a business owner.'
+      },
+      purpose: {
+	label: 'What do you need this finance for?'
+      },
+    }
+  },
+  fields: {
+    // About you.
+    name: {
+      type: 'String',
+      label: 'Your Name',
+      section: 'aboutYou'
+    },
+    // Purpose.
+    needed_for: {
+      type: 'String',
+      label: 'What do you need this finance for?',
+      section: 'purpose'
+    }
+  }
+};
 
 exports = module.exports = {
   choices: choices,
