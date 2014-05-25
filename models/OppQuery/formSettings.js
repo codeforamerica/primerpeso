@@ -7,10 +7,10 @@ var formConfig = {
     useHierarchyForSections: true,
     sections: {
       aboutYou: {
-	label: 'About you as a business owner.'
+        label: 'About you as a business owner.'
       },
       purpose: {
-	label: 'What do you need this finance for?'
+        label: 'What do you need this finance for?'
       },
     }
   },
