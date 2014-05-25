@@ -12,11 +12,13 @@ module.exports = function(app) {
  */
 
 var oppQueryCreate = function(req, res, next) {
-  res.render('fundmeWizard', {
-    title: 'FundMe',
+/*  res.render('fundmewizard', {
+    title: 'Wizard',
     bodyClass: 'fundmeWizard',
-    form: OppQuery.getQueryForm()
-  });
+    form: OppQuery.buildFormFields()
+  });*/
+  res.json(OppQuery.buildFormFields());
+
 };
 
 var oppQueryExecute = function(req, res, next) {

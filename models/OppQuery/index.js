@@ -3,7 +3,7 @@ var _ = require('underscore');
 var admin = require('../../custom/fundme-admin');
 var Form = require('nodeFormer');
 var oppQuerySchema = require('./schema')(mongoose);
-var choicesList = require('./choices');
+var formSettings = require('./formSettings');
 
 
 oppQuerySchema.pre('save', function(next) {
@@ -30,9 +30,9 @@ oppQuerySchema.statics.list = function(options, cb) {
  * Method for generating the query form.
  */
 oppQuerySchema.statics.buildFormFields = function() {
-  var schema = opSchema;
-  var form = Form.fromSchema(schema, {
-    choicesList: choicesList,
+  var formConfig = formSettings.formConfig;
+  var form = new Form(formConfig, {
+    choicesList: formSettings.choices,
   });
   form.buildFields();
   var fields = form.getFieldsForRender();

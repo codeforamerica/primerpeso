@@ -1,7 +1,15 @@
 var _ = require('underscore');
 var S = require('string');
 
+var choices = {};
+var formConfig = {};
+
 exports = module.exports = {
+  choices: choices,
+  formConfig: formConfig
+};
+
+/*exports = module.exports = {
   canBeReappliedFor: ['No', 'Yes'],
   eligibleBusinessLocation: [
     'Anywhere In Puerto Rico',
@@ -67,4 +75,4 @@ exports = module.exports = {
   ]
 };
 
-
+*/

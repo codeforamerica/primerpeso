@@ -3,7 +3,7 @@ include mixins/forms.jade
 extends layout
 
 block content
-  h2.page-header Fund Me
+  h2.page-header #{title}
   form#fundMeWizard(action='oppquery/execute' method="GET")
     h3 #{form.aboutYou.title}
     fieldset
