@@ -3,17 +3,7 @@ var S = require('string');
 
 var choices = {};
 var formConfig = {
-  form: {
-    useHierarchyForSections: true,
-    sections: {
-      aboutYou: {
-        label: 'About you as a business owner.'
-      },
-      purpose: {
-        label: 'What do you need this finance for?'
-      },
-    }
-  },
+  form: {},
   fields: {
     // About you.
     name: {
