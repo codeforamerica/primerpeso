@@ -33,7 +33,6 @@ opSchema.statics.buildFormFields = function() {
   var form = Form.fromSchema(schema, {
     choicesList: choicesList,
   });
-  form.buildFields();
   var fields = form.getFieldsForRender();
   return fields;
 }

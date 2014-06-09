@@ -29,7 +29,7 @@ oppQuerySchema.statics.list = function(options, cb) {
 /**
  * Method for generating the query form.
  */
-oppQuerySchema.statics.buildFormFields = function() {
+oppQuerySchema.statics.buildForm = function() {
   var formConfig = formSettings.formConfig;
   var form = new Form(formConfig, {
     choicesList: formSettings.choices,

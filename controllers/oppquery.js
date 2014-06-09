@@ -17,7 +17,7 @@ var oppQueryCreate = function(req, res, next) {
     bodyClass: 'fundmeWizard',
     form: OppQuery.buildFormFields()
   });*/
-  res.json(OppQuery.buildFormFields());
+  res.json(OppQuery.buildForm());
 
 };
 

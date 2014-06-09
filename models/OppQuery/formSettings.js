@@ -3,7 +3,13 @@ var S = require('string');
 
 var choices = {};
 var formConfig = {
-  form: {},
+  form: {
+    sections: {
+      aboutYou: {
+        label: 'About You'
+      }
+    }
+  },
   fields: {
     // About you.
     name: {
