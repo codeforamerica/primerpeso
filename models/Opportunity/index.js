@@ -27,11 +27,11 @@ opSchema.statics.list = function(options, cb) {
 };
 
 
-opSchema.statics.buildFormFields = function() {
+opSchema.statics.buildForm = function() {
   var schema = opSchema;
   var form = Form.fromSchema(schema);
-  var fields = form.getFieldsForRender();
-  return fields;
+  var renderedForm = form.getRenderObject();
+  return renderedForm;
 }
 
 opSchema.statics.getAdminVisibilityList = function(op) {
@@ -63,12 +63,13 @@ var opModel = mongoose.model('Opportunity', opSchema);
  */
 
 // TODO refactor this shit.
+var formRenderObject = opModel.buildForm();
 admin.add({
   path: 'opportunities',
   model: 'Opportunity',
   list: opModel.getAdminVisibilityList('list'),
   edit: opModel.getAdminVisibilityList('edit'),
-  fields: opModel.buildFormFields()
+  fields: formRenderObject.fields
 });
 
 
