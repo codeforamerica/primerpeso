@@ -4,7 +4,6 @@ var S = require('string');
 var admin = require('../../custom/fundme-admin');
 var Form = require('nodeFormer');
 var opSchema = require('./schema')(mongoose);
-var choicesList = require('./choices');
 
 
 opSchema.pre('save', function(next) {
@@ -30,9 +29,7 @@ opSchema.statics.list = function(options, cb) {
 
 opSchema.statics.buildFormFields = function() {
   var schema = opSchema;
-  var form = Form.fromSchema(schema, {
-    choicesList: choicesList,
-  });
+  var form = Form.fromSchema(schema);
   var fields = form.getFieldsForRender();
   return fields;
 }

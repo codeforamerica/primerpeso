@@ -2,7 +2,6 @@ var _ = require('underscore');
 var S = require('string');
 
 exports = module.exports = {
-  canBeReappliedFor: ['No', 'Yes'],
   eligibleBusinessLocation: [
     'Anywhere In Puerto Rico',
     'Municipality in Puerto Rico',

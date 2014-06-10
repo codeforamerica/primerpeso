@@ -1,4 +1,5 @@
-//exports = module.exports = function(app, mongoose) {
+var choicesList = require('./choices');
+
 exports = module.exports = function(mongoose) {
   var opSchema = new mongoose.Schema({
     title:  { type: String, required: true, unique: true, label: 'Program Title', includeList: true },
@@ -7,13 +8,15 @@ exports = module.exports = function(mongoose) {
     canBeReappliedFor: {
       type: String,
       default: false,
-      widget: 'select'
+      widget: 'select',
+      choices: ['No', 'Yes']
     },
     eligibleBusinessLocation: [{
       type: String,
       required: true,
       choiceOther: false,
       widget: 'checkbox',
+      choices: choicesList.eligibleBusinessLocation
     }],
     disqualifyingFactors: {
       type: String,
@@ -30,6 +33,7 @@ exports = module.exports = function(mongoose) {
       type: String,
       required: true,
       widget: 'select',
+      choices: choicesList.benefitType
    }],
     benefitDescription: [{ type: String, required: true, widget: 'textArea' }],
     agency: {
@@ -49,20 +53,25 @@ exports = module.exports = function(mongoose) {
         type: String,
         widget: 'checkbox',
         required: true,
+        choices: choicesList.eligibleEntityTypes
       }],
       currentEmployeesRequired: {
         type: String,
         widget: 'multiSelect',
         required: true,
+        choices: choicesList.currentEmployeesRequired
       },
       annualRevenue: {
         type: String,
         widget: 'multiSelect',
+        choices: choicesList.annualRevenue
+
       },
       eligibleIndustries: [{
         type: String,
         required: true,
         widget: 'multiSelect',
+        choices: choicesList.eligibleIndustries
       }],
     },
     audienceEligibility: {

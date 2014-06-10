@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var _ = require('underscore');
 var admin = require('../../custom/fundme-admin');
-var Form = require('nodeFormer');
+var nodeFormer = require('nodeFormer');
 var oppQuerySchema = require('./schema')(mongoose);
 var formSettings = require('./formSettings');
 
@@ -30,14 +30,11 @@ oppQuerySchema.statics.list = function(options, cb) {
  * Method for generating the query form.
  */
 oppQuerySchema.statics.buildForm = function() {
-  var formConfig = formSettings.formConfig;
-  var form = new Form(formConfig, {
-    choicesList: formSettings.choices,
-  });
-  form.buildFields();
-  var fields = form.getFieldsForRender();
-  return fields;
-}
+  // This is mongoose wrapper hack to avoid dealing multiple interfaces in nodeFormer;
+  var schema = new mongoose.Schema(formSettings.formConfig.fields);
+  var form = nodeFormer.fromSchema(schema, formSettings.formConfig.options);
+  return form;
+};
 
 
 /**
