@@ -14,6 +14,24 @@ exports = module.exports = {
     'Hire Employees / Interns',
     'Training Employees'
   ],
+  businessType: [
+    'For Profit Partnership or Corporation',
+    'Non-Profit',
+    'Sole Proprietor'
+  ],
+  yearsInBusiness:[
+    'Just Starting',
+    '3 months to a year',
+    '2 Years',
+    '2 Years',
+    '4 + Years',
+  ],
+  eligibleBusinessLocation: [
+    'Anywhere In Puerto Rico',
+    'Municipality in Puerto Rico',
+    'Region in Puerto Rico',
+    'Outside of Puerto Rico'
+  ],
   benefitType: [
     'Tax Break',
     'Loan',

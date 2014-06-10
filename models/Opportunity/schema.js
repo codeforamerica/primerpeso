@@ -1,4 +1,4 @@
-var choicesList = require('./choices');
+var choicesList = require('../choices');
 
 exports = module.exports = function(mongoose) {
   var opSchema = new mongoose.Schema({

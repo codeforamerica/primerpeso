@@ -1,6 +1,6 @@
 var _ = require('underscore');
 var S = require('string');
-var choicesList = require('./choices');
+var choicesList = require('../choices');
 
 var formConfig = {
   options: {
@@ -10,6 +10,15 @@ var formConfig = {
       },
       purpose: {
         'label': 'Purpose'
+      },
+      industry: {
+        'label': 'Industry'
+      },
+      location: {
+        'label': 'Location'
+      },
+      sizeOfBusiness: {
+        'label': 'Size Of Business'
       }
     }
   },
@@ -50,6 +59,52 @@ var formConfig = {
         required: true,
         label: 'How much are you investing?',
         prefix: '$'
+      }
+    },
+    industry: {
+      businessType: {
+        type: String,
+        required: true,
+        label: 'What is your business type?',
+        choices: choicesList.businessType,
+        widget: 'radio'
+      },
+      industry: {
+        type: String,
+        required: true,
+        label: 'What type of industry are you operating in?',
+        choices: choicesList.eligibleIndustries,
+        widget: 'select'
+      }
+    },
+    location: {
+      businessLocation: {
+        type: String,
+        required: true,
+        label: 'What is your business location?',
+      },
+    },
+    sizeOfBusiness: {
+      employeeNumber: {
+        type: String,
+        required: true,
+        label: 'How many employees do you have?',
+        widget: 'radio',
+        choices: choicesList.currentEmployeesRequired
+      },
+      yearsInBusiness: {
+        type: String,
+        required: true,
+        label: 'How many years have you been in business?',
+        widget: 'radio',
+        choices: choicesList.yearsInBusiness
+      },
+      annualRevenue: {
+        type: String,
+        required: true,
+        label: 'What is your annual revenue?',
+        widget: 'radio',
+        choices: choicesList.annualRevenue
       }
     }
   }
