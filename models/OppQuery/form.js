@@ -73,6 +73,7 @@ var formConfig = {
         type: String,
         required: true,
         label: 'What type of industry are you operating in?',
+	choiceOther: true,
         choices: choicesList.eligibleIndustries,
         widget: 'select'
       }
