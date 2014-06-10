@@ -46,6 +46,7 @@ mixin textAreaField(formOptions)
 mixin choiceOther(formOptions)
   - formOptions.label = "other"
   - formOptions.required = false
+  - formOptions.name = formOptions.name + "-other"
   .choiceOther
     +textField(formOptions)
 
