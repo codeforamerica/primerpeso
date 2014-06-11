@@ -42,11 +42,10 @@ mixin textAreaField(formOptions)
     textarea(class="form-control" rows="3" name=formOptions.name)
 
 // Helpers
-
 mixin choiceOther(formOptions)
   - formOptions.label = "other"
   - formOptions.required = false
-  - formOptions.name = formOptions.name + "-other"
+  - formOptions.name = formOptions.name + "[other]"
   .choiceOther
     +textField(formOptions)
 

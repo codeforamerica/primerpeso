@@ -6,7 +6,7 @@ exports = module.exports = {
     '16-25',
     '26-40',
     '41-64',
-    '65+',
+    '65+'
   ],
   purpose: [
     'Start A Business',
