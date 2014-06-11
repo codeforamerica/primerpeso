@@ -1,19 +1,19 @@
 var _ = require('underscore');
 var S = require('string');
 
-exports = module.exports = {
+var choicesList = {
   age: [
     '16-25',
     '26-40',
     '41-64',
     '65+'
   ],
-  purpose: [
-    'Start A Business',
-    'Relocate a Business',
-    'Hire Employees / Interns',
-    'Training Employees'
-  ],
+  purpose: {
+    'start_business': 'Start A Business',
+    'relocate_business': 'Relocate a Business',
+    'hire_employees': 'Hire Employees / Interns',
+    'train_employees': 'Training Employees'
+  },
   businessType: [
     'For Profit Partnership or Corporation',
     'Non-Profit',
@@ -90,4 +90,10 @@ exports = module.exports = {
   ]
 };
 
+var associate = [
+  'age',
+  'currentEmployeesRequired'
+];
+
+exports = module.exports = choicesList;
 
