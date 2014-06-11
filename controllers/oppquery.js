@@ -14,7 +14,7 @@ module.exports = function(app) {
 
 var oppQueryCreate = function(req, res, next) {
   var formRenderObject = OppQuery.buildForm({ unflatten: true });
-  res.render('fundmewizard', {
+  res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',
     form: formRenderObject
