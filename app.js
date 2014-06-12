@@ -21,6 +21,7 @@ var expressValidator = require('express-validator');
 var connectAssets = require('connect-assets');
 var admin = require('./custom/fundme-admin');
 
+
 // Load dotenv.
 var dotenv = require('dotenv');
 dotenv.load();
@@ -45,6 +46,7 @@ var passportConf = require('./config/passport');
  */
 
 var app = express();
+app.keystone = require('bizwallet-admin');
 
 /**
  * Mongoose configuration.
@@ -105,7 +107,6 @@ app.use(function(req, res, next) {
 });
 
 app.use(flash());
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to
   // original destination after a successful login.
@@ -116,6 +117,11 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
+
+app.keystone.mount('/admin', app, function() {
+  //put your app's static content and error handling middleware here and start your server
+});
 
 // Access Policy;
 app.use('/admin', require('./policies/admin'));
