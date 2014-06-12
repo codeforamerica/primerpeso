@@ -65,7 +65,7 @@ var week = day * 7;
  * CSRF Whitelist
  */
 // @TODO -- ya know.
-var whitelist = ['/opportunity/create', '/', '/admin/opportunities/new', '/admin/opportunities'];
+var whitelist = ['/content', '/opportunity/create', '/', '/admin/opportunities/new', '/admin/opportunities'];
 
 /**
  * Express configuration.
@@ -94,10 +94,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
-});
+});*/
 
 // Set up locals via middleware
 app.use(function(req, res, next) {
@@ -117,11 +117,14 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 
-app.keystone.mount('/admin', app, function() {
+/*app.keystone.mount('/content', app, function() {
   //put your app's static content and error handling middleware here and start your server
-});
+});*/
+
+app.keystone.mount('/content', app);
+
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 
 // Access Policy;
 app.use('/admin', require('./policies/admin'));

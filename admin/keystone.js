@@ -11,7 +11,7 @@ var keystone = require('keystone');
 
 keystone.init({
 
-	'name': 'BizWallet',
+	'name': 'BizWallet - Admin',
 	'brand': 'BizWallet',
 
 	'less': 'public',
@@ -25,10 +25,8 @@ keystone.init({
 
 	'auto update': true,
 
-	'session': true,
-	'auth': true,
-	'user model': 'User',
-	'cookie secret': 'k3RC~=[wy>My7>OP+T2bB(+2TN~Ol6sqh_I.:"EUCTqK6xR!6LZ27y`Ze~/S.%Kk'
+	'user model': 'UserModel',
+	//'cookie secret': 'k3RC~=[wy>My7>OP+T2bB(+2TN~Ol6sqh_I.:"EUCTqK6xR!6LZ27y`Ze~/S.%Kk'
 
 });
 
@@ -49,7 +47,7 @@ keystone.set('locals', {
 
 // Load your project's Routes
 
-keystone.set('routes', require('./routes'));
+//keystone.set('routes', require('./routes'));
 
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.
