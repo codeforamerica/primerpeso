@@ -12,7 +12,7 @@ var keystone = require('keystone');
 keystone.init({
 
 	'name': 'BizWallet - Admin',
-	'brand': 'BizWallet',
+	'brand': 'BizWallet Admin',
 
 	'less': 'public',
 	'static': 'public',

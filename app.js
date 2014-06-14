@@ -118,14 +118,6 @@ app.use(function(req, res, next) {
 });
 
 
-/*app.keystone.mount('/content', app, function() {
-  //put your app's static content and error handling middleware here and start your server
-});*/
-
-app.keystone.mount('/content', app);
-
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
-
 // Access Policy;
 app.use('/admin', require('./policies/admin'));
 
@@ -156,6 +148,15 @@ app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+
+app.keystone.mount('/content', app, function() {
+  console.log('Mounted KS');
+});
+
+
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
+
+app.keystone.routes(app);
 
 
 /**
