@@ -3,7 +3,7 @@ var choicesList = require('../choices');
 exports = module.exports = function(mongoose) {
   var opSchema = new mongoose.Schema({
     title:  { type: String, required: true, unique: true, label: 'Program Title', includeList: true },
-    purpose: { type: String, required: true, widget: 'textArea' },
+    purpose: { type: String, required: true, widget: 'textArea'},
     // @TODO -- handle bOOL
     canBeReappliedFor: {
       type: String,
@@ -37,7 +37,11 @@ exports = module.exports = function(mongoose) {
    }],
     benefitDescription: [{ type: String, required: true, widget: 'textArea' }],
     agency: {
-      name: { type: String, required: true, label: 'Agency Name' },
+      name: {
+        type: String,
+        required: true,
+        label: 'Agency Name'
+      },
       agencyContact: {
         name: { type: String, required: true, label: 'Agency Contact Name' },
         email: { type: String, required: true, label: 'Agency Contact Email', widget: 'email' },

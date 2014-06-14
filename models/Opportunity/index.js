@@ -47,7 +47,8 @@ opSchema.statics.getAdminVisibilityList = function(op) {
       if (path.options.includeList && op == 'list')
         visibility.push(pathIndex);
 
-      if (!path.options.exclude && op == 'edit')
+      //if (!path.options.exclude && op == 'edit')
+      if (path.options.initial == true && op == 'edit')
         visibility.push(pathIndex);
     }
   });
