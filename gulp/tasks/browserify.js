@@ -13,6 +13,7 @@ var gulp         = require('gulp');
 var handleErrors = require('../util/handleErrors');
 var source       = require('vinyl-source-stream');
 var config       = require('../config');
+var gutil        = require('gulp-util');
 
 gulp.task('browserify', function() {
 
@@ -20,9 +21,9 @@ gulp.task('browserify', function() {
 
 	var bundler = bundleMethod({
 		// Specify the entry point of your app
-		entries: [config.src + '/app.js'],
+		entries: [config.src + '/js/app.js'],
 		// Add file extentions to make optional in your requires
-		extensions: ['.js', '.hbs', '.jade']
+		extensions: ['.js', '.hbs', '.jade'],
 	});
 
 	var bundle = function() {
@@ -45,6 +46,7 @@ gulp.task('browserify', function() {
 	};
 
 	if(global.isWatching) {
+    gutil.log('watching');
 		// Rebundle with watchify on changes.
 		bundler.on('update', bundle);
 	}

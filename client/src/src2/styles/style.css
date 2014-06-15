@@ -1,0 +1,16 @@
+*, *::before, *::after {-moz-box-sizing: border-box; box-sizing: border-box}
+
+[class^="page-"] {
+    width: 600px;
+    margin: 50px auto;
+    padding: 15px;
+    background: #eee;
+    border: 1px solid #aaa
+}
+
+.i18n-nav {
+    float: right;
+    margin: 0;
+    padding: 0
+}
+.i18n-item {display: inline-block}

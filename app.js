@@ -123,9 +123,10 @@ app.options('*', function(req, res) {
   res.send('supported options: GET, OPTIONS [non-CORS]');
 });
 
-app.use('/fundme', express.static(path.join(__dirname, 'client/build')));
+app.use('/', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
+//app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
+
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to
   // original destination after a successful login.
