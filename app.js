@@ -3,6 +3,9 @@
  */
 
 var express = require('express');
+var cors = require('cors');
+var http = require('http');
+var path = require('path');
 var cookieParser = require('cookie-parser');
 var compress = require('compression');
 var session = require('express-session');
@@ -55,10 +58,6 @@ mongoose.connection.on('error', function() {
   console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
 });
 
-var hour = 3600000;
-var day = hour * 24;
-var week = day * 7;
-
 /**
  * CSRF Whitelist
  */
@@ -68,6 +67,10 @@ var whitelist = ['/opportunity/create', '/', '/admin/opportunities/new', '/admin
 /**
  * Express configuration.
  */
+
+var hour = 3600000;
+var day = hour * 24;
+var week = day * 7;
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -105,6 +108,23 @@ app.use(function(req, res, next) {
 });
 
 app.use(flash());
+
+// Allow cross-site queries (CORS)
+app.use(cors());
+
+// Pre Route.
+app.options('*', function(req, res) {
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'X-Requested-With, X-Prototype-Version, Authorization',
+    'Content-Type': 'application/json;charset=utf-8'
+  });
+  res.send('supported options: GET, OPTIONS [non-CORS]');
+});
+
+app.use('/fundme', express.static(path.join(__dirname, 'client/build')));
+
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to
