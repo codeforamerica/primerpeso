@@ -1,19 +1,14 @@
+/* 
+  Gulp task to import csv files and convert them to JSON
+*/
+
 var gulp = require('gulp');
-var csvparse = require('csv-parse');
-var fs = require('fs');
+var csv2json = require('gulp-csv2json');
+var rename = require('gulp-rename');
 
 gulp.task('import', function() {
-  var contents = fs.readFileSync('./test.csv', 'utf8');
-  csvparse(contents, function(err, data) {
-    fieldNames = data.shift();
-    parsedData = []
-    data.forEach(function(entry) {
-      var parsedEntry = {};
-      entry.forEach(function(field, index) {
-        parsedEntry[fieldNames[index]] = field;
-      });
-      parsedData.push(parsedEntry);
-    });
-    console.log(parsedData);
-  });
+  gulp.src('./test.csv')
+    .pipe(csv2json())
+    .pipe(rename({extname: '.json'}))
+    .pipe(gulp.dest('.'));
 });
