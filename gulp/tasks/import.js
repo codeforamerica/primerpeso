@@ -1,5 +1,6 @@
 /* 
   Gulp task to import csv files and convert them to JSON
+  TODO: csv's are not well formed. Ask maksim how many there are to see if it's better to prettify JSON by hand
 */
 
 var gulp = require('gulp');
