@@ -1,8 +1,31 @@
 var _ = require('underscore');
 var S = require('string');
 
-exports = module.exports = {
-  canBeReappliedFor: ['No', 'Yes'],
+var choicesList = {
+  age: [
+    '16-25',
+    '26-40',
+    '41-64',
+    '65+'
+  ],
+  purpose: {
+    'start_business': 'Start A Business',
+    'relocate_business': 'Relocate a Business',
+    'hire_employees': 'Hire Employees / Interns',
+    'train_employees': 'Training Employees'
+  },
+  businessType: [
+    'For Profit Partnership or Corporation',
+    'Non-Profit',
+    'Sole Proprietor'
+  ],
+  yearsInBusiness:[
+    'Just Starting',
+    '3 months to a year',
+    '2 Years',
+    '2 Years',
+    '4 + Years',
+  ],
   eligibleBusinessLocation: [
     'Anywhere In Puerto Rico',
     'Municipality in Puerto Rico',
@@ -67,4 +90,10 @@ exports = module.exports = {
   ]
 };
 
+var associate = [
+  'age',
+  'currentEmployeesRequired'
+];
+
+exports = module.exports = choicesList;
 

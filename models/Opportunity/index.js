@@ -2,19 +2,14 @@ var mongoose = require('mongoose');
 var _ = require('underscore');
 var S = require('string');
 var admin = require('../../custom/fundme-admin');
-var Form = require('../../custom/formMaker/form');
+var Form = require('nodeFormer');
 var opSchema = require('./schema')(mongoose);
-var choicesList = require('./choices');
 
 
 opSchema.pre('save', function(next) {
   console.log('presave');
   return next();
 });
-
-if (process.env.NODE_ENV == 'production') {
-  opSchema.set('autoIndex', false);
-}
 
 opSchema.statics.load = function(id, cb) {
   this.findOne({ _id : id }).exec(cb);
@@ -32,14 +27,11 @@ opSchema.statics.list = function(options, cb) {
 };
 
 
-opSchema.statics.buildFormFields = function() {
+opSchema.statics.buildForm = function() {
   var schema = opSchema;
-  var form = Form.fromSchema(schema, {
-    choices: choicesList,
-  });
-  form.buildFields();
-  var fields = form.getFieldsForRender();
-  return fields;
+  var form = Form.fromSchema(schema);
+  var renderedForm = form.getRenderObject();
+  return renderedForm;
 }
 
 opSchema.statics.getAdminVisibilityList = function(op) {
@@ -55,13 +47,12 @@ opSchema.statics.getAdminVisibilityList = function(op) {
       if (path.options.includeList && op == 'list')
         visibility.push(pathIndex);
 
-      if (!path.options.exclude && op == 'edit')
+      //if (!path.options.exclude && op == 'edit')
+      if (path.options.initial == true && op == 'edit')
         visibility.push(pathIndex);
     }
   });
 
-  //console.log('OP: ' + op);
- // console.log(visibility);
   return visibility;
 }
 
@@ -73,12 +64,13 @@ var opModel = mongoose.model('Opportunity', opSchema);
  */
 
 // TODO refactor this shit.
+var formRenderObject = opModel.buildForm();
 admin.add({
   path: 'opportunities',
   model: 'Opportunity',
   list: opModel.getAdminVisibilityList('list'),
   edit: opModel.getAdminVisibilityList('edit'),
-  fields: opModel.buildFormFields()
+  fields: formRenderObject.fields
 });
 
 

@@ -101,11 +101,11 @@ function edit(req, res) {
 
 function save(req, res) {
   console.log(req.body);
-  console.log('save triger');
+  console.log(req.params.id);
   var id = req.params.id
   var modelName = req.params.path
   var Model = mongoose.model(info[modelName].model);
-  var data = req.body;
+  var formData = req.body;
 
 
   Model.findOne({_id: id}, function(err, doc) {
@@ -114,11 +114,10 @@ function save(req, res) {
     console.log(doc);
     console.log(req.body);
     if (!id) {
-      doc = new Model(req.body[modelName]);
-      doc.password = '123change';
+      doc = new Model(formData)
     }
     else {
-      updateFromObject(doc, req.body[modelName]);
+      updateFromObject(doc, formData);
     }
     doc.save(function(err) {
       if (err) console.log(err);

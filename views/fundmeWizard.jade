@@ -3,19 +3,11 @@ include mixins/forms.jade
 extends layout
 
 block content
-  h2.page-header Fund Me
+  h2.page-header #{title}
   form#fundMeWizard(action='oppquery/execute' method="GET")
-    h3 #{form.aboutYou.title}
-    fieldset
-      +choiceField(form.aboutYou.gender)
-      +choiceField(form.aboutYou.age)
-      +textField(form.aboutYou.name)
-      p (*) Mandatory
-
-    h3 #{form.purpose.title}
-    fieldset
-      +choiceField(form.purpose.needed_for)
-      +choiceField(form.purpose.investing_own)
-      p (*) Mandatory
-
+    each fieldSet, fieldSetIndex in form.fields
+      h3= form.options.fieldSets[ fieldSetIndex ].label
+      fieldset
+        each fieldSetField, fieldSetFieldIndex in fieldSet
+          +makeField(fieldSetField)
 
