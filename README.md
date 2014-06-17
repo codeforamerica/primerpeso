@@ -1,3 +1,6 @@
-### Debugging
+#Bizwallet!
 
-`nodemon --debug app.js` and in a separate window `node-inspector`
+###Running and devving
+* `git clone`
+* `npm install`
+* `gulp'
