@@ -123,9 +123,11 @@ app.options('*', function(req, res) {
   res.send('supported options: GET, OPTIONS [non-CORS]');
 });
 
-app.use('/', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
-
-//app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
+/**
+ * Static
+ */
+app.use('/search', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
 
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to
