@@ -21,7 +21,6 @@ var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-var connectAssets = require('connect-assets');
 var admin = require('./custom/fundme-admin');
 
 // Load dotenv.
@@ -75,10 +74,6 @@ var week = day * 7;
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(connectAssets({
-  paths: ['public/css', 'public/js'],
-  helperContext: app.locals
-}));
 app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -127,7 +122,7 @@ app.options('*', function(req, res) {
  * Static
  */
 //app.use('/search', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
+app.use(express.static(path.join(__dirname, 'public/build'), { maxAge: 0 }));
 
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to

@@ -1,4 +1,3 @@
-var $ = require('jquery');
 $(document).ready(function() {
 	$("#fundMeWizard").steps({
 	  headerTag: "h3",

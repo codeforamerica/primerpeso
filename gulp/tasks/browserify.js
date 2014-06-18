@@ -23,7 +23,7 @@ gulp.task('browserify', function() {
 		  entries: [config.src + '/js/main.js'],
 		  extensions: ['.js'],
       outputFile: 'main.js',
-      outputPath: config.dest + '/'
+      outputPath: config.dest + '/js/'
     },
   };
 

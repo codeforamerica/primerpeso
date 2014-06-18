@@ -16,6 +16,6 @@ gulp.task('vendor', function() {
     return es.concat(
       gulp.src(config.vendorJS)
       .pipe(concat("vendor.min.js"))
-      .pipe(gulp.dest(config.dest + '/'))
+      .pipe(gulp.dest(config.dest + '/js/'))
     );
 });
