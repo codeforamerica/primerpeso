@@ -126,7 +126,7 @@ app.options('*', function(req, res) {
 /**
  * Static
  */
-app.use('/search', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
+//app.use('/search', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
 
 app.use(function(req, res, next) {
@@ -143,6 +143,10 @@ app.use(function(req, res, next) {
 // Access Policy;
 app.use('/admin', require('./policies/admin'));
 
+/**
+ * Sub Apps
+ */
+//app.use('/search', require('./search'));
 
 /**
  * Application routes.
