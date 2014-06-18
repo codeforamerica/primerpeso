@@ -24,13 +24,13 @@ gulp.task('browserify', function() {
 		  extensions: ['.js'],
       outputFile: 'main.js',
       outputPath: config.dest + '/js/'
-    },
-    search: {
+    }
+    /*search: {
 		  entries: [config.src + '/js/search/app.js'],
 		  extensions: ['.js'],
       outputFile: 'search.js',
       outputPath: config.dest + '/js/'
-    }
+    }*/
   };
 
   var bundlers = [];
