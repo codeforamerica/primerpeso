@@ -3,4 +3,5 @@
   .list-group
     each item in menu
       - var cls = item == path ? "list-group-item active" : "list-group-item"
-      a(class=cls, href="#{base}/#{item}")= item
+      - var itemPath = item.toLowerCase()
+      a(class=cls, href="#{base}/#{itemPath}")= item

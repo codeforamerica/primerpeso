@@ -2,23 +2,24 @@ include ../mixins/forms.jade
 extends ../layout
 
 block content
-  - var action = base + '/' + path
-  - action += doc.isNew ? '' : '/' + doc.id
-  - var id = doc.isNew ? '' : doc.id
+  - var action = base + path
+  - action += isNew ? '' : '/' + id
+  - var id = isNew ? '' : id
 
-  h2= ( (id) ? "Edit " : "New " ) + ( (meta.name) ? meta.name : meta.model )
+  h2= ( (id) ? "Edit " : "New " ) + ( (name) ? name : model )
 
   #form
     form.form-horizontal(method="post", action=action, role="form")
-      input(type="hidden", name="_csrf", value="#{csrf_token}")
+      input(type="hidden", name="_csrf", value="#{_csrf}")
       input(type="hidden", name="_doc_id", value=id)
 
-      each f in edit
-        +makeField(field[f])
+      each f in fields
+        //- console.log(f)
+        +makeField(f)
       .form-group
         .col-sm-offset-2.col-sm-10
-          button(type="submit" class="btn btn-default btn-primary") Save #{meta.model}
-          a.btn(href='#{base}/#{path}', title="cancel") Cancel
+          button(type="submit" class="btn btn-default btn-primary") Save #{model}
+          a.btn(href='#{base}/#{model}', title="cancel") Cancel
 //
             if !doc.isNew
               #del-btn

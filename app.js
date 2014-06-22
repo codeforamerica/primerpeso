@@ -62,7 +62,7 @@ mongoose.connection.on('error', function() {
  * CSRF Whitelist
  */
 // @TODO -- ya know.
-var whitelist = ['/opportunity/create', '/', '/admin/opportunities/new', '/admin/opportunities'];
+var whitelist = ['/opportunity/create', '/', '/admin/Opportunities/new', '/admin/Opportunities'];
 
 /**
  * Express configuration.
@@ -78,7 +78,7 @@ app.set('view engine', 'jade');
 app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
@@ -91,10 +91,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
-});
+});*/
 
 // Set up locals via middleware
 app.use(function(req, res, next) {
