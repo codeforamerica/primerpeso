@@ -1,8 +1,8 @@
 // @TODO -- REMOVE THIS FROM GIT
 module.exports = {
 
-  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/fundme3',
-
+  db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/bizwallet',
+  pg: process.env.PG_URI || 'postgres://MrMaksimize:NewOrder@127.0.0.1:5432/bizwallet',
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 
   mailgun: {

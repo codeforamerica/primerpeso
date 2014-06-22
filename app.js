@@ -22,6 +22,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var admin = require('./custom/fundme-admin');
+var db = require('./models2');
 
 // Load dotenv.
 var dotenv = require('dotenv');
@@ -52,10 +53,10 @@ var app = express();
  * Mongoose configuration.
  */
 
-mongoose.connect(secrets.db);
+/*mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
-});
+});*/
 
 /**
  * CSRF Whitelist
@@ -77,7 +78,7 @@ app.set('view engine', 'jade');
 app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+//app.use(bodyParser.urlencoded());
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
@@ -137,7 +138,7 @@ app.use(function(req, res, next) {
 
 
 // Access Policy;
-app.use('/admin', require('./policies/admin'));
+//app.use('/admin', require('./policies/admin'));
 
 /**
  * Sub Apps
@@ -151,8 +152,9 @@ app.use('/admin', require('./policies/admin'));
 require('./controllers/opportunity')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
+require('./controllers/admin')(app);
 
-admin.config(app, mongoose, '/admin');
+//admin.config(app, mongoose, '/admin');
 
 
 app.get('/login', userController.getLogin);
@@ -178,7 +180,20 @@ app.post('/account/delete', passportConf.isAuthenticated, userController.postDel
  */
 
 app.use(errorHandler());
-
+/**
+ * Sequelize
+ */
+db
+  .sequelize
+  .sync({ force: true })
+  .complete(function(err) {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log('OK');
+    }
+  })
 /**
  * Start Express server.
  */
@@ -188,3 +203,4 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+

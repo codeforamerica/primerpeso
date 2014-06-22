@@ -3,8 +3,8 @@ extends ../layout
 
 block content
   - var action = base + '/' + path
-  - action += doc.isNew ? '' : '/' + doc._id
-  - var id = doc.isNew ? '' : doc._id
+  - action += doc.isNew ? '' : '/' + doc.id
+  - var id = doc.isNew ? '' : doc.id
 
   h2= ( (id) ? "Edit " : "New " ) + ( (meta.name) ? meta.name : meta.model )
 
