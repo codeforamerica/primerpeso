@@ -2,6 +2,10 @@
  * Module dependencies.
  */
 
+// Load dotenv.
+var dotenv = require('dotenv');
+dotenv.load();
+
 var express = require('express');
 var cors = require('cors');
 var http = require('http');
@@ -23,10 +27,6 @@ var mongoose = require('mongoose');
 var expressValidator = require('express-validator');
 var admin = require('./custom/fundme-admin');
 var db = require('./models');
-
-// Load dotenv.
-var dotenv = require('dotenv');
-dotenv.load();
 
 /**
  * Load controllers.
