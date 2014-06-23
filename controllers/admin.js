@@ -1,6 +1,6 @@
 var _ = require('lodash');
 var path = require('path');
-var db = require('../models2');
+var db = require('../models');
 var S = require('string');
 var _ = require('lodash');
 var url = require('url');

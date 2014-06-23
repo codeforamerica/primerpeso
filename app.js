@@ -19,10 +19,10 @@ var MongoStore = require('connect-mongo')({ session: session });
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
-var passport = require('passport');
+//var passport = require('passport');
 var expressValidator = require('express-validator');
 var admin = require('./custom/fundme-admin');
-var db = require('./models2');
+var db = require('./models');
 
 // Load dotenv.
 var dotenv = require('dotenv');
@@ -33,7 +33,7 @@ dotenv.load();
  */
 
 // @TODO -- dep this
-var userController = require('./controllers/user');
+//var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 
 /**
@@ -41,7 +41,7 @@ var contactController = require('./controllers/contact');
  */
 
 var secrets = require('./config/secrets');
-var passportConf = require('./config/passport');
+//var passportConf = require('./config/passport');
 
 /**
  * Create Express server.
@@ -89,8 +89,8 @@ app.use(session({
     auto_reconnect: true
   })
 }));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 /*app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
@@ -157,7 +157,7 @@ require('./controllers/admin')(app);
 //admin.config(app, mongoose, '/admin');
 
 
-app.get('/login', userController.getLogin);
+/*app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 app.get('/forgot', userController.getForgot);
@@ -172,6 +172,7 @@ app.get('/account', passportConf.isAuthenticated, userController.getAccount);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+*/
 
 
 /**
