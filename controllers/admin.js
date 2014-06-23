@@ -52,19 +52,24 @@ function edit(req, res) {
     render.isNew = render.id ? false : true;
     var doc = db[modelCapped];
     render.fields = doc.getFormFields('new');
-    //return res.json(fields);
     res.render('admin/form', render);
   }
 }
 
 function save(req, res) {
   var model = req.params.model || '';
+  model = S(model).capitalize().s;
   var id = req.params.id || '';
   var Model = db[model];
-  var instance = Model.create({
-    title: req.body.title,
-    purpose: req.body.purpose
-  })
+  // TODO -- move these to model?
+  var fieldsOnModel = _.keys(Model.getFormFields('new'));
+  var modelData = {};
+  _.each(fieldsOnModel, function(fieldKey) {
+    if(!_.isUndefined(req.body[fieldKey])) {
+      modelData[fieldKey] = req.body[fieldKey];
+    }
+  });
+  var instance = Model.create(modelData)
   .success(function(idk) {
     console.log('SUCCESS SAVE');
     return res.redirect(req.path);

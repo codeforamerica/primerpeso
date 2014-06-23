@@ -69,7 +69,6 @@ exports = module.exports = function(mongoose) {
         type: String,
         widget: 'multiSelect',
         choices: choicesList.annualRevenue
-
       },
       eligibleIndustries: [{
         type: String,

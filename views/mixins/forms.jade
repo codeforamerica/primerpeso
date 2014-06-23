@@ -19,7 +19,7 @@ mixin choiceSelectField(formOptions)
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
         option(value=cVal) #{choice}
-  if formOptions.choiceOther == true
+  if formOptions.choiceOther
     +choiceOther(formOptions)
 
 mixin choiceField(formOptions)
@@ -51,5 +51,5 @@ mixin choiceOther(formOptions)
 
 mixin fieldLabel(formOptions)
   label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
-    unless !formOptions.required
-    span.required *
+    if formOptions.required == true || formOptions.allowNull == false
+      span.required *
