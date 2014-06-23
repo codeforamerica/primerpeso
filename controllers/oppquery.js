@@ -1,9 +1,8 @@
-var OppQuery = require('../models/OppQuery');
-var Opp = require('../models/Opportunity');
+var mongoose = require('mongoose');
+var formSettings = require('../lib/oppQueryForm.js');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
-  app.get('/fundme.json', oppQueryCreateJson);
   app.get('/search', oppQueryExecute);
 };
 
@@ -13,7 +12,12 @@ module.exports = function(app) {
  */
 
 var oppQueryCreate = function(req, res, next) {
-  var formRenderObject = OppQuery.buildForm({ unflatten: true });
+  var options = options || {};
+  // This is mongoose wrapper hack to avoid dealing multiple interfaces in nodeFormer;
+  var schema = new mongoose.Schema(formSettings.formConfig.fields);
+  var form = nodeFormer.fromSchema(schema, formSettings.formConfig.options);
+  return form.getRenderObject(options);
+
   res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',

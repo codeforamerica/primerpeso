@@ -47,9 +47,10 @@ function edit(req, res) {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  if (!_.isUndefined(db[render.model])) {
+  var modelCapped = S(render.model).capitalize().s;
+  if (!_.isUndefined(db[modelCapped])) {
     render.isNew = render.id ? false : true;
-    var doc = db[render.model];
+    var doc = db[modelCapped];
     render.fields = doc.getFormFields('new');
     //return res.json(fields);
     res.render('admin/form', render);
