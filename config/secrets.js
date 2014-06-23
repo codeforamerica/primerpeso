@@ -2,7 +2,7 @@
 module.exports = {
 
   db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/bizwallet',
-  pg: process.env.PG_URI || 'postgres://monkey:banana@127.0.0.1:5432/bizwallet',
+  pg: process.env.PG_URI,
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 
   mailgun: {
