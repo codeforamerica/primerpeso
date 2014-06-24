@@ -1,4 +1,6 @@
 var _ = require('lodash');
+// TODO this should be implemented in the proper pattern:
+// http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
   edit: [
     'id',
@@ -18,9 +20,6 @@ var classMethods = {
     var blacklist = fieldBlackList[op];
     var fieldList = {};
     _.each(this.rawAttributes, function(element, key) {
-      //console.log(key);
-      //console.log(element);
-      //console.log(element.type.toString());
       if (!_.contains(blacklist, key)) {
         // Set some properties
         element.name = key;
@@ -29,13 +28,22 @@ var classMethods = {
       }
     });
     return fieldList;
-  }
+  },
+  buildFromAdminForm: function(req, res) {
+    var fields = _.keys(this.getFormFields('new'));
+    console.log(fields);
+    var modelData = {};
+    _.each(fields, function(fieldKey) {
+      if(!_.isUndefined(req.body[fieldKey])) {
+        modelData[fieldKey] = req.body[fieldKey];
+      }
+    });
+    var instance = this.build(modelData);
+    return instance;
+  },
 };
 
 var instanceMethods = {
-  getFormFields: function() {
-    console.log(this);
-  }
 };
 
 var utils = {

@@ -17,11 +17,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       label:'Program Title',
+      validate: {
+      }
     },
     purpose: {
       type: DataTypes.TEXT,
       allowNull: false,
       widget: 'textArea',
+      validate: {
+      },
       label: 'Purpose'
     },
     canBeReappliedFor: {

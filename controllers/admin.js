@@ -14,7 +14,6 @@ module.exports = function(app) {
     res.locals.path = req.path || '';
     res.locals.menu = _.without(_.keys(db), 'Sequelize', 'sequelize');
     res.locals.isAdminPath = true;
-    console.log(res.locals);
     next();
   });
 
@@ -34,9 +33,7 @@ module.exports = function(app) {
  * Index
  */
 function index(req, res) {
-  //res.render('admin/index', { title: 'Admin' });
-  //console.log(db.Opportunity);
-  return res.render('admin/index');
+  return res.render('admin/index', { title: 'Admin' });
 }
 
 /**
@@ -54,30 +51,34 @@ function edit(req, res) {
     render.fields = doc.getFormFields('new');
     res.render('admin/form', render);
   }
+//  var model = db[modelCapped];
+//  model.buildFromAdmin(req, res);
 }
 
 function save(req, res) {
-  var model = req.params.model || '';
-  model = S(model).capitalize().s;
+  model = S(req.params.model).capitalize().s;
   var id = req.params.id || '';
   var Model = db[model];
   // TODO -- move these to model?
-  var fieldsOnModel = _.keys(Model.getFormFields('new'));
-  var modelData = {};
-  _.each(fieldsOnModel, function(fieldKey) {
-    if(!_.isUndefined(req.body[fieldKey])) {
-      modelData[fieldKey] = req.body[fieldKey];
+  var instance = Model.buildFromAdminForm(req, res);
+  instance.validate().
+  success(function(err) {
+    if (err) {
+      var errorList = [];
+      _.each(err, function(errDesc, errKey) {
+        if (errKey != '__raw')
+          req.flash('errors', errKey + ': ' + errDesc);
+      });
+      return res.redirect(req.path);
     }
+    instance.save().success(function(){
+      req.flash('info', instance.name + 'Successfully Added');
+      return res.redirect(req.path);
+    })
+    .error(function(err) {
+      var message = err.message;
+      req.flash('errors', err.message);
+      return res.redirect(req.path);
+    });
   });
-  var instance = Model.create(modelData)
-  .success(function(idk) {
-    console.log('SUCCESS SAVE');
-    return res.redirect(req.path);
-  })
-  .error(function(error){
-    var message = error.message;
-    var severity = error.severity;
-    req.flash('error', 'hi');
-    return res.redirect(req.path);
-  });
-};
+}

@@ -59,7 +59,7 @@
     "pg": "^3.3.0",
     "q": "^1.0.1",
     "request": "^2.34.0",
-    "sequelize": "^1.7.9",
+    "sequelize": "2.x",
     "string": "~1.8.1",
     "uglify-js": "^2.4.13",
     "underscore": "^1.6.0",
