@@ -116,33 +116,33 @@ var postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
   var user = User.build({
-    email: req.body.email
-  }).setPassword(req.body.password, function(err, user){
-
-    user.validate().success(function(err) {
-      if (err) {
-        var errorList = [];
-          _.each(err, function(errDesc, errKey) {
-            if (errKey != '__raw')
-              req.flash('errors', errKey + ': ' + errDesc);
-          });
-        return res.redirect(req.path);
-      }
-      user.save().success(function(){
-        console.log('saved');
-        req.logIn(user, function(err) {
-          if (err) return next(err);
-          return res.redirect('/');
+    email: req.body.email,
+    password: req.body.password
+  });
+  user.validate().success(function(err) {
+    if (err) {
+      var errorList = [];
+        _.each(err, function(errDesc, errKey) {
+          if (errKey != '__raw')
+            req.flash('errors', errKey + ': ' + errDesc);
         });
-      })
-      .error(function(err) {
-        var message = err.message;
-        req.flash('errors', err.message);
-        //return res.json(instance);
-        return res.redirect(req.path);
-      });
-
+      return res.redirect(req.path);
+    }
+    user.save().success(function(){
+      console.log('saved');
+      /*req.logIn(user, function(err) {
+        if (err) return next(err);
+        return res.redirect('/');
+      });*/
+      return res.json(user);
+    })
+    .error(function(err) {
+      var message = err.message;
+      req.flash('errors', err.message);
+      //return res.json(instance);
+      return res.redirect(req.path);
     });
+
   // TODO USE NEXT FOR ERROR LOGGING.
   });
 };

@@ -39,20 +39,6 @@ module.exports = function(sequelize, DataTypes) {
 
   classMethods = _.extend(modelUtils.classMethods, {});
   instanceMethods = _.extend(modelUtils.instanceMethods, {
-    setPassword: function(value, cb) {
-      var user = this;
-      console.log('set pass');
-      if (S(value).length < 4) return cb('Too Short');
-      bcrypt.genSalt(5, function(err, salt) {
-        if (err) return cb(err);
-        bcrypt.hash(value, salt, null, function(err, hash) {
-          if (err) return cb(err);
-            user.setDataValue('password', hash);
-            return cb(null, user);
-        });
-      });
-    },
-
     comparePassword: function(candidatePassword, fn) {
       bcrypt.compare(candidatePassword,
       this.password,
@@ -63,9 +49,17 @@ module.exports = function(sequelize, DataTypes) {
     },
   });
   hooks = _.extend(modelUtils.hooks, {
-    /*beforeValidate: function(user, fn) {
-      console.log('pre val');
-    },*/
+    beforeUpdate: function(user, cb) {
+      console.log('pre update');
+      bcrypt.genSalt(5, function(err, salt) {
+        if (err) return cb(err);
+        bcrypt.hash(value, salt, null, function(err, hash) {
+          if (err) return cb(err);
+            user.password = hash;
+            return cb(null, user);
+        });
+      });
+    },
   });
 
   return sequelize.define('User', attributes, {
