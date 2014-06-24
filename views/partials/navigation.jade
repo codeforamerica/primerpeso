@@ -6,19 +6,16 @@
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/') Fund Me
+      a.navbar-brand(href='/')
     .collapse.navbar-collapse
-      ul.nav.navbar-nav
-        li(class=title=='Home'?'active':undefined)
-          a(href='/') Home
-        li(class=title=='Contact'?'active':undefined)
-          a(href='/contact') Contact
       ul.nav.navbar-nav.navbar-right
+        li(class=title=='About'?'active':undefined)
+          a(href='/contact') About        
+        li(class=title=='Who We Are'?'active':undefined)
+          a(href='/contact') Who We Are        
         if !user
           li(class=title=='Login'?'active':undefined)
             a(href='/login') Login
-          li(class=title=='Create Account'?'active':undefined)
-            a(href='/signup') Create Account
         else
           li.dropdown(class=title=='Account Management'?'active':undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
