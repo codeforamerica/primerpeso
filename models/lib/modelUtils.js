@@ -48,12 +48,13 @@ var classMethods = {
   },
 };
 
-var instanceMethods = {
-};
+var instanceMethods = {};
+var hooks = {};
 
 var utils = {
   classMethods: classMethods,
   instanceMethods: instanceMethods,
+  hooks: hooks,
   fieldBlackList: fieldBlackList,
 }
 exports = module.exports = utils;
