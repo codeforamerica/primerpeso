@@ -71,13 +71,13 @@ function save(req, res) {
     }
     instance.save().success(function(){
       req.flash('info', instance.title + ' Successfully Added');
-      return res.json(instance);
+      //return res.json(instance);
       return res.redirect(req.path);
     })
     .error(function(err) {
       var message = err.message;
       req.flash('errors', err.message);
-      return res.json(instance);
+      //return res.json(instance);
       return res.redirect(req.path);
     });
   });
