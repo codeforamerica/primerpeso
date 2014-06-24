@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
       choices: { 0: 'No', 1:'Yes' }
     },
     eligibleBusinessLocation: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
       multiple: true,
       widget: 'checkbox',

@@ -30,12 +30,17 @@ var classMethods = {
     return fieldList;
   },
   buildFromAdminForm: function(req, res) {
-    var fields = _.keys(this.getFormFields('new'));
+    var fields = this.getFormFields('new');
     console.log(fields);
     var modelData = {};
-    _.each(fields, function(fieldKey) {
+    _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(req.body[fieldKey])) {
-        modelData[fieldKey] = req.body[fieldKey];
+        var value = req.body[fieldKey];
+        // Wrap val if needed for multiple fields.
+        if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
+          value = [value];
+        }
+        modelData[fieldKey] = value;
       }
     });
     var instance = this.build(modelData);

@@ -51,8 +51,6 @@ function edit(req, res) {
     render.fields = doc.getFormFields('new');
     res.render('admin/form', render);
   }
-//  var model = db[modelCapped];
-//  model.buildFromAdmin(req, res);
 }
 
 function save(req, res) {
@@ -72,12 +70,14 @@ function save(req, res) {
       return res.redirect(req.path);
     }
     instance.save().success(function(){
-      req.flash('info', instance.name + 'Successfully Added');
+      req.flash('info', instance.title + ' Successfully Added');
+      return res.json(instance);
       return res.redirect(req.path);
     })
     .error(function(err) {
       var message = err.message;
       req.flash('errors', err.message);
+      return res.json(instance);
       return res.redirect(req.path);
     });
   });
