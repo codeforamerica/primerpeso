@@ -23,3 +23,5 @@ node_modules
 Thumbs.db
 .node-inspectorrc
 *.sublime-*
+
+public/build

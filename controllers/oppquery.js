@@ -4,7 +4,7 @@ var Opp = require('../models/Opportunity');
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
   app.get('/fundme.json', oppQueryCreateJson);
-  app.get('/oppquery/execute', oppQueryExecute);
+  app.get('/search', oppQueryExecute);
 };
 
 /**
@@ -28,10 +28,9 @@ var oppQueryCreateJson = function(req, res, next) {
 }
 
 var oppQueryExecute = function(req, res, next) {
-  res.json(req.query);
-  /*var query = new OppQuery({ query: req.query });
-  query.save(function(err, savedQuery){
-    // Execute search here, render results;
-    res.json(savedQuery);
-  });*/
+  res.render('searchResults', {
+    title: 'Search Results',
+    bodyClass: 'searchResults',
+    isSearch: true
+  });
 };

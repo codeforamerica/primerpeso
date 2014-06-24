@@ -3,6 +3,9 @@
  */
 
 var express = require('express');
+var cors = require('cors');
+var http = require('http');
+var path = require('path');
 var cookieParser = require('cookie-parser');
 var compress = require('compression');
 var session = require('express-session');
@@ -18,7 +21,6 @@ var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-var connectAssets = require('connect-assets');
 var admin = require('./custom/fundme-admin');
 
 // Load dotenv.
@@ -55,10 +57,6 @@ mongoose.connection.on('error', function() {
   console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
 });
 
-var hour = 3600000;
-var day = hour * 24;
-var week = day * 7;
-
 /**
  * CSRF Whitelist
  */
@@ -69,13 +67,13 @@ var whitelist = ['/opportunity/create', '/', '/admin/opportunities/new', '/admin
  * Express configuration.
  */
 
+var hour = 3600000;
+var day = hour * 24;
+var week = day * 7;
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(connectAssets({
-  paths: ['public/css', 'public/js'],
-  helperContext: app.locals
-}));
 app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -105,7 +103,28 @@ app.use(function(req, res, next) {
 });
 
 app.use(flash());
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: week }));
+
+// Allow cross-site queries (CORS)
+app.use(cors());
+
+// Pre Route.
+app.options('*', function(req, res) {
+  res.set({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'X-Requested-With, X-Prototype-Version, Authorization',
+    'Content-Type': 'application/json;charset=utf-8'
+  });
+  res.send('supported options: GET, OPTIONS [non-CORS]');
+});
+
+/**
+ * Static
+ */
+//app.use('/search', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
+//app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
+app.use(express.static(path.join(__dirname, 'public/build'), { maxAge: 0 }));
+
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to
   // original destination after a successful login.
@@ -120,6 +139,10 @@ app.use(function(req, res, next) {
 // Access Policy;
 app.use('/admin', require('./policies/admin'));
 
+/**
+ * Sub Apps
+ */
+//app.use('/search', require('./search'));
 
 /**
  * Application routes.
