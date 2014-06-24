@@ -130,11 +130,10 @@ var postSignup = function(req, res, next) {
     }
     user.save().success(function(){
       console.log('saved');
-      /*req.logIn(user, function(err) {
+      req.logIn(user, function(err) {
         if (err) return next(err);
         return res.redirect('/');
-      });*/
-      return res.json(user);
+      });
     })
     .error(function(err) {
       var message = err.message;
@@ -151,18 +150,18 @@ var postSignup = function(req, res, next) {
  * Profile page.
  */
 
-var getAccount = function(req, res) {
+/*var getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'Account Management'
   });
-};
+};*/
 
 /**
  * POST /account/profile
  * Update profile information.
  */
 
-var postUpdateProfile = function(req, res, next) {
+/*var postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
     user.email = req.body.email || '';
@@ -177,7 +176,7 @@ var postUpdateProfile = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * POST /account/password
@@ -185,7 +184,7 @@ var postUpdateProfile = function(req, res, next) {
  * @param password
  */
 
-var postUpdatePassword = function(req, res, next) {
+/*var postUpdatePassword = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -207,7 +206,7 @@ var postUpdatePassword = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * POST /account/delete
@@ -215,13 +214,13 @@ var postUpdatePassword = function(req, res, next) {
  * @param id - User ObjectId
  */
 
-var postDeleteAccount = function(req, res, next) {
+/*var postDeleteAccount = function(req, res, next) {
   User.remove({ _id: req.user.id }, function(err) {
     if (err) return next(err);
     req.logout();
     res.redirect('/');
   });
-};
+};*/
 
 /**
  * GET /account/unlink/:provider
@@ -230,7 +229,7 @@ var postDeleteAccount = function(req, res, next) {
  * @param id - User ObjectId
  */
 
-var getOauthUnlink = function(req, res, next) {
+/*var getOauthUnlink = function(req, res, next) {
   var provider = req.params.provider;
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
@@ -244,14 +243,14 @@ var getOauthUnlink = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * GET /reset/:token
  * Reset Password page.
  */
 
-var getReset = function(req, res) {
+/*var getReset = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
@@ -268,14 +267,14 @@ var getReset = function(req, res) {
         title: 'Password Reset'
       });
     });
-};
+};*/
 
 /**
  * POST /reset/:token
  * Process the reset password request.
  */
 
-var postReset = function(req, res, next) {
+/*var postReset = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long.').len(4);
   req.assert('confirm', 'Passwords must match.').equals(req.body.password);
 
@@ -333,21 +332,21 @@ var postReset = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/');
   });
-};
+};*/
 
 /**
  * GET /forgot
  * Forgot Password page.
  */
 
-var getForgot = function(req, res) {
+/*var getForgot = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
   res.render('account/forgot', {
     title: 'Forgot Password'
   });
-};
+};*/
 
 /**
  * POST /forgot
@@ -355,7 +354,7 @@ var getForgot = function(req, res) {
  * @param email
  */
 
-var postForgot = function(req, res, next) {
+/*var postForgot = function(req, res, next) {
   req.assert('email', 'Please enter a valid email address.').isEmail();
 
   var errors = req.validationErrors();
@@ -413,4 +412,4 @@ var postForgot = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/forgot');
   });
-};
+};*/

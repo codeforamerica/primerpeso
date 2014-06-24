@@ -2,8 +2,10 @@ var fs        = require('fs')
   , path      = require('path')
   , Sequelize = require('sequelize')
   , _         = require('lodash')
+  , S         = require('string')
   , secrets   = require('../config/secrets')
-  , db        = {};
+  , db        = {}
+  , methods   = {};
 
   var sequelize = new Sequelize(secrets.pg, {
     dialect: 'postgres',
@@ -27,7 +29,4 @@ Object.keys(db).forEach(function(modelName) {
   }
 })
 
-module.exports = _.extend({
-  sequelize: sequelize,
-  Sequelize: Sequelize
-}, db)
+module.exports = { sequelize: sequelize };

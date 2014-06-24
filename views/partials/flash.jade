@@ -4,7 +4,6 @@
       button.close(type='button', data-dismiss='alert') ×
       for error in messages.errors
         if (typeof(error) == 'object')
-          - console.log(error);
           div= error.msg
         else
           div= error
@@ -12,9 +11,15 @@
     .alert.alert-info.animated.fadeIn
       button.close(type='button', data-dismiss='alert') ×
       for info in messages.info
-        div= info
+        if (typeof(info) == 'object')
+          div= info.msg
+        else
+          div= info
   if messages.success
     .alert.alert-success.animated.fadeIn
       button.close(type='button', data-dismiss='alert') ×
-      for success in messages.success
-        div= success
+      for info in messages.info
+        if (typeof(success) == 'object')
+          div= success.msg
+        else
+          div= success

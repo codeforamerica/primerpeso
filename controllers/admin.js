@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var path = require('path');
 var db = require('../models');
+var sequelize = db.sequelize;
 var S = require('string');
 var url = require('url');
 
@@ -11,7 +12,7 @@ module.exports = function(app) {
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
-    res.locals.menu = _.without(_.keys(db), 'Sequelize', 'sequelize');
+    res.locals.menu = { opportunity: 'opportunity' };
     res.locals.isAdminPath = true;
     next();
   });
@@ -21,7 +22,8 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model/new'), save);
-  //app.get(path.join(base, '/:path'), list);
+  app.get(path.join(base, '/debug'), debug);
+  app.get(path.join(base, '/:model'), list);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
   app.post(path.join(base, '/:path/:id'), adminRouter);
@@ -35,28 +37,63 @@ function index(req, res) {
   return res.render('admin/index', { title: 'Admin' });
 }
 
+function debug(req, res) {
+  return res.json(db.sequelize.models);
+}
 /**
- * Edit / Create
+ * GET list
+ */
+function list(req, res) {
+  var render = _.extend(res.locals, {
+    model: req.params.model
+    //page: req.params.page || 0;
+  });
+
+  var Model = sequelize.model(render.model);
+  /*var options = {
+    page: (req.param('page') > 0 ? req.param('page') : 1) - 1;
+    perPage: 30,
+  };*/
+  Model.findAndCountAll().success(function(result) {
+    return res.json(result);
+  });
+
+  /*Model.list(options, function(err, results) {
+    if (err) return res.render('admin/500');
+    Model.count().exec(function(err, count) {
+      res.render('admin/list', {
+        title: capitalizeFirstLetter(p),
+        list:  info[p].list,
+        fields: info[p].fields,
+        data:  results,
+        path:  p,
+        page:  page + 1,
+        pages: Math.ceil(count / perPage)
+      });
+    });
+  });*/
+}
+
+/**
+ * GET Edit / Create
  */
 function edit(req, res) {
   var render = _.extend(res.locals, {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  var modelCapped = S(render.model).capitalize().s;
-  if (!_.isUndefined(db[modelCapped])) {
-    render.isNew = render.id ? false : true;
-    var doc = db[modelCapped];
-    render.fields = doc.getFormFields('new');
-    res.render('admin/form', render);
-  }
+  render.isNew = render.id ? false : true;
+  var doc = sequelize.model(render.model);
+  render.fields = doc.getFormFields('new');
+  res.render('admin/form', render);
 }
+/**
+ * POST Edit / Create
+ */
 
 function save(req, res) {
-  model = S(req.params.model).capitalize().s;
   var id = req.params.id || '';
-  var Model = db[model];
-  // TODO -- move these to model?
+  var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
   var instance = Model.buildFromAdminForm(req, res);
   instance.validate().
   success(function(err) {

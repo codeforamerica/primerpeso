@@ -2,7 +2,7 @@ var _ = require('underscore');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var db = require('../models');
-var User = db['User'];
+var User = db.sequelize.model('user');
 var secrets = require('./secrets');
 
 passport.serializeUser(function(user, done) {

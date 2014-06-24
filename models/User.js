@@ -55,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
     },
   });
 
-  return sequelize.define('User', attributes, {
+  return sequelize.define('user', attributes, {
     classMethods: classMethods,
     instanceMethods: instanceMethods,
     hooks: hooks
