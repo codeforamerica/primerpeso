@@ -1,7 +1,8 @@
 var _ = require('underscore');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('../models/User');
+var db = require('../models');
+var User = db['User'];
 var secrets = require('./secrets');
 
 passport.serializeUser(function(user, done) {
@@ -9,8 +10,14 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
+  console.log('des');
+  User.find(id).success(function(user) {
+    console.log('des');
+    console.log(user);
+    done(null, user);
+  }).error(function(err) {
+    console.log(err);
+    done(err, null);
   });
 });
 
@@ -18,12 +25,14 @@ passport.deserializeUser(function(id, done) {
 // Sign in using Email and Password.
 
 passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
-  User.find({ where: { email: email } }, function(err, user) {
-    if (!user) return done(null, false, { message: 'Email ' + email + ' not found'});
+  User.find({ where: { email: email } }).success(function(user) {
+    if (!user) return done(null, false, { message: 'Email ' + email + ' not found' });
     user.comparePassword(password, function(err, isMatch) {
       if (isMatch) {
+        console.log('match');
         return done(null, user);
       } else {
+        console.log('unmatch');
         return done(null, false, { message: 'Invalid email or password.' });
       }
     });

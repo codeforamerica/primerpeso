@@ -3,7 +3,11 @@
     .alert.alert-danger.animated.fadeIn
       button.close(type='button', data-dismiss='alert') ×
       for error in messages.errors
-        div= error
+        if (typeof(error) == 'object')
+          - console.log(error);
+          div= error.msg
+        else
+          div= error
   if messages.info
     .alert.alert-info.animated.fadeIn
       button.close(type='button', data-dismiss='alert') ×

@@ -142,7 +142,6 @@ var postSignup = function(req, res, next) {
       //return res.json(instance);
       return res.redirect(req.path);
     });
-
   // TODO USE NEXT FOR ERROR LOGGING.
   });
 };
