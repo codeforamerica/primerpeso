@@ -160,7 +160,7 @@ require('./controllers/admin')(app);
 /**
  * Sequelize
  */
-db.sequelize.sync({ force: true }).complete(function(err) {
+db.sequelize.sync({ force: false }).complete(function(err) {
     if (err) throw err;
     else console.log('OK');
 });
