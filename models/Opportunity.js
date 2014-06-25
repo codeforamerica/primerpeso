@@ -29,8 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       label: 'Purpose'
     },
-    // TODO: Need options for distinct municipalities
-    // TODO: Are we using zipcode's for this? Consider possibility
+    // TODO: Need to add distinct municipalities to options
     eligibleBusinessLocation: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
