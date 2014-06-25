@@ -157,28 +157,26 @@ require('./controllers/admin')(app);
 //admin.config(app, mongoose, '/admin');
 
 
+/**
+ * Sequelize
+ */
+db.sequelize.sync({ force: false }).complete(function(err) {
+    if (err) throw err;
+    else console.log('OK');
+});
 
+/**
+ * Middleware error helper.
+ */
 
+app.use(function(err, req, res, next) {
+});
 /**
  * 500 Error Handler.
  * As of Express 4.0 it must be placed at the end, after all routes.
  */
 app.use(errorHandler());
 
-/**
- * Sequelize
- */
-db
-  .sequelize
-  .sync({ force: false })
-  .complete(function(err) {
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
-      console.log('OK');
-    }
-  })
 /**
  * Start Express server.
  */

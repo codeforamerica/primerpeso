@@ -31,7 +31,6 @@ var classMethods = {
   },
   buildFromAdminForm: function(req, res) {
     var fields = this.getFormFields('new');
-    console.log(fields);
     var modelData = {};
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(req.body[fieldKey])) {

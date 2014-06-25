@@ -7,9 +7,10 @@ var secrets = require('../config/secrets');
 var _ = require('lodash');
 var path = require('path');
 var db = require('../models');
-var User = db['User'];
+var User = db.sequelize.model('user');
 var S = require('string');
 var url = require('url');
+var helpers = require('../lib/helpers');
 
 
 module.exports = function(app) {
@@ -105,7 +106,7 @@ var getSignup = function(req, res) {
 
 var postSignup = function(req, res, next) {
   // TODO -- try to get rid of multiple validators.  ERGH
-  req.assert('email', 'Email is not valid').isEmail();
+ // req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -115,33 +116,24 @@ var postSignup = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
-  var user = User.build({
+  var user = User.create({
     email: req.body.email,
     password: req.body.password
-  });
-  user.validate().success(function(err) {
-    if (err) {
-      var errorList = [];
-        _.each(err, function(errDesc, errKey) {
-          if (errKey != '__raw')
-            req.flash('errors', errKey + ': ' + errDesc);
-        });
-      return res.redirect(req.path);
-    }
-    user.save().success(function(){
-      console.log('saved');
-      req.logIn(user, function(err) {
-        if (err) return next(err);
+  }).success(function(user) {
+    console.log('user saved');
+    req.logIn(user, function(err) {
+      if (err) return next(err);
         return res.redirect('/');
-      });
-    })
-    .error(function(err) {
-      var message = err.message;
-      req.flash('errors', err.message);
-      //return res.json(instance);
-      return res.redirect(req.path);
     });
-  // TODO USE NEXT FOR ERROR LOGGING.
+  }).error(function(err) {
+    if (!_.isUndefined(err.detail))
+      req.flash('errors', err.detail);
+    else {
+      _.each(_.without(err, '__raw'), function(errDesc, errKey) {
+        req.flash('errors', errKey + ': ' + errDesc);
+      });
+    }
+    return res.redirect(req.path);
   });
 };
 

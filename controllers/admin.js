@@ -90,7 +90,6 @@ function edit(req, res) {
 /**
  * POST Edit / Create
  */
-
 function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
@@ -107,13 +106,10 @@ function save(req, res) {
     }
     instance.save().success(function(){
       req.flash('info', instance.title + ' Successfully Added');
-      //return res.json(instance);
       return res.redirect(req.path);
     })
     .error(function(err) {
-      var message = err.message;
       req.flash('errors', err.message);
-      //return res.json(instance);
       return res.redirect(req.path);
     });
   });
