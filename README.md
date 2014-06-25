@@ -52,7 +52,13 @@ psql -f config/init.sql
 ```
 
 
-### Run the project
+### Running bizwallet
+
+We use a tool called [gulp](http://gulpjs.com/) to run the project. Let's install that now.
+
+```
+npm install -g gulp
+```
 
 Finally to run the project run this command:
 
