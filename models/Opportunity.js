@@ -127,7 +127,7 @@ module.exports = function(sequelize, DataTypes) {
       label: 'Current Employees Required',
     },
     annualRevenue: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       widget: 'multiSelect',
       choices: choicesList.annualRevenue,
       multiple: true,
@@ -172,12 +172,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       widget: 'radio',
-      choices: {'yes': true, 'no': false}
+      choices: {'yes': true, 'no': false},
+      label: 'Are you investing your own money?'
     },
     moneyInvested: {
       type: DataTypes.STRING,
       widget: 'text',
-      allowNull: false
+      allowNull: false,
+      label: 'How much?'
     }
  }
 
