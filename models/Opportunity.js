@@ -190,7 +190,7 @@ module.exports = function(sequelize, DataTypes) {
   classMethods = _.extend(modelUtils.classMethods, {});
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
 
-  return sequelize.define('Opportunity', attributes, {
+  return sequelize.define('opportunity', attributes, {
     classMethods: classMethods,
     instanceMethods: instanceMethods
   });

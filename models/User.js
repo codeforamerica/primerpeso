@@ -37,32 +37,25 @@ module.exports = function(sequelize, DataTypes) {
     //resetPasswordExpires: Date
   };
 
-  classMethods = _.extend(modelUtils.classMethods, {});
+  classMethods = _.extend(modelUtils.classMethods, {
+  });
   instanceMethods = _.extend(modelUtils.instanceMethods, {
     comparePassword: function(candidatePassword, fn) {
-      bcrypt.compare(candidatePassword,
-      this.password,
-      function(err, isMatch) {
-          if (err) return cb(err);
-          cb(null, isMatch);
-      });
+      var isMatch = bcrypt.compareSync(candidatePassword, this.password);
+      fn(null, isMatch);
     },
   });
   hooks = _.extend(modelUtils.hooks, {
-    beforeUpdate: function(user, cb) {
-      console.log('pre update');
-      bcrypt.genSalt(5, function(err, salt) {
-        if (err) return cb(err);
-        bcrypt.hash(value, salt, null, function(err, hash) {
-          if (err) return cb(err);
-            user.password = hash;
-            return cb(null, user);
-        });
-      });
+    beforeCreate: function(user, cb) {
+      // TODO - implement updating passes.
+      var salt = bcrypt.genSaltSync(5);
+      var hash = bcrypt.hashSync(user.password, salt);
+      user.password = hash;
+      cb(null, user);
     },
   });
 
-  return sequelize.define('User', attributes, {
+  return sequelize.define('user', attributes, {
     classMethods: classMethods,
     instanceMethods: instanceMethods,
     hooks: hooks

@@ -23,9 +23,9 @@ var MongoStore = require('connect-mongo')({ session: session });
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
-//var passport = require('passport');
+var passport = require('passport');
 var expressValidator = require('express-validator');
-var admin = require('./custom/fundme-admin');
+//var admin = require('./custom/fundme-admin');
 var db = require('./models');
 
 /**
@@ -41,7 +41,7 @@ var contactController = require('./controllers/contact');
  */
 
 var secrets = require('./config/secrets');
-//var passportConf = require('./config/passport');
+var passportConf = require('./config/passport');
 
 /**
  * Create Express server.
@@ -81,7 +81,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride());
-app.use(cookieParser());
 app.use(session({
   secret: secrets.sessionSecret,
   store: new MongoStore({
@@ -89,8 +88,9 @@ app.use(session({
     auto_reconnect: true
   })
 }));
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 /*app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
@@ -157,28 +157,20 @@ require('./controllers/admin')(app);
 //admin.config(app, mongoose, '/admin');
 
 
-
+/**
+ * Sequelize
+ */
+db.sequelize.sync({ force: true }).complete(function(err) {
+    if (err) throw err;
+    else console.log('OK');
+});
 
 /**
  * 500 Error Handler.
  * As of Express 4.0 it must be placed at the end, after all routes.
  */
-
 app.use(errorHandler());
-/**
- * Sequelize
- */
-db
-  .sequelize
-  .sync({ force: true })
-  .complete(function(err) {
-    if (err) {
-      console.log(err);
-      throw err;
-    } else {
-      console.log('OK');
-    }
-  })
+
 /**
  * Start Express server.
  */

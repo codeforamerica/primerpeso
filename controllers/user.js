@@ -7,7 +7,7 @@ var secrets = require('../config/secrets');
 var _ = require('lodash');
 var path = require('path');
 var db = require('../models');
-var User = db['User'];
+var User = db.sequelize.model('user');
 var S = require('string');
 var url = require('url');
 
@@ -105,7 +105,7 @@ var getSignup = function(req, res) {
 
 var postSignup = function(req, res, next) {
   // TODO -- try to get rid of multiple validators.  ERGH
-  req.assert('email', 'Email is not valid').isEmail();
+ // req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -115,35 +115,24 @@ var postSignup = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
-  var user = User.build({
+  var user = User.create({
     email: req.body.email,
     password: req.body.password
-  });
-  user.validate().success(function(err) {
-    if (err) {
-      var errorList = [];
-        _.each(err, function(errDesc, errKey) {
-          if (errKey != '__raw')
-            req.flash('errors', errKey + ': ' + errDesc);
-        });
-      return res.redirect(req.path);
-    }
-    user.save().success(function(){
-      console.log('saved');
-      /*req.logIn(user, function(err) {
-        if (err) return next(err);
+  }).success(function(user) {
+    console.log('user saved');
+    req.logIn(user, function(err) {
+      if (err) return next(err);
         return res.redirect('/');
-      });*/
-      return res.json(user);
-    })
-    .error(function(err) {
-      var message = err.message;
-      req.flash('errors', err.message);
-      //return res.json(instance);
-      return res.redirect(req.path);
     });
-
-  // TODO USE NEXT FOR ERROR LOGGING.
+  }).error(function(err) {
+    if (!_.isUndefined(err.detail))
+      req.flash('errors', err.detail);
+    else {
+      _.each(_.without(err, '__raw'), function(errDesc, errKey) {
+        req.flash('errors', errKey + ': ' + errDesc);
+      });
+    }
+    return res.redirect(req.path);
   });
 };
 
@@ -152,18 +141,18 @@ var postSignup = function(req, res, next) {
  * Profile page.
  */
 
-var getAccount = function(req, res) {
+/*var getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'Account Management'
   });
-};
+};*/
 
 /**
  * POST /account/profile
  * Update profile information.
  */
 
-var postUpdateProfile = function(req, res, next) {
+/*var postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
     user.email = req.body.email || '';
@@ -178,7 +167,7 @@ var postUpdateProfile = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * POST /account/password
@@ -186,7 +175,7 @@ var postUpdateProfile = function(req, res, next) {
  * @param password
  */
 
-var postUpdatePassword = function(req, res, next) {
+/*var postUpdatePassword = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -208,7 +197,7 @@ var postUpdatePassword = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * POST /account/delete
@@ -216,13 +205,13 @@ var postUpdatePassword = function(req, res, next) {
  * @param id - User ObjectId
  */
 
-var postDeleteAccount = function(req, res, next) {
+/*var postDeleteAccount = function(req, res, next) {
   User.remove({ _id: req.user.id }, function(err) {
     if (err) return next(err);
     req.logout();
     res.redirect('/');
   });
-};
+};*/
 
 /**
  * GET /account/unlink/:provider
@@ -231,7 +220,7 @@ var postDeleteAccount = function(req, res, next) {
  * @param id - User ObjectId
  */
 
-var getOauthUnlink = function(req, res, next) {
+/*var getOauthUnlink = function(req, res, next) {
   var provider = req.params.provider;
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
@@ -245,14 +234,14 @@ var getOauthUnlink = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * GET /reset/:token
  * Reset Password page.
  */
 
-var getReset = function(req, res) {
+/*var getReset = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
@@ -269,14 +258,14 @@ var getReset = function(req, res) {
         title: 'Password Reset'
       });
     });
-};
+};*/
 
 /**
  * POST /reset/:token
  * Process the reset password request.
  */
 
-var postReset = function(req, res, next) {
+/*var postReset = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long.').len(4);
   req.assert('confirm', 'Passwords must match.').equals(req.body.password);
 
@@ -334,21 +323,21 @@ var postReset = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/');
   });
-};
+};*/
 
 /**
  * GET /forgot
  * Forgot Password page.
  */
 
-var getForgot = function(req, res) {
+/*var getForgot = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
   res.render('account/forgot', {
     title: 'Forgot Password'
   });
-};
+};*/
 
 /**
  * POST /forgot
@@ -356,7 +345,7 @@ var getForgot = function(req, res) {
  * @param email
  */
 
-var postForgot = function(req, res, next) {
+/*var postForgot = function(req, res, next) {
   req.assert('email', 'Please enter a valid email address.').isEmail();
 
   var errors = req.validationErrors();
@@ -414,4 +403,4 @@ var postForgot = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/forgot');
   });
-};
+};*/
