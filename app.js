@@ -81,6 +81,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride());
+app.use(cookieParser());
 app.use(session({
   secret: secrets.sessionSecret,
   store: new MongoStore({
@@ -88,7 +89,6 @@ app.use(session({
     auto_reconnect: true
   })
 }));
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 /*app.use(function(req, res, next) {
