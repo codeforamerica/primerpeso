@@ -25,7 +25,7 @@ var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-var admin = require('./custom/fundme-admin');
+//var admin = require('./custom/fundme-admin');
 var db = require('./models');
 
 /**
@@ -81,7 +81,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride());
-app.use(cookieParser());
 app.use(session({
   secret: secrets.sessionSecret,
   store: new MongoStore({
@@ -89,6 +88,7 @@ app.use(session({
     auto_reconnect: true
   })
 }));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 /*app.use(function(req, res, next) {
@@ -160,17 +160,11 @@ require('./controllers/admin')(app);
 /**
  * Sequelize
  */
-db.sequelize.sync({ force: false }).complete(function(err) {
+db.sequelize.sync({ force: true }).complete(function(err) {
     if (err) throw err;
     else console.log('OK');
 });
 
-/**
- * Middleware error helper.
- */
-
-app.use(function(err, req, res, next) {
-});
 /**
  * 500 Error Handler.
  * As of Express 4.0 it must be placed at the end, after all routes.

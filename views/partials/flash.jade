@@ -18,7 +18,7 @@
   if messages.success
     .alert.alert-success.animated.fadeIn
       button.close(type='button', data-dismiss='alert') ×
-      for info in messages.info
+      for success in messages.success
         if (typeof(success) == 'object')
           div= success.msg
         else

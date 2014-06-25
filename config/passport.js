@@ -10,13 +10,12 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('des');
+  console.log('des1');
   User.find(id).success(function(user) {
-    console.log('des');
     console.log(user);
+    console.log('calling done');
     done(null, user);
   }).error(function(err) {
-    console.log(err);
     done(err, null);
   });
 });
@@ -25,6 +24,7 @@ passport.deserializeUser(function(id, done) {
 // Sign in using Email and Password.
 
 passport.use(new LocalStrategy({ usernameField: 'email' }, function(email, password, done) {
+  console.log('local strategy');
   User.find({ where: { email: email } }).success(function(user) {
     if (!user) return done(null, false, { message: 'Email ' + email + ' not found' });
     user.comparePassword(password, function(err, isMatch) {

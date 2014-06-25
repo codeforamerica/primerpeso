@@ -9,7 +9,8 @@ module.exports = function(app) {
  */
 
 var index = function(req, res) {
-  res.render('home', {
+  console.log('home controller');
+  return res.render('home', {
     title: 'Home',
     bodyClass: 'home',
   });

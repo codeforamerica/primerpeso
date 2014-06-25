@@ -10,7 +10,6 @@ var db = require('../models');
 var User = db.sequelize.model('user');
 var S = require('string');
 var url = require('url');
-var helpers = require('../lib/helpers');
 
 
 module.exports = function(app) {
