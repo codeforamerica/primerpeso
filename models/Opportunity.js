@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
     purpose: {
       type: DataTypes.TEXT,
       allowNull: false,
-      widget: 'checkbox',
+      widget: 'radio',
       choices: choicesList.purpose,
       validate: {
       },
@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
       multiple: true,
-      widget: 'checkbox',
+      widget: 'radio',
       choices: choicesList.eligibleBusinessLocation,
       label: 'Eligible Business Location'
     },
