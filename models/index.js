@@ -4,6 +4,7 @@ var fs        = require('fs')
   , _         = require('lodash')
   , S         = require('string')
   , secrets   = require('../config/secrets')
+  , dirname   = __dirname + '/defs'
   , db        = {}
   , methods   = {};
 
@@ -14,12 +15,12 @@ var fs        = require('fs')
   });
 
 fs
-  .readdirSync(__dirname)
+  .readdirSync(dirname)
   .filter(function(file) {
     return ((file.indexOf('.') !== 0) && (file !== 'index.js') && (file.slice(-3) == '.js'))
   })
   .forEach(function(file) {
-    var model = sequelize.import(path.join(__dirname, file));
+    var model = sequelize.import(path.join(dirname, file));
     db[model.name] = model;
   })
 
