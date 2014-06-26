@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
       multiple: true,
-      widget: 'radio',
+      widget: 'select',
       choices: choicesList.eligibleBusinessLocation,
       label: 'Eligible Business Location'
     },
@@ -110,7 +110,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       label: 'Minimum Years In Business',
-      widget: 'text',
+      widget: 'select',
       choices: choicesList.yearsInBusiness,
     },
     eligibleEntityTypes: {
@@ -123,7 +123,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     currentEmployeesRequired: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      widget: 'multiSelect',
+      widget: 'select',
       multiple: true,
       allowNull: false,
       choices: choicesList.currentEmployeesRequired,
@@ -131,7 +131,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     annualRevenue: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      widget: 'multiSelect',
+      widget: 'select',
       choices: choicesList.annualRevenue,
       multiple: true,
       allowNull: false,
@@ -141,7 +141,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       multiple: true,
       allowNull: false,
-      widget: 'multiSelect',
+      widget: 'checkbox',
       choices: choicesList.eligibleIndustries,
       label: 'Eligible Industries',
     },
@@ -149,13 +149,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       label: 'Gender',
-      widget: 'radio',
+      widget: 'select',
       choices: { any: 'Any', male: 'Male', female: 'Female', other: 'Other'}
     },
     age: {
       type: DataTypes.INTEGER,
       allowNull: false,
       label: 'Age',
+      widget: 'select',
       choices: choicesList.age,
     },
     additionalDemographics: {
@@ -177,12 +178,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       widget: 'radio',
       choices: {'yes': true, 'no': false},
-      label: 'Are you investing your own money?'
+      label: 'Is there any amount the business needs to invest?'
     },
     moneyInvested: {
       type: DataTypes.STRING,
       widget: 'text',
-      allowNull: false,
+      // allowNull: false,
       label: 'How much?'
     }
  }
