@@ -54,16 +54,25 @@ psql -f config/init.sql
 Now run this command to load some sample data into the database:
 
 ```
-psql bizwallet <  config/dump.sql
+psql bizwallet < config/dump.sql
 ```
 
 ### Installing redis:
 
-We need to install Redis also so run this command in your terminal:
+We need to install Redis, make sure you have [Hombrew](http://brew.sh/) installed and run this command in a terminal window:
 
 ```
 brew install redis
 ```
+
+### Creating your environment variables file
+
+We use environment variables to connect to our local database and tell bizwallet to run in "Development" mode. We specify these things in a special file named ".env" (Yes, with the period):
+
+* Create an empty file named ".env" `touch .env`
+* Copy the contents of ".env_example" into it  `cat .env_example > .env`
+* If you don't know your terminal username run `whoami` to find it
+* In the DATABASE_URL variable, change the part where it says 'username' into your terminal username
 
 ### Running bizwallet
 
