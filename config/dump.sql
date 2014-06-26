@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: opportunities; Type: TABLE; Schema: public; Owner: MrMaksimize; Tablespace: 
+-- Name: opportunities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE opportunities (
@@ -64,10 +64,8 @@ CREATE TABLE opportunities (
 );
 
 
-ALTER TABLE public.opportunities OWNER TO "MrMaksimize";
-
 --
--- Name: opportunities_id_seq; Type: SEQUENCE; Schema: public; Owner: MrMaksimize
+-- Name: opportunities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE opportunities_id_seq
@@ -78,17 +76,15 @@ CREATE SEQUENCE opportunities_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.opportunities_id_seq OWNER TO "MrMaksimize";
-
 --
--- Name: opportunities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: MrMaksimize
+-- Name: opportunities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE opportunities_id_seq OWNED BY opportunities.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: MrMaksimize; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE users (
@@ -102,10 +98,8 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE public.users OWNER TO "MrMaksimize";
-
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: MrMaksimize
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE users_id_seq
@@ -116,31 +110,29 @@ CREATE SEQUENCE users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO "MrMaksimize";
-
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: MrMaksimize
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: MrMaksimize
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY opportunities ALTER COLUMN id SET DEFAULT nextval('opportunities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: MrMaksimize
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Data for Name: opportunities; Type: TABLE DATA; Schema: public; Owner: MrMaksimize
+-- Data for Name: opportunities; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY opportunities (id, title, purpose, "eligibleBusinessLocation", "paperworkRequired", "applicationCost", "applicationDeadline", "avgApplicationTime", "benefitType", "benefitDescription", "agencyName", "agencyContactName", "agencyContactEmail", "agencyContactPhone", "minimumYearsInBusiness", "eligibleEntityTypes", "currentEmployeesRequired", "annualRevenue", "eligibleIndustries", gender, age, "additionalDemographics", "additionalGeneralInformation", "investingOwnMoney", "moneyInvested", "createdAt", "updatedAt") FROM stdin;
@@ -158,14 +150,14 @@ COPY opportunities (id, title, purpose, "eligibleBusinessLocation", "paperworkRe
 
 
 --
--- Name: opportunities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: MrMaksimize
+-- Name: opportunities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('opportunities_id_seq', 12, true);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: MrMaksimize
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY users (id, email, password, "firstName", "lastName", "createdAt", "updatedAt") FROM stdin;
@@ -173,14 +165,14 @@ COPY users (id, email, password, "firstName", "lastName", "createdAt", "updatedA
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: MrMaksimize
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 
 --
--- Name: opportunities_pkey; Type: CONSTRAINT; Schema: public; Owner: MrMaksimize; Tablespace: 
+-- Name: opportunities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY opportunities
@@ -188,7 +180,7 @@ ALTER TABLE ONLY opportunities
 
 
 --
--- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: MrMaksimize; Tablespace: 
+-- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -196,7 +188,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: MrMaksimize; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -204,7 +196,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: MrMaksimize
+-- Name: public; Type: ACL; Schema: -; Owner: -
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
