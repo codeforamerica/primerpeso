@@ -57,6 +57,13 @@ Now run this command to load some sample data into the database:
 psql bizwallet <  config/dump.sql
 ```
 
+### Installing redis:
+
+We need to install Redis also so run this command in your terminal:
+
+```
+brew install redis
+```
 
 ### Running bizwallet
 

@@ -11,7 +11,6 @@ module.exports = function(app) {
  * GET /fundme
  * FundMe Wizard.
  */
-
 var oppQueryCreate = function(req, res, next) {
   var options = options || {};
   // This is mongoose wrapper hack to avoid dealing multiple interfaces in nodeFormer;

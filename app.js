@@ -19,13 +19,12 @@ var errorHandler = require('errorhandler');
 var csrf = require('lusca').csrf();
 var methodOverride = require('method-override');
 
-var MongoStore = require('connect-mongo')({ session: session });
+var RedisStore = require('connect-redis')(session);
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-//var admin = require('./custom/fundme-admin');
 var db = require('./models');
 
 /**
@@ -84,9 +83,8 @@ app.use(methodOverride());
 app.use(cookieParser());
 app.use(session({
   secret: secrets.sessionSecret,
-  store: new MongoStore({
-    url: secrets.db,
-    auto_reconnect: true
+  store: new RedisStore({
+    url: secrets.redis
   })
 }));
 app.use(passport.initialize());

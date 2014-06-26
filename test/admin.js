@@ -15,5 +15,4 @@ describe('Admin Controller', function() {
     })
   });
 
-escribe 
 
