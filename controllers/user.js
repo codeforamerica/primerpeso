@@ -1,17 +1,41 @@
-var _ = require('underscore');
+var _ = require('lodash');
 var async = require('async');
 var crypto = require('crypto');
 var nodemailer = require('nodemailer');
 var passport = require('passport');
-var User = require('../models/User');
 var secrets = require('../config/secrets');
+var _ = require('lodash');
+var path = require('path');
+var db = require('../models');
+var User = db.sequelize.model('user');
+var S = require('string');
+var url = require('url');
+
+
+module.exports = function(app) {
+  app.get('/login', getLogin);
+  app.post('/login', postLogin);
+  app.get('/logout', logout);
+ /* app.get('/forgot', getForgot);
+  app.post('/forgot', postForgot);
+  app.get('/reset/:token', getReset);
+  app.post('/reset/:token', postReset);*/
+  app.get('/signup', getSignup);
+  app.post('/signup', postSignup);
+  /*app.get('/contact', contactController.getContact);
+  app.post('/contact', contactController.postContact);
+  app.get('/account', passportConf.isAuthenticated, getAccount);
+  app.post('/account/profile', passportConf.isAuthenticated, postUpdateProfile);
+  app.post('/account/password', passportConf.isAuthenticated, postUpdatePassword);
+  app.post('/account/delete', passportConf.isAuthenticated, postDeleteAccount);*/
+};
 
 /**
  * GET /login
  * Login page.
  */
 
-exports.getLogin = function(req, res) {
+var getLogin = function(req, res) {
   if (req.user) return res.redirect('/');
   res.render('account/login', {
     title: 'Login'
@@ -25,7 +49,7 @@ exports.getLogin = function(req, res) {
  * @param password
  */
 
-exports.postLogin = function(req, res, next) {
+var postLogin = function(req, res, next) {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password cannot be blank').notEmpty();
 
@@ -55,7 +79,7 @@ exports.postLogin = function(req, res, next) {
  * Log out.
  */
 
-exports.logout = function(req, res) {
+var logout = function(req, res) {
   req.logout();
   res.redirect('/');
 };
@@ -65,7 +89,7 @@ exports.logout = function(req, res) {
  * Signup page.
  */
 
-exports.getSignup = function(req, res) {
+var getSignup = function(req, res) {
   if (req.user) return res.redirect('/');
   res.render('account/signup', {
     title: 'Create Account'
@@ -79,8 +103,9 @@ exports.getSignup = function(req, res) {
  * @param password
  */
 
-exports.postSignup = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
+var postSignup = function(req, res, next) {
+  // TODO -- try to get rid of multiple validators.  ERGH
+ // req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -90,24 +115,24 @@ exports.postSignup = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
-
-  var user = new User({
+  var user = User.create({
     email: req.body.email,
     password: req.body.password
-  });
-
-  User.findOne({ email: req.body.email }, function(err, existingUser) {
-    if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.redirect('/signup');
-    }
-    user.save(function(err) {
+  }).success(function(user) {
+    console.log('user saved');
+    req.logIn(user, function(err) {
       if (err) return next(err);
-      req.logIn(user, function(err) {
-        if (err) return next(err);
-        res.redirect('/');
-      });
+        return res.redirect('/');
     });
+  }).error(function(err) {
+    if (!_.isUndefined(err.detail))
+      req.flash('errors', err.detail);
+    else {
+      _.each(_.without(err, '__raw'), function(errDesc, errKey) {
+        req.flash('errors', errKey + ': ' + errDesc);
+      });
+    }
+    return res.redirect(req.path);
   });
 };
 
@@ -116,18 +141,18 @@ exports.postSignup = function(req, res, next) {
  * Profile page.
  */
 
-exports.getAccount = function(req, res) {
+/*var getAccount = function(req, res) {
   res.render('account/profile', {
     title: 'Account Management'
   });
-};
+};*/
 
 /**
  * POST /account/profile
  * Update profile information.
  */
 
-exports.postUpdateProfile = function(req, res, next) {
+/*var postUpdateProfile = function(req, res, next) {
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
     user.email = req.body.email || '';
@@ -142,7 +167,7 @@ exports.postUpdateProfile = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * POST /account/password
@@ -150,7 +175,7 @@ exports.postUpdateProfile = function(req, res, next) {
  * @param password
  */
 
-exports.postUpdatePassword = function(req, res, next) {
+/*var postUpdatePassword = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
@@ -172,7 +197,7 @@ exports.postUpdatePassword = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * POST /account/delete
@@ -180,13 +205,13 @@ exports.postUpdatePassword = function(req, res, next) {
  * @param id - User ObjectId
  */
 
-exports.postDeleteAccount = function(req, res, next) {
+/*var postDeleteAccount = function(req, res, next) {
   User.remove({ _id: req.user.id }, function(err) {
     if (err) return next(err);
     req.logout();
     res.redirect('/');
   });
-};
+};*/
 
 /**
  * GET /account/unlink/:provider
@@ -195,7 +220,7 @@ exports.postDeleteAccount = function(req, res, next) {
  * @param id - User ObjectId
  */
 
-exports.getOauthUnlink = function(req, res, next) {
+/*var getOauthUnlink = function(req, res, next) {
   var provider = req.params.provider;
   User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
@@ -209,14 +234,14 @@ exports.getOauthUnlink = function(req, res, next) {
       res.redirect('/account');
     });
   });
-};
+};*/
 
 /**
  * GET /reset/:token
  * Reset Password page.
  */
 
-exports.getReset = function(req, res) {
+/*var getReset = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
@@ -233,14 +258,14 @@ exports.getReset = function(req, res) {
         title: 'Password Reset'
       });
     });
-};
+};*/
 
 /**
  * POST /reset/:token
  * Process the reset password request.
  */
 
-exports.postReset = function(req, res, next) {
+/*var postReset = function(req, res, next) {
   req.assert('password', 'Password must be at least 4 characters long.').len(4);
   req.assert('confirm', 'Passwords must match.').equals(req.body.password);
 
@@ -298,21 +323,21 @@ exports.postReset = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/');
   });
-};
+};*/
 
 /**
  * GET /forgot
  * Forgot Password page.
  */
 
-exports.getForgot = function(req, res) {
+/*var getForgot = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
   res.render('account/forgot', {
     title: 'Forgot Password'
   });
-};
+};*/
 
 /**
  * POST /forgot
@@ -320,7 +345,7 @@ exports.getForgot = function(req, res) {
  * @param email
  */
 
-exports.postForgot = function(req, res, next) {
+/*var postForgot = function(req, res, next) {
   req.assert('email', 'Please enter a valid email address.').isEmail();
 
   var errors = req.validationErrors();
@@ -378,4 +403,4 @@ exports.postForgot = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/forgot');
   });
-};
+};*/

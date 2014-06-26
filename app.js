@@ -2,6 +2,10 @@
  * Module dependencies.
  */
 
+// Load dotenv.
+var dotenv = require('dotenv');
+dotenv.load();
+
 var express = require('express');
 var cors = require('cors');
 var http = require('http');
@@ -15,24 +19,20 @@ var errorHandler = require('errorhandler');
 var csrf = require('lusca').csrf();
 var methodOverride = require('method-override');
 
-var MongoStore = require('connect-mongo')({ session: session });
+var RedisStore = require('connect-redis')(session);
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
-var admin = require('./custom/fundme-admin');
-
-// Load dotenv.
-var dotenv = require('dotenv');
-dotenv.load();
+var db = require('./models');
 
 /**
  * Load controllers.
  */
 
 // @TODO -- dep this
-var userController = require('./controllers/user');
+//var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 
 /**
@@ -52,16 +52,16 @@ var app = express();
  * Mongoose configuration.
  */
 
-mongoose.connect(secrets.db);
+/*mongoose.connect(secrets.db);
 mongoose.connection.on('error', function() {
   console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
-});
+});*/
 
 /**
  * CSRF Whitelist
  */
 // @TODO -- ya know.
-var whitelist = ['/opportunity/create', '/', '/admin/opportunities/new', '/admin/opportunities'];
+var whitelist = ['/opportunity/create', '/', '/admin/Opportunities/new', '/admin/Opportunities'];
 
 /**
  * Express configuration.
@@ -77,23 +77,22 @@ app.set('view engine', 'jade');
 app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
 app.use(session({
   secret: secrets.sessionSecret,
-  store: new MongoStore({
-    url: secrets.db,
-    auto_reconnect: true
+  store: new RedisStore({
+    url: secrets.redis
   })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   if (whitelist.indexOf(req.path) !== -1) next();
   else csrf(req, res, next);
-});
+});*/
 
 // Set up locals via middleware
 app.use(function(req, res, next) {
@@ -137,7 +136,7 @@ app.use(function(req, res, next) {
 
 
 // Access Policy;
-app.use('/admin', require('./policies/admin'));
+//app.use('/admin', require('./policies/admin'));
 
 /**
  * Sub Apps
@@ -148,35 +147,26 @@ app.use('/admin', require('./policies/admin'));
  * Application routes.
  */
 
-require('./controllers/opportunity')(app);
+require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
+require('./controllers/admin')(app);
 
-admin.config(app, mongoose, '/admin');
+//admin.config(app, mongoose, '/admin');
 
 
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.get('/forgot', userController.getForgot);
-app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
-app.get('/signup', userController.getSignup);
-app.post('/signup', userController.postSignup);
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-app.get('/account', passportConf.isAuthenticated, userController.getAccount);
-app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
-app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
-app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
-
+/**
+ * Sequelize
+ */
+db.sequelize.sync({ force: false }).complete(function(err) {
+    if (err) throw err;
+    else console.log('OK');
+});
 
 /**
  * 500 Error Handler.
  * As of Express 4.0 it must be placed at the end, after all routes.
  */
-
 app.use(errorHandler());
 
 /**
@@ -188,3 +178,4 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+

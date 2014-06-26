@@ -9,4 +9,9 @@
 	To add a new task, simply add a new task file to gulp/tasks.
 */
 
+// Load dotenv.
+var dotenv = require('dotenv');
+dotenv.load();
+
+
 require('./gulp');

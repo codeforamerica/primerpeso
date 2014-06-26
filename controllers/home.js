@@ -1,9 +1,6 @@
-var OppQuery = require('../models/OppQuery');
-var OpModel = require('../models/Opportunity');
 
 module.exports = function(app) {
   app.get('/', index);
-  app.get('/monkey', test);
 };
 
 /**
@@ -12,13 +9,9 @@ module.exports = function(app) {
  */
 
 var index = function(req, res) {
-  res.render('home', {
+  console.log('home controller');
+  return res.render('home', {
     title: 'Home',
     bodyClass: 'home',
   });
-};
-
-
-var test = function(req, res) {
-  res.json(OpModel.getEditFormFields());
 };

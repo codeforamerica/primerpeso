@@ -12,7 +12,6 @@ gulp.task('vendor', function() {
 
     "use strict";
 
-    console.log(config);
     return es.concat(
       gulp.src(config.vendorJS)
       .pipe(concat("vendor.min.js"))
