@@ -18,7 +18,7 @@ mixin choiceSelectField(formOptions)
     select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
-        option(value=cVal) #{choice}
+        option(value=cVal selected=(formOptions.value == cVal)) #{choice}
   if formOptions.choiceOther
     +choiceOther(formOptions)
 
@@ -28,7 +28,7 @@ mixin choiceField(formOptions)
     each choice, cVal in formOptions.choices
       // TODO look at exploding classes
       div(class=formOptions.widget)
-        input(type=formOptions.widget, name=formOptions.name, value=cVal)
+        input(type=formOptions.widget, name=formOptions.name, value=cVal checked=(formOptions.value == cVal))
         label #{choice}
 
 mixin textField(formOptions)
@@ -39,7 +39,7 @@ mixin textField(formOptions)
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
   div(class="col-sm-10")
-    textarea(class="form-control" rows="3" name=formOptions.name value=formOptions.value || '')
+    textarea(class="form-control" rows="3" name=formOptions.name) #{formOptions.value || ''}
 
 // Helpers
 mixin choiceOther(formOptions)
