@@ -2,6 +2,7 @@
 module.exports = {
 
   db: process.env.MONGOLAB_URI || 'mongodb://localhost:27017/bizwallet',
+  redis: process.env.REDIS_URI || 'redis://127.0.0.1:6379/2',
   pg: process.env.PG_URI,
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 

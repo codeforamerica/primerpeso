@@ -103,19 +103,19 @@ function save(req, res) {
         if (errKey != '__raw')
           req.flash('errors', errKey + ': ' + errDesc);
       });
-      return res.json(err);
-      //return res.redirect(req.path);
+      //return res.json(err);
+      return res.redirect(req.path);
     }
 
     instance.save().success(function(){
       req.flash('info', instance.title + ' Successfully Added');
-      return(res.json(instance.toJSON()));
-      //return res.redirect(req.path);
+      //return(res.json(instance.toJSON()));
+      return res.redirect(req.path);
     })
     .error(function(err) {
       req.flash('errors', err.message);
-      //return res.redirect(req.path);
-      return res.json(err);
+      return res.redirect(req.path);
+      //return res.json(err);
     });
   });
 }

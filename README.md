@@ -51,6 +51,9 @@ We need to initialize the database so run this command in the terminal window:
 psql -f config/init.sql
 ```
 
+### Installing redis:
+
+`brew install redis`
 
 ### Running bizwallet
 
