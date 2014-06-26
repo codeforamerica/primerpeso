@@ -2,9 +2,8 @@ include ../mixins/forms.jade
 extends ../layout
 
 block content
-  - var action = base + path
-  - action += isNew ? '' : '/' + id
-  - var id = isNew ? '' : id
+  - var action = base + '/' +  model
+  - action += id ? '/' + id : ''
 
   h2= ( (id) ? "Edit " : "New " ) + ( (name) ? name : model )
 

@@ -34,12 +34,12 @@ mixin choiceField(formOptions)
 mixin textField(formOptions)
   +fieldLabel(formOptions)
   div(class="col-sm-10")
-    input(type=formOptions.widget name=formOptions.name class="form-control" placeholder=formOptions.placeholder)
+    input(type=formOptions.widget name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
   div(class="col-sm-10")
-    textarea(class="form-control" rows="3" name=formOptions.name)
+    textarea(class="form-control" rows="3" name=formOptions.name value=formOptions.value || '')
 
 // Helpers
 mixin choiceOther(formOptions)

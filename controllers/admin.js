@@ -21,8 +21,7 @@ module.exports = function(app) {
 
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
-  app.post(path.join(base, '/:model/new'), save);
-  app.get(path.join(base, '/debug'), debug);
+  app.post(path.join(base, '/:model'), save);
   app.get(path.join(base, '/:model'), list);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
@@ -78,14 +77,27 @@ function list(req, res) {
  * GET Edit / Create
  */
 function edit(req, res) {
+  console.log(req.params);
   var render = _.extend(res.locals, {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  render.isNew = render.id ? false : true;
   var doc = sequelize.model(render.model);
-  render.fields = doc.getFormFields('new');
-  res.render('admin/form', render);
+  if (!render.id) {
+    render.fields = doc.getFormFields('new');
+    return res.render('admin/form', render);
+  }
+  else {
+    doc.find(render.id).success(function(instance) {
+      if (!instance) {
+        res.status(404);
+        return res.render('admin/404', { url: req.url });
+      }
+      render.fields = doc.getFormFields('edit', instance);
+      //return res.json(render);
+      return res.render('admin/form', render);
+    });
+  }
 }
 /**
  * POST Edit / Create
