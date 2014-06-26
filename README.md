@@ -51,6 +51,12 @@ We need to initialize the database so run this command in the terminal window:
 psql -f config/init.sql
 ```
 
+Now run this command to load some sample data into the database:
+
+```
+psql bizwallet <  config/dump.sql
+```
+
 
 ### Running bizwallet
 
