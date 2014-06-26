@@ -52,6 +52,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       label: 'Application Cost',
       widget: 'text',
+      validate: {
+        isNumeric: true
+      }
     },
     applicationDeadline: {
       type: DataTypes.DATE,
@@ -160,7 +163,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       widget: 'checkbox',
       label: 'Additional Demographics',
-      choices: { any: 'any', student: 'student', veteran: 'veteran', minority: 'minority' }
+      choices: { any: 'any', student: 'student', veteran: 'veteran', minority: 'minority' },
+      multiple: true
     },
     additionalGeneralInformation: {
       type: DataTypes.STRING,
