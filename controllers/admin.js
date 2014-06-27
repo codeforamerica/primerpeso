@@ -23,7 +23,7 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
   app.get(path.join(base, '/:model/:id'), entry);
-  app.post(path.join(base, '/:model/:id'), save);
+  app.post(path.join(base, '/:model/:id'), entry_save);
   app.get(path.join(base, '/:model'), list);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
@@ -143,5 +143,17 @@ function entry (req, res) {
 
   Model.find(req.params.id).success(function(result) {
     return res.json(result);
+  });
+}
+
+function entry_save (req, res) {
+  var id = req.params.id;
+  var Model = sequelize.model(req.params.model);
+  var updatedInstance = Model.buildFromAdminForm(req.body);
+  delete updatedInstance.dataValues.id;
+  var newFields = updatedInstance.dataValues;
+  Model.find(req.params.id).success(function(result) {
+    result.updateAttributes(newFields)
+    .success(function() { res.redirect(req.path); });
   });
 }
