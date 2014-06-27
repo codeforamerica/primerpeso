@@ -57,13 +57,14 @@ p {
   font-size: 125%;
 }
 
+
 // Navbar
 // -------------------------
 
 @navbar-height: 100px;
 
 .navbar-default {
-	background-color: #97e8c1;
+	background-color: @green;
 	border-color: #97e8c1;
 	font-size: 24px;
 }
@@ -90,12 +91,26 @@ p {
 .landing {
   text-align: left;
   display: inline-block;
+  .title {
+    margin-top: 50px;
+  }
   p {
-    font-size: 125%;
+    font-size: 150%;
+  }
+  .subtitle {
+    color: @dark-grey;
+    font-size: 200%
+  }
+  h2 {
+    font-size: 270%;
+    color: @navy;
+    margin: 20px 0px;
+    font-weight: bold;
   }
   img {
     float: left;
     display: inline;
+    margin-right: 25px;
   }
 }
 
@@ -107,7 +122,12 @@ p {
 .landing-body-right {
   text-align: right;
   display: inline-block;
+  img {
+    float: right;
+    margin-left: 25px;
+  }
 }
+
 
 .title {
   color: @navy;
@@ -125,7 +145,8 @@ p {
   background-color: @dark-green;
   color: @white;
   font-size: 150%;
-  margin-top: 15px;
+  margin: 20px;
+  padding: 15px;
 }
 
 
