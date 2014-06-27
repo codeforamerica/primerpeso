@@ -1,14 +1,22 @@
 language: node_js
 services:
-  - mongodb
+  redis-server
+env:
+  - DATABASE_URL=postgres://MrMaksimize@127.0.0.1/bizwallet
+before_script:
+  - psql -c 'create database bizwallet;' -U postgres
+  - gulp build
+addons:
+  postgresql: "9.3"
 node_js:
-  - '0.10'
+  '0.10'
 deploy:
   provider: heroku
+  skip_cleanup: true
   api_key:
     secure: sBTSFu2fqUMjrYkeVynHzn90HTXQF4hkBCyebUk+Y3jF9MaHD7nZmZn/teGkuNILtCYwohYZvWc6rYxYrLXhjhenU5uaN85b7FFlu1XG6MRGBv47+UALOH5C/6HhV50ItBq0/U0+CorlA5w0M0pbngnooyoeEojniqa5CjvRB4o=
   app: bizwallet
   on:
     repo: CoquiCoders/bizwallet
   run:
-    - restart
+    restart

@@ -22,7 +22,6 @@ var methodOverride = require('method-override');
 var RedisStore = require('connect-redis')(session);
 var flash = require('express-flash');
 var path = require('path');
-var mongoose = require('mongoose');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var db = require('./models');
@@ -48,14 +47,6 @@ var passportConf = require('./config/passport');
 
 var app = express();
 
-/**
- * Mongoose configuration.
- */
-
-/*mongoose.connect(secrets.db);
-mongoose.connection.on('error', function() {
-  console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
-});*/
 
 /**
  * CSRF Whitelist
@@ -152,7 +143,6 @@ require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
 
-//admin.config(app, mongoose, '/admin');
 
 
 /**
