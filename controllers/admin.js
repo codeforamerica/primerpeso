@@ -51,12 +51,14 @@ function list(req, res) {
   });
 
   var Model = sequelize.model(render.model);
+  var doc = sequelize.model(render.model);
+  fields = doc.getFormFields('new');
   /*var options = {
     page: (req.param('page') > 0 ? req.param('page') : 1) - 1;
     perPage: 30,
   };*/
   Model.findAndCountAll().success(function(result) {
-    return res.json(result);
+    return res.render('admin/list', { data: result.rows, fields: fields });
   });
 
   /*Model.list(options, function(err, results) {
