@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha"
+    "test": "mocha",
+    "postinstall": "gulp build"
   },
   "browser": {
     "underscore": "backbone/node_modules/underscore"
