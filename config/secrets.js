@@ -4,6 +4,7 @@ module.exports = {
   redis: process.env.REDISTOGO_URL || 'redis://127.0.0.1:6379/2',
   pg: process.env.DATABASE_URL,
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
+  staticFilePrefix: process.env.STATIC_FILE_PREFIX || '',
 
   mailgun: {
     login: process.env.MAILGUN_LOGIN || 'postmaster@sandbox697fcddc09814c6b83718b9fd5d4e5dc.mailgun.org',

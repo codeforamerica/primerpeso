@@ -10,15 +10,41 @@ addons:
   postgresql: "9.3"
 node_js:
   '0.10'
+branches:
+  only:
+    - master
+    - production
 deploy:
-  provider: heroku
-  skip_cleanup: true
-  before_deploy:
-    - rm -rf `echo $TRAVIS_BUILD_DIR/node_modules`
-  api_key:
-    secure: sBTSFu2fqUMjrYkeVynHzn90HTXQF4hkBCyebUk+Y3jF9MaHD7nZmZn/teGkuNILtCYwohYZvWc6rYxYrLXhjhenU5uaN85b7FFlu1XG6MRGBv47+UALOH5C/6HhV50ItBq0/U0+CorlA5w0M0pbngnooyoeEojniqa5CjvRB4o=
-  app: bizwallet
-  on:
-    repo: CoquiCoders/bizwallet
-  run:
-    restart
+  - provider: s3
+    access_key_id: AKIAJKINSR3KS7NCOKIQ
+    secret_access_key:
+      secure: i3IuFD2zBvt5YUDBY0n6QJYj5upGKR9XOQiDqeeHzP6rXx4R9FeWccGAQZAM+fFWM6L3bWU4K92YguHw0AzPhmHOGerlO+KcpuLQqwcO5BtQbXBUlb4QCwfW48KW6ceRlG2WgYEKvF5PswNBGbVVkJKoaDGoc355ior7M59Kq20=
+    bucket: bizwallet
+    local-dir: public/build
+    skip_cleanup: true
+    on:
+      branch: production
+  - provider: s3
+    access_key_id: AKIAJKINSR3KS7NCOKIQ
+    secret_access_key:
+      secure: i3IuFD2zBvt5YUDBY0n6QJYj5upGKR9XOQiDqeeHzP6rXx4R9FeWccGAQZAM+fFWM6L3bWU4K92YguHw0AzPhmHOGerlO+KcpuLQqwcO5BtQbXBUlb4QCwfW48KW6ceRlG2WgYEKvF5PswNBGbVVkJKoaDGoc355ior7M59Kq20=
+    bucket: bizwallet-staging
+    local-dir: public/build
+    skip_cleanup: true
+    on:
+      branch: master
+  - provider: heroku
+    api_key:
+      master:
+        secure: sBTSFu2fqUMjrYkeVynHzn90HTXQF4hkBCyebUk+Y3jF9MaHD7nZmZn/teGkuNILtCYwohYZvWc6rYxYrLXhjhenU5uaN85b7FFlu1XG6MRGBv47+UALOH5C/6HhV50ItBq0/U0+CorlA5w0M0pbngnooyoeEojniqa5CjvRB4o=
+      production:
+        secure: S24HJcILh7RZcKH2kPJ3eOZShSoUYO0JqB0QKhD33d0ThJz9B5PXA26qITJPt/GNB88EHXSpigACrPOtH/tOlHmzZGAffVkAgoj8KDjoNbeRfRbx4ZM00v4vY3b9U/wsmO6bobSrR39D/UWALZDz0aWMQnYIG/QXM02lpzrlRxo=
+    app:
+      master: bizwallet-staging
+      production: bizwallet
+    on:
+      repo: CoquiCoders/bizwallet
+    run:
+      restart
+
+

@@ -89,6 +89,10 @@ app.use(passport.session());
 app.use(function(req, res, next) {
   res.locals.user = req.user;
   res.locals.path = req.path;
+  res.locals.env  = app.get('env');
+  res.locals.CDN = function(relPath) {
+    return secrets.staticFilePrefix + relPath;
+  }
   next();
 });
 
