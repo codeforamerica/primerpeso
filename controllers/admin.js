@@ -65,20 +65,6 @@ function list(req, res) {
     return res.render('admin/list', { data: result.rows, fields: fields });
   });
 
-  /*Model.list(options, function(err, results) {
-    if (err) return res.render('admin/500');
-    Model.count().exec(function(err, count) {
-      res.render('admin/list', {
-        title: capitalizeFirstLetter(p),
-        list:  info[p].list,
-        fields: info[p].fields,
-        data:  results,
-        path:  p,
-        page:  page + 1,
-        pages: Math.ceil(count / perPage)
-      });
-    });
-  });*/
 }
 
 /**
