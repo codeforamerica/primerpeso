@@ -9,6 +9,9 @@ module.exports = function(app) {
 
   var base = '/admin';
 
+
+  app.use(base, require('../policies/admin'));
+
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
