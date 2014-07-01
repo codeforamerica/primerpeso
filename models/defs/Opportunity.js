@@ -192,7 +192,15 @@ module.exports = function(sequelize, DataTypes) {
     }
  }
 
-  classMethods = _.extend(modelUtils.classMethods, {});
+  classMethods = _.extend(modelUtils.classMethods, {
+    getListFields: function() {
+      /*return [
+        'title',
+        'purpose'
+      ];*/
+      return null;
+    }
+  });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
 
   return sequelize.define('opportunity', attributes, {

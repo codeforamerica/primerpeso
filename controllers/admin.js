@@ -56,12 +56,10 @@ function list(req, res) {
 
   var Model = sequelize.model(render.model);
   var doc = sequelize.model(render.model);
-  fields = doc.getFormFields('new');
-  /*var options = {
-    page: (req.param('page') > 0 ? req.param('page') : 1) - 1;
-    perPage: 30,
-  };*/
-  Model.findAndCountAll().success(function(result) {
+  var keys = doc.getListFields ? doc.getListFields() : null;
+  var fields = keys ? _.pick(doc.getFormFields('new'), keys) : doc.getFormFields('new');
+  var options = keys ? { attributes: keys } : {};
+  Model.findAndCountAll(options).success(function(result) {
     return res.render('admin/list', { data: result.rows, fields: fields });
   });
 
@@ -71,7 +69,6 @@ function list(req, res) {
  * GET Edit / Create
  */
 function edit(req, res) {
-  console.log(req.params);
   var render = _.extend(res.locals, {
     model: req.params.model || '',
     id: req.params.id || ''
