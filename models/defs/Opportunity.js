@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       widget: 'select',
-      choices: choicesList.purpose,
+      choices: choicesList.getFormChoices('purpose'),
       validate: {
       },
       label: 'Purpose',
@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       multiple: true,
       widget: 'select',
-      choices: choicesList.eligibleBusinessLocation,
+      choices: choicesList.getFormChoices('eligibleBusinessLocation'),
       label: 'Eligible Business Location',
       choiceOther: true
     },
@@ -75,7 +75,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       widget: 'select',
-      choices: choicesList.benefitType,
+      choices: choicesList.getFormChoices('benefitType'),
       label: 'Benefit Type',
       choiceOther: true
     },
@@ -114,14 +114,14 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       label: 'Minimum Years In Business',
       widget: 'select',
-      choices: choicesList.yearsInBusiness,
+      choices: choicesList.getFormChoices('yearsInBusiness'),
     },
     eligibleEntityTypes: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       widget: 'checkbox',
       allowNull: false,
       multiple: true,
-      choices: choicesList.eligibleEntityTypes,
+      choices: choicesList.getFormChoices('eligibleEntityTypes'),
       label: 'Eligible Entity Types'
     },
     currentEmployeesRequired: {
@@ -129,13 +129,13 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'select',
       multiple: true,
       allowNull: false,
-      choices: choicesList.currentEmployeesRequired,
+      choices: choicesList.getFormChoices('currentEmployeesRequired'),
       label: 'Current Employees Required',
     },
     annualRevenue: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       widget: 'select',
-      choices: choicesList.annualRevenue,
+      choices: choicesList.getFormChoices('annualRevenue'),
       multiple: true,
       allowNull: false,
       label: 'Annual Revenue',
@@ -145,7 +145,7 @@ module.exports = function(sequelize, DataTypes) {
       multiple: true,
       allowNull: false,
       widget: 'checkbox',
-      choices: choicesList.eligibleIndustries,
+      choices: choicesList.getFormChoices('eligibleIndustries'),
       label: 'Eligible Industries',
       choiceOther: true
     },
@@ -161,7 +161,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       label: 'Age',
       widget: 'select',
-      choices: choicesList.age,
+      choices: choicesList.getFormChoices('age'),
     },
     additionalDemographics: {
       type: DataTypes.ARRAY(DataTypes.STRING),
