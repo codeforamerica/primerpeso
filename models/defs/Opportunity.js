@@ -147,6 +147,7 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'checkbox',
       choices: choicesList.eligibleIndustries,
       label: 'Eligible Industries',
+      choiceOther: true
     },
     gender: {
       type: DataTypes.STRING,

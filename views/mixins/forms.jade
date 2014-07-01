@@ -44,9 +44,12 @@ mixin textAreaField(formOptions)
 // Helpers
 mixin choiceOther(formOptions)
   .choiceOther.form-group.col-sm-12
-    label(for=formOptions.name class="col-sm-2 control-label") Other
+    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
     div(class="col-sm-10")
-      input(type="text" name=formOptions.name + "-other" value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+      if formOptions.widget == 'checkbox'
+        input(type="text" name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+      else
+        input(type="text" name=formOptions.name + "-other" value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
   label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
