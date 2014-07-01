@@ -23,11 +23,12 @@ module.exports = function(sequelize, DataTypes) {
     purpose: {
       type: DataTypes.TEXT,
       allowNull: false,
-      widget: 'radio',
+      widget: 'select',
       choices: choicesList.purpose,
       validate: {
       },
-      label: 'Purpose'
+      label: 'Purpose',
+      choiceOther: true
     },
     // TODO: Need to add distinct municipalities to options
     eligibleBusinessLocation: {
@@ -36,7 +37,8 @@ module.exports = function(sequelize, DataTypes) {
       multiple: true,
       widget: 'select',
       choices: choicesList.eligibleBusinessLocation,
-      label: 'Eligible Business Location'
+      label: 'Eligible Business Location',
+      choiceOther: true
     },
     // TODO: These need to be separate inputs on the UI that get joined
     // in the backend.
@@ -74,7 +76,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       widget: 'select',
       choices: choicesList.benefitType,
-      label: 'Benefit Type'
+      label: 'Benefit Type',
+      choiceOther: true
     },
     benefitDescription: {
       type: DataTypes.TEXT,
@@ -177,7 +180,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       widget: 'radio',
-      choices: {'yes': true, 'no': false},
+      choices: {true: 'yes', false: 'no'},
       label: 'Is there any amount the business needs to invest?'
     },
     moneyInvested: {

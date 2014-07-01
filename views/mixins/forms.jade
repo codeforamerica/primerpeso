@@ -11,6 +11,8 @@ mixin makeField(formOptions)
       +choiceField(formOptions)
     else
       +textField(formOptions)
+  if formOptions.choiceOther
+    +choiceOther(formOptions)
 
 mixin choiceSelectField(formOptions)
   +fieldLabel(formOptions)
@@ -19,8 +21,6 @@ mixin choiceSelectField(formOptions)
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
         option(value=cVal selected=(formOptions.value == cVal)) #{choice}
-  if formOptions.choiceOther
-    +choiceOther(formOptions)
 
 mixin choiceField(formOptions)
   +fieldLabel(formOptions)
@@ -43,11 +43,10 @@ mixin textAreaField(formOptions)
 
 // Helpers
 mixin choiceOther(formOptions)
-  - formOptions.label = "other"
-  - formOptions.required = false
-  - formOptions.name = formOptions.name + "[other]"
-  .choiceOther
-    +textField(formOptions)
+  .choiceOther.form-group.col-sm-12
+    label(for=formOptions.name class="col-sm-2 control-label") Other
+    div(class="col-sm-10")
+      input(type="text" name=formOptions.name + "-other" value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
   label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}

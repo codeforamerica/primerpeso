@@ -44,6 +44,10 @@ var classMethods = {
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
           value = [value];
         }
+        // Get value from 'other' text fields if necessary
+        if (value == 'other' && reqBody[fieldKey+'-other'] !== '') {
+          value = reqBody[fieldKey+'-other']
+        };
         modelData[fieldKey] = value;
       }
     });
