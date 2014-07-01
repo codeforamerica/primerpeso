@@ -79,6 +79,7 @@ function edit(req, res) {
   var doc = sequelize.model(render.model);
   if (!render.id) {
     render.fields = doc.getFormFields('new');
+    //return res.json(render.fields);
     return res.render('admin/form', render);
   }
   else {
@@ -100,7 +101,6 @@ function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
   var instance = Model.buildFromAdminForm(req.body);
-  //return(res.json(instance.toJSON()));
   instance.validate().
   success(function(err) {
     if (err) {

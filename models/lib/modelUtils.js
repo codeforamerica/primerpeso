@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var choicesList = require('../../lib/options.js');
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
@@ -40,14 +41,17 @@ var classMethods = {
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
+        // Get value from 'other' text fields if necessary
+        if (value == 'other' && reqBody[fieldKey+'-other'] !== '') {
+          value = reqBody[fieldKey+'-other'];
+          value = choicesList.optionizeValue(value);
+        };
+
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
           value = [value];
         }
-        // Get value from 'other' text fields if necessary
-        if (value == 'other' && reqBody[fieldKey+'-other'] !== '') {
-          value = reqBody[fieldKey+'-other']
-        };
+
         modelData[fieldKey] = value;
       }
     });
