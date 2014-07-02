@@ -160,7 +160,23 @@ p {
   }
 }
 
+.wizard .content {
+  background-color: white;
+  min-height: inherit;
+  .body {
+    position: relative !important;
+  }
+}
+
 .wizard .steps{
+  margin-top: 23px;
+  border-bottom: @light-grey 2px solid;
+  a, a:hover {
+    margin: 0 0.5em 1.2em;
+  }
+  .actions a, .actions a:hover {
+    background-color: @dark-green;
+  }
   .current a {
     background-color: @dark-green;
   }
@@ -174,6 +190,11 @@ p {
 
 .wizard .steps .done a:hover { //having trouble getting this nesting to work
   background-color: @navy;
+}
+
+.body .control-label {
+    font-size: 24px;
+    color: @navy;
 }
 
 // Landing Page
