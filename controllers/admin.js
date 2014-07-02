@@ -9,6 +9,9 @@ module.exports = function(app) {
 
   var base = '/admin';
 
+
+  app.use(base, require('../policies/admin'));
+
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
@@ -53,43 +56,28 @@ function list(req, res) {
 
   var Model = sequelize.model(render.model);
   var doc = sequelize.model(render.model);
-  fields = doc.getFormFields('new');
-  /*var options = {
-    page: (req.param('page') > 0 ? req.param('page') : 1) - 1;
-    perPage: 30,
-  };*/
-  Model.findAndCountAll().success(function(result) {
+  var keys = doc.getListFields ? doc.getListFields() : null;
+  var fields = keys ? _.pick(doc.getFormFields('new'), keys) : doc.getFormFields('new');
+  var options = keys ? { attributes: keys } : {};
+  Model.findAndCountAll(options).success(function(result) {
     return res.render('admin/list', { data: result.rows, fields: fields });
   });
 
-  /*Model.list(options, function(err, results) {
-    if (err) return res.render('admin/500');
-    Model.count().exec(function(err, count) {
-      res.render('admin/list', {
-        title: capitalizeFirstLetter(p),
-        list:  info[p].list,
-        fields: info[p].fields,
-        data:  results,
-        path:  p,
-        page:  page + 1,
-        pages: Math.ceil(count / perPage)
-      });
-    });
-  });*/
 }
 
 /**
  * GET Edit / Create
  */
 function edit(req, res) {
-  console.log(req.params);
   var render = _.extend(res.locals, {
     model: req.params.model || '',
     id: req.params.id || ''
   });
+  // TODO -- why does this load a model loaded in a previously edited call
   var doc = sequelize.model(render.model);
   if (!render.id) {
     render.fields = doc.getFormFields('new');
+    //return res.json(render.fields);
     return res.render('admin/form', render);
   }
   else {
@@ -100,6 +88,7 @@ function edit(req, res) {
       }
       render.fields = doc.getFormFields('edit', instance);
       //return res.json(render);
+      //return res.json(instance);
       return res.render('admin/form', render);
     });
   }
@@ -111,7 +100,6 @@ function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
   var instance = Model.buildFromAdminForm(req.body);
-  //return(res.json(instance.toJSON()));
   instance.validate().
   success(function(err) {
     if (err) {
@@ -120,19 +108,18 @@ function save(req, res) {
         if (errKey != '__raw')
           req.flash('errors', errKey + ': ' + errDesc);
       });
-      //return res.json(err);
-      return res.redirect(req.path);
+      return res.json(err);
+      //return res.redirect(req.path);
     }
 
     instance.save().success(function(){
       req.flash('info', instance.title + ' Successfully Added');
-      //return(res.json(instance.toJSON()));
       return res.redirect(req.path);
     })
     .error(function(err) {
       req.flash('errors', err.message);
-      return res.redirect(req.path);
-      //return res.json(err);
+      //return res.redirect(req.path);
+      return res.json(err);
     });
   });
 }

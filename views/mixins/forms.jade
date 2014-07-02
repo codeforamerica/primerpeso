@@ -26,9 +26,13 @@ mixin choiceField(formOptions)
   +fieldLabel(formOptions)
   div(class="col-sm-4")
     each choice, cVal in formOptions.choices
-      // TODO look at exploding classes
+      - var checkedBox = false;
+      if (formOptions.value)
+        each val, index in formOptions.value
+          if (val == cVal)
+            - checkedBox = true
       div(class=formOptions.widget)
-        input(type=formOptions.widget, name=formOptions.name, value=cVal checked=(formOptions.value == cVal))
+        input(type=formOptions.widget, name=formOptions.name, value=cVal checked=checkedBox)
         label #{choice}
 
 mixin textField(formOptions)
@@ -47,9 +51,9 @@ mixin choiceOther(formOptions)
     label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
     div(class="col-sm-10")
       if formOptions.widget == 'checkbox'
-        input(type="text" name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+        input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
       else
-        input(type="text" name=formOptions.name + "-other" value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+        input(type="text" name=formOptions.name + "-other" value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
   label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}
