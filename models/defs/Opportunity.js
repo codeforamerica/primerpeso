@@ -174,12 +174,10 @@ module.exports = function(sequelize, DataTypes) {
     additionalGeneralInformation: {
       type: DataTypes.STRING,
       widget: 'textArea',
-      label: 'Additional General Information',
-      allowNull: false
+      label: 'Additional General Information'
     },
     investingOwnMoney: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       widget: 'radio',
       choices: {true: 'yes', false: 'no'},
       label: 'Is there any amount the business needs to invest?'
