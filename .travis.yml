@@ -45,6 +45,7 @@ deploy:
     on:
       repo: CoquiCoders/bizwallet
     run:
-      restart
+      - "restart"
+      - "gulp prodBuild"
 
 
