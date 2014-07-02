@@ -12,5 +12,4 @@ block content
       h3= form.options.fieldSets[ fieldSetIndex ].label
       fieldset
         each fieldSetField, fieldSetFieldIndex in fieldSet
-          div(id=fieldSetFieldIndex)
           +makeField(fieldSetField)
