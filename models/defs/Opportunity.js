@@ -164,7 +164,7 @@ module.exports = function(sequelize, DataTypes) {
       choices: choicesList.getFormChoices('age'),
     },
     additionalDemographics: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.ARRAY(DataTypes.STRING(4096)),
       allowNull: false,
       widget: 'checkbox',
       label: 'Additional Demographics',
