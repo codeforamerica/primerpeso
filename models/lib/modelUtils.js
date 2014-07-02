@@ -58,9 +58,9 @@ var classMethods = {
         //console.log(model.get(key));
         element.name = key;
 
-	// TODO -- this is an abomination.
-	element.value = null
-	element.otherValue = null;
+        // TODO -- this is an abomination.
+        element.value = null
+        element.otherValue = null;
 
         if (op == 'edit') {
           var valueSet = buildElementValues(element, model.get(key));
