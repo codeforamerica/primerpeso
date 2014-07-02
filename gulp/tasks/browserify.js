@@ -25,12 +25,6 @@ gulp.task('browserify', function() {
       outputFile: 'main.js',
       outputPath: config.dest + '/js/'
     }
-    /*search: {
-		  entries: [config.src + '/js/search/app.js'],
-		  extensions: ['.js'],
-      outputFile: 'search.js',
-      outputPath: config.dest + '/js/'
-    }*/
   };
 
   var bundlers = [];

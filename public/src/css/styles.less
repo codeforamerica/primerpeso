@@ -11,7 +11,6 @@
 //BizWallet Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
-@darker-green: #18bc9c + #333;
 @light-green: #cbf7e1;
 @navy: #146482;
 @white: #ffffff;
@@ -129,7 +128,6 @@ p {
   }
 }
 
-
 .title {
   color: @navy;
   font-size: 550%;
@@ -177,6 +175,69 @@ p {
 .wizard .steps .done a:hover { //having trouble getting this nesting to work
   background-color: @navy;
 }
+
+// Landing Page
+// -------------------------
+.landing {
+  text-align: left;
+  display: inline-block;
+  .title {
+    margin-top: 50px;
+  }
+  p {
+    font-size: 150%;
+  }
+  .subtitle {
+    color: @dark-grey;
+    font-size: 200%
+  }
+  h2 {
+    font-size: 270%;
+    color: @navy;
+    margin: 20px 0px;
+    font-weight: bold;
+  }
+  img {
+    float: left;
+    display: inline;
+    margin-right: 25px;
+  }
+}
+
+.landing-header, .landing-last {
+  text-align: center;
+  display: inline-block;
+}
+
+.landing-body-right {
+  text-align: right;
+  display: inline-block;
+  img {
+    float: right;
+    margin-left: 25px;
+  }
+}
+
+.title {
+  color: @navy;
+  font-size: 550%;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-weight: bold;
+}
+
+// Buttons
+// -------------------------
+.btn {
+  background-color: @dark-green;
+  color: @white;
+  font-size: 150%;
+  margin: 20px;
+  padding: 15px;
+}
+
 
 // Social Buttons
 // -------------------------

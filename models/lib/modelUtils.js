@@ -15,14 +15,19 @@ var fieldBlackList = {
 };
 
 var classMethods = {
-  getFormFields: function(op) {
+  getFormFields: function(op, model) {
     var op = op || 'new';
     var blacklist = fieldBlackList[op];
     var fieldList = {};
     _.each(this.rawAttributes, function(element, key) {
       if (!_.contains(blacklist, key)) {
         // Set some properties
+        console.log(key);
         element.name = key;
+
+        if (op == 'edit')
+          element.value = model.get(key)
+
         element.widget = element.widget ? element.widget : 'text';
         fieldList[key] = element;
       }
@@ -39,15 +44,21 @@ var classMethods = {
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
           value = [value];
         }
+        // Get value from 'other' text fields if necessary
+        if (value == 'other' && reqBody[fieldKey+'-other'] !== '') {
+          value = reqBody[fieldKey+'-other']
+        };
         modelData[fieldKey] = value;
       }
     });
     var instance = this.build(modelData);
     return instance;
-  },
+  }
 };
 
-var instanceMethods = {};
+var instanceMethods = {
+};
+
 var hooks = {};
 
 var utils = {

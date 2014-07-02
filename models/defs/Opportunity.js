@@ -23,20 +23,22 @@ module.exports = function(sequelize, DataTypes) {
     purpose: {
       type: DataTypes.TEXT,
       allowNull: false,
-      widget: 'radio',
+      widget: 'select',
       choices: choicesList.purpose,
       validate: {
       },
-      label: 'Purpose'
+      label: 'Purpose',
+      choiceOther: true
     },
     // TODO: Need to add distinct municipalities to options
     eligibleBusinessLocation: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
       multiple: true,
-      widget: 'radio',
+      widget: 'select',
       choices: choicesList.eligibleBusinessLocation,
-      label: 'Eligible Business Location'
+      label: 'Eligible Business Location',
+      choiceOther: true
     },
     // TODO: These need to be separate inputs on the UI that get joined
     // in the backend.
@@ -74,7 +76,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       widget: 'select',
       choices: choicesList.benefitType,
-      label: 'Benefit Type'
+      label: 'Benefit Type',
+      choiceOther: true
     },
     benefitDescription: {
       type: DataTypes.TEXT,
@@ -110,7 +113,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       label: 'Minimum Years In Business',
-      widget: 'text',
+      widget: 'select',
       choices: choicesList.yearsInBusiness,
     },
     eligibleEntityTypes: {
@@ -123,7 +126,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     currentEmployeesRequired: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      widget: 'multiSelect',
+      widget: 'select',
       multiple: true,
       allowNull: false,
       choices: choicesList.currentEmployeesRequired,
@@ -131,7 +134,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     annualRevenue: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      widget: 'multiSelect',
+      widget: 'select',
       choices: choicesList.annualRevenue,
       multiple: true,
       allowNull: false,
@@ -141,21 +144,23 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       multiple: true,
       allowNull: false,
-      widget: 'multiSelect',
+      widget: 'checkbox',
       choices: choicesList.eligibleIndustries,
       label: 'Eligible Industries',
+      choiceOther: true
     },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
       label: 'Gender',
-      widget: 'radio',
+      widget: 'select',
       choices: { any: 'Any', male: 'Male', female: 'Female', other: 'Other'}
     },
     age: {
       type: DataTypes.INTEGER,
       allowNull: false,
       label: 'Age',
+      widget: 'select',
       choices: choicesList.age,
     },
     additionalDemographics: {
@@ -176,13 +181,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       widget: 'radio',
-      choices: {'yes': true, 'no': false},
-      label: 'Are you investing your own money?'
+      choices: {true: 'yes', false: 'no'},
+      label: 'Is there any amount the business needs to invest?'
     },
     moneyInvested: {
       type: DataTypes.STRING,
       widget: 'text',
-      allowNull: false,
+      // allowNull: false,
       label: 'How much?'
     }
  }

@@ -14,6 +14,7 @@ module.exports = function(app) {
     res.locals.path = req.path || '';
     res.locals.menu = { opportunity: 'opportunity' };
     res.locals.isAdminPath = true;
+    res.locals.title = 'Admin';
     next();
   });
 
@@ -21,8 +22,9 @@ module.exports = function(app) {
 
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
-  app.post(path.join(base, '/:model/new'), save);
-  app.get(path.join(base, '/debug'), debug);
+  app.post(path.join(base, '/:model'), save);
+  app.get(path.join(base, '/:model/:id'), entry);
+  app.post(path.join(base, '/:model/:id'), entry_save);
   app.get(path.join(base, '/:model'), list);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
@@ -50,12 +52,14 @@ function list(req, res) {
   });
 
   var Model = sequelize.model(render.model);
+  var doc = sequelize.model(render.model);
+  fields = doc.getFormFields('new');
   /*var options = {
     page: (req.param('page') > 0 ? req.param('page') : 1) - 1;
     perPage: 30,
   };*/
   Model.findAndCountAll().success(function(result) {
-    return res.json(result);
+    return res.render('admin/list', { data: result.rows, fields: fields });
   });
 
   /*Model.list(options, function(err, results) {
@@ -78,14 +82,27 @@ function list(req, res) {
  * GET Edit / Create
  */
 function edit(req, res) {
+  console.log(req.params);
   var render = _.extend(res.locals, {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  render.isNew = render.id ? false : true;
   var doc = sequelize.model(render.model);
-  render.fields = doc.getFormFields('new');
-  res.render('admin/form', render);
+  if (!render.id) {
+    render.fields = doc.getFormFields('new');
+    return res.render('admin/form', render);
+  }
+  else {
+    doc.find(render.id).success(function(instance) {
+      if (!instance) {
+        res.status(404);
+        return res.render('admin/404', { url: req.url });
+      }
+      render.fields = doc.getFormFields('edit', instance);
+      //return res.json(render);
+      return res.render('admin/form', render);
+    });
+  }
 }
 /**
  * POST Edit / Create
@@ -117,5 +134,29 @@ function save(req, res) {
       return res.redirect(req.path);
       //return res.json(err);
     });
+  });
+}
+
+function entry (req, res) {
+  var render = _.extend(res.locals, {
+    model: req.params.model
+  });
+
+  var Model = sequelize.model(render.model);
+
+  Model.find(req.params.id).success(function(result) {
+    return res.json(result);
+  });
+}
+
+function entry_save (req, res) {
+  var id = req.params.id;
+  var Model = sequelize.model(req.params.model);
+  var updatedInstance = Model.buildFromAdminForm(req.body);
+  delete updatedInstance.dataValues.id;
+  var newFields = updatedInstance.dataValues;
+  Model.find(req.params.id).success(function(result) {
+    result.updateAttributes(newFields)
+    .success(function() { res.redirect(req.path); });
   });
 }

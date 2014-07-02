@@ -7,8 +7,8 @@ html
     meta(name='description', content='')
     meta(name='csrf-token', content=_csrf)
     meta(name='author', content='')
-    title #{title} | Fund Me
-    link(rel='stylesheet', href='/css/styles.css')
+    title #{title} | Bizwallet
+    link(rel='stylesheet', href=CDN('/css/styles.css'))
   body(class=bodyClass)
     #wrap
       include partials/navigation
@@ -23,8 +23,8 @@ html
 
     include partials/footer
     // This should be dynamically controlled.
-    script(type='text/javascript', src='/js/vendor.min.js')
-    script(type='text/javascript', src='/js/main.js')
+    script(type='text/javascript', src=CDN('/js/vendor.min.js'))
+    script(type='text/javascript', src=CDN('/js/main.js'))
     if isSearch
       script(type='text/javascript', src='/js/search.js')
     script.

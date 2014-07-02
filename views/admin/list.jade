@@ -5,20 +5,21 @@ block content
     #list-top
       h2= title
       #new
-        a.btn.btn-xs.btn-default(href="#{base}/#{path}/new", role="button") New &raquo;
+        a.btn.btn-xs.btn-default(href="#{base}#{path}/new", role="button") New &raquo;
 
     //- .table-bordered
     table.table.table-striped.table-hover.table-condensed
       thead
         tr
-          each f in list
-            th= fields[f].header || capitalizeFirstLetter(f)
           th
+            | Click to edit
+          each f in fields
+            th= f.label
       tbody
-        each d in data
+        each entry in data
           tr
-            each f in list
-              td= d[f]
             td
-              a.btn.btn-xs.btn-default(href="#{base}/#{path}/#{d._id}/edit") edit
+              a.btn.btn-xs.btn-default(href="#{base}#{path}/#{entry.id}/edit") edit
+            each f in fields
+              td= entry.selectedValues[f.name]
 
