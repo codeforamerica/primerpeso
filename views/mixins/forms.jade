@@ -2,7 +2,7 @@
 // See http://jade-lang.com/reference/#mixins
 
 mixin makeField(formOptions)
-  .form-group.col-sm-12
+  div(id=formOptions.name class="form-group col-sm-12")
     if formOptions.widget == "textArea"
       +textAreaField(formOptions)
     else if formOptions.widget == "select" || formOptions.widget == "multiSelect"
