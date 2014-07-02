@@ -126,7 +126,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     currentEmployeesRequired: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      widget: 'select',
+      widget: 'multiSelect',
       multiple: true,
       allowNull: false,
       choices: choicesList.getFormChoices('currentEmployeesRequired'),
@@ -134,7 +134,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     annualRevenue: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      widget: 'select',
+      widget: 'multiSelect',
       choices: choicesList.getFormChoices('annualRevenue'),
       multiple: true,
       allowNull: false,
