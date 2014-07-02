@@ -154,7 +154,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       label: 'Gender',
       widget: 'select',
-      choices: { any: 'Any', male: 'Male', female: 'Female', other: 'Other'}
+      choices: choicesList.getFormChoices('gender')
     },
     age: {
       type: DataTypes.INTEGER,
