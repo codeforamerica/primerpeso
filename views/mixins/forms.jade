@@ -27,9 +27,10 @@ mixin choiceField(formOptions)
   div(class="col-sm-4")
     each choice, cVal in formOptions.choices
       - var checkedBox = false;
-      each val, index in formOptions.value
-        if (val == cVal)
-          - checkedBox = true
+      if (formOptions.value)
+        each val, index in formOptions.value
+          if (val == cVal)
+            - checkedBox = true
       div(class=formOptions.widget)
         input(type=formOptions.widget, name=formOptions.name, value=cVal checked=checkedBox)
         label #{choice}
