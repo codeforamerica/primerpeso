@@ -74,6 +74,8 @@ app.use(methodOverride());
 app.use(cookieParser());
 app.use(session({
   secret: secrets.sessionSecret,
+  saveUninitialized: true,
+  resave: true,
   store: new RedisStore({
     url: secrets.redis
   })
