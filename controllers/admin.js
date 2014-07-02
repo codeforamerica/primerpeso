@@ -73,6 +73,7 @@ function edit(req, res) {
     model: req.params.model || '',
     id: req.params.id || ''
   });
+  // TODO -- why does this load a model loaded in a previously edited call
   var doc = sequelize.model(render.model);
   if (!render.id) {
     render.fields = doc.getFormFields('new');
