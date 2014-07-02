@@ -113,8 +113,7 @@ function save(req, res) {
 
     instance.save().success(function(){
       req.flash('info', instance.title + ' Successfully Added');
-      return(res.json(instance.toJSON()));
-      //return res.redirect(req.path);
+      return res.redirect(req.path);
     })
     .error(function(err) {
       req.flash('errors', err.message);

@@ -178,7 +178,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     investingOwnMoney: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       widget: 'radio',
       choices: {true: 'yes', false: 'no'},
       label: 'Is there any amount the business needs to invest?'
