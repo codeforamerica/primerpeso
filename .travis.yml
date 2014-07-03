@@ -5,6 +5,7 @@ env:
   - DATABASE_URL=postgres://postgres@127.0.0.1/bizwallet
 before_script:
   - psql -c 'create database bizwallet;' -U postgres
+  - gulp dbsync
   - gulp build
 addons:
   postgresql: "9.3"
