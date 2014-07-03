@@ -6,13 +6,12 @@ var chai = require('chai');
 var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
-var oppMock = require('./mocks/opportunity.js');
+var opportunityMock = require('./mocks/opportunity.js');
 
 describe('Opportunity Model', function() {
 
   it('should create a new opportunity without optional fields', function(done) {
-    var mock = oppMock({
-    });
+    var body = opportunityMock();
     var Opportunity = sequelize.model('opportunity');
     var instance = Opportunity.buildFromAdminForm(body);
     instance.validate().
@@ -31,7 +30,10 @@ describe('Opportunity Model', function() {
 
   it('should create a new opportunity with optional fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
-    var body = { _csrf: 'undefined', _doc_id: '', title: 'Test opp3', purpose: 'Other', 'purpose-other': 'A different purpose', eligibleBusinessLocation: 'anywhere_in_pr', 'eligibleBusinessLocation-other': '', paperworkRequired: 'asdfasd', applicationCost: '23', applicationDeadline: '2014-12-31', avgApplicationTime: '90 days', benefitType: 'incentive', 'benefitType-other': '', benefitDescription: 'Una descripcion', agencyName: 'Una gencia', agencyContactName: 'Un contacto', agencyContactEmail: 'unemail', agencyContactPhone: '7875663317', minimumYearsInBusiness: '0', eligibleEntityTypes: 'non_profit', currentEmployeesRequired: '26_50', annualRevenue: '0_99999', eligibleIndustries: [ 'any', '' ], gender: 'any', age: '0', additionalGeneralInformation: 'Some other general information', moneyInvested: '' }
+    var body = opportunityMock({
+      'purpose-other': 'A different purpose', 
+      additionalGeneralInformation: 'Some other general information'
+    });
     var Opportunity = sequelize.model('opportunity');
     var instance = Opportunity.buildFromAdminForm(body);
     instance.validate().
@@ -50,7 +52,9 @@ describe('Opportunity Model', function() {
 
   it('should throw an error if a required field is missing', function(done) {
     // applicationCost is missing
-    var body = { _csrf: 'undefined', _doc_id: '', title: 'Test opp3', purpose: 'Other', 'purpose-other': 'A different purpose', eligibleBusinessLocation: 'anywhere_in_pr', 'eligibleBusinessLocation-other': '', paperworkRequired: 'asdfasd', applicationCost: '', applicationDeadline: '2014-12-31', avgApplicationTime: '90 days', benefitType: 'incentive', 'benefitType-other': '', benefitDescription: 'Una descripcion', agencyName: 'Una gencia', agencyContactName: 'Un contacto', agencyContactEmail: 'unemail', agencyContactPhone: '7875663317', minimumYearsInBusiness: '0', eligibleEntityTypes: 'non_profit', currentEmployeesRequired: '26_50', annualRevenue: '0_99999', eligibleIndustries: [ 'any', '' ], gender: 'any', age: '0', additionalGeneralInformation: 'Some other general information', moneyInvested: '' }
+    var body = opportunityMock({
+      applicationCost: '',
+    });
     var Opportunity = sequelize.model('opportunity');
     var instance = Opportunity.buildFromAdminForm(body);
     instance.validate().
@@ -64,7 +68,12 @@ describe('Opportunity Model', function() {
 
   it('should correctly parse and save "other" text fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
-    var body = { _csrf: 'undefined', _doc_id: '', title: 'Test opp3', purpose: 'other', 'purpose-other': 'A different purpose', eligibleBusinessLocation: 'anywhere_in_pr', 'eligibleBusinessLocation-other': '', paperworkRequired: 'asdfasd', applicationCost: '23', applicationDeadline: '2014-12-31', avgApplicationTime: '90 days', benefitType: 'incentive', 'benefitType-other': '', benefitDescription: 'Una descripcion', agencyName: 'Una gencia', agencyContactName: 'Un contacto', agencyContactEmail: 'unemail', agencyContactPhone: '7875663318', minimumYearsInBusiness: '0', eligibleEntityTypes: 'non_profit', currentEmployeesRequired: '26_50', annualRevenue: '0_99999', eligibleIndustries: [ 'any', ], gender: 'any', age: '0', additionalGeneralInformation: 'Some other general information', moneyInvested: '' }
+    var body = opportunityMock({
+      purpose: 'other',
+      'purpose-other': 'A different purpose', 
+      additionalGeneralInformation: 'Some other general information'
+    });
+
     var Opportunity = sequelize.model('opportunity');
     var instance = Opportunity.buildFromAdminForm(body);
     instance.validate().
@@ -86,7 +95,9 @@ describe('Opportunity Model', function() {
 
   it('should correctly save "other" checkbox fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
-    var body = { _csrf: 'undefined', _doc_id: '', title: 'Test opp3', purpose: 'other', 'purpose-other': 'A different purpose', eligibleBusinessLocation: 'anywhere_in_pr', 'eligibleBusinessLocation-other': '', paperworkRequired: 'asdfasd', applicationCost: '23', applicationDeadline: '2014-12-31', avgApplicationTime: '90 days', benefitType: 'incentive', 'benefitType-other': '', benefitDescription: 'Una descripcion', agencyName: 'Una gencia', agencyContactName: 'Un contacto', agencyContactEmail: 'unemail', agencyContactPhone: '7875663317', minimumYearsInBusiness: '0', eligibleEntityTypes: 'non_profit', currentEmployeesRequired: '26_50', annualRevenue: '0_99999', eligibleIndustries: [ 'any', 'other', 'Otro Distinto' ], gender: 'any', age: '0', additionalGeneralInformation: 'Some other general information', moneyInvested: '' }
+    var body = opportunityMock({
+      eligibleIndustries: [ 'any', 'other', 'Otro Distinto' ]
+    });
     var Opportunity = sequelize.model('opportunity');
     var instance = Opportunity.buildFromAdminForm(body);
     instance.validate().
