@@ -165,27 +165,25 @@ module.exports = function(sequelize, DataTypes) {
     },
     additionalDemographics: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
       widget: 'checkbox',
       label: 'Additional Demographics',
       choices: { any: 'any', student: 'student', veteran: 'veteran', minority: 'minority' },
       multiple: true
     },
     additionalGeneralInformation: {
-      type: DataTypes.STRING(5000),
+      type: DataTypes.TEXT,
       widget: 'textArea',
       label: 'Additional General Information'
     },
     investingOwnMoney: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       widget: 'radio',
-      choices: {true: 'yes', false: 'no'},
+      choices: {'yes': 'yes', 'yes': 'no'},
       label: 'Is there any amount the business needs to invest?'
     },
     moneyInvested: {
       type: DataTypes.STRING,
       widget: 'text',
-      // allowNull: false,
       label: 'How much?'
     }
  }
