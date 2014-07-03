@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('default', ['redis', 'watch']);
+gulp.task('default', ['redis', 'migrate', 'watch']);
