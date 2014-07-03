@@ -62,7 +62,7 @@ psql bizwallet < config/dump.sql
 
 ### Installing redis:
 
-We need to install Redis, make sure you have [Hombrew](http://brew.sh/) installed and run this command in a terminal window:
+We need to install Redis, make sure you have [Homebrew](http://brew.sh/) installed and run this command in a terminal window:
 
 ```
 brew install redis

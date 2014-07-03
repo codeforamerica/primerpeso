@@ -4,7 +4,7 @@ module.exports = {
       'opportunities',
       'additionalGeneralInformation',
       {
-        type: DataTypes.STRING(5000),
+        type: DataTypes.TEXT,
         widget: 'textArea',
         label: 'Additional General Information'
       }
