@@ -53,6 +53,7 @@ body {
 
 // Layout
 // -------------------------
+
 p {
   font-size: 125%;
 }
@@ -84,6 +85,128 @@ p {
   margin-left: 15px;
   height: 100px;
   font-size: 24px;
+}
+
+// Landing Page
+// -------------------------
+
+.landing {
+  text-align: left;
+  display: inline-block;
+  .title {
+    margin-top: 50px;
+  }
+  p {
+    font-size: 150%;
+  }
+  .subtitle {
+    color: @dark-grey;
+    font-size: 200%
+  }
+  h2 {
+    font-size: 270%;
+    color: @navy;
+    margin: 20px 0px;
+    font-weight: bold;
+  }
+  img {
+    float: left;
+    display: inline;
+    margin-right: 25px;
+  }
+}
+
+.landing-header, .landing-last {
+  text-align: center;
+  display: inline-block;
+}
+
+.landing-body-right {
+  text-align: right;
+  display: inline-block;
+  img {
+    float: right;
+    margin-left: 25px;
+  }
+}
+
+.title {
+  color: @navy;
+  font-size: 550%;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-weight: bold;
+}
+
+// Buttons
+// -------------------------
+
+.btn {
+  background-color: @dark-green;
+  color: @white;
+  font-size: 150%;
+  margin: 20px;
+  padding: 15px;
+}
+
+// Wizard
+// -------------------------
+
+.wizard .steps ul li {
+  width: auto;
+}
+
+.wizard {
+  .actions a {
+    background-color: @dark-green;
+    padding: 15px 35px;
+    font-size: 19px;
+  }
+    a:hover {
+      background-color: @navy;
+      font-size: 19px;
+      padding: 15px 35px;
+    }
+  .actions {
+    text-align: left;
+    margin-left: 5%;
+  }
+}
+
+.wizard .content {
+  background-color: white;
+  min-height: inherit;
+  .body {
+    position: relative !important;
+  }
+}
+
+.wizard .steps{
+  margin-top: 23px;
+  border-bottom: @light-grey 2px solid;
+  a, a:hover {
+    margin: 0 0.5em 1.2em;
+  }
+  .current a {
+    background-color: @dark-green;
+  }
+  .current a:hover {
+    background-color: @navy;//darken(@dark-green, 15%);
+  }
+  .done a {
+    background-color: @green;
+  }
+}
+
+.wizard .steps .done a:hover { //having trouble getting this nesting to work
+  background-color: @navy;
+}
+
+.body .control-label {
+    font-size: 24px;
+    color: @navy;
 }
 
 // Landing Page
@@ -128,7 +251,6 @@ p {
   }
 }
 
-
 .title {
   color: @navy;
   font-size: 550%;
@@ -141,6 +263,7 @@ p {
 
 // Buttons
 // -------------------------
+
 .btn {
   background-color: @dark-green;
   color: @white;
