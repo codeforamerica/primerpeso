@@ -156,23 +156,26 @@ p {
 
 .wizard .steps ul li {
   width: auto;
+  font-size: 19px;
 }
 
 .wizard {
   .actions a {
     background-color: @dark-green;
     padding: 15px 35px;
-    font-size: 19px;
   }
-    a:hover {
-      background-color: @navy;
-      font-size: 19px;
-      padding: 15px 35px;
-    }
   .actions {
     text-align: left;
     margin-left: 5%;
+    .disabled a {
+      padding: 15px 35px;
+    }
   }
+}
+
+.wizard .actions a:hover {
+  background-color: @navy;
+  padding: 15px 35px;
 }
 
 .wizard .content {
@@ -193,14 +196,14 @@ p {
     background-color: @dark-green;
   }
   .current a:hover {
-    background-color: @navy;//darken(@dark-green, 15%);
+    background-color: @navy;
   }
   .done a {
     background-color: @green;
   }
 }
 
-.wizard .steps .done a:hover { //having trouble getting this nesting to work
+.wizard .steps .done a:hover {
   background-color: @navy;
 }
 
