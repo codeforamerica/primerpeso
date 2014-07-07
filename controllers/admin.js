@@ -27,9 +27,9 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
   app.get(path.join(base, '/:model/:id'), entry);
-  app.post(path.join(base, '/:model/:id'), entry_save);
+  app.post(path.join(base, '/:model/:id'), entrySave);
   app.get(path.join(base, '/:model'), list);
-  app.get(path.join(base, '/:model/:id/delete'), delete_model);
+  app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
   app.post(path.join(base, '/:path/:id'), adminRouter);
@@ -137,7 +137,7 @@ function entry (req, res) {
   });
 }
 
-function entry_save (req, res) {
+function entrySave (req, res) {
   var id = req.params.id;
   var Model = sequelize.model(req.params.model);
   var updatedInstance = Model.buildFromAdminForm(req.body);
@@ -149,7 +149,7 @@ function entry_save (req, res) {
   });
 }
 
-function delete_model (req, res) {
+function deleteModel (req, res) {
   var render = _.extend(res.locals, {
     model: req.params.model
   });
