@@ -29,6 +29,7 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/:id'), entry);
   app.post(path.join(base, '/:model/:id'), entry_save);
   app.get(path.join(base, '/:model'), list);
+  app.get(path.join(base, '/:model/:id/delete'), delete_model);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
   app.post(path.join(base, '/:path/:id'), adminRouter);
@@ -145,5 +146,20 @@ function entry_save (req, res) {
   Model.find(req.params.id).success(function(result) {
     result.updateAttributes(newFields)
     .success(function() { res.redirect(req.path); });
+  });
+}
+
+function delete_model (req, res) {
+  var render = _.extend(res.locals, {
+    model: req.params.model
+  });
+
+  var Model = sequelize.model(render.model);
+
+  Model.find(req.params.id).success(function(result) {
+    result.destroy().success(function() {
+      req.flash('info', 'Successfully Deleted Entry');
+      res.redirect('/admin/' + render.model);
+    });
   });
 }
