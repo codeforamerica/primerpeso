@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "chrisrodz",
+    "username": null,
     "password": null,
     "database": "bizwallet",
     "host": "127.0.0.1",

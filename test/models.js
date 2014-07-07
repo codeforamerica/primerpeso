@@ -3,10 +3,13 @@ var dotenv = require('dotenv');
 dotenv.load();
 
 var chai = require('chai');
+var chaiAsPromised = require("chai-as-promised");
 var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
 var opportunityMock = require('./mocks/opportunity.js');
+
+chai.use(chaiAsPromised);
 
 describe('Opportunity Model', function() {
 
@@ -31,7 +34,7 @@ describe('Opportunity Model', function() {
   it('should create a new opportunity with optional fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
-      'purpose-other': 'A different purpose', 
+      'purpose-other': 'A different purpose',
       additionalGeneralInformation: 'Some other general information'
     });
     var Opportunity = sequelize.model('opportunity');
@@ -70,7 +73,7 @@ describe('Opportunity Model', function() {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
       purpose: 'other',
-      'purpose-other': 'A different purpose', 
+      'purpose-other': 'A different purpose',
       additionalGeneralInformation: 'Some other general information'
     });
 
@@ -110,6 +113,29 @@ describe('Opportunity Model', function() {
           op.eligibleIndustries.should.include('Otro Distinto');
           done();
         });
+      })
+      .error(function(err) {
+        done(err);
+      });
+    });
+  });
+
+  it('should fail to create two opportunities with the same title', function(done) {
+    var body = opportunityMock();
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+          var instance2 = Opportunity.buildFromAdminForm(body);
+          instance2.validate().success(function(err) {
+            if (err)
+              done (err);
+            instance2.save().should.be.rejected.and.notify(done);
+          });
       })
       .error(function(err) {
         done(err);
