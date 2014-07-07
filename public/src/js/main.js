@@ -21,4 +21,5 @@ $(document).ready(function() {
       form.submit();
 	  }
 	});
+  $('select').select2();
 });

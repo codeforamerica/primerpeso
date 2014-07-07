@@ -19,6 +19,8 @@ block content
         .col-sm-offset-2.col-sm-10
           button(type="submit" class="btn btn-default btn-primary") Save #{model}
           a.btn(href='#{base}/#{model}', title="cancel") Cancel
+  block javascripts
+    script(type='text/javacript', src='http://cdn.jsdelivr.net/select2/3.4.8/select2.min.js')
 //
             if !doc.isNew
               #del-btn
