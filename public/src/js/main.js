@@ -21,7 +21,7 @@ $(document).ready(function() {
       form.submit();
 	  }
 	});
-  
+
   $('.delete-model').on('click', function(e){
     var conf = confirm('Are you sure you want to delete this entry?');
     if (!conf) {
