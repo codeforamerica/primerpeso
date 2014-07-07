@@ -47,8 +47,8 @@ body {
 }
 
 #footer {
-  height: 110px;
-  padding-top: 15px;
+  height: 130px;
+  padding-top: 20px;
 }
 
 // Layout
@@ -154,6 +154,14 @@ p {
 // Wizard
 // -------------------------
 
+.wizard .content {
+  background-color: white;
+  min-height: inherit;
+  .body {
+    position: relative !important;
+  }
+}
+
 .wizard .steps ul li {
   width: auto;
   font-size: 19px;
@@ -176,14 +184,6 @@ p {
 .wizard .actions a:hover {
   background-color: @navy;
   padding: 15px 35px;
-}
-
-.wizard .content {
-  background-color: white;
-  min-height: inherit;
-  .body {
-    position: relative !important;
-  }
 }
 
 .wizard .steps{
