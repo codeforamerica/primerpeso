@@ -13,6 +13,8 @@ block content
         tr
           th
             | Click to edit
+          th
+            | Click to delete
           each f in fields
             th= f.label
       tbody
@@ -20,6 +22,8 @@ block content
           tr
             td
               a.btn.btn-xs.btn-default(href="#{base}#{path}/#{entry.id}/edit") edit
+            td
+              a.btn.btn-xs.btn-default.delete-model(href="#{base}#{path}/#{entry.id}/delete") delete
             each f in fields
               td= entry.selectedValues[f.name]
 
