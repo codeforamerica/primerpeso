@@ -38,7 +38,13 @@ mixin choiceField(formOptions)
 mixin textField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
-    input(type=formOptions.widget name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+    if (formOptions.widget == 'date' && formOptions.value)
+      - var year = formOptions.value.getFullYear()
+      - var month = formOptions.value.getMonth() + 1
+      - var day = formOptions.value.getDate()
+      input(type=formOptions.widget name=formOptions.name value=(year+'-'+month+'-'+day) || '' class="form-control" placeholder=formOptions.placeholder)
+    else
+      input(type=formOptions.widget name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
