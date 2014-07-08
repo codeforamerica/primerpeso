@@ -12,6 +12,7 @@ gulp.task('nodemon', function() {
       "package.json",
       "node_modules/*",
       "client/*",
+      "public/*",
       ".git/*"
     ]
   });
