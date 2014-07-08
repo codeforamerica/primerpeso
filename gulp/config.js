@@ -20,7 +20,13 @@ var config = {
     //nm + '/swiftclick/js/libs/swiftclick.js',
   ],
   vendorCSS: [
-  ]
+  ],
+  bundleConf: {
+    entries: [src + '/js/main.js'],
+    extensions: ['.js'],
+    outputFile: 'main.js',
+    outputPath: dest + '/js/'
+  }
 }
 
 

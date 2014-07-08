@@ -3,8 +3,6 @@ services:
   redis-server
 env:
   - DATABASE_URL=postgres://postgres@127.0.0.1/bizwallet
-notifications:
-  slack: cfa:kkWsa9y5if7z6IE8w7CrsGHh
 before_script:
   - psql -c 'create database bizwallet;' -U postgres
   - gulp dbsync
