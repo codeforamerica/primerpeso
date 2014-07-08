@@ -72,10 +72,10 @@ p {
 	font-size: 24px;
   .navbar-nav .active a {
     background-color: @dark-green;
-  }
-    a:hover, a:focus { //why can't I get this to work!?
+    &:hover, &:focus {
       background-color: @navy;
     }
+  }
 }
 
 .navbar-nav .profile-image {
@@ -203,9 +203,6 @@ p {
   .current a {
     background-color: @dark-green;
   }
-  .current a:hover {
-    background-color: @navy;
-  }
   .done a {
     background-color: @green;
   }
@@ -281,7 +278,11 @@ p {
     line-height: 1.8em;
     font-size: 250%;
     margin: 35px 0px;
-    border-bottom: 3px @light-grey solid;
+    border-bottom: 2px @light-grey solid;
+}
+
+.control-label {
+  font-size: 150%;
 }
 
 // Buttons
@@ -293,8 +294,8 @@ p {
   font-size: 150%;
   margin: 20px;
   padding: 15px;
+  border: none;
 }
-
 
 // Social Buttons
 // -------------------------
