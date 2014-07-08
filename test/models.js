@@ -1,42 +1,152 @@
+
+var dotenv = require('dotenv');
+dotenv.load();
+
 var chai = require('chai');
+var chaiAsPromised = require("chai-as-promised");
 var should = chai.should();
-//var User = require('../models/User');
+var db = require('../models');
+var sequelize = db.sequelize;
+var opportunityMock = require('./mocks/opportunity.js');
 
-/*describe('User Model', function() {
-  it('should create a new user', function(done) {
-    var user = new User({
-      email: 'test@gmail.com',
-      password: 'password'
-    });
-    user.save(function(err) {
-      if (err) return done(err);
-      done();
-    })
-  });
+chai.use(chaiAsPromised);
 
-  it('should not create a user with the unique email', function(done) {
-    var user = new User({
-      email: 'test@gmail.com',
-      password: 'password'
-    });
-    user.save(function(err) {
-      if (err) err.code.should.equal(11000);
-      done();
-    });
-  });
+describe('Opportunity Model', function() {
 
-  it('should find user by email', function(done) {
-    User.findOne({ email: 'test@gmail.com' }, function(err, user) {
-      if (err) return done(err);
-      user.email.should.equal('test@gmail.com');
-      done();
+  it('should create a new opportunity without optional fields', function(done) {
+    var body = opportunityMock();
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+        done();
+      })
+      .error(function(err) {
+        done(err);
+      });
     });
   });
 
-  it('should delete a user', function(done) {
-    User.remove({ email: 'test@gmail.com' }, function(err) {
-      if (err) return done(err);
+  it('should create a new opportunity with optional fields', function(done) {
+    // purpose other is filled out, additionalGeneralInformation is filled out
+    var body = opportunityMock({
+      'purpose-other': 'A different purpose',
+      additionalGeneralInformation: 'Some other general information'
+    });
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+        done();
+      })
+      .error(function(err) {
+        done(err);
+      });
+    });
+  });
+
+  it('should throw an error if a required field is missing', function(done) {
+    // applicationCost is missing
+    var body = opportunityMock({
+      applicationCost: '',
+    });
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        should.exist(err);
+        done();
+      }
+    });
+  });
+
+  it('should correctly parse and save "other" text fields', function(done) {
+    // purpose other is filled out, additionalGeneralInformation is filled out
+    var body = opportunityMock({
+      purpose: 'other',
+      'purpose-other': 'A different purpose',
+      additionalGeneralInformation: 'Some other general information'
+    });
+
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+        Opportunity.find({where: {title: 'Test opp3'} }).success(function(op) {
+          op.purpose.should.equal('_a_different_purpose');
+          done();
+        });
+      })
+      .error(function(err) {
+        done(err);
+      });
+    });
+  });
+
+  it('should correctly save "other" checkbox fields', function(done) {
+    // purpose other is filled out, additionalGeneralInformation is filled out
+    var body = opportunityMock({
+      eligibleIndustries: [ 'any', 'other', 'Otro Distinto' ]
+    });
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+        Opportunity.find({where: {title: 'Test opp3'} }).success(function(op) {
+          op.eligibleIndustries.should.include('Otro Distinto');
+          done();
+        });
+      })
+      .error(function(err) {
+        done(err);
+      });
+    });
+  });
+
+  it('should fail to create two opportunities with the same title', function(done) {
+    var body = opportunityMock();
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+          var instance2 = Opportunity.buildFromAdminForm(body);
+          instance2.validate().success(function(err) {
+            if (err)
+              done (err);
+            instance2.save().should.be.rejected.and.notify(done);
+          });
+      })
+      .error(function(err) {
+        done(err);
+      });
+    });
+  });
+
+  afterEach(function(done) {
+    var Opportunity = sequelize.model('opportunity');
+    Opportunity.destroy({title: 'Test opp3'}).success(function(rows) {
       done();
     });
   });
-});*/
+});

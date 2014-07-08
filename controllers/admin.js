@@ -27,8 +27,9 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
   app.get(path.join(base, '/:model/:id'), entry);
-  app.post(path.join(base, '/:model/:id'), entry_save);
+  app.post(path.join(base, '/:model/:id'), entrySave);
   app.get(path.join(base, '/:model'), list);
+  app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
   app.post(path.join(base, '/:path/:id'), adminRouter);
@@ -136,7 +137,7 @@ function entry (req, res) {
   });
 }
 
-function entry_save (req, res) {
+function entrySave (req, res) {
   var id = req.params.id;
   var Model = sequelize.model(req.params.model);
   var updatedInstance = Model.buildFromAdminForm(req.body);
@@ -145,5 +146,20 @@ function entry_save (req, res) {
   Model.find(req.params.id).success(function(result) {
     result.updateAttributes(newFields)
     .success(function() { res.redirect(req.path); });
+  });
+}
+
+function deleteModel (req, res) {
+  var render = _.extend(res.locals, {
+    model: req.params.model
+  });
+
+  var Model = sequelize.model(render.model);
+
+  Model.find(req.params.id).success(function(result) {
+    result.destroy().success(function() {
+      req.flash('info', 'Successfully Deleted Entry');
+      res.redirect('/admin/' + render.model);
+    });
   });
 }
