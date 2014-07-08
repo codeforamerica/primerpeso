@@ -1,4 +1,4 @@
-var formSettings = require('../lib/oppQueryForm.js');
+var oppQueryForm = require('../lib/oppQueryForm.js');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
@@ -11,10 +11,11 @@ module.exports = function(app) {
  */
 var oppQueryCreate = function(req, res, next) {
   var options = options || {};
+//  return res.json(oppQueryForm.getFormConfig());
   res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',
-    form: formSettings.formConfig
+    form: oppQueryForm.getFormConfig()
   });
 };
 
