@@ -25,8 +25,6 @@ html
     // This should be dynamically controlled.
     script(type='text/javascript', src=CDN('/js/vendor.min.js'))
     script(type='text/javascript', src=CDN('/js/main.js'))
-    if isSearch
-      script(type='text/javascript', src='/j/search.js')
     if env == 'development'
       include partials/browserSync.jade
     script.
