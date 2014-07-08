@@ -2,9 +2,9 @@ extends ../layout
 
 block content
   form(method='POST')
-    h2 Sign In
-    input(type='hidden', name='_csrf', value=_csrf)
     .col-sm-8.col-sm-offset-2
+      h2.subpagetitle Sign In
+      input(type='hidden', name='_csrf', value=_csrf)
       .form-group
         label.control-label(for='email') Email
         input.form-control(type='text', name='email', id='email', placeholder='Email', autofocus=true)
@@ -16,4 +16,3 @@ block content
           i.fa.fa-unlock-alt
           | Login
         a.btn.btn-link(href='/forgot') Forgot your password?
-      hr
