@@ -68,8 +68,14 @@ p {
 
 .navbar-default {
 	background-color: @green;
-	border-color: #97e8c1;
+  border: none;
 	font-size: 24px;
+  .navbar-nav .active a {
+    background-color: @dark-green;
+  }
+    a:hover, a:focus { //why can't I get this to work!?
+      background-color: @navy;
+    }
 }
 
 .navbar-nav .profile-image {
