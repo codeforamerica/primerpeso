@@ -8,12 +8,17 @@ var smtpTransport = nodemailer.createTransport('SMTP', {
   }
 });
 
+module.exports = function(app) {
+  app.get('/contact', getContact);
+  app.post('/contact', postContact);
+};
+
 /**
  * GET /contact
  * Contact form page.
  */
 
-exports.getContact = function(req, res) {
+function getContact(req, res) {
   res.render('contact', {
     title: 'Contact'
   });
@@ -27,7 +32,7 @@ exports.getContact = function(req, res) {
  * @param message
  */
 
-exports.postContact = function(req, res) {
+function postContact(req, res) {
   req.assert('name', 'Name cannot be blank').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('message', 'Message cannot be blank').notEmpty();
@@ -42,8 +47,8 @@ exports.postContact = function(req, res) {
   var from = req.body.email;
   var name = req.body.name;
   var body = req.body.message;
-  var to = 'your@email.com';
-  var subject = 'Contact Form | Hackathon Starter';
+  var to = 'you@example.com';
+  var subject = 'Bizwallet | Contact';
 
   var mailOptions = {
     to: to,
