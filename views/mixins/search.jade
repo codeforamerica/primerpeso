@@ -19,6 +19,16 @@ mixin renderResultSubset(benefitList, benefitType)
   div(class="row row-benefit-count row-" + benefitType)
     h3= resCountHeader
 
+  div(class="row row-header row-" + benefitType)
+    div(class="col-md-6 col-description-header")
+      h4 Resource
+
+    div(class="col-md-3 col-deadline-header")
+      h4 Deadline
+
+    div(class="col-md-3 col-est-time-header")
+      h4 Estimated Time
+
   each benefitDesc, benefitName in benefitList
     div(class="row row-" + benefitType)
       div(class="col-md-6 col-description col-" + benefitName)
