@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default
   .container
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -10,9 +10,9 @@
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li(class=title=='About'?'active':undefined)
-          a(href='/about') About        
+          a(href='/about') About
         li(class=title=='Who We Are'?'active':undefined)
-          a(href='/who') Who We Are        
+          a(href='/who') Who We Are
         if !user
           li(class=title=='Login'?'active':undefined)
             a(href='/login') Login
