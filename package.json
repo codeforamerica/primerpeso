@@ -68,7 +68,7 @@
     "string": "~1.8.1",
     "uglify-js": "^2.4.13",
     "underscore": "^1.6.0",
-    "validator": "^3.11.0",
+    "validator": "^3.16.0",
     "vinyl-source-stream": "~0.1.1",
     "watchify": "~0.10.1"
   },

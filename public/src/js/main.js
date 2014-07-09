@@ -5,10 +5,44 @@ $(document).ready(function() {
 	  transitionEffect: "slideLeft",
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
-	  //onStepChanging: function (event, currentIndex, newIndex) {
-	      //$("#form-3").validate().settings.ignore = ":disabled,:hidden";
-	      //return $("#form-3").valid();
-	  //},
+	  onStepChanging: function (event, currentIndex, newIndex) {
+      var valid = true;
+      switch (currentIndex) {
+        case 0:
+          var checked = $('input[name="age"]:checked').attr('value');
+          if (!checked) {
+            valid = false;
+          };
+          break;
+        case 1:
+          var checked = $('input[name="purpose"]:checked').attr('value');
+          if (!checked) {
+            valid = false;
+          };
+          var checked = $('input[name="investingOwnMoney"]:checked').attr('value');
+          if (!checked) {
+            valid = false;
+          };
+          var moneyInvested = $('input[name="moneyInvested"]').val();
+          if (moneyInvested === "") {
+            valid = false;
+          };
+          break;
+        case 2:
+          return true;
+        case 3:
+          return true;
+        case 4:
+          return true;
+        default:
+          break;
+      }
+
+      if (!valid) {
+        alert('You have missing fields');
+      };
+      return valid;
+	  },
 	  /*onStepChanged: function (event, currentIndex, priorIndex) {
 	  },
 	  onFinishing: function (event, currentIndex) {
