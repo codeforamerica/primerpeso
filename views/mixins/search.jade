@@ -3,16 +3,30 @@
 
 mixin searchResultNav(searchResult)
   ul(class="nav nav-tabs nav-justified" role="tablist")
-    li
+    li(class="active")
       a(href="#") All
-    li
-      a(href="#") Loans
-    li
-      a(href="#") Grants
-    li
-      a(href="#") Incentives
-    li
-      a(href="#") Expertise
+    each benefitList, benefitType in searchResult
+      li
+        a(href="#")= benefitType
 
+mixin renderResultList(searchResult)
+  each benefitList, benefitType in searchResult
+    div(class=benefitType + '-container')
+      +renderResultSubset(benefitList, benefitType)
 
+mixin renderResultSubset(benefitList, benefitType)
+  - var resCountHeader = Object.keys(benefitList).length + ' ' + benefitType
+  div(class="row row-benefit-count row-" + benefitType)
+    h3= resCountHeader
 
+  each benefitDesc, benefitName in benefitList
+    div(class="row row-" + benefitType)
+      div(class="col-md-6 col-description col-" + benefitName)
+        h4= benefitDesc.title
+        div(class=benefitName + "-inner-text")= benefitDesc.description
+
+      div(class="col-md-3 col-deadline col-" + benefitName)
+        div(class=benefitName + "-inner-text")= benefitDesc.deadline
+
+      div(class="col-md-3 col-est-time col-" + benefitName)
+        div(class=benefitName + "-inner-text")= benefitDesc.estimatedTime
