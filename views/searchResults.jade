@@ -1,8 +1,7 @@
+include mixins/search.jade
+
 extends layout
 
 block content
-  h1 Fund.Me
-  p.lead
-    | Use this document as a way to quickly start any new project.
-    br
-    | All you get is this text and a mostly barebones HTML document.
+  +searchResultNav(searchResult)
+  div.search-intro Select the ones you are interested in to build your application. You can select as many as you want.

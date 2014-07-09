@@ -2,7 +2,7 @@ var oppQueryForm = require('../lib/oppQueryForm.js');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
-  //app.get('/search', oppQueryExecute);
+  app.get('/results/:filter', oppQueryExecute);
 };
 
 /**
@@ -29,6 +29,7 @@ var oppQueryExecute = function(req, res, next) {
   res.render('searchResults', {
     title: 'Search Results',
     bodyClass: 'searchResults',
-    isSearch: true
+    isSearch: true,
+    searchResult: {}
   });
 };
