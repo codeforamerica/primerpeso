@@ -54,10 +54,7 @@ mixin textAreaField(formOptions)
     textarea(class="form-control" rows="3" name=formOptions.name) #{formOptions.value || ''}
 
 mixin arrayTextField(formOptions)
-  - var req = false
-  - if (formOptions.required == true || formOptions.allowNull == false) {
-    - req = true
-  - }
+  - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
     button(class="array-text-field" name=formOptions.name type="button") Add another
