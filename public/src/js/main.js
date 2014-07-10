@@ -38,4 +38,10 @@ $(document).ready(function() {
       $('div#'+name).next().show();
     };
   });
+
+  $('button.array-text-field').click(function(e) { 
+    var inp = $(this).next().clone().removeAttr('required');
+    $(this).parent().append(inp);
+  });
+
 });
