@@ -38,10 +38,7 @@ mixin choiceField(formOptions)
 mixin textField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
-    - var req = false
-    - if (formOptions.required == true || formOptions.allowNull == false) {
-      - req = true
-    - }
+    - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     if (formOptions.widget == 'date' && formOptions.value)
       - var year = formOptions.value.getFullYear()
       - var month = formOptions.value.getMonth() + 1
@@ -53,10 +50,7 @@ mixin textField(formOptions)
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
-    - var req = false
-    - if (formOptions.required == true || formOptions.allowNull == false) {
-      - req = true
-    - }
+    - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     textarea(class="form-control" required=req rows="3" name=formOptions.name) #{formOptions.value || ''}
 
 // Helpers
@@ -64,10 +58,7 @@ mixin choiceOther(formOptions)
   .choiceOther.form-group.col-sm-12
     label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
     div(class="col-sm-10")
-      - var req = false
-      - if (formOptions.required == true || formOptions.allowNull == false) {
-        - req = true
-      - }
+      - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
       if formOptions.widget == 'checkbox'
         input(type="text" required=req name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
       else
