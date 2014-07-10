@@ -38,28 +38,40 @@ mixin choiceField(formOptions)
 mixin textField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
+    - var req = false
+    - if (formOptions.required == true || formOptions.allowNull == false) {
+      - req = true
+    - }
     if (formOptions.widget == 'date' && formOptions.value)
       - var year = formOptions.value.getFullYear()
       - var month = formOptions.value.getMonth() + 1
       - var day = formOptions.value.getDate()
-      input(type=formOptions.widget name=formOptions.name value=(year+'-'+month+'-'+day) || '' class="form-control" placeholder=formOptions.placeholder)
+      input(type=formOptions.widget required=req name=formOptions.name value=(year+'-'+month+'-'+day) || '' class="form-control" placeholder=formOptions.placeholder)
     else
-      input(type=formOptions.widget name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+      input(type=formOptions.widget required=req name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
-    textarea(class="form-control" rows="3" name=formOptions.name) #{formOptions.value || ''}
+    - var req = false
+    - if (formOptions.required == true || formOptions.allowNull == false) {
+      - req = true
+    - }
+    textarea(class="form-control" required=req rows="3" name=formOptions.name) #{formOptions.value || ''}
 
 // Helpers
 mixin choiceOther(formOptions)
   .choiceOther.form-group.col-sm-12
     label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
     div(class="col-sm-10")
+      - var req = false
+      - if (formOptions.required == true || formOptions.allowNull == false) {
+        - req = true
+      - }
       if formOptions.widget == 'checkbox'
-        input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
+        input(type="text" required=req name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
       else
-        input(type="text" name=formOptions.name + "-other" value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
+        input(type="text" required=req name=formOptions.name + "-other" value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
   - var fieldLabelClasses = formOptions.fieldLabelClasses || 'col-sm-2'
