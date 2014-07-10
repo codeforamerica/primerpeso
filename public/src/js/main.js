@@ -9,48 +9,27 @@ $(document).ready(function() {
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
 	  onStepChanging: function (event, currentIndex, newIndex) {
       var valid = true;
-      switch (currentIndex) {
-        case 0:
-          var checked = $('input[name="age"]:checked').attr('value');
-          if (!checked) {
-            valid = false;
-          };
+
+      var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
+      var fieldSets = formInfo['options']['fieldSets'] 
+
+      for (var key in fieldSets) {
+        if (fieldSets[key]['label'] == label) {
+          var fieldSetName = key;
           break;
-        case 1:
-          var checked = $('input[name="purpose"]:checked').attr('value');
-          if (!checked) {
-            valid = false;
-          };
-          var checked = $('input[name="investingOwnMoney"]:checked').attr('value');
-          if (!checked) {
-            valid = false;
-          };
-          var moneyInvested = $('input[name="moneyInvested"]').val();
-          if (moneyInvested === "") {
-            valid = false;
-          };
-          break;
-        case 2:
-					var checked = $('input[name="businessType"]:checked').attr('value');
-					if (!checked) {
-						valid = false;
-					};
-					break;
-        case 4:
-					var checked = $('input[name="employeeNumber"]:checked').attr('value');
-					if (!checked) {
-						valid = false;
-					};
-					var checked = $('input[name="yearsInBusiness"]:checked').attr('value');
-					if (!checked) {
-						valid = false;
-					};
-					var checked = $('input[name="annualRevenue"]:checked').attr('value');
-					if (!checked) {
-						valid = false;
-					};
-					break;
+        };
       }
+
+      var currentFields = formInfo['fields'][fieldSetName]
+      for (var field in currentFields) {
+        if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
+          var checked = $('input[name="'+ field +'"]:checked').attr('value');
+          valid = !checked ? false : true;
+        } else if (currentFields[field]['widget'] == 'text') {
+          var text = $('input[name="'+ field +'"]').val();
+          valid = text === "" ? false : true;
+        }
+      };
 
       if (!valid) {
         alert('You have missing fields');
@@ -65,24 +44,33 @@ $(document).ready(function() {
       form.submit();
 	  },
 		onFinishing: function (event, currentIndex){
-			var valid = true;
-			var checked = $('input[name="employeeNumber"]:checked').attr('value');
-			if (!checked) {
-				valid = false;
-			};
-			var checked = $('input[name="yearsInBusiness"]:checked').attr('value');
-			if (!checked) {
-				valid = false;
-			};
-			var checked = $('input[name="annualRevenue"]:checked').attr('value');
-			if (!checked) {
-				valid = false;
-			};
+      var valid = true;
 
-			if (!valid) {
-				alert('You have missing fields');
-			};
-			return valid;
+      var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
+      var fieldSets = formInfo['options']['fieldSets'] 
+
+      for (var key in fieldSets) {
+        if (fieldSets[key]['label'] == label) {
+          var fieldSetName = key;
+          break;
+        };
+      }
+
+      var currentFields = formInfo['fields'][fieldSetName]
+      for (var field in currentFields) {
+        if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
+          var checked = $('input[name="'+ field +'"]:checked').attr('value');
+          valid = !checked ? false : true;
+        } else if (currentFields[field]['widget'] == 'text') {
+          var text = $('input[name="'+ field +'"]').val();
+          valid = text === "" ? false : true;
+        }
+      };
+
+      if (!valid) {
+        alert('You have missing fields');
+      };
+      return valid;
 		}
 	});
 
