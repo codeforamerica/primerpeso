@@ -2,12 +2,12 @@
 // See http://jade-lang.com/reference/#mixins
 
 mixin searchResultNav(searchResult)
-  ul(class="nav nav-tabs nav-justified" role="tablist")
-    li(class="active")
-      a(href="#" class="all") All
+  ul(class="nav nav-tabs nav-justified search-tabs" role="tablist")
+    li(class="active search-tab")
+      a(href="#" id="all") All
     each benefitList, benefitType in searchResult
-      li
-        a(href="#" class=benefitType)= benefitType
+      li.search-tab
+        a(href="#" id=benefitType)= benefitType
 
 mixin renderResultList(searchResult)
   each benefitList, benefitType in searchResult
