@@ -31,6 +31,8 @@ $(document).ready(function() {
 
   $('select').select2();
   $('.choiceOther').hide();
+
+  
   $('div#eligibleIndustries').next().show();
   $('select').on('change', function() {
     var name = $(this).attr('name');
@@ -43,5 +45,13 @@ $(document).ready(function() {
     var inp = $(this).next().clone().removeAttr('required');
     $(this).parent().append(inp);
   });
+
+  var text = $('input.array-text-field').val().split(',')
+  $('input.array-text-field').val(text[0]);
+  for (var i = 1; i < text.length; i++) {
+    var value = text[i]
+    var input = $('input.array-text-field').clone().val(value);
+    $('input.array-text-field').parent().append(input);
+  };
 
 });
