@@ -1,3 +1,5 @@
+var SearchView = require('./search.js');
+
 $(document).ready(function() {
 	$("#fundMeWizard").steps({
 	  headerTag: "h3",
@@ -38,7 +40,10 @@ $(document).ready(function() {
   $('select').on('change', function() {
     var name = $(this).attr('name');
     if ($('option:selected', this).attr('value') == 'other') {
-      $('div#'+name).next().show();
+      $('div#'+ name).next().show();
     };
   });
+  if ($('body').hasClass('searchResults')) {
+    var searchView = new SearchView();
+  }
 });

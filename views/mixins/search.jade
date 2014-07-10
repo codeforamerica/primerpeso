@@ -4,10 +4,10 @@
 mixin searchResultNav(searchResult)
   ul(class="nav nav-tabs nav-justified" role="tablist")
     li(class="active")
-      a(href="#") All
+      a(href="#" class="all") All
     each benefitList, benefitType in searchResult
       li
-        a(href="#")= benefitType
+        a(href="#" class=benefitType)= benefitType
 
 mixin renderResultList(searchResult)
   each benefitList, benefitType in searchResult
