@@ -29,13 +29,25 @@ $(document).ready(function() {
           };
           break;
         case 2:
-          return true;
-        case 3:
-          return true;
+					var checked = $('input[name="businessType"]:checked').attr('value');
+					if (!checked) {
+						valid = false;
+					};
+					break;
         case 4:
-          return true;
-        default:
-          break;
+					var checked = $('input[name="employeeNumber"]:checked').attr('value');
+					if (!checked) {
+						valid = false;
+					};
+					var checked = $('input[name="yearsInBusiness"]:checked').attr('value');
+					if (!checked) {
+						valid = false;
+					};
+					var checked = $('input[name="annualRevenue"]:checked').attr('value');
+					if (!checked) {
+						valid = false;
+					};
+					break;
       }
 
       if (!valid) {
@@ -53,7 +65,27 @@ $(document).ready(function() {
       var form = $(this);
       console.log(form);
       form.submit();
-	  }
+	  },
+		onFinishing: function (event, currentIndex){
+			var valid = true;
+			var checked = $('input[name="employeeNumber"]:checked').attr('value');
+			if (!checked) {
+				valid = false;
+			};
+			var checked = $('input[name="yearsInBusiness"]:checked').attr('value');
+			if (!checked) {
+				valid = false;
+			};
+			var checked = $('input[name="annualRevenue"]:checked').attr('value');
+			if (!checked) {
+				valid = false;
+			};
+
+			if (!valid) {
+				alert('You have missing fields');
+			};
+			return valid;
+		}
 	});
 
   $('.delete-model').on('click', function(e){
