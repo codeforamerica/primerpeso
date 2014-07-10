@@ -1,3 +1,5 @@
+var SearchView = require('./search.js');
+
 $(document).ready(function() {
 	$("#fundMeWizard").steps({
 	  headerTag: "h3",
@@ -55,10 +57,6 @@ $(document).ready(function() {
       };
       return valid;
 	  },
-	  /*onStepChanged: function (event, currentIndex, priorIndex) {
-	  },
-	  onFinishing: function (event, currentIndex) {
-	  },*/
 	  onFinished: function (event, currentIndex){
       console.log(event);
       console.log(currentIndex);
@@ -96,12 +94,14 @@ $(document).ready(function() {
   });
 
   $('select').select2();
+
+  // For admin page
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
   $('select').on('change', function() {
     var name = $(this).attr('name');
     if ($('option:selected', this).attr('value') == 'other') {
-      $('div#'+name).next().show();
+      $('div#'+ name).next().show();
     };
   });
 
@@ -121,5 +121,25 @@ $(document).ready(function() {
 
     return valid;
   });
+
+  $('button.array-text-field').click(function(e) { 
+    var inp = $(this).next().clone().removeAttr('required');
+    $(this).parent().append(inp);
+  });
+
+  $('input.array-text-field').each(function(index, element) {
+    var text = $(this).val().split(',');
+    $(this).val(text[0]);
+    for (var i = 1; i < text.length; i++) {
+      var value = text[i]
+      var input = $(this).clone().val(value);
+      $(this).parent().append(input);
+    };
+  });
+
+  // For results page
+  if ($('body').hasClass('searchResults')) {
+    var searchView = new SearchView();
+  }
 
 });
