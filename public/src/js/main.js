@@ -46,12 +46,15 @@ $(document).ready(function() {
     $(this).parent().append(inp);
   });
 
-  var text = $('input.array-text-field').val().split(',')
-  $('input.array-text-field').val(text[0]);
-  for (var i = 1; i < text.length; i++) {
-    var value = text[i]
-    var input = $('input.array-text-field').clone().val(value);
-    $('input.array-text-field').parent().append(input);
-  };
+  $('input.array-text-field').each(function(index, element) {
+    var text = $(this).val().split(',');
+    $(this).val(text[0]);
+    for (var i = 1; i < text.length; i++) {
+      var value = text[i]
+      var input = $(this).clone().val(value);
+      $(this).parent().append(input);
+    };
+  });  
+
 
 });
