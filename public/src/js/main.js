@@ -104,4 +104,22 @@ $(document).ready(function() {
       $('div#'+name).next().show();
     };
   });
+
+  $('.model-form').on('submit', function(event) {
+    var nameList = [];
+    var valid = true;
+    if ($('.model-form input[name="eligibleEntityTypes"]:checked').length == 0) {
+      valid = false;
+    }
+    else if ($('.model-form input[name="eligibleIndustries"]:checked').length == 0) {
+      valid = false
+    }
+
+    if (!valid) {
+      alert('You have missing checkboxes');
+    };
+
+    return valid;
+  });
+
 });
