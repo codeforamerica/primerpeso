@@ -35,6 +35,8 @@ $(document).ready(function() {
   });
 
   $('select').select2();
+
+  // For admin page
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
   $('select').on('change', function() {
@@ -43,6 +45,23 @@ $(document).ready(function() {
       $('div#'+ name).next().show();
     };
   });
+
+  $('button.array-text-field').click(function(e) { 
+    var inp = $(this).next().clone().removeAttr('required');
+    $(this).parent().append(inp);
+  });
+
+  $('input.array-text-field').each(function(index, element) {
+    var text = $(this).val().split(',');
+    $(this).val(text[0]);
+    for (var i = 1; i < text.length; i++) {
+      var value = text[i]
+      var input = $(this).clone().val(value);
+      $(this).parent().append(input);
+    };
+  });
+
+  // For results page
   if ($('body').hasClass('searchResults')) {
     var searchView = new SearchView();
   }

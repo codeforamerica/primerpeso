@@ -45,10 +45,10 @@ module.exports = function(sequelize, DataTypes) {
     // in the backend.
     paperworkRequired: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
-      widget: 'textArea',
+      widget: 'arrayTextField',
       label: 'Paperwork Required',
       multiple: true,
-      allowNull: false,
+      allowNull: false
     },
     applicationCost: {
       type: DataTypes.INTEGER,

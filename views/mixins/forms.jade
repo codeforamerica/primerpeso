@@ -9,6 +9,8 @@ mixin makeField(formOptions)
       +choiceSelectField(formOptions)
     else if formOptions.widget == "radio" || formOptions.widget == "checkbox"
       +choiceField(formOptions)
+    else if formOptions.widget == "arrayTextField"
+      +arrayTextField(formOptions)
     else
       +textField(formOptions)
   if formOptions.choiceOther
@@ -50,6 +52,13 @@ mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10")
     textarea(class="form-control" rows="3" name=formOptions.name) #{formOptions.value || ''}
+
+mixin arrayTextField(formOptions)
+  - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
+  +fieldLabel(formOptions)
+  div(class=formOptions.fieldClasses || "col-sm-10")
+    button(class="array-text-field" name=formOptions.name type="button") Add another
+    input(type="text" required=req name=formOptions.name+'[]' value=formOptions.value || '' class="form-control array-text-field" placeholder=formOptions.placeholder)
 
 // Helpers
 mixin choiceOther(formOptions)
