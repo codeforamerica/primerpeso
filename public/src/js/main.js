@@ -7,19 +7,16 @@ $(document).ready(function() {
 	  transitionEffect: "slideLeft",
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
-	  onStepChanging: function (event, currentIndex, newIndex) {
+    onStepChanging: function (event, currentIndex, newIndex) {
       var valid = true;
-
       var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
       var fieldSets = formInfo['options']['fieldSets'] 
-
       for (var key in fieldSets) {
         if (fieldSets[key]['label'] == label) {
           var fieldSetName = key;
           break;
         };
       }
-
       var currentFields = formInfo['fields'][fieldSetName]
       for (var field in currentFields) {
         if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
@@ -30,32 +27,28 @@ $(document).ready(function() {
           valid = text === "" ? false : true;
         }
       };
-
       if (!valid) {
         alert('You have missing fields');
       };
       return valid;
-	  },
-	  onFinished: function (event, currentIndex){
+	   },
+    onFinished: function (event, currentIndex){
       console.log(event);
       console.log(currentIndex);
       var form = $(this);
       console.log(form);
       form.submit();
-	  },
-		onFinishing: function (event, currentIndex){
+    },
+    onFinishing: function (event, currentIndex){
       var valid = true;
-
       var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
       var fieldSets = formInfo['options']['fieldSets'] 
-
       for (var key in fieldSets) {
         if (fieldSets[key]['label'] == label) {
           var fieldSetName = key;
           break;
         };
       }
-
       var currentFields = formInfo['fields'][fieldSetName]
       for (var field in currentFields) {
         if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
@@ -66,12 +59,11 @@ $(document).ready(function() {
           valid = text === "" ? false : true;
         }
       };
-
       if (!valid) {
         alert('You have missing fields');
       };
       return valid;
-		}
+    }
 	});
 
   $('.delete-model').on('click', function(e){
