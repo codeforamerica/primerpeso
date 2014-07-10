@@ -179,7 +179,7 @@ module.exports = function(sequelize, DataTypes) {
     investingOwnMoney: {
       type: DataTypes.STRING,
       widget: 'radio',
-      choices: {'yes': 'yes', 'no': 'no'},
+      choices: {true: 'yes', false: 'no'},
       label: 'Is there any amount the business needs to invest?'
     },
     moneyInvested: {

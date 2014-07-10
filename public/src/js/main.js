@@ -1,3 +1,5 @@
+var SearchView = require('./search.js');
+
 $(document).ready(function() {
 	$("#fundMeWizard").steps({
 	  headerTag: "h3",
@@ -5,6 +7,9 @@ $(document).ready(function() {
 	  transitionEffect: "slideLeft",
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
+    /*onStepChanging: function(event, currentIndex, newIndex) {
+      console.log(event);
+    },*/
 	  //onStepChanging: function (event, currentIndex, newIndex) {
 	      //$("#form-3").validate().settings.ignore = ":disabled,:hidden";
 	      //return $("#form-3").valid();
@@ -30,14 +35,14 @@ $(document).ready(function() {
   });
 
   $('select').select2();
-  $('.choiceOther').hide();
 
-  
+  // For admin page
+  $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
   $('select').on('change', function() {
     var name = $(this).attr('name');
     if ($('option:selected', this).attr('value') == 'other') {
-      $('div#'+name).next().show();
+      $('div#'+ name).next().show();
     };
   });
 
@@ -54,7 +59,10 @@ $(document).ready(function() {
       var input = $(this).clone().val(value);
       $(this).parent().append(input);
     };
-  });  
+  });
 
-
+  // For results page
+  if ($('body').hasClass('searchResults')) {
+    var searchView = new SearchView();
+  }
 });

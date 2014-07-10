@@ -1,8 +1,9 @@
-var formSettings = require('../lib/oppQueryForm.js');
+var oppQueryForm = require('../lib/oppQueryForm.js');
+var searchResults = require('../test/mocks/searchResults');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
-  //app.get('/search', oppQueryExecute);
+  app.get('/results/:filter', oppQueryExecute);
 };
 
 /**
@@ -14,7 +15,7 @@ var oppQueryCreate = function(req, res, next) {
   res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',
-    form: formSettings.formConfig
+    form: oppQueryForm.getFormConfig()
   });
 };
 
@@ -25,9 +26,11 @@ var oppQueryCreateJson = function(req, res, next) {
 }
 
 var oppQueryExecute = function(req, res, next) {
+  var searchResult = searchResults();
   res.render('searchResults', {
     title: 'Search Results',
     bodyClass: 'searchResults',
-    isSearch: true
+    isSearch: true,
+    searchResult: searchResult
   });
 };
