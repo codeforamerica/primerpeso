@@ -72,7 +72,7 @@ describe('Opportunity Model', function() {
   it('should correctly parse and save "other" text fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
-      purpose: 'other',
+      purpose: ['other'],
       'purposeOther': 'A different purpose',
       additionalGeneralInformation: 'Some other general information'
     });
@@ -86,7 +86,7 @@ describe('Opportunity Model', function() {
       }
       instance.save().success(function(){
         Opportunity.find({where: {title: 'Test opp3'} }).success(function(op) {
-          op.purpose.should.equal('_a_different_purpose');
+          op.purpose.should.deep.equal(['_a_different_purpose']);
           done();
         });
       })
