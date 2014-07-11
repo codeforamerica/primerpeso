@@ -22,9 +22,9 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     purpose: {
-      type: DataTypes.TEXT,
+      type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: false,
-      widget: 'select',
+      widget: 'multiSelect',
       choices: choicesList.getFormChoices('purpose'),
       validate: {
       },
@@ -73,9 +73,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     // TODO -- abstract choices to freaking callbacks.
     benefitType: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
-      widget: 'select',
+      widget: 'multiSelect',
       choices: choicesList.getFormChoices('benefitType'),
       label: 'Benefit Type',
       choiceOther: true
@@ -145,7 +145,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       multiple: true,
       allowNull: false,
-      widget: 'checkbox',
+      widget: 'multiSelect',
       choices: choicesList.getFormChoices('eligibleIndustries'),
       label: 'Eligible Industries',
       choiceOther: true
@@ -158,10 +158,10 @@ module.exports = function(sequelize, DataTypes) {
       choices: choicesList.getFormChoices('gender')
     },
     age: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: false,
       label: 'Age',
-      widget: 'select',
+      widget: 'multiSelect',
       choices: choicesList.getFormChoices('age'),
     },
     additionalDemographics: {
