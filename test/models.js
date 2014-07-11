@@ -34,7 +34,7 @@ describe('Opportunity Model', function() {
   it('should create a new opportunity with optional fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
-      'purpose-other': 'A different purpose',
+      'purposeOther': 'A different purpose',
       additionalGeneralInformation: 'Some other general information'
     });
     var Opportunity = sequelize.model('opportunity');
@@ -73,7 +73,7 @@ describe('Opportunity Model', function() {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
       purpose: 'other',
-      'purpose-other': 'A different purpose',
+      'purposeOther': 'A different purpose',
       additionalGeneralInformation: 'Some other general information'
     });
 

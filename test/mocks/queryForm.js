@@ -2,7 +2,7 @@ exports = module.exports = function(overrides) {
   var body = {
     //"purpose": "Other",
     //"eligibleBusinessLocation": "anywhere_in_pr",
-    //"eligibleBusinessLocation-other": "",
+    //"eligibleBusinessLocationOther": "",
     //"minimumYearsInBusiness": "0",
     //"eligibleEntityTypes": "non_profit",
     //"currentEmployeesRequired": "26_50",
