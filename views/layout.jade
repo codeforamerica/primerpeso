@@ -18,10 +18,11 @@ html
 
     include partials/footer
     // This should be dynamically controlled.
+    if formInfo
+      script.
+        var formInfo = !{JSON.stringify(formInfo)}
     script(type='text/javascript', src=CDN('/js/vendor.min.js'))
     script(type='text/javascript', src=CDN('/js/main.js'))
-    if env == 'development'
-      include partials/browserSync.jade
     script.
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-XXXXX-X']);

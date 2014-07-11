@@ -45,10 +45,10 @@ module.exports = function(sequelize, DataTypes) {
     // in the backend.
     paperworkRequired: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
-      widget: 'textArea',
+      widget: 'arrayTextField',
       label: 'Paperwork Required',
       multiple: true,
-      allowNull: false,
+      allowNull: false
     },
     applicationCost: {
       type: DataTypes.INTEGER,
@@ -179,7 +179,7 @@ module.exports = function(sequelize, DataTypes) {
     investingOwnMoney: {
       type: DataTypes.STRING,
       widget: 'radio',
-      choices: {'yes': 'yes', 'no': 'no'},
+      choices: {true: 'yes', false: 'no'},
       label: 'Is there any amount the business needs to invest?'
     },
     moneyInvested: {
