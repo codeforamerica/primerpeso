@@ -14,12 +14,7 @@ html
       include partials/navigation
       .container
         include partials/flash
-        if isAdminPath
-          include partials/admin_sidebar.jade
-          .col-md-10
-            block content
-        else
-          block content
+        block content
 
     include partials/footer
     // This should be dynamically controlled.
