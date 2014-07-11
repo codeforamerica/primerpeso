@@ -29,7 +29,8 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
       },
       label: 'Purpose',
-      choiceOther: true
+      choiceOther: true,
+      multiple: true
     },
     // TODO: Need to add distinct municipalities to options
     eligibleBusinessLocation: {
@@ -78,7 +79,8 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'multiSelect',
       choices: choicesList.getFormChoices('benefitType'),
       label: 'Benefit Type',
-      choiceOther: true
+      choiceOther: true,
+      multiple: true
     },
     benefitDescription: {
       type: DataTypes.TEXT,
@@ -163,6 +165,7 @@ module.exports = function(sequelize, DataTypes) {
       label: 'Age',
       widget: 'multiSelect',
       choices: choicesList.getFormChoices('age'),
+      multiple: true
     },
     additionalDemographics: {
       type: DataTypes.ARRAY(DataTypes.STRING),
