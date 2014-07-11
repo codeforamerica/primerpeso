@@ -48,15 +48,18 @@ module.exports = {
         result[i].purposeTemp = [result[i].purpose];
         result[i].ageTemp = [result[i].age];
         result[i].benefitTypeTemp = [result[i].benefitType];
-        result[i].save().success(function() {});
+        result[i].save().success(function(savedResult) {
+          if (savedResult.id === result[result.length - 1].id) {
+            migration.removeColumn('opportunities', 'purpose');
+            migration.removeColumn('opportunities', 'age');
+            migration.removeColumn('opportunities', 'benefitType');
+            migration.renameColumn('opportunities', 'purposeTemp', 'purpose');
+            migration.renameColumn('opportunities', 'ageTemp', 'age');
+            migration.renameColumn('opportunities', 'benefitTypeTemp', 'benefitType');
+          };
+        });
       };
     });
-    migration.removeColumn('opportunities', 'purpose');
-    migration.removeColumn('opportunities', 'age');
-    migration.removeColumn('opportunities', 'benefitType');
-    migration.renameColumn('opportunities', 'purposeTemp', 'purpose');
-    migration.renameColumn('opportunities', 'ageTemp', 'age');
-    migration.renameColumn('opportunities', 'benefitTypeTemp', 'benefitType');
     done()
   },
   down: function(migration, DataTypes, done) {
