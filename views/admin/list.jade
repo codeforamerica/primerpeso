@@ -7,14 +7,11 @@ block content
       #new
         a.btn.btn-default(href="#{base}#{path}/new", role="button") New +
 
-    //- .table-bordered
     table.table.table-striped.table-hover.table-condensed
       thead
         tr
           th
-            | Click to edit
-          th
-            | Click to delete
+            | Click to edit / delete
           th= fields.title.label
           th= fields.applicationDeadline.label
           th= fields.benefitType.label
@@ -25,9 +22,8 @@ block content
         each entry in data
           tr
             td
-              a.btn.btn-xs.btn-default(href="#{base}#{path}/#{entry.id}/edit") edit
-            td
-              a.btn.btn-xs.btn-default.delete-model(href="#{base}#{path}/#{entry.id}/delete") delete
+              a.admin-edit.btn.btn-default(href="#{base}#{path}/#{entry.id}/edit") edit
+              a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") delete
             td= entry.selectedValues[fields.title.name]
             td= entry.selectedValues[fields.applicationDeadline.name]
             td= entry.selectedValues[fields.benefitType.name]
