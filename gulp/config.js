@@ -15,6 +15,7 @@ var config = {
     nm + '/jquery/dist/jquery.js',
     nm + '/lodash/dist/lodash.js',
     nm + '/bootstrap/dist/js/bootstrap.js',
+    nm + '/validator/validator.min.js',
     src + '/js/lib/**'
     //nm + '/moment/moment.js'
     //nm + '/swiftclick/js/libs/swiftclick.js',

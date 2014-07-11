@@ -15,7 +15,8 @@ var oppQueryCreate = function(req, res, next) {
   res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',
-    form: oppQueryForm.getFormConfig()
+    form: oppQueryForm.getFormConfig(),
+    formInfo: oppQueryForm.getFormInfo()
   });
 };
 
