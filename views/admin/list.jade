@@ -7,7 +7,7 @@ block content
       #new
         a.btn.btn-default(href="#{base}#{path}/new", role="button") New +
 
-    table.table.table-striped.table-hover.table-condensed
+    table.table.table-striped.table-hover.table-condensed.admin
       thead
         tr
           th
@@ -18,11 +18,11 @@ block content
           th= fields.agencyContactName.label
 
 
-      tbody
+      tbody.admin
         each entry in data
           tr
             td
-              a.admin-edit.btn.btn-default(href="#{base}#{path}/#{entry.id}/edit") edit
+              a.btn.btn-default.admin-edit(href="#{base}#{path}/#{entry.id}/edit") edit
               a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") delete
             td= entry.selectedValues[fields.title.name]
             td= entry.selectedValues[fields.applicationDeadline.name]
