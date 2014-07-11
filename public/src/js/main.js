@@ -88,15 +88,14 @@ $(document).ready(function() {
   $('.model-form').on('submit', function(event) {
     var nameList = [];
     var valid = true;
-    if ($('.model-form input[name="eligibleEntityTypes"]:checked').length == 0) {
-      valid = false;
-    }
-    else if ($('.model-form input[name="eligibleIndustries"]:checked').length == 0) {
-      valid = false
-    }
+    $('.select2-choices').each( function(index, elem) {
+      if ($(this).children('.select2-search-choice').length == 0) {
+        valid = false;
+      };
+    });
 
     if (!valid) {
-      alert('You have missing checkboxes');
+      alert('You have missing fields');
     };
 
     return valid;
