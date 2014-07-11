@@ -31,7 +31,7 @@ $(document).ready(function() {
         alert('You have missing fields');
       };
       return valid;
-	   },
+    },
     onFinished: function (event, currentIndex){
       console.log(event);
       console.log(currentIndex);
@@ -64,7 +64,7 @@ $(document).ready(function() {
       };
       return valid;
     }
-	});
+  });
 
   $('.delete-model').on('click', function(e){
     var conf = confirm('Are you sure you want to delete this entry?');
