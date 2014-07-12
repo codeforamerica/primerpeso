@@ -143,6 +143,28 @@ describe('Opportunity Model', function() {
     });
   });
 
+  it('should create a new opportunity associated to a user by id', function(done) {
+    var body = opportunityMock();
+    var Opportunity = sequelize.model('opportunity');
+    var instance = Opportunity.buildFromAdminForm(body);
+    instance['user_id'] = 1
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        done(err);
+      }
+      instance.save().success(function(){
+        Opportunity.find({where: { 'user_id': 1 } }).success(function(entry) {
+          done();
+        });
+        done(err);
+      })
+      .error(function(err) {
+        done(err);
+      });
+    });
+  });
+
   afterEach(function(done) {
     var Opportunity = sequelize.model('opportunity');
     Opportunity.destroy({title: 'Test opp3'}).success(function(rows) {
