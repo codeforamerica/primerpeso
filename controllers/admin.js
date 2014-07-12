@@ -133,6 +133,7 @@ function entry (req, res) {
   var Model = sequelize.model(render.model);
 
   Model.find(req.params.id).success(function(result) {
+    // TODO: We need a jade template for single entries
     return res.json(result);
   });
 }
