@@ -12,6 +12,20 @@ module.exports = function(app) {
  */
 var oppQueryCreate = function(req, res, next) {
   var options = options || {};
+  form = oppQueryForm.getFormConfig();
+  for (var fieldSet in form.fields) {
+    for(var field in form.fields[fieldSet]) {
+      if(form.fields[fieldSet][field]['choices']) {
+        if (form.fields[fieldSet][field]['choices'].hasOwnProperty('any')) {
+          delete form.fields[fieldSet][field]['choices']['any'];
+        };
+        if (form.fields[fieldSet][field]['choices'].hasOwnProperty('0')) {
+          delete form.fields[fieldSet][field]['choices']['0'];
+        };
+        console.log(form.fields[fieldSet][field]['choices']);
+      }
+    }
+  }
   res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',
