@@ -1,11 +1,18 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
-    var User = migration.migrator.sequelize.model('user');
-    var Opportunity = migration.migrator.sequelize.model('opportunity');
-    User.hasMany(Opportunity);
-    migration.migrator.sequelize.sync({ force: false }).complete(function(err) {
-      if (err) throw err;
-      console.log('Association done.');
+    migration.addColumn(
+      'opportunities',
+      'user_id',
+      {
+        type: DataTypes.INTEGER,
+      }
+    );
+    var Model = migration.migrator.sequelize.model('opportunity');
+    Model.all().success(function(result) {
+      for (var i = 0; i < result.length; i++) {
+        result[i]['user_id'] = 1;
+        result[i].save()
+      }
     });
     done()
   },

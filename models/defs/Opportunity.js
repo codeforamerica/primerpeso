@@ -189,6 +189,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       widget: 'text',
       label: 'How much?'
+    },
+    user_id: {
+      type: DataTypes.INTEGER
     }
  }
 

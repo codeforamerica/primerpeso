@@ -56,11 +56,11 @@ module.exports = {
             migration.renameColumn('opportunities', 'purposeTemp', 'purpose');
             migration.renameColumn('opportunities', 'ageTemp', 'age');
             migration.renameColumn('opportunities', 'benefitTypeTemp', 'benefitType');
+            done();
           };
         });
       };
     });
-    done()
   },
   down: function(migration, DataTypes, done) {
     // add reverting commands here, calling 'done' when finished
