@@ -154,7 +154,7 @@ describe('Opportunity Model', function() {
         done(err);
       }
       instance.save().success(function(){
-        Opportunity.find({where: { 'user_id': 1 } }).success(function(entry) {
+        Opportunity.find({where: { 'user_id': 1, 'title': 'Test opp3' } }).success(function(entry) {
           should.exist(entry);
           done();
         });
