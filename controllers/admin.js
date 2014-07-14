@@ -29,6 +29,7 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/:id'), entry);
   app.post(path.join(base, '/:model/:id'), entrySave);
   app.get(path.join(base, '/:model'), list);
+  // TODO: Need a route for all models, can't fit it anywhere though listAll function does that
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
@@ -46,10 +47,32 @@ function index(req, res) {
 function debug(req, res) {
   return res.json(db.sequelize.models);
 }
+
 /**
  * GET list
  */
 function list(req, res) {
+  var render = _.extend(res.locals, {
+    model: req.params.model
+    //page: req.params.page || 0;
+  });
+
+  var Model = sequelize.model(render.model);
+  var doc = sequelize.model(render.model);
+  var keys = doc.getListFields ? doc.getListFields() : null;
+  var fields = keys ? _.pick(doc.getFormFields('new'), keys) : doc.getFormFields('new');
+  var options = keys ? { attributes: keys } : {};
+  options['where'] = ['user_id = '+req.user.id];
+  Model.findAndCountAll(options).success(function(result) {
+    return res.render('admin/list', { data: result.rows, fields: fields });
+  });
+
+}
+
+/**
+ * GET listAll
+ */
+function listAll(req, res) {
   var render = _.extend(res.locals, {
     model: req.params.model
     //page: req.params.page || 0;
