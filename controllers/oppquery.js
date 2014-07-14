@@ -22,7 +22,6 @@ var oppQueryCreate = function(req, res, next) {
         if (form.fields[fieldSet][field]['choices'].hasOwnProperty('0')) {
           delete form.fields[fieldSet][field]['choices']['0'];
         };
-        console.log(form.fields[fieldSet][field]['choices']);
       }
     }
   }
