@@ -5,25 +5,26 @@ block content
     #list-top
       h2= title
       #new
-        a.btn.btn-xs.btn-default(href="#{base}#{path}/new", role="button") New &raquo;
+        a.btn.btn-default(href="#{base}#{path}/new", role="button") New +
 
-    //- .table-bordered
-    table.table.table-striped.table-hover.table-condensed
+    table.table.table-striped.table-hover.table-condensed.admin
       thead
         tr
           th
-            | Click to edit
-          th
-            | Click to delete
-          each f in fields
-            th= f.label
-      tbody
+            | Click to edit / delete
+          th= fields.title.label
+          th= fields.applicationDeadline.label
+          th= fields.benefitType.label
+          th= fields.agencyContactName.label
+
+
+      tbody.admin
         each entry in data
           tr
             td
-              a.btn.btn-xs.btn-default(href="#{base}#{path}/#{entry.id}/edit") edit
-            td
-              a.btn.btn-xs.btn-default.delete-model(href="#{base}#{path}/#{entry.id}/delete") delete
-            each f in fields
-              td= entry.selectedValues[f.name]
-
+              a.btn.btn-default.admin-edit(href="#{base}#{path}/#{entry.id}/edit") edit
+              a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") delete
+            td= entry.selectedValues[fields.title.name]
+            td= entry.selectedValues[fields.applicationDeadline.name]
+            td= entry.selectedValues[fields.benefitType.name]
+            td= entry.selectedValues[fields.agencyContactName.name]

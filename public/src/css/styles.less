@@ -34,10 +34,6 @@ h1, h2, h3, h4, h5 {
 	font-family: @font-family;
 }
 
-body {
-  padding-top: 100px;
-}
-
 #wrap {
   min-height: 100%;
   height: auto !important;
@@ -49,8 +45,8 @@ body {
 }
 
 #footer {
-  height: 110px;
-  padding-top: 15px;
+  height: 130px;
+  padding-top: 20px;
 }
 
 // Layout
@@ -68,8 +64,14 @@ p {
 
 .navbar-default {
 	background-color: @green;
-	border-color: #97e8c1;
+  border: none;
 	font-size: 24px;
+  .navbar-nav .active a {
+    background-color: @dark-green;
+    &:hover, &:focus {
+      background-color: @navy;
+    }
+  }
 }
 
 .navbar-nav .profile-image {
@@ -93,7 +95,7 @@ p {
 // -------------------------
 
 .landing {
-  text-align: left;
+  text-align: center;
   display: inline-block;
   .title {
     margin-top: 50px;
@@ -116,11 +118,6 @@ p {
     display: inline;
     margin-right: 25px;
   }
-}
-
-.landing-header, .landing-last {
-  text-align: center;
-  display: inline-block;
 }
 
 .landing-body-right {
@@ -156,33 +153,36 @@ p {
 // Wizard
 // -------------------------
 
-.wizard .steps ul li {
-  width: auto;
-}
-
-.wizard {
-  .actions a {
-    background-color: @dark-green;
-    padding: 15px 35px;
-    font-size: 19px;
-  }
-    a:hover {
-      background-color: @navy;
-      font-size: 19px;
-      padding: 15px 35px;
-    }
-  .actions {
-    text-align: left;
-    margin-left: 5%;
-  }
-}
-
 .wizard .content {
   background-color: white;
   min-height: inherit;
   .body {
     position: relative !important;
   }
+}
+
+.wizard .steps ul li {
+  width: auto;
+  font-size: 19px;
+}
+
+.wizard {
+  .actions a {
+    background-color: @dark-green;
+    padding: 15px 35px;
+  }
+  .actions {
+    text-align: left;
+    margin-left: 5%;
+    .disabled a {
+      padding: 15px 35px;
+    }
+  }
+}
+
+.wizard .actions a:hover {
+  background-color: @navy;
+  padding: 15px 35px;
 }
 
 .wizard .steps{
@@ -194,15 +194,12 @@ p {
   .current a {
     background-color: @dark-green;
   }
-  .current a:hover {
-    background-color: @navy;//darken(@dark-green, 15%);
-  }
   .done a {
     background-color: @green;
   }
 }
 
-.wizard .steps .done a:hover { //having trouble getting this nesting to work
+.wizard .steps .done a:hover {
   background-color: @navy;
 }
 
@@ -214,7 +211,7 @@ p {
 // Landing Page
 // -------------------------
 .landing {
-  text-align: left;
+  text-align: center;
   display: inline-block;
   .title {
     margin-top: 50px;
@@ -253,6 +250,10 @@ p {
   }
 }
 
+.landing-body-left {
+  text-align: left;
+}
+
 .title {
   color: @navy;
   font-size: 550%;
@@ -261,6 +262,59 @@ p {
 
 .subtitle {
   font-weight: bold;
+}
+
+// About
+// -------------------------
+
+.about {
+  text-align: center;
+  max-width: 80%;
+  margin: auto;
+  line-height: 2em;
+}
+
+// Sign-In
+// -------------------------
+
+.subpagetitle {
+    color: @navy;
+    font-weight: bold;
+    line-height: 1.8em;
+    font-size: 250%;
+    margin: 35px 0px;
+    border-bottom: 2px @light-grey solid;
+}
+
+.control-label {
+  font-size: 150%;
+}
+
+// Admin
+// -------------------------
+
+#new .btn {
+  margin: 0px;
+}
+
+#list-top h2 {
+  font-weight: bold;
+  color: @navy;
+}
+
+td {
+  width: 20%;
+  :first-child :last-child {
+    width: 25%;
+  }
+}
+
+.admin thead {
+  font-size: 135%;
+}
+
+.table-condensed > tbody > tr > td{
+  padding-top: 20px;
 }
 
 // Buttons
@@ -272,6 +326,13 @@ p {
   font-size: 150%;
   margin: 20px;
   padding: 15px;
+  border: none;
+}
+
+.admin-edit {
+  font-size: 115%;
+  padding: 12px;
+  margin: 0px 12px 12px 10px;
 }
 
 

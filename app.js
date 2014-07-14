@@ -32,7 +32,6 @@ var db = require('./models');
 
 // @TODO -- dep this
 //var userController = require('./controllers/user');
-var contactController = require('./controllers/contact');
 
 /**
  * API keys + Passport configuration.
@@ -148,7 +147,7 @@ require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
-
+require('./controllers/contact')(app);
 
 
 /**

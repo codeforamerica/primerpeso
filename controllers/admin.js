@@ -17,7 +17,7 @@ module.exports = function(app) {
     res.locals.path = req.path || '';
     res.locals.menu = { opportunity: 'opportunity' };
     res.locals.isAdminPath = true;
-    res.locals.title = 'Admin';
+    res.locals.title = 'Admin Panel - Available Programs';
     next();
   });
 

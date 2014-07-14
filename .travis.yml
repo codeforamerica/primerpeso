@@ -39,9 +39,9 @@ deploy:
   - provider: heroku
     api_key:
       master:
-        secure: sBTSFu2fqUMjrYkeVynHzn90HTXQF4hkBCyebUk+Y3jF9MaHD7nZmZn/teGkuNILtCYwohYZvWc6rYxYrLXhjhenU5uaN85b7FFlu1XG6MRGBv47+UALOH5C/6HhV50ItBq0/U0+CorlA5w0M0pbngnooyoeEojniqa5CjvRB4o=
+        secure: rN6DMbMNXh0X6GSJk1RMVP8mtWnkB71pmI5/ypMe6eHti1JgD7y2SF7AW6p770S0PVwMr1PIY301msmIsZ/8+i0Sov4Quuj9QqknBBwd2H8iEhtEepBF+H3mTKFJKSd1C+klodsbsJr+H4N/PdcLY7VLfqIY1pLQ9+gKv69dlBs=
       production:
-        secure: S24HJcILh7RZcKH2kPJ3eOZShSoUYO0JqB0QKhD33d0ThJz9B5PXA26qITJPt/GNB88EHXSpigACrPOtH/tOlHmzZGAffVkAgoj8KDjoNbeRfRbx4ZM00v4vY3b9U/wsmO6bobSrR39D/UWALZDz0aWMQnYIG/QXM02lpzrlRxo=
+        secure: o1ALDx9zYsdJXiadb8tTv3BmMA+2TKbICMp2K/in8TzMXueH4k7cu+aYndlClDlu2daNTplp2AyVu54Q0xDervHeHTU/YIiVImKKrrMZ9AVHB2RlJOG5YhmAC6K+T2IwhLDEuGJZXCy+nzOpihL2/oudlFJUj8X4ytEDIDw1REY=
     app:
       master: bizwallet-staging
       production: bizwallet
@@ -49,6 +49,5 @@ deploy:
       repo: CoquiCoders/bizwallet
     run:
       - "restart"
-      - "gulp prodBuild"
 
 
