@@ -21,6 +21,7 @@
 //Greys
 @dark-grey: #333333;
 @light-grey: #808080;
+@lighter-grey: #eee;
 
 // Scaffolding
 // -------------------------
@@ -221,13 +222,10 @@ p {
 // Search Results
 // -------------------------
 
-.nav-tabs {
-  border-bottom: 5px solid purple;
-}
-
 .results-tabs {
   font-size: 250%;
   margin: 20px 0px 30px;
+  background-color: @lighter-grey;
   li.active a {
     color: white;
     background-color: @green;
@@ -257,16 +255,25 @@ p {
   padding-right: 0px;
 }
 
-.row-benefit-count h3 {
+.row-benefit-count {
+  border-bottom: 2px solid @light-grey;
+  h3 {
   color: @light-blue;
   font-weight: bold;
   font-size: 270%;
+  }
 }
 
 .row-header h4 {
   color: @navy;
   font-weight: bold;
   font-size: 200%;
+}
+
+.benefit-title {
+  color: @dark-green;
+  font-size: 170%;
+  margin-left: 8px;
 }
 
 // About Page
