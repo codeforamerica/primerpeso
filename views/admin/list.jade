@@ -24,7 +24,8 @@ block content
             td
               a.btn.btn-default.admin-edit(href="#{base}#{path}/#{entry.id}/edit") edit
               a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") delete
-            td= entry.selectedValues[fields.title.name]
+            td
+              a(href="#{base}#{path}/#{entry.id}") #{entry.selectedValues[fields.title.name]}
             td= entry.selectedValues[fields.applicationDeadline.name]
             td= entry.selectedValues[fields.benefitType.name]
             td= entry.selectedValues[fields.agencyContactName.name]
