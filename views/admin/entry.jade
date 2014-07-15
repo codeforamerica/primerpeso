@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  #list
+    #list-top
+      h2= title
+      #new
+        a.btn.btn-default(href="#{base}/#{model}", role="button") Back to all #{model}
+
+    table.table.table-striped.table-hover.table-condensed.admin
+      thead
+        tr
+          th
+            | Click to edit / delete
+      tbody.admin
+          tr
+            td
+              a.btn.btn-default.admin-edit(href="#{base}#{path}/edit") edit
+              a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/delete") delete
+          each field in fields
+            tr
+              td
+                strong= field.label
+              td= entry.selectedValues[field.name]

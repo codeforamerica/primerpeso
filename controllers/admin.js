@@ -132,8 +132,13 @@ function entry (req, res) {
 
   var Model = sequelize.model(render.model);
 
+  var keys = Model.getListFields ? Model.getListFields() : null;
+  var fields = keys ? _.pick(Model.getFormFields('new'), keys) : Model.getFormFields('new');
+  render['fields'] = fields;
   Model.find(req.params.id).success(function(result) {
-    return res.json(result);
+    render['entry'] = result;
+    return res.render('admin/entry', render);
+    // return res.json(result);
   });
 }
 
