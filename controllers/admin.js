@@ -124,7 +124,7 @@ function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
   var instance = Model.buildFromAdminForm(req.body);
-  instance['user_id'] = 1;
+  instance['user_id'] = req.user.id;
   instance.validate().
   success(function(err) {
     if (err) {
