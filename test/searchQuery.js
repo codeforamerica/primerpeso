@@ -8,32 +8,36 @@ var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
 var Opportunity = sequelize.model('opportunity');
+var SearchQuery = require('../lib/SearchQuery');
 var searchQueryMock = require('./mocks/searchQuery.js');
 var oppMock = require('./mocks/opportunity.js');
 
 chai.use(chaiAsPromised);
 
-var overrideSet = [
+var modelOverrideSet = [
   // Match
   {
-    title:   "Opporunity Match",
-    purpose: ["start_business", "export"]
-    //applicationCost: 'string'
+    title:   "TEST: Opporunity Match",
+    purpose: ["start_business", "export"],
+    gender:  "male"
   },
   // No Match
   {
-    title:   "Opporunity No Match",
-    purpose: ["relocate_business", "open_franchise"]
+    title:   "TEST: Opporunity No Match",
+    purpose: ["relocate_business", "open_franchise"],
+    gender:  "female"
   },
   // Match Other
   {
-    title:   "Opporunity Match Other",
-    purpose: ["other"]
+    title:   "TEST: Opporunity Match Other",
+    purpose: ["other"],
+    //gender:  "other" // @TODO -- for some reason this breaks.
   },
   // Match Any
   {
-    title:   "Opporunity Match Any",
-    purpose: ["anything"]
+    title:   "TEST: Opporunity Match Any",
+    purpose: ["anything"],
+    gender:  "any"
   },
 ];
 
@@ -59,21 +63,25 @@ function deleteOpportunity(overrides, done) {
 }
 
 describe('Search Query', function() {
+
+  // Setup.
   before(function(done) {
     // Initialize and save opportunity mocks to run searches against.
     var oppPromises = [];
-    _.each(overrideSet, function(overrides, index) {
-      oppPromises.push(createOpportunity(overrides, done));
+    _.each(modelOverrideSet, function(overrides, index) {
+      //oppPromises.push(createOpportunity(overrides, done));
     });
     Promise.all(oppPromises).then(function() {
       return done();
     });
   });
+
+  // TearDown.
   after(function(done) {
     var oppPromises = [];
-    _.each(overrideSet, function(overrides, index) {
+    _.each(modelOverrideSet, function(overrides, index) {
       oppPromises.push(
-        Opportunity.destroy({ title: overrides.title })
+        //Opportunity.destroy({ title: overrides.title })
       );
     });
     Promise.all(oppPromises).then(function() {
@@ -82,8 +90,24 @@ describe('Search Query', function() {
   });
 
 
-  it('should find opportunity with matching purpose in set');
-  /*it('should NOT find opportunity with no matching purpose');
-  it('should find opportunities with OTHER purpose in set, no matter what purpose is picked')
-  it('should find opportunities with anything purpose in set, no matter what purpose is picked')*/
+  describe('Single to Single', function() {
+    it('should find opportunities with matching gender', function(done) {
+    var body = new searchQueryMock();
+    var searchQuery = new SearchQuery(body);
+    searchQuery.execute().success(function(result) {
+      console.log(result);
+      return done();
+    });
+  });
+    it('should NOT find opportunities where gender does not match and is not ANY or OTHER (OTHER HAVING PROBLEMS)');
+    it('should find opportunities where gender is any and searched for male');
+  });
+
+  describe('Single to Multiple', function() {
+    it('should find opportunity with matching purpose in set');
+    it('should NOT find opportunity with no matching purpose');
+    it('should find opportunities with OTHER purpose in set, no matter what purpose is picked')
+    it('should find opportunities with anything purpose in set, no matter what purpose is picked')
+  });
+
 });

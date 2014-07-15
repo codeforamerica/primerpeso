@@ -3,7 +3,7 @@ var _ = require('lodash');
 exports = module.exports = function(overrides) {
   var overrides = overrides || {};
   var body = {
-    "purpose": "start_business",
+    //"purpose": "start_business",
     //"eligibleBusinessLocation": "anywhere_in_pr",
     //"eligibleBusinessLocationOther": "",
     //"minimumYearsInBusiness": "0",
@@ -13,7 +13,7 @@ exports = module.exports = function(overrides) {
     /*"eligibleIndustries": [
       "any",
     ],*/
-    //"gender": "male",
+    "gender": "male",
     //"age": "2",
     //"investingOwnMoney": true
     //"moneyInvested": ""
