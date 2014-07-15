@@ -10,9 +10,9 @@ exports = module.exports = function(overrides) {
     /*"eligibleIndustries": [
       "any",
     ],*/
-    "gender": "male",
-    "age": "2",
-    "investingOwnMoney": true
+    //"gender": "male",
+    //"age": "2",
+    //"investingOwnMoney": true
     //"moneyInvested": ""
   }
   if (overrides) {

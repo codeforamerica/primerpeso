@@ -63,7 +63,7 @@
     "pg": "^3.3.0",
     "pretty-hrtime": "~0.2.1",
     "request": "^2.34.0",
-    "sequelize": "2.x",
+    "sequelize": "^2.0.0-dev12",
     "sequelize-cli": "^0.2.1",
     "string": "~1.8.1",
     "uglify-js": "^2.4.13",
