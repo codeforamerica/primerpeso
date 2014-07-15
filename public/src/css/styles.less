@@ -13,6 +13,7 @@
 //BizWallet Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
+@darker-green: #128d75;
 @light-green: #cbf7e1;
 @navy: #146482;
 @white: #ffffff;
@@ -293,6 +294,13 @@ p {
 // Admin
 // -------------------------
 
+.admin a {
+  text-decoration: underline;
+  &:hover {
+    color: @darker-green;
+  }
+}
+
 #new .btn {
   margin: 0px;
 }
@@ -327,6 +335,7 @@ td {
   margin: 20px;
   padding: 15px;
   border: none;
+  text-decoration: none;
 }
 
 .admin-edit {
