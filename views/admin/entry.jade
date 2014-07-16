@@ -6,7 +6,6 @@ block content
       h2= title
       #new
         a.btn.btn-default(href="#{base}/#{model}", role="button") Back to all #{model}
-
     table.table.table-striped.table-hover.table-condensed.admin
       thead
         tr
@@ -14,7 +13,6 @@ block content
             a.btn.btn-default.admin-edit.entry(href="#{base}#{path}/edit") edit
             a.btn.btn-default.delete-model.admin-edit.entry(href="#{base}#{path}/delete") delete
       tbody.admin
-
           each field in fields
             tr
               td
