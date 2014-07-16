@@ -18,27 +18,27 @@ chai.use(chaiAsPromised);
 var modelOverrideSet = [
   // Match
   {
-    title:   "TEST: Opporunity Match",
+    title:   "TEST: Opportunity Match",
     purpose: ["start_business", "export"],
     gender:  "male",
     benefitType: ["incentive", "grant"]
   },
   // No Match
   {
-    title:   "TEST: Opporunity No Match",
+    title:   "TEST: Opportunity No Match",
     purpose: ["relocate_business", "open_franchise"],
     gender:  "female",
     benefitType: ["incentive", "loan"]
   },
   // Match Other
   {
-    title:   "TEST: Opporunity Match Other",
+    title:   "TEST: Opportunity Match Other",
     purpose: ["other"],
     //gender:  "other" // @TODO -- for some reason this breaks.
   },
   // Match Any
   {
-    title:   "TEST: Opporunity Match Any",
+    title:   "TEST: Opportunity Match Any",
     purpose: ["anything"],
     gender:  "any",
     benefitType: ["expertise"]
@@ -113,7 +113,10 @@ describe('Search Query', function() {
     });
 
     // TODO -- this test will be written when I"m properly setting the names.
-    it('should place opportunities with multiple benefits in different top keys');
+    it('should place opportunities with multiple benefits in different top keys, multiple times', function(done) {
+      searchResult.incentive.TESTOpportunityMatch.should.eql(searchResult.grant.TESTOpportunityMatch);
+      return done();
+    });
 
   });
 
