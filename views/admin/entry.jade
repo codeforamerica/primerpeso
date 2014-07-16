@@ -11,12 +11,10 @@ block content
       thead
         tr
           th
-            | Click to edit / delete
+            a.btn.admin-edit(href="#{base}#{path}/edit") edit
+            a.btn.delete-model.admin-edit(href="#{base}#{path}/delete") delete
       tbody.admin
-          tr
-            td
-              a.btn.btn-default.admin-edit(href="#{base}#{path}/edit") edit
-              a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/delete") delete
+
           each field in fields
             tr
               td

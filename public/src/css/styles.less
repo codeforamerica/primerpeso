@@ -18,6 +18,8 @@
 @navy: #146482;
 @light-blue: #2bd8eb;
 @white: #ffffff;
+@red: #db4e4d;
+@darker-red: #ad2121;
 
 //Greys
 @dark-grey: #333333;
@@ -35,6 +37,14 @@ html, body {
 
 h1, h2, h3, h4, h5 {
 	font-family: @font-family;
+}
+
+a {
+  color: @dark-green;
+  text-decoration: underline;
+  &:hover {
+    color: @darker-green;
+  }
 }
 
 #wrap {
@@ -71,6 +81,7 @@ p {
 	font-size: 24px;
   .navbar-nav .active a {
     background-color: @dark-green;
+    text-decoration: none;
     &:hover, &:focus {
       background-color: @navy;
     }
@@ -149,17 +160,6 @@ p {
 
 .subtitle {
   font-weight: bold;
-}
-
-// Buttons
-// -------------------------
-
-.btn {
-  background-color: @dark-green;
-  color: @white;
-  font-size: 150%;
-  margin: 20px;
-  padding: 15px;
 }
 
 // Wizard
@@ -306,13 +306,6 @@ p {
 // Admin
 // -------------------------
 
-.admin a {
-  text-decoration: underline;
-  &:hover {
-    color: @darker-green;
-  }
-}
-
 #new .btn {
   margin: 0px;
 }
@@ -347,7 +340,10 @@ td {
   margin: 20px;
   padding: 15px;
   border: none;
-  text-decoration: none;
+  text-decoration: none !important;
+  &:hover {
+    background-color: @darker-green;
+  }
 }
 
 .admin-edit {
@@ -359,6 +355,13 @@ td {
 #new .btn {
   padding: 10px;
   font-size: 100%;
+}
+
+.delete-model {
+  background-color: @red;
+  &:hover {
+    background-color: @darker-red;
+  }
 }
 
 
