@@ -2,7 +2,7 @@
 // See http://jade-lang.com/reference/#mixins
 
 mixin searchResultNav(searchResult)
-  ul(class="nav nav-tabs nav-justified search-tabs" role="tablist")
+  ul(class="nav nav-tabs nav-justified search-tabs results-tabs" role="tablist")
     li(class="active search-tab")
       a(href="#" id="all") All
     each benefitList, benefitType in searchResult
@@ -32,7 +32,8 @@ mixin renderResultSubset(benefitList, benefitType)
   each benefitDesc, benefitName in benefitList
     div(class="row row-" + benefitType)
       div(class="col-md-6 col-description col-" + benefitName)
-        h4= benefitDesc.title
+        input(type='checkbox')
+        label(class="benefit-title")= benefitDesc.title
         div(class=benefitName + "-inner-text")= benefitDesc.description
 
       div(class="col-md-3 col-deadline col-" + benefitName)
