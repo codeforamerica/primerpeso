@@ -112,6 +112,7 @@ describe('Search Query', function() {
       return done();
     });
 
+    // TODO -- this test will be written when I"m properly setting the names.
     it('should place opportunities with multiple benefits in different top keys');
 
   });
