@@ -91,16 +91,22 @@ describe('Search Query', function() {
 
 
   describe('Single to Single', function() {
-    it('should find opportunities with matching gender', function(done) {
-    var body = new searchQueryMock();
-    var searchQuery = new SearchQuery(body);
-    searchQuery.execute().success(function(result) {
-      console.log(result);
+    var searchResult;
+    before(function(done) {
+      var body = new searchQueryMock({ gender: 'male' });
+      var searchQuery = new SearchQuery(body);
+      searchQuery.execute().success(function(result) {
+        searchResult = result;
+        return done();
+      });
+    });
+    it('should find opportunities with matching gender, any or other; and not find those without match.', function(done) {
+      _.each(searchResult, function(element, index) {
+        ['any', 'male', 'other'].should.contain(element.gender);
+        element.gender.should.not.equal('female');
+      });
       return done();
     });
-  });
-    it('should NOT find opportunities where gender does not match and is not ANY or OTHER (OTHER HAVING PROBLEMS)');
-    it('should find opportunities where gender is any and searched for male');
   });
 
   describe('Single to Multiple', function() {
