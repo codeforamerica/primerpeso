@@ -9,7 +9,8 @@ var db = require('../models');
 var sequelize = db.sequelize;
 var Opportunity = sequelize.model('opportunity');
 var SearchQuery = require('../lib/SearchQuery');
-var searchQueryMock = require('./mocks/searchQuery.js');
+var searchQueryMock = require('./mocks/searchQuery');
+//var searchResultMock = require('./mocks/searchResults');
 var oppMock = require('./mocks/opportunity.js');
 
 chai.use(chaiAsPromised);
@@ -19,13 +20,15 @@ var modelOverrideSet = [
   {
     title:   "TEST: Opporunity Match",
     purpose: ["start_business", "export"],
-    gender:  "male"
+    gender:  "male",
+    benefitType: ["incentive", "grant"]
   },
   // No Match
   {
     title:   "TEST: Opporunity No Match",
     purpose: ["relocate_business", "open_franchise"],
-    gender:  "female"
+    gender:  "female",
+    benefitType: ["incentive", "loan"]
   },
   // Match Other
   {
@@ -37,7 +40,8 @@ var modelOverrideSet = [
   {
     title:   "TEST: Opporunity Match Any",
     purpose: ["anything"],
-    gender:  "any"
+    gender:  "any",
+    benefitType: ["expertise"]
   },
 ];
 
@@ -87,6 +91,29 @@ describe('Search Query', function() {
     Promise.all(oppPromises).then(function() {
       return done();
     });
+  });
+
+  describe('Return Structure', function() {
+    var searchResult;
+    before(function(done) {
+      var body = new searchQueryMock({ gender: 'male' });
+      var searchQuery = new SearchQuery(body);
+      searchQuery.execute().success(function(result) {
+        searchResult = result;
+        console.log('----FORMATTED RESULT 2----');
+        console.log(searchResult);
+        return done();
+      });
+    });
+
+    it('should set top keys to benefit types', function(done) {
+      var topKeys = _.keys(searchResult);
+      topKeys.should.eql(['incentive', 'grant', 'expertise']);
+      return done();
+    });
+
+    it('should place opportunities with multiple benefits in different top keys');
+
   });
 
 
