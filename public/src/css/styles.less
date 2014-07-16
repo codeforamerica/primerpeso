@@ -13,10 +13,13 @@
 //BizWallet Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
+@darker-green: #128d75;
 @light-green: #cbf7e1;
 @navy: #146482;
 @light-blue: #2bd8eb;
 @white: #ffffff;
+@red: #db4e4d;
+@darker-red: #ad2121;
 
 //Greys
 @dark-grey: #333333;
@@ -34,6 +37,14 @@ html, body {
 
 h1, h2, h3, h4, h5 {
 	font-family: @font-family;
+}
+
+a {
+  color: @dark-green;
+  text-decoration: underline;
+  &:hover {
+    color: @darker-green;
+  }
 }
 
 #wrap {
@@ -70,6 +81,7 @@ p {
 	font-size: 24px;
   .navbar-nav .active a {
     background-color: @dark-green;
+    text-decoration: none;
     &:hover, &:focus {
       background-color: @navy;
     }
@@ -148,17 +160,6 @@ p {
 
 .subtitle {
   font-weight: bold;
-}
-
-// Buttons
-// -------------------------
-
-.btn {
-  background-color: @dark-green;
-  color: @white;
-  font-size: 150%;
-  margin: 20px;
-  padding: 15px;
 }
 
 // Wizard
@@ -326,7 +327,7 @@ td {
 }
 
 .table-condensed > tbody > tr > td{
-  padding-top: 20px;
+  padding: 20px 10px 15px;
 }
 
 // Buttons
@@ -339,12 +340,36 @@ td {
   margin: 20px;
   padding: 15px;
   border: none;
+  text-decoration: none !important;
+  &:hover {
+    background-color: @darker-green;
+  }
 }
 
 .admin-edit {
   font-size: 115%;
   padding: 12px;
   margin: 0px 12px 12px 10px;
+}
+
+#new .btn {
+  padding: 10px;
+  font-size: 100%;
+}
+
+.delete-model {
+  background-color: @red;
+  &:hover {
+    background-color: @darker-red;
+  }
+}
+
+.entry {
+  margin-left: 0px;
+  font-size: 90%;
+  &:first-child {
+    margin-left: -5px;
+  }
 }
 
 
