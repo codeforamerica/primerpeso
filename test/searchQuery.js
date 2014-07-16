@@ -119,19 +119,29 @@ describe('Search Query', function() {
 
 
   describe('Single to Single', function() {
-    var searchResult;
-    before(function(done) {
+    it('should find opportunities with matching gender, any or other when I search for male; and not find those without match.', function(done) {
+      var searchResult;
       var body = new searchQueryMock({ gender: 'male' });
       var searchQuery = new SearchQuery(body);
       searchQuery.execute().success(function(result) {
         searchResult = result;
-        return done();
       });
-    });
-    it('should find opportunities with matching gender, any or other; and not find those without match.', function(done) {
       _.each(searchResult, function(element, index) {
         ['any', 'male', 'other'].should.contain(element.gender);
         element.gender.should.not.equal('female');
+      });
+      return done();
+    });
+
+    it('should find opportunities marked as any, other, male or female when I search for any', function(done) {
+      var searchResult;
+      var body = new searchQueryMock({ gender: 'any' });
+      var searchQuery = new SearchQuery(body);
+      searchQuery.execute().success(function(result) {
+        searchResult = result;
+      });
+      _.each(searchResult, function(element, index) {
+        ['any', 'male', 'other', 'female'].should.contain(element.gender);
       });
       return done();
     });
