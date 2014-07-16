@@ -79,14 +79,19 @@ p {
 	background-color: @green;
   border: none;
 	font-size: 24px;
-  .navbar-nav li a {
+  .navbar-nav {
+    li a {
     text-decoration: none;
+    }
+    .open a:focus {
+      background-color: @navy;
     }
     .active a {
     background-color: @dark-green;
     text-decoration: none;
-    &:hover, &:focus {
+    a:focus, &:hover, &:focus, {
       background-color: @navy;
+      }
     }
   }
 }
