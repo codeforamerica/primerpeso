@@ -80,7 +80,7 @@ $(document).ready(function() {
   $('div#eligibleIndustries').next().show();
   $('select').on('change', function() {
     var name = $(this).attr('name');
-    if ($('option:selected', this).attr('value') == 'other') {
+    if ($('option:selected', this).attr('value') == 'other' || $('option:selected', this).attr('value') == 'municipality_in_pr') {
       $('div#'+ name).next().show();
     };
   });
