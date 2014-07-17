@@ -73,7 +73,7 @@ describe('Search Query', function() {
     // Initialize and save opportunity mocks to run searches against.
     var oppPromises = [];
     _.each(modelOverrideSet, function(overrides, index) {
-      //oppPromises.push(createOpportunity(overrides, done));
+      oppPromises.push(createOpportunity(overrides, done));
     });
     Promise.all(oppPromises).then(function() {
       return done();
@@ -85,7 +85,7 @@ describe('Search Query', function() {
     var oppPromises = [];
     _.each(modelOverrideSet, function(overrides, index) {
       oppPromises.push(
-        //Opportunity.destroy({ title: overrides.title })
+	Opportunity.destroy({ title: overrides.title })
       );
     });
     Promise.all(oppPromises).then(function() {
