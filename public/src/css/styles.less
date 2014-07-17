@@ -13,13 +13,18 @@
 //BizWallet Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
+@darker-green: #128d75;
 @light-green: #cbf7e1;
 @navy: #146482;
+@light-blue: #2bd8eb;
 @white: #ffffff;
+@red: #db4e4d;
+@darker-red: #ad2121;
 
 //Greys
 @dark-grey: #333333;
 @light-grey: #808080;
+@lighter-grey: #eee;
 
 // Scaffolding
 // -------------------------
@@ -32,6 +37,14 @@ html, body {
 
 h1, h2, h3, h4, h5 {
 	font-family: @font-family;
+}
+
+a {
+  color: @dark-green;
+  text-decoration: underline;
+  &:hover {
+    color: @darker-green;
+  }
 }
 
 #wrap {
@@ -68,6 +81,7 @@ p {
 	font-size: 24px;
   .navbar-nav .active a {
     background-color: @dark-green;
+    text-decoration: none;
     &:hover, &:focus {
       background-color: @navy;
     }
@@ -129,6 +143,15 @@ p {
   }
 }
 
+.landing-header, .landing-last {
+  text-align: center;
+  display: inline-block;
+}
+
+.landing-body-left {
+  text-align: left;
+}
+
 .title {
   color: @navy;
   font-size: 550%;
@@ -137,17 +160,6 @@ p {
 
 .subtitle {
   font-weight: bold;
-}
-
-// Buttons
-// -------------------------
-
-.btn {
-  background-color: @dark-green;
-  color: @white;
-  font-size: 150%;
-  margin: 20px;
-  padding: 15px;
 }
 
 // Wizard
@@ -208,63 +220,64 @@ p {
     color: @navy;
 }
 
-// Landing Page
+// Search Results
 // -------------------------
-.landing {
-  text-align: center;
-  display: inline-block;
-  .title {
-    margin-top: 50px;
-  }
-  p {
-    font-size: 150%;
-  }
-  .subtitle {
-    color: @dark-grey;
-    font-size: 200%
-  }
-  h2 {
-    font-size: 270%;
-    color: @navy;
-    margin: 20px 0px;
-    font-weight: bold;
-  }
-  img {
-    float: left;
-    display: inline;
-    margin-right: 25px;
+
+.results-tabs {
+  font-size: 250%;
+  margin: 20px 0px 30px;
+  background-color: @lighter-grey;
+  li.active a {
+    color: white;
+    background-color: @green;
+    cursor: hover;
+    &:hover {
+      color: @dark-green;
+      background-color: @green;
+    }
   }
 }
 
-.landing-header, .landing-last {
-  text-align: center;
-  display: inline-block;
+.search-intro {
+  color: @dark-green;
+  font-weight: bold;
+  font-size: 185%;
 }
 
-.landing-body-right {
-  text-align: right;
-  display: inline-block;
-  img {
-    float: right;
-    margin-left: 25px;
+.opportunities-container {
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 
-.landing-body-left {
-  text-align: left;
+.row-header, .col-description-header, .col-deadline-header, .row-loans, .col-md-6, .col-md-3 {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
-.title {
+.row-benefit-count {
+  border-bottom: 2px solid @light-grey;
+  h3 {
+  color: @light-blue;
+  font-weight: bold;
+  font-size: 270%;
+  }
+}
+
+.row-header h4 {
   color: @navy;
-  font-size: 550%;
   font-weight: bold;
+  font-size: 200%;
 }
 
-.subtitle {
-  font-weight: bold;
+.benefit-title {
+  color: @dark-green;
+  font-size: 170%;
+  margin-left: 8px;
 }
 
-// About
+// About Page
 // -------------------------
 
 .about {
@@ -314,7 +327,7 @@ td {
 }
 
 .table-condensed > tbody > tr > td{
-  padding-top: 20px;
+  padding: 20px 10px 15px;
 }
 
 // Buttons
@@ -327,12 +340,36 @@ td {
   margin: 20px;
   padding: 15px;
   border: none;
+  text-decoration: none !important;
+  &:hover {
+    background-color: @darker-green;
+  }
 }
 
 .admin-edit {
   font-size: 115%;
   padding: 12px;
   margin: 0px 12px 12px 10px;
+}
+
+#new .btn {
+  padding: 10px;
+  font-size: 100%;
+}
+
+.delete-model {
+  background-color: @red;
+  &:hover {
+    background-color: @darker-red;
+  }
+}
+
+.entry {
+  margin-left: 0px;
+  font-size: 90%;
+  &:first-child {
+    margin-left: -5px;
+  }
 }
 
 

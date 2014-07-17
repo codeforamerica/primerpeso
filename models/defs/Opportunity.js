@@ -28,7 +28,7 @@ module.exports = function(sequelize, DataTypes) {
       choices: choicesList.getFormChoices('purpose'),
       validate: {
       },
-      label: 'Purpose',
+      label: 'Purpose of Program',
       choiceOther: true,
       multiple: true
     },
