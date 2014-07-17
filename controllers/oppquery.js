@@ -1,9 +1,10 @@
 var oppQueryForm = require('../lib/oppQueryForm.js');
 var searchResults = require('../test/mocks/searchResults');
+var Searcher = require('../lib/SearchQuery.js');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
-  app.get('/results/:filter', oppQueryExecute);
+  app.get('/results', oppQueryExecute);
 };
 
 /**
@@ -20,18 +21,15 @@ var oppQueryCreate = function(req, res, next) {
   });
 };
 
-
-var oppQueryCreateJson = function(req, res, next) {
-  var form = OppQuery.buildForm({ unflatten: true });
-  res.json(form);
-}
-
 var oppQueryExecute = function(req, res, next) {
-  var searchResult = searchResults();
-  res.render('searchResults', {
-    title: 'Search Results',
-    bodyClass: 'searchResults',
-    isSearch: true,
-    searchResult: searchResult
+  var query = req.query;
+  var searchResult = new Searcher(query);
+  searchResult.execute().success(function(searchResult) {
+    res.render('searchResults', {
+      title: 'Search Results',
+      bodyClass: 'searchResults',
+      isSearch: true,
+      searchResult: searchResult
+    });
   });
 };
