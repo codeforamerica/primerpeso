@@ -1,9 +1,10 @@
 var oppQueryForm = require('../lib/oppQueryForm.js');
 var searchResults = require('../test/mocks/searchResults');
+var Searcher = require('../lib/SearchQuery.js');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
-  app.get('/results/:filter', oppQueryExecute);
+  app.get('/results', oppQueryExecute);
 };
 
 /**
