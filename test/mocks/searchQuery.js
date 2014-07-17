@@ -1,6 +1,9 @@
+var _ = require('lodash');
+
 exports = module.exports = function(overrides) {
+  var overrides = overrides || {};
   var body = {
-    //"purpose": "Other",
+    //"purpose": "start_business",
     //"eligibleBusinessLocation": "anywhere_in_pr",
     //"eligibleBusinessLocationOther": "",
     //"minimumYearsInBusiness": "0",
@@ -10,14 +13,10 @@ exports = module.exports = function(overrides) {
     /*"eligibleIndustries": [
       "any",
     ],*/
-    "gender": "any",
-    "age": "0"
+    "gender": "male",
+    //"age": "2",
+    //"investingOwnMoney": true
     //"moneyInvested": ""
   }
-  if (overrides) {
-    for (var key in overrides) {
-      body[key] = overrides[key];
-    }
-  };
-  return body;
+  return _.extend(body, overrides);
 }
