@@ -10,7 +10,7 @@ $(document).ready(function() {
     onStepChanging: function (event, currentIndex, newIndex) {
       var valid = true;
       var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
-      var fieldSets = formInfo['options']['fieldSets'] 
+      var fieldSets = formInfo['options']['fieldSets']
       for (var key in fieldSets) {
         if (fieldSets[key]['label'] == label) {
           var fieldSetName = key;
@@ -33,16 +33,13 @@ $(document).ready(function() {
       return valid;
     },
     onFinished: function (event, currentIndex){
-      console.log(event);
-      console.log(currentIndex);
       var form = $(this);
-      console.log(form);
       form.submit();
     },
     onFinishing: function (event, currentIndex){
       var valid = true;
       var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
-      var fieldSets = formInfo['options']['fieldSets'] 
+      var fieldSets = formInfo['options']['fieldSets']
       for (var key in fieldSets) {
         if (fieldSets[key]['label'] == label) {
           var fieldSetName = key;
@@ -101,7 +98,7 @@ $(document).ready(function() {
     return valid;
   });
 
-  $('button.array-text-field').click(function(e) { 
+  $('button.array-text-field').click(function(e) {
     var inp = $(this).next().clone().removeAttr('required');
     $(this).parent().append(inp);
   });
