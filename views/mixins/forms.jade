@@ -64,7 +64,7 @@ mixin arrayTextField(formOptions)
 
 // Helpers
 mixin choiceOther(formOptions)
-  .choiceOther.form-group.col-lg-4.col-sm-12
+  .choiceOther.form-group.col-sm-12
     label(for=formOptions.name class="col-sm-2 col-lg-4 control-label") #{formOptions.label}: Other
     div(class="col-sm-10 col-lg-6")
       - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
