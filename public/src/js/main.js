@@ -99,7 +99,7 @@ $(document).ready(function() {
   });
 
   $('button.array-text-field').click(function(e) {
-    var inp = $(this).next().clone().removeAttr('required');
+    var inp = $(this).next().clone().removeAttr('required').val("");
     $(this).parent().append(inp);
   });
 

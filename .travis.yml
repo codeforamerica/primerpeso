@@ -48,6 +48,7 @@ deploy:
     on:
       repo: CoquiCoders/bizwallet
     run:
+      - "gulp migrate"
       - "restart"
 
 
