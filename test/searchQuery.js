@@ -108,7 +108,9 @@ describe('Search Query', function() {
 
     it('should set top keys to benefit types', function(done) {
       var topKeys = _.keys(searchResult);
-      topKeys.should.eql(['incentive', 'grant', 'expertise']);
+      topKeys.should.include('incentive');
+      topKeys.should.include('grant');
+      topKeys.should.include('expertise');
       return done();
     });
 
