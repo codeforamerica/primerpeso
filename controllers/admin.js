@@ -56,9 +56,8 @@ function list(req, res) {
   });
 
   var Model = sequelize.model(render.model);
-  var doc = sequelize.model(render.model);
-  var keys = doc.getListFields ? doc.getListFields() : null;
-  var fields = keys ? _.pick(doc.getFormFields('new'), keys) : doc.getFormFields('new');
+  var keys = Model.getListFields ? Model.getListFields() : null;
+  var fields = keys ? _.pick(Model.getFormFields('new'), keys) : Model.getFormFields('new');
   var options = keys ? { attributes: keys } : {};
   Model.findAndCountAll(options).success(function(result) {
     return res.render('admin/list', { data: result.rows, fields: fields });
