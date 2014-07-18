@@ -194,11 +194,12 @@ module.exports = function(sequelize, DataTypes) {
 
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
-      /*return [
+      return [
         'title',
-        'purpose'
-      ];*/
-      return null;
+        'applicationDeadline',
+        'benefitType',
+        'agencyContactName'
+      ];
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
