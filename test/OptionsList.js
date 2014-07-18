@@ -29,15 +29,9 @@ describe('Options List', function() {
     var ageChoices = optList.getFormChoices('age');
     var ageChoicesControl = ['Any', '16-25', '26-40', '41-64', '65+'];
     var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
-    console.log('DEBUG');
-    console.log('ageChoices');
-    console.log(ageChoices);
-    console.log('ageChoices control');
-    console.log(ageChoicesControl);
+    // Delete to simulate override.
+    delete ageChoicesControl['0'];
     ageChoices.should.eql(ageChoicesControl);
-
-
     return done();
-    // TODO Test Array.
   });
 });
