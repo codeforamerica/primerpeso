@@ -1,6 +1,7 @@
 var modelUtils = require('../lib/modelUtils.js');
 var _ = require('lodash');
 var OptionsList = require('../../lib/OptionsList');
+console.log('Opportunity def choices list init.');
 var choicesList = new OptionsList();
 
 module.exports = function(sequelize, DataTypes) {
