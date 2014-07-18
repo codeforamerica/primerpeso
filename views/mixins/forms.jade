@@ -22,7 +22,7 @@ mixin choiceSelectField(formOptions)
     select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
-        if Object.prototype.toString.call(formOptions.value) === '[object Array]'
+        if _.isArray(formOptions.value)
           option(value=cVal selected=(formOptions.value.indexOf(cVal) != -1)) #{choice}
         else
           option(value=cVal selected=(formOptions.value == cVal)) #{choice}

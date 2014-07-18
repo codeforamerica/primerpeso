@@ -91,6 +91,7 @@ app.use(function(req, res, next) {
   res.locals.user = req.user;
   res.locals.path = req.path;
   res.locals.env  = app.get('env');
+  res.locals._ = require('underscore');
   res.locals.CDN = function(relPath) {
     return secrets.staticFilePrefix + relPath;
   }
