@@ -1,6 +1,5 @@
 var _ = require('lodash');
 var OptionsList = require('../../lib/OptionsList.js');
-console.log('Mdel Utils New choices List');
 var choicesList = new OptionsList();
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html

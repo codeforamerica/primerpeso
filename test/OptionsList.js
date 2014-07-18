@@ -9,8 +9,13 @@ describe('Options List', function() {
     var genderChoices = optList.getFormChoices('gender');
     var genderChoicesControl = { any: 'Any', male: 'Male', female: 'Female', other: 'Other' };
     genderChoices.should.eql(genderChoicesControl);
+
+    // Test Array.
+    var ageChoices = optList.getFormChoices('age');
+    var ageChoicesControl = ['Any', '16-25', '26-40', '41-64', '65+'];
+    var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
+    ageChoices.should.eql(ageChoicesControl);
     return done();
-    // TODO Test Array.
   });
 
   it('Should return filtered options when fundMeWizard form name is passed', function(done) {
@@ -19,6 +24,19 @@ describe('Options List', function() {
     var genderChoices = optList.getFormChoices('gender');
     var genderChoicesControl = { any: 'Both', male: 'Male', female: 'Female'};
     genderChoices.should.eql(genderChoicesControl);
+
+    // Test Array.
+    var ageChoices = optList.getFormChoices('age');
+    var ageChoicesControl = ['Any', '16-25', '26-40', '41-64', '65+'];
+    var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
+    console.log('DEBUG');
+    console.log('ageChoices');
+    console.log(ageChoices);
+    console.log('ageChoices control');
+    console.log(ageChoicesControl);
+    ageChoices.should.eql(ageChoicesControl);
+
+
     return done();
     // TODO Test Array.
   });
