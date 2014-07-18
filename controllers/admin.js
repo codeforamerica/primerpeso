@@ -131,8 +131,7 @@ function entry (req, res) {
 
   var Model = sequelize.model(render.model);
 
-  var keys = Model.getListFields ? Model.getListFields() : null;
-  var fields = keys ? _.pick(Model.getFormFields('new'), keys) : Model.getFormFields('new');
+  var fields = Model.getFormFields('new');
   render['fields'] = fields;
   Model.find(req.params.id).success(function(result) {
     render['entry'] = result;

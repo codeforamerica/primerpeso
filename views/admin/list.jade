@@ -12,10 +12,8 @@ block content
         tr
           th
             | Click to edit / delete
-          th= fields.title.label
-          th= fields.applicationDeadline.label
-          th= fields.benefitType.label
-          th= fields.agencyContactName.label
+          each field in fields
+            th= field.label
 
 
       tbody.admin
@@ -25,7 +23,8 @@ block content
               a.btn.btn-default.admin-edit(href="#{base}#{path}/#{entry.id}/edit") edit
               a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") delete
             td
-              a(href="#{base}#{path}/#{entry.id}") #{entry.dataValues[fields.title.name]}
-            td= entry.dataValues[fields.applicationDeadline.name]
-            td= entry.dataValues[fields.benefitType.name]
-            td= entry.dataValues[fields.agencyContactName.name]
+              each field in fields
+                if field.name == 'title'
+                  a(href="#{base}#{path}/#{entry.id}") #{entry.dataValues[fields.title.name]}
+                else
+                  td= entry.dataValues[field.name]
