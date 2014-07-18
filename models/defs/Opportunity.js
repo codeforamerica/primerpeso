@@ -195,6 +195,7 @@ module.exports = function(sequelize, DataTypes) {
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
       return [
+        'id',
         'title',
         'applicationDeadline',
         'benefitType',
