@@ -1,7 +1,6 @@
 var modelUtils = require('../lib/modelUtils.js');
 var _ = require('lodash');
 var S = require('string');
-var choicesList = require('../../lib/options');
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 

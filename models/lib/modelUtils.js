@@ -1,5 +1,6 @@
 var _ = require('lodash');
-var choicesList = require('../../lib/options.js');
+var OptionsList = require('../../lib/OptionsList.js');
+var choicesList = new OptionsList();
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
