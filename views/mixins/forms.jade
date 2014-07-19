@@ -1,4 +1,4 @@
-// Attributes brough in implicitly
+// Attributes brought in implicitly
 // See http://jade-lang.com/reference/#mixins
 
 mixin makeField(formOptions)
@@ -14,7 +14,8 @@ mixin makeField(formOptions)
     else
       +textField(formOptions)
   if formOptions.choiceOther
-    +choiceOther(formOptions)
+    div(id=formOptions.name + "Other" class="choiceOther form-group col-sm-12")
+      +choiceOther(formOptions)
 
 mixin choiceSelectField(formOptions)
   +fieldLabel(formOptions)
@@ -64,14 +65,13 @@ mixin arrayTextField(formOptions)
 
 // Helpers
 mixin choiceOther(formOptions)
-  .choiceOther.form-group.col-sm-12
-    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
-    div(class="col-sm-10")
-      - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
-      if formOptions.widget == 'checkbox'
-        input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
-      else
-        input(type="text" name=formOptions.name + "Other" value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
+  label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
+  div(class="col-sm-10")
+    - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
+    if formOptions.widget == 'checkbox'
+      input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
+    else
+      input(type="text" name=formOptions.name + "Other" value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
   - var fieldLabelClasses = formOptions.fieldLabelClasses || 'col-sm-2'
