@@ -39,6 +39,15 @@ h1, h2, h3, h4, h5 {
 	font-family: @font-family;
 }
 
+h2, h3, h4 {
+  color: @navy;
+  font-weight: bold;
+}
+
+p {
+  font-size: 125%;
+}
+
 a {
   color: @dark-green;
   text-decoration: underline;
@@ -62,28 +71,28 @@ a {
   padding-top: 20px;
 }
 
-// Layout
-// -------------------------
-
-p {
-  font-size: 125%;
-}
-
-
 // Navbar
 // -------------------------
 
 @navbar-height: 100px;
 
 .navbar-default {
-	background-color: @green;
+  background-color: @green;
   border: none;
 	font-size: 24px;
-  .navbar-nav .active a {
-    background-color: @dark-green;
-    text-decoration: none;
-    &:hover, &:focus {
+  .navbar-nav {
+    li a {
+      text-decoration: none;
+    }
+    .open a:focus {
       background-color: @navy;
+    }
+    .active a {
+      background-color: @dark-green;
+      text-decoration: none;
+    a:focus, &:hover, &:focus {
+      background-color: @navy;
+      }
     }
   }
 }
@@ -123,9 +132,7 @@ p {
   }
   h2 {
     font-size: 270%;
-    color: @navy;
     margin: 20px 0px;
-    font-weight: bold;
   }
   img {
     float: left;
@@ -205,6 +212,9 @@ p {
   }
   .current a {
     background-color: @dark-green;
+    &:hover {
+      background-color: @navy;
+    }
   }
   .done a {
     background-color: @green;
@@ -216,8 +226,8 @@ p {
 }
 
 .body .control-label {
-    font-size: 24px;
-    color: @navy;
+  font-size: 24px;
+  color: @navy;
 }
 
 // Search Results
@@ -260,14 +270,11 @@ p {
   border-bottom: 2px solid @light-grey;
   h3 {
   color: @light-blue;
-  font-weight: bold;
   font-size: 270%;
   }
 }
 
 .row-header h4 {
-  color: @navy;
-  font-weight: bold;
   font-size: 200%;
 }
 
@@ -281,22 +288,33 @@ p {
 // -------------------------
 
 .about {
-  text-align: center;
+  width: 70%;
+  text-align: left;
   max-width: 80%;
   margin: auto;
-  line-height: 2em;
+  line-height: 2.2em;
+  h2 {
+    font-size: 250%;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.center {
+  margin: auto;
+  text-align: center;
 }
 
 // Sign-In
 // -------------------------
 
 .subpagetitle {
-    color: @navy;
-    font-weight: bold;
-    line-height: 1.8em;
-    font-size: 250%;
-    margin: 35px 0px;
-    border-bottom: 2px @light-grey solid;
+  color: @navy;
+  font-weight: bold;
+  line-height: 1.8em;
+  font-size: 250%;
+  margin: 35px 0px;
+  border-bottom: 2px @light-grey solid;
 }
 
 .control-label {
@@ -308,11 +326,6 @@ p {
 
 #new .btn {
   margin: 0px;
-}
-
-#list-top h2 {
-  font-weight: bold;
-  color: @navy;
 }
 
 td {
