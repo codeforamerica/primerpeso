@@ -1,6 +1,5 @@
 var _ = require('lodash');
 var OptionsList = require('../../lib/OptionsList.js');
-var choicesList = new OptionsList();
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
@@ -49,6 +48,7 @@ var buildElementValues = function(element, value) {
 
 var classMethods = {
   getFormFields: function(op, model) {
+    var choicesList = new OptionsList();
     var op = op || 'new';
     var blacklist = fieldBlackList[op];
     var fieldList = {};
@@ -68,7 +68,18 @@ var classMethods = {
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-
+        if (key == 'gender') {
+          console.log('Gender Choices');
+          console.log(element.choices);
+          var choices = choicesList.getFormChoices(key);
+          console.log('new proposed choices');
+          console.log(choices);
+          element.choices =  _.isEmpty(choices) ? element.choices : choices;
+          console.log('new choices');
+          console.log(element.choices);
+        }
+        var choices = choicesList.getFormChoices(key);
+        element.choices =  _.isEmpty(choices) ? element.choices : choices;
         element.widget = element.widget ? element.widget : 'text';
         fieldList[key] = element;
       }
