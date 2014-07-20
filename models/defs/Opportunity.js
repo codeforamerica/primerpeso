@@ -195,7 +195,7 @@ module.exports = function(sequelize, DataTypes) {
     creatorId: {
       type: DataTypes.INTEGER,
     }
- }
+  }
 
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
