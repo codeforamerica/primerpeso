@@ -43,8 +43,13 @@ SearchShop.View.OppList = Backbone.View.extend({
   render: function(){
     console.log('render opplist view.');
     $('#toggleCart').popover({
-      content: 'hi',
-      title: 'hi'
+      title: 'Selected Programs',
+      placement: 'bottom',
+      animation: true,
+      content: function() {
+	//return $('#shopping-cart').html();
+      },
+      html: true
     });
   },
 
