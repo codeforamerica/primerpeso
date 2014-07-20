@@ -190,6 +190,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       widget: 'text',
       label: 'How much?'
+    },
+    // Association
+    creatorId: {
+      type: DataTypes.INTEGER,
     }
  }
 
@@ -200,6 +204,10 @@ module.exports = function(sequelize, DataTypes) {
         'purpose'
       ];*/
       return null;
+    },
+    associate: function(sequelize) {
+      var User = sequelize.model('user');
+      this.belongsTo(User, { as: 'creator', foreignKey: 'creatorId' });
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});

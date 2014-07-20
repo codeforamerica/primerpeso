@@ -37,6 +37,10 @@ module.exports = function(sequelize, DataTypes) {
   };
 
   classMethods = _.extend(modelUtils.classMethods, {
+    associate: function(sequelize) {
+      var Opportunity = sequelize.model('opportunity');
+      this.hasMany(Opportunity, { foreignKey: 'creatorId' });
+    }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {
     comparePassword: function(candidatePassword, fn) {

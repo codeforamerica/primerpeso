@@ -6,12 +6,14 @@ var fieldBlackList = {
   edit: [
     'id',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'creatorId'
   ],
   new: [
     'id',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'creatorId'
   ],
 };
 
