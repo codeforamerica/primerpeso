@@ -1,4 +1,8 @@
+var _ = require('lodash');
+
 exports = module.exports = function(overrides) {
+  var overrides = overrides || {};
+
   var searchResults = {
     loans: {
       equipmentFinancing: {
@@ -53,10 +57,5 @@ exports = module.exports = function(overrides) {
       }
     }
   };
-  if (overrides) {
-    for (var key in overrides) {
-      body[key] = overrides[key];
-    }
-  };
-  return searchResults;
+  return _.extend(searchResults, overrides);
 }
