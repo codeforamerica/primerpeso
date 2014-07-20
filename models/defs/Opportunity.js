@@ -199,11 +199,12 @@ module.exports = function(sequelize, DataTypes) {
 
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
-      /*return [
-        'title',
-        'purpose'
-      ];*/
-      return null;
+      return {
+        'title': 'Title',
+        'applicationDeadline': 'Application Deadline',
+        'benefitType': 'Benefit Type',
+        'agencyContactName': 'Agency Contact Name',
+      };
     },
     associate: function(sequelize) {
       var User = sequelize.model('user');

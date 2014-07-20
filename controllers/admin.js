@@ -59,12 +59,12 @@ function list(req, res) {
 
   var Model = sequelize.model(render.model);
   var doc = sequelize.model(render.model);
-  var keys = doc.getListFields ? doc.getListFields() : null;
-  var fields = keys ? _.pick(doc.getFormFields('new'), keys) : doc.getFormFields('new');
-  var options = keys ? { attributes: keys } : {};
-  options['where'] = ['user_id = '+req.user.id];
-  Model.findAndCountAll(options).success(function(result) {
-    return res.render('admin/list', { data: result.rows, fields: fields });
+
+  var fields = doc.getListFields ? doc.getListFields() : doc.getDefaultFields();
+  var attributes = _.keys(fields);
+  attributes.push('id');
+  req.user.getOpportunities({ attributes: attributes }).success(function(results) {
+    return res.render('admin/list', { data: results, fields: fields });
   });
 
 }

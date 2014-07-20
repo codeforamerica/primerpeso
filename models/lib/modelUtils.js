@@ -88,6 +88,13 @@ var classMethods = {
     });
     return fieldList;
   },
+  getDefaultFields: function() {
+    var defaultFields = {};
+    var formFields = this.getFormFields('new');
+    return _.mapValues(formFields, function(element, index) {
+      return element.label;
+    });
+  },
   buildFromAdminForm: function(reqBody) {
     var fields = this.getFormFields('new');
     var modelData = {};
