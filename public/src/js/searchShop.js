@@ -1,5 +1,4 @@
 var Backbone = require('backbone');
-var $ = require('jquery');
 var _ = require('lodash');
 
 Backbone.$ = $;
@@ -28,6 +27,7 @@ SearchShop.Collection.Opps = Backbone.Collection.extend({
 // TODO -- this will need a split into two views - one for the tabs, one for the lists.
 SearchShop.View.OppList = Backbone.View.extend({
   el: $('body'), // attaches `this.el` to an existing element.
+
   events: {
   	'click a.addItem': 'addToCart',
     'click li.search-tab a': 'switchTab',
@@ -42,15 +42,15 @@ SearchShop.View.OppList = Backbone.View.extend({
 
   render: function(){
     console.log('render opplist view.');
-  },
-
-  // TODO - review if this is the right placement.
-  toggleCart: function(e) {
     $('#toggleCart').popover({
       content: 'hi',
       title: 'hi'
     });
-    $('li.cartButton a').popover('show');
+  },
+
+  // TODO - review if this is the right placement.
+  toggleCart: function(e) {
+    $('#toggleCart').popover('show');
     return false;
   },
   addToCart: function(e) {
