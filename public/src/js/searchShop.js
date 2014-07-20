@@ -30,15 +30,29 @@ SearchShop.View.OppList = Backbone.View.extend({
   el: $('body'), // attaches `this.el` to an existing element.
   events: {
   	'click a.addItem': 'addToCart',
-    'click li.search-tab a': 'switchTab'
+    'click li.search-tab a': 'switchTab',
+    'click #toggleCart': 'toggleCart'
   },
 
   initialize: function(){
-    _.bindAll(this, 'render', 'switchTab'); // fixes loss of context for 'this' within methods
+    console.log('init opplist view.');
+    _.bindAll(this, 'render', 'switchTab', 'addToCart', 'toggleCart'); // fixes loss of context for 'this' within methods
     this.render(); // not all views are self-rendering. This one is.
   },
 
-  render: function(){},
+  render: function(){
+    console.log('render opplist view.');
+  },
+
+  // TODO - review if this is the right placement.
+  toggleCart: function(e) {
+    $('#toggleCart').popover({
+      content: 'hi',
+      title: 'hi'
+    });
+    $('li.cartButton a').popover('show');
+    return false;
+  },
   addToCart: function(e) {
   	// TODO HACK -- instantiate the model LOL.
   	var target = e.currentTarget;

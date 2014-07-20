@@ -127,6 +127,7 @@ $(document).ready(function() {
   // For results page
   if ($('body').hasClass('searchResults')) {
     //var searchView = new SearchView();
+    console.log('moo');
     SearchShop.oppList = new SearchShop.View.OppList({});
   }
 
