@@ -34,7 +34,8 @@ mixin renderResultSubset(benefitList, benefitType)
       div(class="col-md-6 col-description col-" + benefitName)
         //input(type="checkbox" name=benefitName class="program-pick")
         //label(class="benefit-title program-pick-label" for=benefitName)= benefitDesc.title
-        a(href="#" + benefitName + "Add" class="addItem" data-title=benefitDesc.title)= "Add"
+        a(href="#" + benefitName + "Add" class="addItem" data-title=benefitDesc.title)
+          i.fa.fa-plus-circle
         a(href="#" class="benefit-title")= benefitDesc.title
 
         div(class=benefitName + "-inner-text")= benefitDesc.description

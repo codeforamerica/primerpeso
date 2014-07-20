@@ -138,10 +138,19 @@ SearchShop.View.ShoppingCart = Backbone.View.extend({
 		item.quanity('increase');
 
 		// Add the passed item model to the Cart collection
-		this.collection.add( item );
+		// HACK - prevent adding dups.
+		var exists = false;
+		this.collection.each(function(collItem) {
+      if (collItem.get('title') == item.get('title')) {
+      	exists = true;
+      }
+		});
+		if (!exists) {
+			this.collection.add( item );
 
-		// Render the view
-		this.render();
+			// Render the view
+			this.render();
+		}
 	},
 
 	// Update the totals in the cart
