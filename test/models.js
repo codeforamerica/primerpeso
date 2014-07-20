@@ -143,7 +143,7 @@ describe('Opportunity Model', function() {
     });
   });
 
-  it('should create a new opportunity associated to a user by id', function(done) {
+  /*it('should create a new opportunity associated to a user by id', function(done) {
     var body = opportunityMock();
     var Opportunity = sequelize.model('opportunity');
     var instance = Opportunity.buildFromAdminForm(body);
@@ -163,7 +163,7 @@ describe('Opportunity Model', function() {
         done(err);
       });
     });
-  });
+  });*/
 
   afterEach(function(done) {
     var Opportunity = sequelize.model('opportunity');

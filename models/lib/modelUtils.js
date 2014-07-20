@@ -104,7 +104,7 @@ var classMethods = {
         // Get value from 'other' text fields if necessary
         if (value == 'other' && reqBody[fieldKey+'Other'] !== '') {
           value = reqBody[fieldKey+'Other'];
-          value = choicesList.optionizeValue(value);
+          value = OptionsList.optionizeValue(value);
         };
 
         // Wrap val if needed for multiple fields.
