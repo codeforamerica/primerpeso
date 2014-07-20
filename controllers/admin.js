@@ -57,9 +57,8 @@ function list(req, res) {
   });
 
   var Model = sequelize.model(render.model);
-  var doc = sequelize.model(render.model);
 
-  var fields = doc.getListFields ? doc.getListFields() : doc.getDefaultFields();
+  var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');
   if (req.query.listAll == 'true') {
@@ -139,13 +138,11 @@ function entry (req, res) {
 
   var Model = sequelize.model(render.model);
 
-  var keys = Model.getListFields ? Model.getListFields() : null;
-  var fields = keys ? _.pick(Model.getFormFields('new'), keys) : Model.getFormFields('new');
-  render['fields'] = fields;
+  var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
+  var attributes = _.keys(fields);
+  attributes.push('id');
   Model.find(req.params.id).success(function(result) {
-    render['entry'] = result;
-    return res.render('admin/entry', render);
-    // return res.json(result);
+    return res.render('admin/entry', { title: Model.name, fields: fields, entry: result });
   });
 }
 
