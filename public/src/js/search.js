@@ -33,6 +33,4 @@ module.exports = Backbone.View.extend({
       $('.' + targetId + '-container').show();
     }
   }
-
-
 });

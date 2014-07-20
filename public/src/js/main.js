@@ -1,4 +1,5 @@
-var SearchView = require('./search.js');
+//var SearchView = require('./search.js');
+var SearchShop = require('./searchShop.js');
 
 $(document).ready(function() {
 	$("#fundMeWizard").steps({
@@ -125,7 +126,8 @@ $(document).ready(function() {
 
   // For results page
   if ($('body').hasClass('searchResults')) {
-    var searchView = new SearchView();
+    //var searchView = new SearchView();
+    SearchShop.oppList = new SearchShop.View.OppList({});
   }
 
 });
