@@ -56,17 +56,23 @@ function list(req, res) {
     model: req.params.model
   });
 
-  console.log(req.query.listAll);
-
   var Model = sequelize.model(render.model);
   var doc = sequelize.model(render.model);
 
   var fields = doc.getListFields ? doc.getListFields() : doc.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');
-  req.user.getOpportunities({ attributes: attributes }).success(function(results) {
-    return res.render('admin/list', { data: results, fields: fields });
-  });
+  if (req.query.listAll == 'true') {
+    Model.findAll({ attributes: attributes }).success(function(results){
+      return res.render('admin/list', { data: results, fields: fields });
+    });
+  }
+  else {
+    // TODO -- need to abstract this out for admin.
+    req.user.getOpportunities({ attributes: attributes }).success(function(results) {
+      return res.render('admin/list', { data: results, fields: fields });
+    });
+  }
 
 }
 
