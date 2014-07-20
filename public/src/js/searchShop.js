@@ -47,7 +47,7 @@ SearchShop.View.OppList = Backbone.View.extend({
       placement: 'bottom',
       animation: true,
       content: function() {
-	//return $('#shopping-cart').html();
+        //return $('#shopping-cart').html();
       },
       html: true
     });
