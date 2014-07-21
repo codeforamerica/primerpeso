@@ -1,7 +1,29 @@
 module.exports = function (Backbone, _, SearchShop) {
   return Backbone.Model.extend({
     defaults: {
-      title: '',
+      benefitName: '',
+      benefitType: ''
+    },
+    initialize: function() {
+      var properties = this.getPropertiesFromResult();
+      console.log(properties);
+      this.set(properties);
+    },
+    getPropertiesFromResult: function() {
+      var benefitName = this.get('benefitName');
+      var benefitType = this.get('benefitType');
+      // Build from JSON.
+      // Embedded in page.
+      // Be a bit defensive.
+      var properties = {};
+      if (searchResult[benefitType]) {
+        if (searchResult[benefitType][benefitName])
+          properties = searchResult[benefitType][benefitName];
+      }
+      return properties;
+      // TODO -- neds work.
+      //if (properties === {})
+      //  return alert('Sorry -- Having a Problem');
     },
     // Increase or decrease the quantity
     quanity : function( type ) {

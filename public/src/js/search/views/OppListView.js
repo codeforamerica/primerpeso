@@ -9,7 +9,6 @@ module.exports = function(Backbone, _, SearchShop) {
     },
 
     initialize: function(){
-      console.log('init opplist view.');
       // fixes loss of context for 'this' within methods.
       _.bindAll(this, 'render', 'switchTab', 'addToCart', 'toggleCartPopover');
       this.render(); // not all views are self-rendering. This one is.
@@ -17,6 +16,11 @@ module.exports = function(Backbone, _, SearchShop) {
 
     render: function(){
       console.log('render opplist view.');
+      /*console.log('FAKE ADD CART ITEM');
+      var oppInstance = new SearchShop.Model.OppModel({
+        title: 'Monkey',
+      });*/
+      //SearchShop.cart.add(oppInstance);
     },
 
     // TODO - review if this is the right placement.
@@ -28,7 +32,8 @@ module.exports = function(Backbone, _, SearchShop) {
     addToCart: function(e) {
       // TODO HACK -- instantiate the model
       var oppInstance = new SearchShop.Model.OppModel({
-        title: $(e.currentTarget).data('title')
+        benefitName: $(e.currentTarget).data('bname'),
+        benefitType: $(e.currentTarget).data('btype')
       });
       SearchShop.cart.add(oppInstance);
       return false;

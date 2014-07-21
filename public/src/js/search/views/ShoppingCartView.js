@@ -4,9 +4,13 @@ module.exports = function(Backbone, _, SearchShop) {
     // Some other elements to cache
     //total : $('#total'),
     //basketTotal : $('#basket'),
+    events: {
+      'click .btn-submit': 'sendPrograms'
+    },
 
     initialize : function(options) {
       // make a reference to the collection this view dances with
+      _.bindAll(this, 'render', 'sendPrograms');
       this.collection = SearchShop.cartItems;
       this.$el.hide();
 
@@ -21,16 +25,22 @@ module.exports = function(Backbone, _, SearchShop) {
         trigger: 'manual',
         content: function() {
           return $('#shopping-cart').html();
-        }
+        },
+        //template: '<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
       });
+      // This is gross, but ok.
+      // MAJOR HACK
+      var theModel = this;
+      $('#toggleCart').on('shown.bs.popover', function(){
+        // Bind the callback to the button.
+        $('.btn-send-programs').on('click', theModel.sendPrograms);
+      })
 
       // execute default message for the shopping cart on init
       this.defaultMessage();
 
       // Listen for events ( add, remove or a change in quantity ) in the collection
       this.collection.on('add remove change:quantity', function( item ) {
-        console.log('general listener');
-
         // Update the main total based on the new data
         //this.updateTotal();
 
@@ -73,6 +83,11 @@ module.exports = function(Backbone, _, SearchShop) {
       }
     },
 
+    sendPrograms: function(e) {
+      console.log(this.collection.toJSON());
+      return false;
+    },
+
     // Update the totals in the cart
     /*updateTotal : function() {
       // This is the var for the counter at the top of the page
@@ -96,7 +111,7 @@ module.exports = function(Backbone, _, SearchShop) {
       // Pass this list views context
       }, this);
       if (this.collection.length > 0) {
-        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm">Continue</button></div></div>');
+        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Continue</button></div></div>');
       }
     }
 
