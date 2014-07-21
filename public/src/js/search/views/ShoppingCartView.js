@@ -8,8 +8,10 @@ module.exports = function(Backbone, _, SearchShop) {
     initialize : function(options) {
       // make a reference to the collection this view dances with
       this.collection = SearchShop.cartItems;
+      this.$el.hide();
 
       // Initialize the popover
+
       $('#toggleCart').popover({
         title: 'Selected Programs',
         placement: 'bottom',
@@ -26,7 +28,8 @@ module.exports = function(Backbone, _, SearchShop) {
       this.defaultMessage();
 
       // Listen for events ( add, remove or a change in quantity ) in the collection
-      this.collection.on('add remove change:quantity', function( item ){
+      this.collection.on('add remove change:quantity', function( item ) {
+        console.log('general listener');
 
         // Update the main total based on the new data
         //this.updateTotal();
@@ -79,7 +82,7 @@ module.exports = function(Backbone, _, SearchShop) {
       this.basketTotal.html( basketTotal );
     },*/
 
-    render : function(){
+    render : function() {
       // Empty the view
       this.$el.html('');
 
@@ -92,6 +95,10 @@ module.exports = function(Backbone, _, SearchShop) {
 
       // Pass this list views context
       }, this);
+      if (this.collection.length > 0) {
+        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm">Continue</button></div></div>');
+      }
     }
+
   });
 }
