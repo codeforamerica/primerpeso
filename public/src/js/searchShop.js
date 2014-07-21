@@ -8,6 +8,7 @@ var SearchShop = {
   Model: {},
   View: {}
 };
+
 // TODO -- fix this mess.
 SearchShop.Model.OppModel = require('./search/models/OppModel')(Backbone, _, SearchShop);
 SearchShop.Collection.OppsCollection = require('./search/collections/OppsCollection')(Backbone, _, SearchShop);
