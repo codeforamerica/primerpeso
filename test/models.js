@@ -8,6 +8,7 @@ var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
 var opportunityMock = require('./mocks/opportunity.js');
+var userMock = require('./mocks/user.js');
 
 chai.use(chaiAsPromised);
 
@@ -143,32 +144,52 @@ describe('Opportunity Model', function() {
     });
   });
 
-  /*it('should create a new opportunity associated to a user by id', function(done) {
+  it('should create a new opportunity associated to a user by id', function(done) {
     var body = opportunityMock();
+    var userBody = userMock();
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance['user_id'] = 1
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        done(err);
-      }
-      instance.save().success(function(){
-        Opportunity.find({where: { 'user_id': 1, 'title': 'Test opp3' } }).success(function(entry) {
-          should.exist(entry);
-          done();
+    var User = sequelize.model('user');
+
+    User.create({
+      email: userBody.email,
+      password: userBody.password
+    })
+    .success(function(user) {
+      var instance = Opportunity.buildFromAdminForm(body);
+      instance.validate()
+      .success(function(err) {
+        if (err) {
+          done(err);
+        }
+        instance.save()
+        .success(function(opp){
+          user.addOpportunity(opp)
+          .success(function() {
+            user.getOpportunities( {attributes: ['title'] }).success(function(results) {
+              should.exist(results);
+              done();
+            });
+          })
+          .error(function(err) { 
+            done(err);
+          });
+        })
+        .error(function(err) {
+          done(err);
         });
-      })
-      .error(function(err) {
-        done(err);
       });
+    })
+    .error(function(err) {
+      done(err);
     });
-  });*/
+  });
 
   afterEach(function(done) {
     var Opportunity = sequelize.model('opportunity');
-    Opportunity.destroy({title: 'Test opp3'}).success(function(rows) {
-      done();
-    });
+    var User = sequelize.model('user');
+    Opportunity.destroy({title: 'Test opp3'});
+    User.destroy({email: 'clara@example.com'});
+    // We can put done here since tests wait for asynch calls to finish
+    done();
   });
 });
