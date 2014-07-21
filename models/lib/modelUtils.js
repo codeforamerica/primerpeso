@@ -119,7 +119,7 @@ var classMethods = {
     return instance;
   },
 
-  create: function(body, req) {
+  createInstance: function(body, req) {
     // We can depend on this because it's getting covered in another test.
     var instance = this.buildFromAdminForm(body);
     // NOW THIS IS HOW YOU DO PROMISES!
