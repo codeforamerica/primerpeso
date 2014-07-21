@@ -27,7 +27,7 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
   app.get(path.join(base, '/:model/:id'), entry);
-  app.post(path.join(base, '/:model/:id'), entrySave);
+  app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
   // TODO: Need a route for all models, can't fit it anywhere though listAll function does that
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
@@ -107,29 +107,44 @@ function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
   var instance = Model.buildFromAdminForm(req.body);
-  instance.validate().
-  success(function(err) {
-    if (err) {
-      var errorList = [];
-      _.each(err, function(errDesc, errKey) {
-        if (errKey != '__raw')
-          req.flash('errors', errKey + ': ' + errDesc);
+
+  // If there is no id we are creating a new instance
+  if (id === '') {
+    console.log("Saving new one")
+    instance['user_id'] = req.user.id;
+    instance.validate().
+    success(function(err) {
+      if (err) {
+        var errorList = [];
+        _.each(err, function(errDesc, errKey) {
+          if (errKey != '__raw')
+            req.flash('errors', errKey + ': ' + errDesc);
+        });
+        return res.json(err);
+        //return res.redirect(req.path);
+      }
+      instance.save().success(function(){
+        req.user.addOpportunity(instance).success(function() {
+          req.flash('info', instance.title + ' Successfully Added');
+          return res.redirect(req.path);
+        });
+      })
+      .error(function(err) {
+        req.flash('errors', err.message);
+        //return res.redirect(req.path);
+        return res.json(err);
       });
-      return res.json(err);
-      //return res.redirect(req.path);
-    }
-    instance.save().success(function(){
-      req.user.addOpportunity(instance).success(function() {
-        req.flash('info', instance.title + ' Successfully Added');
-        return res.redirect(req.path);
-      });
-    })
-    .error(function(err) {
-      req.flash('errors', err.message);
-      //return res.redirect(req.path);
-      return res.json(err);
     });
-  });
+  // If we have an id then we are updating an existing instance
+  } else {
+    console.log("Updating instance");
+    delete instance.dataValues.id;
+    var newFields = instance.dataValues;
+    Model.find(req.params.id).success(function(result) {
+      result.updateAttributes(newFields)
+      .success(function() { res.redirect(req.path); });
+    });
+  };
 }
 
 function entry (req, res) {
@@ -144,18 +159,6 @@ function entry (req, res) {
   attributes.push('id');
   Model.find(req.params.id).success(function(result) {
     return res.render('admin/entry', { title: Model.name, fields: fields, entry: result });
-  });
-}
-
-function entrySave (req, res) {
-  var id = req.params.id;
-  var Model = sequelize.model(req.params.model);
-  var updatedInstance = Model.buildFromAdminForm(req.body);
-  delete updatedInstance.dataValues.id;
-  var newFields = updatedInstance.dataValues;
-  Model.find(req.params.id).success(function(result) {
-    result.updateAttributes(newFields)
-    .success(function() { res.redirect(req.path); });
   });
 }
 
