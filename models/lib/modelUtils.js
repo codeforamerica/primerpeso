@@ -119,7 +119,7 @@ var classMethods = {
     return instance;
   },
 
-  createInstance: function(body, req) {
+  createInstance: function(body) {
     // We can depend on this because it's getting covered in another test.
     var instance = this.buildFromAdminForm(body);
     // NOW THIS IS HOW YOU DO PROMISES!
@@ -129,10 +129,6 @@ var classMethods = {
     }).then(function(savedInstance) {
       // This section is probably not needed.
       return savedInstance;
-    })
-    .catch(function(err) {
-      req.flash('errors', 'Create error: ' + err);
-      return;
     });
   }
 

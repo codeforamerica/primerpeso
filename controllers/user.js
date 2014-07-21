@@ -117,7 +117,7 @@ var postSignup = function(req, res, next) {
     return res.redirect('/signup');
   }
 
-  User.createInstance(req.body, req).then(function(user) {
+  User.createInstance(req.body).then(function(user) {
     req.logIn(user, function(err) {
       if (err) return next(err);
         return res.redirect('/');

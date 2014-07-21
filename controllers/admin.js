@@ -109,7 +109,7 @@ function save(req, res) {
 
   // If there is no id we are creating a new instance
   if (id === '') {
-    Model.createInstance(req.body, req).then(function(instance) {
+    Model.createInstance(req.body).then(function(instance) {
       return req.user.addOpportunity(instance);
     }).then(function() {
       req.flash('info', req.params.model + ' Successfully Added');
