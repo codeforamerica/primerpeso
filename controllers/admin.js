@@ -154,7 +154,7 @@ function entry (req, res) {
 
   var Model = sequelize.model(render.model);
 
-  var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
+  var fields = Model.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');
   Model.find(req.params.id).success(function(result) {
