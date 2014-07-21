@@ -117,7 +117,26 @@ var classMethods = {
     });
     var instance = this.build(modelData);
     return instance;
+  },
+
+  create: function(body, req) {
+    // We can depend on this because it's getting covered in another test.
+    var instance = this.buildFromAdminForm(body);
+    // NOW THIS IS HOW YOU DO PROMISES!
+    return instance.validate().then(function(err) {
+      if (err) throw(err);
+        return instance.save();
+    }).then(function(savedInstance) {
+      // This section is probably not needed.
+      return savedInstance;
+    })
+    .catch(function(err) {
+      req.flash('errors', 'Create error: ' + err);
+      return;
+    });
   }
+
+
 };
 
 var instanceMethods = {

@@ -106,43 +106,27 @@ function edit(req, res) {
 function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
-  var instance = Model.buildFromAdminForm(req.body);
 
   // If there is no id we are creating a new instance
   if (id === '') {
-    console.log("Saving new one")
-    instance['user_id'] = req.user.id;
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        var errorList = [];
-        _.each(err, function(errDesc, errKey) {
-          if (errKey != '__raw')
-            req.flash('errors', errKey + ': ' + errDesc);
-        });
-        return res.json(err);
-        //return res.redirect(req.path);
-      }
-      instance.save().success(function(){
-        req.user.addOpportunity(instance).success(function() {
-          req.flash('info', instance.title + ' Successfully Added');
-          return res.redirect(req.path);
-        });
-      })
-      .error(function(err) {
-        req.flash('errors', err.message);
-        //return res.redirect(req.path);
-        return res.json(err);
-      });
+    Model.create(req.body, req).then(function(instance) {
+      return req.user.addOpportunity(instance);
+    }).then(function() {
+      req.flash('info', req.params.model + ' Successfully Added');
+      return res.redirect(req.path);
+    }).error(function(err) {
+      req.flash('errors', err.message);
+      return res.json(err);
     });
   // If we have an id then we are updating an existing instance
   } else {
-    console.log("Updating instance");
+    var instance = Model.buildFromAdminForm(req.body);
     delete instance.dataValues.id;
     var newFields = instance.dataValues;
     Model.find(req.params.id).success(function(result) {
-      result.updateAttributes(newFields)
-      .success(function() { res.redirect(req.path); });
+      result.updateAttributes(newFields).success(function() { 
+        res.redirect(req.path); 
+      });
     });
   };
 }
