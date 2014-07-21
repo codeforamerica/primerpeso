@@ -5,42 +5,35 @@ module.exports = function(Backbone, _, SearchShop) {
     events: {
       'click a.addItem': 'addToCart',
       'click li.search-tab a': 'switchTab',
-      'click #toggleCart': 'toggleCart'
+      'click #toggleCart': 'toggleCartPopover'
     },
 
     initialize: function(){
       console.log('init opplist view.');
-      _.bindAll(this, 'render', 'switchTab', 'addToCart', 'toggleCart'); // fixes loss of context for 'this' within methods
+      // fixes loss of context for 'this' within methods.
+      _.bindAll(this, 'render', 'switchTab', 'addToCart', 'toggleCartPopover');
       this.render(); // not all views are self-rendering. This one is.
     },
 
     render: function(){
       console.log('render opplist view.');
-      $('#toggleCart').popover({
-        title: 'Selected Programs',
-        placement: 'bottom',
-        animation: true,
-        content: function() {
-          //return $('#shopping-cart').html();
-        },
-        html: true
-      });
     },
 
     // TODO - review if this is the right placement.
-    toggleCart: function(e) {
-      $('#toggleCart').popover('show');
+    toggleCartPopover: function(e) {
+      $('#toggleCart').popover('toggle');
       return false;
     },
+
     addToCart: function(e) {
-      // TODO HACK -- instantiate the model LOL.
-      var target = e.currentTarget;
-      var modelData = {};
-      modelData.title = $(target).data('title');
-      var oppInstance = new SearchShop.Model.Opp(modelData);
+      // TODO HACK -- instantiate the model
+      var oppInstance = new SearchShop.Model.OppModel({
+        title: $(e.currentTarget).data('title')
+      });
       SearchShop.cart.add(oppInstance);
       return false;
     },
+
     switchTab: function(e) {
       var targetId = $(e.currentTarget).attr('id');
       $('.search-tabs .active').removeClass('active');
