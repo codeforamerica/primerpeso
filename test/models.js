@@ -17,40 +17,22 @@ describe('Opportunity Model', function() {
   it('should create a new opportunity without optional fields', function(done) {
     var body = opportunityMock();
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        done(err);
-      }
-      instance.save().success(function(){
-        done();
-      })
-      .error(function(err) {
-        done(err);
-      });
+    Opportunity.createInstance(body).error(function(err) {
+      return done(err);
     });
+    return done();
   });
 
   it('should create a new opportunity with optional fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
       'purposeOther': 'A different purpose',
-      additionalGeneralInformation: 'Some other general information'
+      'additionalGeneralInformation': 'Some other general information'
     });
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        done(err);
-      }
-      instance.save().success(function(){
-        done();
-      })
-      .error(function(err) {
-        done(err);
-      });
+    var Opportunity = sequelize.model('opportunity');
+    Opportunity.createInstance(body).error(function(err) {
+      done();
     });
   });
 
@@ -60,13 +42,9 @@ describe('Opportunity Model', function() {
       applicationCost: '',
     });
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        should.exist(err);
-        done();
-      }
+    Opportunity.createInstance(body).error(function(err) {
+      should.exist(err);
+      return done();
     });
   });
 
@@ -79,21 +57,13 @@ describe('Opportunity Model', function() {
     });
 
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        done(err);
-      }
-      instance.save().success(function(){
-        Opportunity.find({where: {title: 'Test opp3'} }).success(function(op) {
-          op.purpose.should.deep.equal(['_a_different_purpose']);
-          done();
-        });
-      })
-      .error(function(err) {
-        done(err);
-      });
+    Opportunity.createInstance(body).then(function() {
+      return Opportunity.find({where: {title: 'Test opp3'} });
+    }).then(function(op) {
+      op.purpose.should.deep.equal(['_a_different_purpose']);
+      return done();
+    }).error(function(err) {
+      return done(err);
     });
   });
 
@@ -103,44 +73,25 @@ describe('Opportunity Model', function() {
       eligibleIndustries: [ 'any', 'other', 'Otro Distinto' ]
     });
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        done(err);
-      }
-      instance.save().success(function(){
-        Opportunity.find({where: {title: 'Test opp3'} }).success(function(op) {
-          op.eligibleIndustries.should.include('Otro Distinto');
-          done();
-        });
-      })
-      .error(function(err) {
-        done(err);
-      });
+    Opportunity.createInstance(body).then(function() {
+      return Opportunity.find({where: {title: 'Test opp3'} });
+    }).then(function(op) {
+      op.eligibleIndustries.should.include('Otro Distinto');
+      return done();
+    }).error(function(err) {
+      return done(err);
     });
+
   });
 
   it('should fail to create two opportunities with the same title', function(done) {
     var body = opportunityMock();
     var Opportunity = sequelize.model('opportunity');
-    var instance = Opportunity.buildFromAdminForm(body);
-    instance.validate().
-    success(function(err) {
-      if (err) {
-        done(err);
-      }
-      instance.save().success(function(){
-          var instance2 = Opportunity.buildFromAdminForm(body);
-          instance2.validate().success(function(err) {
-            if (err)
-              done (err);
-            instance2.save().should.be.rejected.and.notify(done);
-          });
-      })
-      .error(function(err) {
-        done(err);
-      });
+    Opportunity.createInstance(body).then(function() {
+      Opportunity.createInstance(body).should.be.rejected.and.notify(done);
+    })
+    .error(function(err) {
+      return done(err);
     });
   });
 
@@ -149,34 +100,27 @@ describe('Opportunity Model', function() {
     var userBody = userMock();
     var Opportunity = sequelize.model('opportunity');
     var User = sequelize.model('user');
-
-    User.create({
-      email: userBody.email,
-      password: userBody.password
-    }).success(function(user) {
-      var instance = Opportunity.buildFromAdminForm(body);
-      instance.validate().success(function(err) {
-        if (err) {
-          done(err);
-        }
-        instance.save().success(function(opp){
-          user.addOpportunity(opp).success(function() {
-            user.getOpportunities( {attributes: ['title'] }).success(function(results) {
-              should.exist(results);
-              done();
-            });
-          });
-        });
-      });
+    var user;
+    User.createInstance(userBody).then(function(newUser) {
+      user = newUser;
+      return Opportunity.createInstance(body);
+    }).then(function(op) {
+      return user.addOpportunity(op);
+    }).then(function() {
+      return user.getOpportunities( {attributes: ['title'] });
+    }).then(function(results) {
+      should.exist(results);
+      return done();
     });
   });
 
   afterEach(function(done) {
     var Opportunity = sequelize.model('opportunity');
     var User = sequelize.model('user');
-    Opportunity.destroy({title: 'Test opp3'});
-    User.destroy({email: 'clara@example.com'});
-    // We can put done here since tests wait for asynch calls to finish
-    done();
+    Opportunity.destroy({title: 'Test opp3'}).then(function() {
+      return User.destroy({email: 'clara@example.com'});
+    }).then(function() {
+      return done();
+    });
   });
 });
