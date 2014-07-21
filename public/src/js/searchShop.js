@@ -9,17 +9,17 @@ var SearchShop = {
   View: {}
 };
 
-SearchShop.Model.OppModel = require('./models/OppModel');
-SearchShop.Collection.OppsCollection = require('./collections/OppsCollection');
+SearchShop.Model.OppModel = require('./search/models/OppModel')(Backbone, _, SearchShop);
+SearchShop.Collection.OppsCollection = require('./search/collections/OppsCollection')(Backbone, _, SearchShop);
 
 // TODO -- this will need a split into two views - one for the tabs, one for the lists.
-SearchShop.View.OppListView = require('./views/OppListView');
-SearchShop.View.ShoppingCartItemView = require('./views/ShoppingCartItemView');
+SearchShop.View.OppListView = require('./search/views/OppListView')(Backbone, _, SearchShop);
+SearchShop.View.ShoppingCartItemView = require('./search/views/ShoppingCartItemView')(Backbone, _, SearchShop);
 
-SearchShop.View.PopoverView = require('./views/PopoverView');
+SearchShop.View.PopoverView = require('./search/views/PopoverView')(Backbone, _, SearchShop);
 
 // View for the Shopping Cart, container for individual Shopping Cart Item Views
-SearchShop.View.ShoppingCartView = require('./views/ShoppingCartView');
+SearchShop.View.ShoppingCartView = require('./search/views/ShoppingCartView')(Backbone, _, SearchShop);
 
 
 //SearchShop.items = new SearchShop.Collection.Items();
@@ -27,13 +27,13 @@ SearchShop.cartItems = new SearchShop.Collection.OppsCollection();
 
 // Execute when a model is added to the cart Items collection
 SearchShop.cartItems.on('add', function( item ){
-	// Make sure this models quantity is set to 1 on adding
-	item.set('quantity',1);
+  // Make sure this models quantity is set to 1 on adding
+  item.set('quantity',1);
 });
 
 // Setup our models and add all to a collection
 /*for( var i in defaultItems ) {
-	SearchShop.items.add( new SearchShop.Model.Item(defaultItems[i]) );
+  SearchShop.items.add( new SearchShop.Model.Item(defaultItems[i]) );
 }*/
 
 // Define our shopping cart
