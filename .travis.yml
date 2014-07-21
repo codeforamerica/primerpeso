@@ -5,6 +5,7 @@ env:
   - DATABASE_URL=postgres://postgres@127.0.0.1/bizwallet
 notifications:
   slack: cfa:kkWsa9y5if7z6IE8w7CrsGHh
+  webhooks: http://project-monitor.codeforamerica.org/projects/4b795a27-37e0-4d41-8b25-b580f623c1b4/status
 before_script:
   - psql -c 'create database bizwallet;' -U postgres
   - gulp dbsync
