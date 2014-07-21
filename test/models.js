@@ -24,16 +24,16 @@ describe('Opportunity Model', function() {
   });
 
   it('should create a new opportunity with optional fields', function(done) {
-    // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
+      'title': 'TEST2',
       'purposeOther': 'A different purpose',
       'additionalGeneralInformation': 'Some other general information'
     });
     var Opportunity = sequelize.model('opportunity');
-    var Opportunity = sequelize.model('opportunity');
     Opportunity.createInstance(body).error(function(err) {
-      done();
+      return done(err);
     });
+    return done();
   });
 
   it('should throw an error if a required field is missing', function(done) {
@@ -119,6 +119,9 @@ describe('Opportunity Model', function() {
     var User = sequelize.model('user');
     Opportunity.destroy({title: 'Test opp3'}).then(function() {
       return User.destroy({email: 'clara@example.com'});
+    }).then(function() {
+      return Opportunity.destroy({title: 'TEST2'});
+      
     }).then(function() {
       return done();
     });
