@@ -107,7 +107,6 @@ function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
   var instance = Model.buildFromAdminForm(req.body);
-  instance['user_id'] = req.user.id;
   instance.validate().
   success(function(err) {
     if (err) {
@@ -120,8 +119,10 @@ function save(req, res) {
       //return res.redirect(req.path);
     }
     instance.save().success(function(){
-      req.flash('info', instance.title + ' Successfully Added');
-      return res.redirect(req.path);
+      req.user.addOpportunity(instance).success(function() {
+        req.flash('info', instance.title + ' Successfully Added');
+        return res.redirect(req.path);
+      });
     })
     .error(function(err) {
       req.flash('errors', err.message);
