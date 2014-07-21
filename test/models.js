@@ -153,34 +153,21 @@ describe('Opportunity Model', function() {
     User.create({
       email: userBody.email,
       password: userBody.password
-    })
-    .success(function(user) {
+    }).success(function(user) {
       var instance = Opportunity.buildFromAdminForm(body);
-      instance.validate()
-      .success(function(err) {
+      instance.validate().success(function(err) {
         if (err) {
           done(err);
         }
-        instance.save()
-        .success(function(opp){
-          user.addOpportunity(opp)
-          .success(function() {
+        instance.save().success(function(opp){
+          user.addOpportunity(opp).success(function() {
             user.getOpportunities( {attributes: ['title'] }).success(function(results) {
               should.exist(results);
               done();
             });
-          })
-          .error(function(err) { 
-            done(err);
           });
-        })
-        .error(function(err) {
-          done(err);
         });
       });
-    })
-    .error(function(err) {
-      done(err);
     });
   });
 
