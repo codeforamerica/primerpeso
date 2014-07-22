@@ -71,14 +71,8 @@ var classMethods = {
           element.otherValue = valueSet.otherValue;
         }
         if (key == 'gender') {
-          console.log('Gender Choices');
-          console.log(element.choices);
           var choices = choicesList.getFormChoices(key);
-          console.log('new proposed choices');
-          console.log(choices);
           element.choices =  _.isEmpty(choices) ? element.choices : choices;
-          console.log('new choices');
-          console.log(element.choices);
         }
         var choices = choicesList.getFormChoices(key);
         element.choices =  _.isEmpty(choices) ? element.choices : choices;

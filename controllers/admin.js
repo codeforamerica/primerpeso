@@ -108,7 +108,7 @@ function save(req, res) {
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
 
   // If there is no id we are creating a new instance
-  if (id === '') {
+  if (!id || _.isEmpty(id)) {
     Model.createInstance(req.body).then(function(instance) {
       return req.user.addOpportunity(instance);
     }).then(function() {
@@ -124,8 +124,8 @@ function save(req, res) {
     delete instance.dataValues.id;
     var newFields = instance.dataValues;
     Model.find(req.params.id).success(function(result) {
-      result.updateAttributes(newFields).success(function() { 
-        res.redirect(req.path); 
+      result.updateAttributes(newFields).success(function() {
+        res.redirect(req.path);
       });
     });
   };
