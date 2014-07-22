@@ -116,11 +116,8 @@ var postSignup = function(req, res, next) {
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
-  var user = User.create({
-    email: req.body.email,
-    password: req.body.password
-  }).success(function(user) {
-    console.log('user saved');
+
+  User.createInstance(req.body).then(function(user) {
     req.logIn(user, function(err) {
       if (err) return next(err);
         return res.redirect('/');
