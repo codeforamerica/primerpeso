@@ -27,16 +27,16 @@ mixin renderResultSubset(benefitList, benefitType)
       h4 Deadline
 
     div(class="col-md-3 col-est-time-header")
-      h4 Estimated Time
+      h4 Estimated Response Time
 
   each benefitDesc, benefitName in benefitList
     div(class="row row-" + benefitType)
       div(class="col-md-6 col-description col-" + benefitName)
         a(href="#" + benefitName + "Add" class="addItem" data-bname=benefitName data-btype=benefitType)
-          i.fa.fa-plus-circle
+          i.fa.fa-plus-circle.fa-2x
         a(href="#" class="benefit-title")= benefitDesc.title
 
-        div(class=benefitName + "-inner-text")= benefitDesc.description
+        div(class=benefitName + "-inner-text benefit-description")= benefitDesc.description
 
       div(class="col-md-3 col-deadline col-" + benefitName)
         div(class=benefitName + "-inner-text")= benefitDesc.deadline
