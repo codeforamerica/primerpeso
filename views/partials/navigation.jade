@@ -15,6 +15,9 @@
           li(class=title=='Login'?'active':undefined)
             a(href='/login') Login
         else
+          li.cartButton
+            a(href="#toggleCart" class="toggleCart" id="toggleCart")
+              i.fa.fa-shopping-cart
           li.dropdown(class=title=='Account Management'?'active':undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               | #{ user.email || user.id}&nbsp;
