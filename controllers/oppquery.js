@@ -1,4 +1,4 @@
-var oppQueryForm = require('../lib/oppQueryForm.js');
+var OppQueryForm = require('../lib/OppQueryForm.js');
 var searchResults = require('../test/mocks/searchResults');
 var Searcher = require('../lib/SearchQuery.js');
 
@@ -13,11 +13,12 @@ module.exports = function(app) {
  */
 var oppQueryCreate = function(req, res, next) {
   var options = options || {};
+  var oppQueryForm = new OppQueryForm();
   res.render('fundmeWizard', {
     title: 'Wizard',
     bodyClass: 'fundmeWizard',
-    form: oppQueryForm.getFormConfig(),
-    formInfo: oppQueryForm.getFormInfo()
+    form: oppQueryForm.getFormConfig(true), // Deep.
+    formInfo: oppQueryForm.getFormConfig(false) // Shallow.
   });
 };
 

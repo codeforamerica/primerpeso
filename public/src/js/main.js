@@ -88,6 +88,16 @@ $(document).ready(function() {
     };
   });
 
+  // TODO -- will need refactor
+  // Look at using backbone statemachine to clean up this whole file.
+  $("#fundMeWizard #investingOwnMoney").change(function(event)  {
+    var val = $('input[name=investingOwnMoney]:checked', this).attr('value');
+    console.log(val);
+    if (val == 1)
+      $('#fundMeWizard #moneyInvested').show();
+    else
+      $('#fundMeWizard #moneyInvested').hide();
+  });
   $('.model-form').on('submit', function(event) {
     var nameList = [];
     var valid = true;

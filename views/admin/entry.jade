@@ -13,8 +13,8 @@ block content
             a.btn.btn-default.admin-edit.entry(href="#{base}#{path}/edit") edit
             a.btn.btn-default.delete-model.admin-edit.entry(href="#{base}#{path}/delete") delete
       tbody.admin
-          each field in fields
+          each field, fieldIndex in fields
             tr
               td
-                strong= field.label
-              td= entry.dataValues[field.name]
+                strong= field
+              td= entry.get(fieldIndex)

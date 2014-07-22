@@ -1,7 +1,8 @@
-var choicesList = require('../lib/options');
+var OptionsList = require('../lib/OptionsList');
+var choicesList = new OptionsList();
 
 module.exports = {
-  up: function(migration, DataTypes, done) {    
+  up: function(migration, DataTypes, done) {
     migration.addColumn(
       'opportunities',
       'purposeTemp',
@@ -56,11 +57,11 @@ module.exports = {
             migration.renameColumn('opportunities', 'purposeTemp', 'purpose');
             migration.renameColumn('opportunities', 'ageTemp', 'age');
             migration.renameColumn('opportunities', 'benefitTypeTemp', 'benefitType');
+            done();
           };
         });
       };
     });
-    done()
   },
   down: function(migration, DataTypes, done) {
     // add reverting commands here, calling 'done' when finished

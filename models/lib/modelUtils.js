@@ -1,17 +1,19 @@
 var _ = require('lodash');
-var choicesList = require('../../lib/options.js');
+var OptionsList = require('../../lib/OptionsList.js');
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
   edit: [
     'id',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'creatorId'
   ],
   new: [
     'id',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'creatorId'
   ],
 };
 
@@ -48,6 +50,7 @@ var buildElementValues = function(element, value) {
 
 var classMethods = {
   getFormFields: function(op, model) {
+    var choicesList = new OptionsList();
     var op = op || 'new';
     var blacklist = fieldBlackList[op];
     var fieldList = {};
@@ -67,12 +70,24 @@ var classMethods = {
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-
+        if (key == 'gender') {
+          var choices = choicesList.getFormChoices(key);
+          element.choices =  _.isEmpty(choices) ? element.choices : choices;
+        }
+        var choices = choicesList.getFormChoices(key);
+        element.choices =  _.isEmpty(choices) ? element.choices : choices;
         element.widget = element.widget ? element.widget : 'text';
         fieldList[key] = element;
       }
     });
     return fieldList;
+  },
+  getDefaultFields: function() {
+    var defaultFields = {};
+    var formFields = this.getFormFields('new');
+    return _.mapValues(formFields, function(element, index) {
+      return element.label;
+    });
   },
   buildFromAdminForm: function(reqBody) {
     var fields = this.getFormFields('new');
@@ -83,7 +98,7 @@ var classMethods = {
         // Get value from 'other' text fields if necessary
         if (value == 'other' && reqBody[fieldKey+'Other'] !== '') {
           value = reqBody[fieldKey+'Other'];
-          value = choicesList.optionizeValue(value);
+          value = OptionsList.optionizeValue(value);
         };
 
         // Wrap val if needed for multiple fields.
@@ -96,7 +111,22 @@ var classMethods = {
     });
     var instance = this.build(modelData);
     return instance;
+  },
+
+  createInstance: function(body) {
+    // We can depend on this because it's getting covered in another test.
+    var instance = this.buildFromAdminForm(body);
+    // NOW THIS IS HOW YOU DO PROMISES!
+    return instance.validate().then(function(err) {
+      if (err) throw(err);
+        return instance.save();
+    }).then(function(savedInstance) {
+      // This section is probably not needed.
+      return savedInstance;
+    });
   }
+
+
 };
 
 var instanceMethods = {
