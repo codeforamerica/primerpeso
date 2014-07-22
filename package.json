@@ -23,6 +23,7 @@
     "async": "^0.8.0",
     "backbone": "~1.1.2",
     "bcrypt-nodejs": "^0.0.3",
+    "bluebird": "^2.2.2",
     "body-parser": "^1.0.2",
     "bootstrap": "^3.1.1",
     "browser-sync": "~0.8.2",

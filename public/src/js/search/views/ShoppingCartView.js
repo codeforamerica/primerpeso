@@ -15,7 +15,6 @@ module.exports = function(Backbone, _, SearchShop) {
       this.$el.hide();
 
       // Initialize the popover
-
       $('#toggleCart').popover({
         title: 'Selected Programs',
         placement: 'bottom',
@@ -84,18 +83,11 @@ module.exports = function(Backbone, _, SearchShop) {
     },
 
     sendPrograms: function(e) {
-      console.log(this.collection.toJSON());
-      return false;
+      this.collection.save().done(function() {
+        window.location.href = "/results/picked/confirm";
+        return false;
+      });
     },
-
-    // Update the totals in the cart
-    /*updateTotal : function() {
-      // This is the var for the counter at the top of the page
-      var basketTotal = this.collection.length;
-
-      // Inject these totals
-      this.basketTotal.html( basketTotal );
-    },*/
 
     render : function() {
       // Empty the view
@@ -114,6 +106,5 @@ module.exports = function(Backbone, _, SearchShop) {
         this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Continue</button></div></div>');
       }
     }
-
   });
 }
