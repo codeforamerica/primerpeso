@@ -255,6 +255,7 @@ a {
 }
 
 .opportunities-container {
+  font-size: 16px;
   .row {
     margin-left: 0px;
     margin-right: 0px;
@@ -278,10 +279,22 @@ a {
   font-size: 200%;
 }
 
-.benefit-title, .benefit-title a{
+.benefit-title {
   color: @dark-green;
-  font-size: 170%;
+  font-size: 150%;
   margin-left: 8px;
+  text-transform: capitalize;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.benefit-description {
+  margin-bottom: 15px;
+}
+
+.col-deadline, .col-est-time {
+  font-size: 115%;
 }
 
 #shopping-cart {
