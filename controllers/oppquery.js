@@ -1,4 +1,5 @@
 var OppQueryForm = require('../lib/OppQueryForm.js');
+var SendRequestForm = require('../lib/SendRequestForm.js');
 var searchResults = require('../test/mocks/searchResults');
 var Searcher = require('../lib/SearchQuery.js');
 var _ = require('lodash');
@@ -63,9 +64,11 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
   if (_.isEmpty(cartContents))
     return res.redirect('/fundme');
 
+  var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
     title: 'You Have Selected',
     bodyClass: 'confirmPickedResults',
-    pickedResults: cartContents
+    pickedResults: cartContents,
+    form: sendRequestForm.getFormConfig(true),
   });
 };
