@@ -5,12 +5,11 @@ var fs        = require('fs')
   , S         = require('string')
   , secrets   = require('../config/secrets')
   , dirname   = __dirname + '/defs'
-  , db        = {}
-  , methods   = {};
+  , modelNames = [];
 
   var sequelize = new Sequelize(secrets.pg, {
     dialect: 'postgres',
-    sync: { force: true },
+    sync: { force: false },
     language: 'en'
   });
 
@@ -21,13 +20,12 @@ fs
   })
   .forEach(function(file) {
     var model = sequelize.import(path.join(dirname, file));
-    db[model.name] = model;
+    modelNames.push(model.name);
   })
 
-Object.keys(db).forEach(function(modelName) {
-  if (db[modelName].options.hasOwnProperty('associate')) {
-    db[modelName].options.associate(db)
-  }
+_.each(modelNames, function(modelName) {
+  var Model = sequelize.model(modelName);
+  Model.associate(sequelize);
 })
 
 module.exports = { sequelize: sequelize };
