@@ -26,6 +26,7 @@ var oppQueryExecute = function(req, res, next) {
   var query = req.query;
   var searchResult = new Searcher(query);
   searchResult.execute().success(function(searchResult) {
+    req.session.searchResult = searchResult;
     res.render('searchResults', {
       title: 'Search Results',
       bodyClass: 'searchResults',
