@@ -106,7 +106,8 @@ describe('Search Query', function() {
       });
     });
 
-    it('should set top keys to benefit types', function(done) {
+
+    it('should set top keys to benefit types, by default', function(done) {
       var topKeys = _.keys(searchResult);
       topKeys.should.include('incentive');
       topKeys.should.include('grant');
@@ -114,12 +115,10 @@ describe('Search Query', function() {
       return done();
     });
 
-    // TODO -- this test will be written when I"m properly setting the names.
     it('should place opportunities with multiple benefits in different top keys, multiple times', function(done) {
       searchResult.incentive.TESTOpportunityMatch.should.eql(searchResult.grant.TESTOpportunityMatch);
       return done();
     });
-
   });
 
 

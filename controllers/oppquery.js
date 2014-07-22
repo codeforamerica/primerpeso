@@ -51,7 +51,8 @@ var oppQueryExecute = function(req, res, next) {
 var oppQueryPickResults = function(req, res, next) {
   // TODO -- security hoooolllleeee?
   // Recycle Searcher to format the incoming result from collection.
-  req.session.cartContents = Searcher.formatResult(req.body);
+  // Don't re-format.
+  req.session.cartContents = Searcher.structureResult(req.body, false);
   return res.json(200, {status: 'ok'});
 }
 /**
@@ -59,6 +60,7 @@ var oppQueryPickResults = function(req, res, next) {
  * This is the page that successful cart save redirects to.
  * Checks for cart data, and if they exist, builds the confirm page.
  */
+
 var oppQueryConfirmPickedResults = function(req, res, next) {
   var cartContents = req.session.cartContents || null;
   if (_.isEmpty(cartContents))
