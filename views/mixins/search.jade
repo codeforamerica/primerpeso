@@ -33,7 +33,7 @@ mixin renderResultSubset(benefitList, benefitType)
     div(class="row row-" + benefitType)
       div(class="col-md-6 col-description col-" + benefitName)
         a(href="#" + benefitName + "Add" class="addItem" data-bname=benefitName data-btype=benefitType)
-          i.fa.fa-plus-circle
+          i.fa.fa-plus-circle.fa-2x
         a(href="#" class="benefit-title")= benefitDesc.title
 
         div(class=benefitName + "-inner-text")= benefitDesc.description
