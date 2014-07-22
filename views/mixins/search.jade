@@ -35,6 +35,7 @@ mixin renderResultSubset(benefitList, benefitType)
         a(href="#" + benefitName + "Add" class="addItem" data-bname=benefitName data-btype=benefitType)
           i.fa.fa-plus-circle.fa-2x
         a(href="#" class="benefit-title")= benefitDesc.title
+        benefitDesc.toLowerCase()
 
         div(class=benefitName + "-inner-text")= benefitDesc.description
 
