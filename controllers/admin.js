@@ -57,7 +57,6 @@ function list(req, res) {
   });
 
   var Model = sequelize.model(render.model);
-
   var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');
@@ -72,7 +71,6 @@ function list(req, res) {
       return res.render('admin/list', { data: results, fields: fields });
     });
   }
-
 }
 
 /**
@@ -137,7 +135,6 @@ function entry (req, res) {
   });
 
   var Model = sequelize.model(render.model);
-
   var fields = Model.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');

@@ -23,7 +23,10 @@ mixin choiceSelectField(formOptions)
     select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
-        option(value=cVal selected=(formOptions.value == cVal)) #{choice}
+        if _.isArray(formOptions.value)
+          option(value=cVal selected=(formOptions.value.indexOf(cVal) != -1)) #{choice}
+        else
+          option(value=cVal selected=(formOptions.value == cVal)) #{choice}
 
 mixin choiceField(formOptions)
   +fieldLabel(formOptions)
