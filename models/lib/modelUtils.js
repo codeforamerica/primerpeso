@@ -71,14 +71,8 @@ var classMethods = {
           element.otherValue = valueSet.otherValue;
         }
         if (key == 'gender') {
-          console.log('Gender Choices');
-          console.log(element.choices);
           var choices = choicesList.getFormChoices(key);
-          console.log('new proposed choices');
-          console.log(choices);
           element.choices =  _.isEmpty(choices) ? element.choices : choices;
-          console.log('new choices');
-          console.log(element.choices);
         }
         var choices = choicesList.getFormChoices(key);
         element.choices =  _.isEmpty(choices) ? element.choices : choices;
@@ -117,7 +111,22 @@ var classMethods = {
     });
     var instance = this.build(modelData);
     return instance;
+  },
+
+  createInstance: function(body) {
+    // We can depend on this because it's getting covered in another test.
+    var instance = this.buildFromAdminForm(body);
+    // NOW THIS IS HOW YOU DO PROMISES!
+    return instance.validate().then(function(err) {
+      if (err) throw(err);
+        return instance.save();
+    }).then(function(savedInstance) {
+      // This section is probably not needed.
+      return savedInstance;
+    });
   }
+
+
 };
 
 var instanceMethods = {

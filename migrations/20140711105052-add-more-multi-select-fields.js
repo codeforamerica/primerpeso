@@ -1,5 +1,4 @@
 var OptionsList = require('../lib/OptionsList');
-console.log('migration init options list.');
 var choicesList = new OptionsList();
 
 module.exports = {

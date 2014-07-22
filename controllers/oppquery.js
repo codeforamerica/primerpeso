@@ -1,10 +1,13 @@
 var OppQueryForm = require('../lib/OppQueryForm.js');
+var SendRequestForm = require('../lib/SendRequestForm.js');
 var searchResults = require('../test/mocks/searchResults');
 var Searcher = require('../lib/SearchQuery.js');
+var _ = require('lodash');
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
   app.get('/results', oppQueryExecute);
+  app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
 };
 
@@ -46,8 +49,26 @@ var oppQueryExecute = function(req, res, next) {
  * Receives the results from Cart's XHR request. Stores them in session.
  */
 var oppQueryPickResults = function(req, res, next) {
-  console.log(req.body);
   // TODO -- security hoooolllleeee?
-  req.session.cartContents = req.body;
+  // Recycle Searcher to format the incoming result from collection.
+  req.session.cartContents = Searcher.formatResult(req.body);
   return res.json(200, {status: 'ok'});
 }
+/**
+ * GET /results/picked/confirm
+ * This is the page that successful cart save redirects to.
+ * Checks for cart data, and if they exist, builds the confirm page.
+ */
+var oppQueryConfirmPickedResults = function(req, res, next) {
+  var cartContents = req.session.cartContents || null;
+  if (_.isEmpty(cartContents))
+    return res.redirect('/fundme');
+
+  var sendRequestForm = new SendRequestForm();
+  return res.render('confirmPicked', {
+    title: 'You Have Selected',
+    bodyClass: 'confirmPickedResults',
+    pickedResults: cartContents,
+    form: sendRequestForm.getFormConfig(true),
+  });
+};

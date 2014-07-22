@@ -1,4 +1,3 @@
-//var SearchView = require('./search.js');
 var SearchShop = require('./searchShop.js');
 
 $(document).ready(function() {
@@ -71,7 +70,13 @@ $(document).ready(function() {
     }
   });
 
-  $('select').select2();
+  $('select').each(function(index, sel) {
+    if ($(this).attr("multiple") == "multiple") {
+      $(this).select2($(this).val());
+    } else{
+      $(this).select2();
+    };
+  });
 
   // For admin page
   $('.choiceOther').hide();
@@ -126,9 +131,18 @@ $(document).ready(function() {
 
   // For results page
   if ($('body').hasClass('searchResults')) {
-    //var searchView = new SearchView();
-    console.log('moo');
     SearchShop.oppList = new SearchShop.View.OppListView({});
+  }
+  // For Confirm Page.
+  if ($('body').hasClass('confirmPickedResults')) {
+    $("#sendRequestForm").steps({
+      headerTag: "h3",
+      bodyTag: "fieldset",
+      transitionEffect: "slideLeft",
+      saveState: true,
+      titleTemplate: '<span class="monkey">#index#.</span> #title#',
+      stepsOrientation: 'vertical'
+    });
   }
 
 });
