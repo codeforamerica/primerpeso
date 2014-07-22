@@ -17,8 +17,6 @@ SearchShop.Collection.OppsCollection = require('./search/collections/OppsCollect
 SearchShop.View.OppListView = require('./search/views/OppListView')(Backbone, _, SearchShop);
 SearchShop.View.ShoppingCartItemView = require('./search/views/ShoppingCartItemView')(Backbone, _, SearchShop);
 
-SearchShop.View.PopoverView = require('./search/views/PopoverView')(Backbone, _, SearchShop);
-
 // View for the Shopping Cart, container for individual Shopping Cart Item Views
 SearchShop.View.ShoppingCartView = require('./search/views/ShoppingCartView')(Backbone, _, SearchShop);
 
