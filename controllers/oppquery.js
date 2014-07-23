@@ -40,7 +40,8 @@ var oppQueryExecute = function(req, res, next) {
       bodyClass: 'searchResults',
       isSearch: true,
       displayCart: true,
-      searchResult: searchResult
+      searchResult: searchResult,
+      meta: { type: 'searchResults' }
     });
   });
 };
@@ -73,5 +74,6 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
     form: sendRequestForm.getFormConfig(true),
+    meta: { type: 'confirmPicked' }
   });
 };
