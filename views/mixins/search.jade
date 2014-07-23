@@ -30,9 +30,9 @@ mixin renderResultSubset(benefitList, benefitType)
       h4 Estimated Response Time
 
   div(class="panel-group" id="accordion")
-  - var n = 1
+  - var oppCount = 1
     each benefitDesc, benefitName in benefitList
-      - n = n + 1
+      - oppCount = oppCount + 1
       div(class="row row-" + benefitType)
         div(class="panel panel-default")
           div(class="col-md-6 col-description col-" + benefitName)
