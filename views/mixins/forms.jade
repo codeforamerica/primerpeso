@@ -65,7 +65,7 @@ mixin arrayTextField(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
     button(class="array-text-field" name=formOptions.name type="button") Add another
     input(type="text" required=req name=formOptions.name+'[]' value=formOptions.value || '' class="form-control array-text-field" placeholder=formOptions.placeholder)
-[]
+
 // Helpers
 mixin choiceOther(formOptions)
   label(for=formOptions.name class="col-sm-2 col-lg-4 control-label") Other
