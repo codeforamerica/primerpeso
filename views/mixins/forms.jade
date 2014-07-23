@@ -24,7 +24,10 @@ mixin choiceSelectField(formOptions)
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
         if _.isArray(formOptions.value)
-          option(value=cVal selected=(formOptions.value.indexOf(cVal) != -1)) #{choice}
+          if typeof(formOptions.value[0]) === 'number'
+            option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
+          else
+            option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
         else
           option(value=cVal selected=(formOptions.value == cVal)) #{choice}
 
