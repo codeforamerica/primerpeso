@@ -21,7 +21,7 @@ module.exports = function(app) {
     next();
   });
 
-  app.get(base, index);
+  app.get(base, dashboard);
 
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
@@ -38,13 +38,14 @@ module.exports = function(app) {
 };
 
 /**
- * Index
+ * Index / Dashboard
  */
-function index(req, res) {
-  return res.render('admin/index', { title: 'Admin' });
+function dashboard(req, res) {
+  return res.redirect('/admin/opportunity');
+  //return res.render('admin/index', { title: 'Admin' });
 }
 
-function debug(req, res) {
+function debug(req, res) {j
   return res.json(db.sequelize.models);
 }
 
@@ -139,7 +140,8 @@ function entry (req, res) {
   var attributes = _.keys(fields);
   attributes.push('id');
   Model.find(req.params.id).success(function(result) {
-    return res.render('admin/entry', { title: Model.name, fields: fields, entry: result });
+    var values = result.getFormatedValues();
+    return res.render('admin/entry', { title: Model.name, fields: fields, entry: values });
   });
 }
 

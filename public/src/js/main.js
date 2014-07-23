@@ -22,7 +22,7 @@ $(document).ready(function() {
         if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
           var checked = $('input[name="'+ field +'"]:checked').attr('value');
           valid = !checked ? false : true;
-        } else if (currentFields[field]['widget'] == 'text') {
+        } else if (currentFields[field]['widget'] == 'text' && $('input[name="'+ field +'"]').attr('required') == 'required') {
           var text = $('input[name="'+ field +'"]').val();
           valid = text === "" ? false : true;
         }

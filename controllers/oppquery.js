@@ -39,6 +39,7 @@ var oppQueryExecute = function(req, res, next) {
       title: 'Search Results',
       bodyClass: 'searchResults',
       isSearch: true,
+      displayCart: true,
       searchResult: searchResult
     });
   });

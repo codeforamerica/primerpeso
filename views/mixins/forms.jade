@@ -24,7 +24,10 @@ mixin choiceSelectField(formOptions)
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
         if _.isArray(formOptions.value)
-          option(value=cVal selected=(formOptions.value.indexOf(cVal) != -1)) #{choice}
+          if typeof(formOptions.value[0]) === 'number'
+            option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
+          else
+            option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
         else
           option(value=cVal selected=(formOptions.value == cVal)) #{choice}
 
@@ -68,7 +71,7 @@ mixin arrayTextField(formOptions)
 
 // Helpers
 mixin choiceOther(formOptions)
-  label(for=formOptions.name class="col-sm-2 col-lg-4 control-label") #{formOptions.label}: Other
+  label(for=formOptions.name class="col-sm-2 col-lg-4 control-label") Other
   div(class="col-sm-10 col-lg-6")
     - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     if formOptions.widget == 'checkbox'
