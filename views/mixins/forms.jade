@@ -84,3 +84,6 @@ mixin fieldLabel(formOptions)
   label(for=formOptions.name class=fieldLabelClasses + " control-label") #{formOptions.label}
     if formOptions.required == true || formOptions.allowNull == false
       span.required *
+    if formOptions.tooltip
+      a(data-toggle="tooltip" data-placement="left" title=formOptions.tooltip)
+    i.fa.fa-question-circle
