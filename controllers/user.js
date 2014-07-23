@@ -70,7 +70,7 @@ var postLogin = function(req, res, next) {
       if (err) return next(err);
       req.flash('success', { msg: 'Success! You are logged in.' });
       // TODO: User should be redirected to previous page on login.
-      res.redirect('/');
+      res.redirect('/admin');
     });
   })(req, res, next);
 };
