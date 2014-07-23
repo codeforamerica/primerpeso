@@ -138,10 +138,14 @@ $(document).ready(function() {
     $("#sendRequestForm").steps({
       headerTag: "h3",
       bodyTag: "fieldset",
-      transitionEffect: "slideLeft",
+      transitionEffect: "fade",
       saveState: true,
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
-      stepsOrientation: 'vertical'
+      stepsOrientation: 'vertical',
+      onFinished: function (event, currentIndex){
+        var form = $(this);
+        form.submit();
+      },
     });
   }
 
