@@ -141,7 +141,11 @@ $(document).ready(function() {
       transitionEffect: "fade",
       saveState: true,
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
-      stepsOrientation: 'vertical'
+      stepsOrientation: 'vertical',
+      onFinished: function (event, currentIndex){
+        var form = $(this);
+        form.submit();
+      },
     });
   }
 

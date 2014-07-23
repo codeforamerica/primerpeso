@@ -8,7 +8,7 @@ block content
   div.opportunities-container
     +renderResultList(pickedResults)
   div.send-request-container
-    form#sendRequestForm(action='results' method="GET")
+    form#sendRequestForm(action='/sendlead' method="POST")
       each fieldSet, fieldSetIndex in form.fields
         h3= form.options.fieldSets[ fieldSetIndex ].label
         fieldset

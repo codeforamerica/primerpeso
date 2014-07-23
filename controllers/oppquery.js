@@ -9,6 +9,7 @@ module.exports = function(app) {
   app.get('/results', oppQueryExecute);
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
+  app.post('/sendlead', oppQuerySendLead);
 };
 
 /**
@@ -77,3 +78,20 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     meta: { type: 'confirmPicked' }
   });
 };
+
+/**
+ * POST /sendLead
+ * Handler for sending lead.  Returns confirm page
+ */
+
+var oppQuerySendLead = function(req, res, next) {
+  var leadData = req.body;
+  return res.render('leadSentConfirmation', {
+    title: 'Lead Sent',
+    bodyClass: 'leadSentConfirmation',
+    meta: { type: 'leadSentConfirmation' },
+    leadData: leadData
+  });
+
+
+}
