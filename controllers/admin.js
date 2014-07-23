@@ -140,7 +140,8 @@ function entry (req, res) {
   var attributes = _.keys(fields);
   attributes.push('id');
   Model.find(req.params.id).success(function(result) {
-    return res.render('admin/entry', { title: Model.name, fields: fields, entry: result });
+    var values = result.getFormatedValues();
+    return res.render('admin/entry', { title: Model.name, fields: fields, entry: values });
   });
 }
 
