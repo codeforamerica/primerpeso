@@ -33,8 +33,8 @@ mixin renderResultSubset(benefitList, benefitType)
   - var oppCount = 1
     each benefitDesc, benefitName in benefitList
       - oppCount = oppCount + 1
-      div(class="row row-" + benefitType)
-        div(class="panel panel-default")
+      div(class="panel panel-default")
+        div(class="row row-" + benefitType)
           div(class="col-md-6 col-description col-" + benefitName)
             if meta.type != 'confirmPicked'
               a(href="#" + benefitName + "Add" class="addItem" data-bname=benefitName data-btype=benefitType)
@@ -45,8 +45,8 @@ mixin renderResultSubset(benefitList, benefitType)
               div(class="panel-body")
                 div(class=benefitName + "-inner-text benefit-description")= benefitDesc.description
 
-        div(class="col-md-3 col-deadline col-" + benefitName)
-          div(class=benefitName + "-inner-text")= benefitDesc.deadline
+          div(class="col-md-3 col-deadline col-" + benefitName)
+            div(class=benefitName + "-inner-text")= benefitDesc.deadline
 
-        div(class="col-md-3 col-est-time col-" + benefitName)
-          div(class=benefitName + "-inner-text")= benefitDesc.estimatedTime
+          div(class="col-md-3 col-est-time col-" + benefitName)
+            div(class=benefitName + "-inner-text")= benefitDesc.estimatedTime
