@@ -22,7 +22,7 @@ describe('Options List', function() {
     // Test Object.
     var optList = new OptionsList('fundMeWizard');
     var genderChoices = optList.getFormChoices('gender');
-    var genderChoicesControl = { any: 'Both - if multiple owners, male: 'Male', female: 'Female'};
+    var genderChoicesControl = { any: 'Both - if multiple owners', male: 'Male', female: 'Female'};
     genderChoices.should.eql(genderChoicesControl);
 
     // Test Array.
