@@ -39,9 +39,9 @@ mixin renderResultSubset(benefitList, benefitType)
             if meta.type != 'confirmPicked'
               a(href="#" + benefitName + "Add" class="addItem" data-bname=benefitName data-btype=benefitType)
                 i.fa.fa-plus-circle.fa-2x
-            a(href="##{n}" class="benefit-title" data-toggle="collapse" data-parent="#accordion")= benefitDesc.title
+            a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= benefitDesc.title
 
-            div(id="#{n}" class="panel-collapse collapse")
+            div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
                 div(class=benefitName + "-inner-text benefit-description")= benefitDesc.description
 
