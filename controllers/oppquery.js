@@ -9,6 +9,7 @@ module.exports = function(app) {
   app.get('/results', oppQueryExecute);
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
+  app.post('/sendlead', oppQuerySendLead);
 };
 
 /**
@@ -40,7 +41,8 @@ var oppQueryExecute = function(req, res, next) {
       bodyClass: 'searchResults',
       isSearch: true,
       displayCart: true,
-      searchResult: searchResult
+      searchResult: searchResult,
+      meta: { type: 'searchResults' }
     });
   });
 };
@@ -52,7 +54,8 @@ var oppQueryExecute = function(req, res, next) {
 var oppQueryPickResults = function(req, res, next) {
   // TODO -- security hoooolllleeee?
   // Recycle Searcher to format the incoming result from collection.
-  req.session.cartContents = Searcher.formatResult(req.body);
+  // Don't re-format.
+  req.session.cartContents = Searcher.structureResult(req.body, false);
   return res.json(200, {status: 'ok'});
 }
 /**
@@ -60,6 +63,7 @@ var oppQueryPickResults = function(req, res, next) {
  * This is the page that successful cart save redirects to.
  * Checks for cart data, and if they exist, builds the confirm page.
  */
+
 var oppQueryConfirmPickedResults = function(req, res, next) {
   var cartContents = req.session.cartContents || null;
   if (_.isEmpty(cartContents))
@@ -71,5 +75,23 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
     form: sendRequestForm.getFormConfig(true),
+    meta: { type: 'confirmPicked' }
   });
 };
+
+/**
+ * POST /sendLead
+ * Handler for sending lead.  Returns confirm page
+ */
+
+var oppQuerySendLead = function(req, res, next) {
+  var leadData = req.body;
+  return res.render('leadSentConfirmation', {
+    title: 'Lead Sent',
+    bodyClass: 'leadSentConfirmation',
+    meta: { type: 'leadSentConfirmation' },
+    leadData: leadData
+  });
+
+
+}

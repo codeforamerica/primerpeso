@@ -125,11 +125,30 @@ var classMethods = {
       return savedInstance;
     });
   }
-
-
 };
 
 var instanceMethods = {
+
+  getFormatedValues: function() {
+    var choicesList = new OptionsList();
+    var formatedValues = {};
+    _.each(this.dataValues, function(value, key) {
+      if (_.isUndefined(choicesList['options'][key])) {
+        formatedValues[key] = value;
+      } else {
+        if (!_.isArray(value)) {
+          formatedValues[key] = choicesList['options'][key][value];
+        } else {
+          formatedValues[key] = [];
+          for (var i = 0 ; i < value.length ; i++) {
+            formatedValues[key].push(choicesList['options'][key][value[i]]);
+          }
+        }
+      }
+    });
+    return formatedValues;
+  }
+
 };
 
 var hooks = {};
