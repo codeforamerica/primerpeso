@@ -6,7 +6,6 @@ module.exports = function (Backbone, _, SearchShop) {
     },
     initialize: function() {
       var properties = this.getPropertiesFromResult();
-      console.log(properties);
       this.set(properties);
     },
     getPropertiesFromResult: function() {
