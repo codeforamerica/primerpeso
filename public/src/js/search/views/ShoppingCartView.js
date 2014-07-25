@@ -25,7 +25,7 @@ module.exports = function(Backbone, _, SearchShop) {
         content: function() {
           return $('#shopping-cart').html();
         },
-        template: '<div class="popover cart-popover" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+        template: '<div class="popover cart-popover" role="tooltip"><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
       }).popover('show');
       // This is gross, but ok.
       // MAJOR HACK
