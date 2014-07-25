@@ -2,9 +2,25 @@ extends layout
 
 block content
   div
-    Hey #{leadData.name} we sent your info!
+    Hey #{leadData.name} we sent your info to the agency. An employee will be contacting you soon!
   div
-    | You can either &nbsp;
-    a(href="/fundme") restart
-    | &nbsp or read more info about starting your business!
-
+    | If you want to look for more programs you can &nbsp;
+    a(href="/fundme") restart.
+    br
+    a(href="https://www.surveymonkey.com/s/HMKWJYJ") Please give us feedback on your experience.
+    br
+    | If this was useful to you please share on your social networks.
+    br
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bizwallet.herokuapp.com" data-lang="en">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    br
+  <div class="fb-share-button" data-href="http://bizwallet.herokuapp.com" data-width="500px"></div>
+  <div id="fb-root"></div>
+  script.
+    (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=777642008924431&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
