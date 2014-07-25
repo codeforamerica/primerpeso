@@ -37,8 +37,7 @@ mixin renderResultSubset(benefitList, benefitType)
         div(class="row row-" + benefitType)
           div(class="col-md-6 col-description col-" + benefitName)
             if meta.type != 'confirmPicked'
-              a(href="#" + benefitName + "Add" class="addItem" data-bname=benefitName data-btype=benefitType)
-                i.fa.fa-plus-circle.fa-2x
+              a(href="#" + benefitName + "Add" class="btn btn-small addItem" data-bname=benefitName data-btype=benefitType) add
             a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= benefitDesc.title
 
             div(id=oppCount class="panel-collapse collapse")
