@@ -42,7 +42,31 @@ mixin renderResultSubset(benefitList, benefitType)
 
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
-                div(class=benefitName + "-inner-text benefit-description")= benefitDesc.description
+                div(class=benefitName + "-inner-text benefit-description")
+                  strong
+                    | Purpose: 
+                  = benefitDesc.purpose
+                  br
+                  strong
+                    | Description: 
+                  = benefitDesc.description
+                  br
+                  strong
+                    | Paperwork Required: 
+                  = benefitDesc.paperwork
+                  br
+                  strong
+                    | Application Cost: 
+                  = benefitDesc.cost
+                  br
+                  strong
+                    | Agency Name: 
+                  = benefitDesc.agencyName
+                  br
+                  if !_.isEmpty(benefitDesc.info)
+                    strong
+                      | Additional Information: 
+                    = benefitDesc.info
 
           div(class="col-md-3 col-deadline col-" + benefitName)
             div(class=benefitName + "-inner-text")= benefitDesc.deadline
