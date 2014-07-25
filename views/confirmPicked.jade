@@ -8,7 +8,7 @@ block content
   div.opportunities-container
     +renderResultList(pickedResults)
   div.send-request-container
-  h3 We need some additional information about you to send to the agencies.
+    h3 We need some additional information about you to send to the agencies.
     form#sendRequestForm(action='/sendlead' method="POST")
       each fieldSet, fieldSetIndex in form.fields
         h3= form.options.fieldSets[ fieldSetIndex ].label
