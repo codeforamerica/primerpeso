@@ -2,15 +2,15 @@ extends layout
 
 block content
   div.congratulations-message
-    h2 Congratulations, #{leadData.name} we sent your info to the agency,
-    h2 an employee will be contacting you soon!
+    h2 Congratulations, #{leadData.name} we sent your info to the agency.
+    h2 An employee will be contacting you soon!
   div.additional-options
-    h3 If you want to look for more programs you can
-      a(href="/fundme")  Start Again.
+    h3 If you want to look for more programs you can 
+      a(href="/fundme") Start Again.
     br
-    | Please give us 
-    a(href="https://www.surveymonkey.com/s/HMKWJYJ") feedback
-    |  on your experience.
+    | Please give us feedback on your experience.
+    br
+    iframe(src="https://www.surveymonkey.com/s/HMKWJYJ" height="400px" width="500px")
     br
     | If this was useful to you please share on your social networks.
     br
