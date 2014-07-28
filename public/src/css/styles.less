@@ -1,11 +1,11 @@
 @import "lib/bootstrap/bootstrap";
 @import "themes/flatly";
 @import (less) "lib/animate.css";
-@import (less) "lib/font-awesome.min.css";
 @import (less) "lib/bootstrap-social.css";
 @import (less) "lib/jquery.steps.css";
 @import (less) "lib/select2.css";
 @import (less) "lib/select2-bootstrap.css";
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 @font-family: 'Montserrat', sans-serif;
@@ -13,13 +13,18 @@
 //BizWallet Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
+@darker-green: #128d75;
 @light-green: #cbf7e1;
 @navy: #146482;
+@light-blue: #2bd8eb;
 @white: #ffffff;
+@red: #db4e4d;
+@darker-red: #ad2121;
 
 //Greys
 @dark-grey: #333333;
 @light-grey: #808080;
+@lighter-grey: #eee;
 
 // Scaffolding
 // -------------------------
@@ -34,8 +39,21 @@ h1, h2, h3, h4, h5 {
 	font-family: @font-family;
 }
 
-body {
-  padding-top: 100px;
+h2, h3, h4 {
+  color: @navy;
+  font-weight: bold;
+}
+
+p {
+  font-size: 125%;
+}
+
+a {
+  color: @dark-green;
+  text-decoration: underline;
+  &:hover {
+    color: @darker-green;
+  }
 }
 
 #wrap {
@@ -49,17 +67,9 @@ body {
 }
 
 #footer {
-  height: 110px;
-  padding-top: 15px;
+  height: 130px;
+  padding-top: 20px;
 }
-
-// Layout
-// -------------------------
-
-p {
-  font-size: 125%;
-}
-
 
 // Navbar
 // -------------------------
@@ -67,9 +77,24 @@ p {
 @navbar-height: 100px;
 
 .navbar-default {
-	background-color: @green;
-	border-color: #97e8c1;
+  background-color: @green;
+  border: none;
 	font-size: 24px;
+  .navbar-nav {
+    li a {
+      text-decoration: none;
+    }
+    .open a:focus {
+      background-color: @navy;
+    }
+    .active a {
+      background-color: @dark-green;
+      text-decoration: none;
+    a:focus, &:hover, &:focus {
+      background-color: @navy;
+      }
+    }
+  }
 }
 
 .navbar-nav .profile-image {
@@ -93,7 +118,7 @@ p {
 // -------------------------
 
 .landing {
-  text-align: left;
+  text-align: center;
   display: inline-block;
   .title {
     margin-top: 50px;
@@ -107,20 +132,13 @@ p {
   }
   h2 {
     font-size: 270%;
-    color: @navy;
     margin: 20px 0px;
-    font-weight: bold;
   }
   img {
     float: left;
     display: inline;
     margin-right: 25px;
   }
-}
-
-.landing-header, .landing-last {
-  text-align: center;
-  display: inline-block;
 }
 
 .landing-body-right {
@@ -130,6 +148,15 @@ p {
     float: right;
     margin-left: 25px;
   }
+}
+
+.landing-header, .landing-last {
+  text-align: center;
+  display: inline-block;
+}
+
+.landing-body-left {
+  text-align: left;
 }
 
 .title {
@@ -142,40 +169,8 @@ p {
   font-weight: bold;
 }
 
-// Buttons
-// -------------------------
-
-.btn {
-  background-color: @dark-green;
-  color: @white;
-  font-size: 150%;
-  margin: 20px;
-  padding: 15px;
-}
-
 // Wizard
 // -------------------------
-
-.wizard .steps ul li {
-  width: auto;
-}
-
-.wizard {
-  .actions a {
-    background-color: @dark-green;
-    padding: 15px 35px;
-    font-size: 19px;
-  }
-    a:hover {
-      background-color: @navy;
-      font-size: 19px;
-      padding: 15px 35px;
-    }
-  .actions {
-    text-align: left;
-    margin-left: 5%;
-  }
-}
 
 .wizard .content {
   background-color: white;
@@ -183,6 +178,30 @@ p {
   .body {
     position: relative !important;
   }
+}
+
+.wizard .steps ul li {
+  width: auto;
+  font-size: 19px;
+}
+
+.wizard {
+  .actions a {
+    background-color: @dark-green;
+    padding: 15px 35px;
+  }
+  .actions {
+    text-align: left;
+    margin-left: 5%;
+    .disabled a {
+      padding: 15px 35px;
+    }
+  }
+}
+
+.wizard .actions a:hover {
+  background-color: @navy;
+  padding: 15px 35px;
 }
 
 .wizard .steps{
@@ -193,74 +212,207 @@ p {
   }
   .current a {
     background-color: @dark-green;
-  }
-  .current a:hover {
-    background-color: @navy;//darken(@dark-green, 15%);
+    &:hover {
+      background-color: @navy;
+    }
   }
   .done a {
     background-color: @green;
   }
 }
 
-.wizard .steps .done a:hover { //having trouble getting this nesting to work
+.wizard .steps .done a:hover {
   background-color: @navy;
 }
 
 .body .control-label {
-    font-size: 24px;
-    color: @navy;
-}
-
-// Landing Page
-// -------------------------
-.landing {
-  text-align: left;
-  display: inline-block;
-  .title {
-    margin-top: 50px;
-  }
-  p {
-    font-size: 150%;
-  }
-  .subtitle {
-    color: @dark-grey;
-    font-size: 200%
-  }
-  h2 {
-    font-size: 270%;
-    color: @navy;
-    margin: 20px 0px;
-    font-weight: bold;
-  }
-  img {
-    float: left;
-    display: inline;
-    margin-right: 25px;
-  }
-}
-
-.landing-header, .landing-last {
-  text-align: center;
-  display: inline-block;
-}
-
-.landing-body-right {
-  text-align: right;
-  display: inline-block;
-  img {
-    float: right;
-    margin-left: 25px;
-  }
-}
-
-.title {
+  font-size: 24px;
   color: @navy;
-  font-size: 550%;
-  font-weight: bold;
 }
 
-.subtitle {
+.mandatory {
+  margin: 10px 0px 0px 60px;
+}
+
+// Search Results
+// -------------------------
+
+.results-tabs {
+  font-size: 220%;
+  margin: 20px 0px 30px;
+  background-color: @lighter-grey;
+  text-transform: capitalize;
+  li.active a {
+    color: white;
+    background-color: @green;
+    cursor: hover;
+    &:hover {
+      color: @dark-green;
+      background-color: @green;
+    }
+  }
+}
+
+.search-intro {
+  color: @dark-green;
   font-weight: bold;
+  font-size: 185%;
+}
+
+.opportunities-container {
+  font-size: 16px;
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.row-header, .col-description-header, .col-deadline-header, .row-loans, .col-md-6, .col-md-3 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.row-benefit-count {
+  border-bottom: 2px solid @light-grey;
+  h3 {
+    color: @light-blue;
+    font-size: 270%;
+  }
+}
+
+.row-header h4 {
+  font-size: 175%;
+}
+
+.benefit-title {
+  color: @dark-green;
+  font-size: 150%;
+  margin-left: 8px;
+  text-transform: capitalize;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.col-deadline, .col-est-time {
+  font-size: 115%;
+}
+
+//Shopping Cart Stuff
+// -------------------------
+
+.cart-popover {
+  position: fixed;
+  top: 71px !important;
+  left: 80% !important;
+}
+
+.popover-content {
+  overflow: hidden;
+}
+
+#shopping-cart {
+  //display:none;
+}
+
+//Collapsible Styling
+// -------------------------
+
+.panel-group {
+  margin-bottom: 0px;
+}
+
+.panel {
+  margin-bottom: 10px;
+}
+
+// About Page
+// -------------------------
+
+.about {
+  width: 70%;
+  text-align: left;
+  max-width: 80%;
+  margin: auto;
+  line-height: 2.2em;
+  h2 {
+    font-size: 250%;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+}
+
+// Sign-In
+// -------------------------
+
+.subpagetitle {
+  color: @navy;
+  font-weight: bold;
+  line-height: 1.8em;
+  font-size: 250%;
+  margin: 35px 0px;
+  border-bottom: 2px @light-grey solid;
+}
+
+.control-label {
+  font-size: 150%;
+}
+
+// Admin
+// -------------------------
+
+#new .btn {
+  margin: 0px;
+}
+
+td {
+  width: 20%;
+  :first-child :last-child {
+    width: 25%;
+  }
+}
+
+.admin thead {
+  font-size: 135%;
+}
+
+.table-condensed > tbody > tr > td{
+  padding: 20px 10px 15px;
+}
+
+// Last Step/More Info Confirmation
+// -------------------------
+
+.send-request-container {
+  h3 {
+    margin-top: 70px;
+    margin-bottom: 30px;
+  }
+}
+
+
+
+// Confirmation Page - Send Lead
+// -------------------------
+
+.congratulations-message {
+  width: 75%;
+  h2 {
+    margin-top: 15px;
+  }
+}
+
+.additional-options {
+  font-size: 125%;
+  line-height: 2em;
+  h3 {
+  margin-top: 25px;
+  }
 }
 
 // Buttons
@@ -272,6 +424,42 @@ p {
   font-size: 150%;
   margin: 20px;
   padding: 15px;
+  border: none;
+  text-decoration: none !important;
+  &:hover {
+    background-color: @darker-green;
+  }
+}
+
+.admin-edit {
+  font-size: 115%;
+  padding: 12px;
+  margin: 0px 12px 12px 10px;
+}
+
+#new .btn {
+  padding: 10px;
+  font-size: 100%;
+}
+
+.delete-model {
+  background-color: @red;
+  &:hover {
+    background-color: @darker-red;
+  }
+}
+
+.entry {
+  margin-left: 0px;
+  font-size: 90%;
+  &:first-child {
+    margin-left: -5px;
+  }
+}
+
+.btn-small {
+  font-size: 95%;
+  padding: 10px;
 }
 
 
@@ -323,4 +511,23 @@ p {
   img {
     padding-right: 10px;
   }
+}
+
+// Responsive Styles
+// -------------------------
+
+// Mobile
+// -------------------------
+
+@media screen and (max-width: 480px) {
+.cart-popover {
+  position: fixed;
+  top: 50px !important;
+  left: 50% !important;
+  max-width: 185px;
+  .btn-send-programs {
+    font-size: 130%;
+    padding: 10px;
+  }
+}
 }

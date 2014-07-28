@@ -17,18 +17,19 @@ module.exports = function(app) {
     res.locals.path = req.path || '';
     res.locals.menu = { opportunity: 'opportunity' };
     res.locals.isAdminPath = true;
-    res.locals.title = 'Admin';
+    res.locals.title = 'Admin Panel - Available Programs';
     next();
   });
 
-  app.get(base, index);
+  app.get(base, dashboard);
 
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
   app.get(path.join(base, '/:model/:id'), entry);
-  app.post(path.join(base, '/:model/:id'), entrySave);
+  app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
+  // TODO: Need a route for all models, can't fit it anywhere though listAll function does that
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
   /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
@@ -37,33 +38,40 @@ module.exports = function(app) {
 };
 
 /**
- * Index
+ * Index / Dashboard
  */
-function index(req, res) {
-  return res.render('admin/index', { title: 'Admin' });
+function dashboard(req, res) {
+  return res.redirect('/admin/opportunity');
+  //return res.render('admin/index', { title: 'Admin' });
 }
 
-function debug(req, res) {
+function debug(req, res) {j
   return res.json(db.sequelize.models);
 }
+
 /**
  * GET list
  */
 function list(req, res) {
   var render = _.extend(res.locals, {
     model: req.params.model
-    //page: req.params.page || 0;
   });
 
   var Model = sequelize.model(render.model);
-  var doc = sequelize.model(render.model);
-  var keys = doc.getListFields ? doc.getListFields() : null;
-  var fields = keys ? _.pick(doc.getFormFields('new'), keys) : doc.getFormFields('new');
-  var options = keys ? { attributes: keys } : {};
-  Model.findAndCountAll(options).success(function(result) {
-    return res.render('admin/list', { data: result.rows, fields: fields });
-  });
-
+  var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
+  var attributes = _.keys(fields);
+  attributes.push('id');
+  if (req.query.listAll == 'true') {
+    Model.findAll({ attributes: attributes }).success(function(results){
+      return res.render('admin/list', { data: results, fields: fields });
+    });
+  }
+  else {
+    // TODO -- need to abstract this out for admin.
+    req.user.getOpportunities({ attributes: attributes }).success(function(results) {
+      return res.render('admin/list', { data: results, fields: fields });
+    });
+  }
 }
 
 /**
@@ -74,7 +82,6 @@ function edit(req, res) {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  // TODO -- why does this load a model loaded in a previously edited call
   var doc = sequelize.model(render.model);
   if (!render.id) {
     render.fields = doc.getFormFields('new');
@@ -88,8 +95,6 @@ function edit(req, res) {
         return res.render('admin/404', { url: req.url });
       }
       render.fields = doc.getFormFields('edit', instance);
-      //return res.json(render);
-      //return res.json(instance);
       return res.render('admin/form', render);
     });
   }
@@ -100,29 +105,29 @@ function edit(req, res) {
 function save(req, res) {
   var id = req.params.id || '';
   var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
-  var instance = Model.buildFromAdminForm(req.body);
-  instance.validate().
-  success(function(err) {
-    if (err) {
-      var errorList = [];
-      _.each(err, function(errDesc, errKey) {
-        if (errKey != '__raw')
-          req.flash('errors', errKey + ': ' + errDesc);
-      });
-      return res.json(err);
-      //return res.redirect(req.path);
-    }
 
-    instance.save().success(function(){
-      req.flash('info', instance.title + ' Successfully Added');
+  // If there is no id we are creating a new instance
+  if (!id || _.isEmpty(id)) {
+    Model.createInstance(req.body).then(function(instance) {
+      return req.user.addOpportunity(instance);
+    }).then(function() {
+      req.flash('info', req.params.model + ' Successfully Added');
       return res.redirect(req.path);
-    })
-    .error(function(err) {
+    }).error(function(err) {
       req.flash('errors', err.message);
-      //return res.redirect(req.path);
       return res.json(err);
     });
-  });
+  // If we have an id then we are updating an existing instance
+  } else {
+    var instance = Model.buildFromAdminForm(req.body);
+    delete instance.dataValues.id;
+    var newFields = instance.dataValues;
+    Model.find(req.params.id).success(function(result) {
+      result.updateAttributes(newFields).success(function() {
+        res.redirect(req.path);
+      });
+    });
+  };
 }
 
 function entry (req, res) {
@@ -131,21 +136,12 @@ function entry (req, res) {
   });
 
   var Model = sequelize.model(render.model);
-
+  var fields = Model.getDefaultFields();
+  var attributes = _.keys(fields);
+  attributes.push('id');
   Model.find(req.params.id).success(function(result) {
-    return res.json(result);
-  });
-}
-
-function entrySave (req, res) {
-  var id = req.params.id;
-  var Model = sequelize.model(req.params.model);
-  var updatedInstance = Model.buildFromAdminForm(req.body);
-  delete updatedInstance.dataValues.id;
-  var newFields = updatedInstance.dataValues;
-  Model.find(req.params.id).success(function(result) {
-    result.updateAttributes(newFields)
-    .success(function() { res.redirect(req.path); });
+    var values = result.getFormatedValues();
+    return res.render('admin/entry', { title: Model.name, fields: fields, entry: values });
   });
 }
 

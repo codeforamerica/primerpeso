@@ -1,0 +1,17 @@
+include mixins/forms.jade
+include mixins/search.jade
+
+extends layout
+
+block content
+  div.search-intro These are the programs you have selected to request more information
+  div.opportunities-container
+    +renderResultList(pickedResults)
+  div.send-request-container
+    h3 We need some additional information about you to send to the agencies.
+    form#sendRequestForm(action='/sendlead' method="POST")
+      each fieldSet, fieldSetIndex in form.fields
+        h3= form.options.fieldSets[ fieldSetIndex ].label
+        fieldset
+          each fieldSetField, fieldSetFieldIndex in fieldSet
+            +makeField(fieldSetField)

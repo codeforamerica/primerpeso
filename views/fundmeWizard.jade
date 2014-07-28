@@ -3,12 +3,11 @@ include mixins/forms.jade
 extends layout
 
 block content
-  form#fundMeWizard(action='oppquery/execute' method="GET")
+  form#fundMeWizard(action='results' method="GET")
     each fieldSet, fieldSetIndex in form.fields
-      - console.log('DEBUG')
-      - console.log(fieldSetIndex);
-      - console.log(fieldSet);
       h3= form.options.fieldSets[ fieldSetIndex ].label
       fieldset
         each fieldSetField, fieldSetFieldIndex in fieldSet
           +makeField(fieldSetField)
+
+  div.mandatory  *means required field

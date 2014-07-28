@@ -14,19 +14,21 @@ html
       include partials/navigation
       .container
         include partials/flash
-        if isAdminPath
-          include partials/admin_sidebar.jade
-          .col-md-10
-            block content
-        else
-          block content
+        block content
 
     include partials/footer
     // This should be dynamically controlled.
+    // Set a column variable for all JSON dumps out.
+    if formInfo
+      script.
+        var formInfo = !{JSON.stringify(formInfo)}
+
+    if searchResult
+      script.
+        var searchResult = !{JSON.stringify(searchResult)}
+
     script(type='text/javascript', src=CDN('/js/vendor.min.js'))
     script(type='text/javascript', src=CDN('/js/main.js'))
-    if env == 'development'
-      include partials/browserSync.jade
     script.
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-XXXXX-X']);

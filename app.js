@@ -32,7 +32,6 @@ var db = require('./models');
 
 // @TODO -- dep this
 //var userController = require('./controllers/user');
-var contactController = require('./controllers/contact');
 
 /**
  * API keys + Passport configuration.
@@ -92,6 +91,8 @@ app.use(function(req, res, next) {
   res.locals.user = req.user;
   res.locals.path = req.path;
   res.locals.env  = app.get('env');
+  res.locals._ = require('lodash');
+  res.locals.oppCount = 0;
   res.locals.CDN = function(relPath) {
     return secrets.staticFilePrefix + relPath;
   }
@@ -131,6 +132,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+// Middleware to remove trailing slashes from urls.
+app.use(function(req, res, next) {
+  if (req.path.substr(-1) == '/' && req.path.length > 1) {
+    var query = req.url.slice(req.path.length);
+    res.redirect(301, req.path.slice(0, -1) + query);
+  } else {
+    next();
+  }
+});
 
 // Access Policy;
 //app.use('/admin', require('./policies/admin'));
@@ -148,7 +158,7 @@ require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
-
+require('./controllers/contact')(app);
 
 
 /**

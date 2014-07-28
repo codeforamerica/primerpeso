@@ -1,4 +1,4 @@
-// Attributes brough in implicitly
+// Attributes brought in implicitly
 // See http://jade-lang.com/reference/#mixins
 
 mixin makeField(formOptions)
@@ -9,10 +9,13 @@ mixin makeField(formOptions)
       +choiceSelectField(formOptions)
     else if formOptions.widget == "radio" || formOptions.widget == "checkbox"
       +choiceField(formOptions)
+    else if formOptions.widget == "arrayTextField"
+      +arrayTextField(formOptions)
     else
       +textField(formOptions)
   if formOptions.choiceOther
-    +choiceOther(formOptions)
+    div(id=formOptions.name + "Other" class="choiceOther form-group col-sm-12")
+      +choiceOther(formOptions)
 
 mixin choiceSelectField(formOptions)
   +fieldLabel(formOptions)
@@ -20,7 +23,13 @@ mixin choiceSelectField(formOptions)
     select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
       each choice, cVal in formOptions.choices
         // TODO look at exploding classes
-        option(value=cVal selected=(formOptions.value == cVal)) #{choice}
+        if _.isArray(formOptions.value)
+          if typeof(formOptions.value[0]) === 'number'
+            option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
+          else
+            option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
+        else
+          option(value=cVal selected=(formOptions.value == cVal)) #{choice}
 
 mixin choiceField(formOptions)
   +fieldLabel(formOptions)
@@ -37,32 +46,43 @@ mixin choiceField(formOptions)
 
 mixin textField(formOptions)
   +fieldLabel(formOptions)
-  div(class=formOptions.fieldClasses || "col-sm-10")
+  div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
+    - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     if (formOptions.widget == 'date' && formOptions.value)
       - var year = formOptions.value.getFullYear()
       - var month = formOptions.value.getMonth() + 1
       - var day = formOptions.value.getDate()
-      input(type=formOptions.widget name=formOptions.name value=(year+'-'+month+'-'+day) || '' class="form-control" placeholder=formOptions.placeholder)
+      input(type=formOptions.widget required=req name=formOptions.name value=(year+'-'+month+'-'+day) || '' class="form-control" placeholder=formOptions.placeholder)
     else
-      input(type=formOptions.widget name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
+      input(type=formOptions.widget required=req name=formOptions.name value=formOptions.value || '' class="form-control" placeholder=formOptions.placeholder)
 
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
-  div(class=formOptions.fieldClasses || "col-sm-10")
-    textarea(class="form-control" rows="3" name=formOptions.name) #{formOptions.value || ''}
+  div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
+    - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
+    textarea(class="form-control" required=req rows="3" name=formOptions.name) #{formOptions.value || ''}
+
+mixin arrayTextField(formOptions)
+  - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
+  +fieldLabel(formOptions)
+  div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
+    button(class="array-text-field" name=formOptions.name type="button") Add another
+    input(type="text" required=req name=formOptions.name+'[]' value=formOptions.value || '' class="form-control array-text-field" placeholder=formOptions.placeholder)
 
 // Helpers
 mixin choiceOther(formOptions)
-  .choiceOther.form-group.col-sm-12
-    label(for=formOptions.name class="col-sm-2 control-label") #{formOptions.label}: Other
-    div(class="col-sm-10")
-      if formOptions.widget == 'checkbox'
-        input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
-      else
-        input(type="text" name=formOptions.name + "-other" value=formOptions.otherValue || '' class="form-control" placeholder=formOptions.placeholder)
+  label(for=formOptions.name class="col-sm-2 col-lg-4 control-label") Other
+  div(class="col-sm-10 col-lg-6")
+    - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
+    if formOptions.widget == 'checkbox'
+      input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control col-lg-6" placeholder=formOptions.placeholder)
+    else
+      input(type="text" name=formOptions.name + "Other" value=formOptions.otherValue || '' class="form-control col-lg-6" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
-  - var fieldLabelClasses = formOptions.fieldLabelClasses || 'col-sm-2'
+  - var fieldLabelClasses = formOptions.fieldLabelClasses || 'col-sm-2 col-lg-4'
   label(for=formOptions.name class=fieldLabelClasses + " control-label") #{formOptions.label}
     if formOptions.required == true || formOptions.allowNull == false
       span.required *
+    if formOptions.tooltip
+      i.fa.fa-question-circle(data-toggle="tooltip" data-placement="right" title=formOptions.tooltip)

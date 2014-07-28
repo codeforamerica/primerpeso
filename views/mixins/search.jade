@@ -1,0 +1,74 @@
+// Attributes brough in implicitly
+// See http://jade-lang.com/reference/#mixins
+
+mixin searchResultNav(searchResult)
+  ul(class="nav nav-tabs nav-justified search-tabs results-tabs" role="tablist")
+    li(class="active search-tab")
+      a(href="#" id="all") All
+    each benefitList, benefitType in searchResult
+      li.search-tab
+        a(href="#" id=benefitType)= benefitType
+
+mixin renderResultList(searchResult)
+  each benefitList, benefitType in searchResult
+    div(class=benefitType + '-container')
+      +renderResultSubset(benefitList, benefitType)
+
+mixin renderResultSubset(benefitList, benefitType)
+  - var resCountHeader = Object.keys(benefitList).length + ' ' + benefitType
+  div(class="row row-benefit-count row-" + benefitType)
+    h3= resCountHeader
+
+  div(class="row row-header row-" + benefitType)
+    div(class="col-md-6 col-description-header")
+      h4 Resource
+
+    div(class="col-md-3 col-deadline-header")
+      h4 Deadline
+
+    div(class="col-md-3 col-est-time-header")
+      h4 Estimated Response Time
+
+  div(class="panel-group" id="accordion")
+    each benefitDesc, benefitName in benefitList
+      - oppCount = oppCount + 1
+      div(class="panel panel-default")
+        div(class="row row-" + benefitType)
+          div(class="col-md-6 col-description col-" + benefitName)
+            if meta.type != 'confirmPicked'
+              a(href="#" + benefitName + "Add" class="btn btn-small addItem" data-bname=benefitName data-btype=benefitType) add
+            a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= benefitDesc.title
+
+            div(id=oppCount class="panel-collapse collapse")
+              div(class="panel-body")
+                div(class=benefitName + "-inner-text benefit-description")
+                  strong
+                    | Purpose: 
+                  = benefitDesc.purpose
+                  br
+                  strong
+                    | Description: 
+                  = benefitDesc.description
+                  br
+                  strong
+                    | Paperwork Required: 
+                  = benefitDesc.paperwork
+                  br
+                  strong
+                    | Application Cost: 
+                  = benefitDesc.cost
+                  br
+                  strong
+                    | Agency Name: 
+                  = benefitDesc.agencyName
+                  br
+                  if !_.isEmpty(benefitDesc.info)
+                    strong
+                      | Additional Information: 
+                    = benefitDesc.info
+
+          div(class="col-md-3 col-deadline col-" + benefitName)
+            div(class=benefitName + "-inner-text")= benefitDesc.deadline
+
+          div(class="col-md-3 col-est-time col-" + benefitName)
+            div(class=benefitName + "-inner-text")= benefitDesc.estimatedTime
