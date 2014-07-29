@@ -3,26 +3,36 @@ extends layout
 block content
   .landing
     .landing-header
-      h1.title BizWallet
-      h2.subtitle Find the resources you need to grow your business in Puerto Rico.
+      h1.title Startlight helps you grow your business
+      h2.subtitle Helping you navigate the $200 million available in government programs for small businesses in Puerto Rico.
       a.btn(href='/fundme') Start Now!
-    .landing-body-left
-      img(src=CDN("/img/search.png"))
-      h2 Guided Search
-      p It's hard to know what financial resources are available to help fuel your growth.
-      img(src=CDN("/img/right.png"))
-    .landing-body-right
-      img(src=CDN("/img/filters.png"))
-      h2 Built-In Filter
-      p Once you find them, it's even harder to filter through the many programs available to small business owners and find the ones you qualify for.
-      br
-      img(src=CDN("/img/left.png"))
-    .landing-body-left
+    .how-it-works.col-lg-12
+      h1 How Startlight Works:
+        h3.col-lg-4 1. Answer
+          img(src=CDN("/img/right.png"))
+          p 10 simple questions about you and your business.
+        h3.col-lg-4 2. Filter
+          img(src=CDN("/img/right.png"))
+          p Our app filters available programs from private and public agencies and organizations.
+        h3.col-lg-4 3. Review & Apply
+          img(src=CDN("/img/right.png"))
+          p Review your choices and apply to the ones that interest you.
+    .how-can-we-help.col-lg-12
+      h1 How can we help you?
+        .col-lg-6.col-lg-offset-3
+          a.btn.help-you(href='/fundme') I want to start a business
+          a.btn.help-you(href='/fundme') I want to grow my business
+          a.btn.help-you(href='/fundme') I want to open a new location
+          a.btn.help-you(href='/fundme') I want to learn about available incentives
+    .what-you-get.col-lg-12
+      h1 What do you get?
+      h3 We provide results from over 10 agencies and 100+ programs.
       img(src=CDN("/img/applications.png"))
-      h2 Streamlined Application
-      p It's even more complicated to apply for one of those programs. The application process is either offline or unpredictable.
-    .landing-last
-      h2 BizWallet is here to help you!
-      p This is an online tool to guide small business owners through the process of finding and applying for financial resources which are tailored to them.
-      br
-      a.btn(href='/fundme') Get Started!
+    .who-have-we-helped.col-lg-12
+      h1 Who have we helped?
+      .testimonials
+        img(src=CDN("/img/applications.png"))
+        p "Startlight helped me find financing to hire new employees."
+        img(src=CDN("/img/applications.png"))
+        p “Using Startlight I found money to hire interns  that I had never heard of before!”
+        a.btn(href='/fundme') Get Started!
