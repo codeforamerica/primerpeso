@@ -3,6 +3,7 @@ var SendRequestForm = require('../lib/SendRequestForm.js');
 var searchResults = require('../test/mocks/searchResults');
 var Searcher = require('../lib/SearchQuery.js');
 var _ = require('lodash');
+var sendgrid = require('sendgrid')(process.env.SG_USER, process.env.SG_PASSWORD)
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
@@ -10,6 +11,7 @@ module.exports = function(app) {
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
+  app.get('/sendlead', oppQuerySendLead);
 };
 
 /**
@@ -86,6 +88,16 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
 
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
+  var payload = {
+    to: 'clara@codeforamerica.org',
+    from: 'crodriguez@codeforamerica.org',
+    subject: 'Bizwallet Lead',
+    text: JSON.stringify(leadData, null, 4)
+  };
+  sendgrid.send(payload, function(err, json) {
+    if (err) { console.error(err); }
+    console.log(json);
+  });
   return res.render('leadSentConfirmation', {
     title: 'Lead Sent',
     bodyClass: 'leadSentConfirmation',

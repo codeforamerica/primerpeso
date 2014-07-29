@@ -238,7 +238,7 @@ a {
 // -------------------------
 
 .results-tabs {
-  font-size: 250%;
+  font-size: 220%;
   margin: 20px 0px 30px;
   background-color: @lighter-grey;
   text-transform: capitalize;
@@ -298,8 +298,17 @@ a {
   font-size: 115%;
 }
 
-.fa-plus-circle {
-  margin-top: 8px;
+//Shopping Cart Stuff
+// -------------------------
+
+.cart-popover {
+  position: fixed;
+  top: 71px !important;
+  left: 80% !important;
+}
+
+.popover-content {
+  overflow: hidden;
 }
 
 #shopping-cart {
@@ -376,6 +385,36 @@ td {
   padding: 20px 10px 15px;
 }
 
+// Last Step/More Info Confirmation
+// -------------------------
+
+.send-request-container {
+  h3 {
+    margin-top: 70px;
+    margin-bottom: 30px;
+  }
+}
+
+
+
+// Confirmation Page - Send Lead
+// -------------------------
+
+.congratulations-message {
+  width: 75%;
+  h2 {
+    margin-top: 15px;
+  }
+}
+
+.additional-options {
+  font-size: 125%;
+  line-height: 2em;
+  h3 {
+  margin-top: 25px;
+  }
+}
+
 // Buttons
 // -------------------------
 
@@ -416,6 +455,11 @@ td {
   &:first-child {
     margin-left: -5px;
   }
+}
+
+.btn-small {
+  font-size: 95%;
+  padding: 10px;
 }
 
 
@@ -467,4 +511,23 @@ td {
   img {
     padding-right: 10px;
   }
+}
+
+// Responsive Styles
+// -------------------------
+
+// Mobile
+// -------------------------
+
+@media screen and (max-width: 480px) {
+.cart-popover {
+  position: fixed;
+  top: 50px !important;
+  left: 50% !important;
+  max-width: 185px;
+  .btn-send-programs {
+    font-size: 130%;
+    padding: 10px;
+  }
+}
 }
