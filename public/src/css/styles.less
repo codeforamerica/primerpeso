@@ -20,11 +20,13 @@
 @white: #ffffff;
 @red: #db4e4d;
 @darker-red: #ad2121;
+@white: #ffffff;
 
 //Greys
 @dark-grey: #333333;
 @light-grey: #808080;
 @lighter-grey: #eee;
+@lightest-grey: #F6F6F6;
 
 // Scaffolding
 // -------------------------
@@ -171,12 +173,16 @@ section {
   text-align: center;
 }
 
-.how-it-works {
-  background-color: #F6F6F6;
+.how-it-works, .who-have-we-helped {
+  background-color: @lightest-grey;
 }
 
 .how-can-we-help {
   background-color: #2C3E50;
+}
+
+.what-you-get {
+  background-color: @white;
 }
 
 section:before, section:after {
@@ -203,14 +209,17 @@ section.how-can-we-help:after {
   background: #2C3E50;  /* Match the background */
 }
 
-section.how-it-works:before {
-  background: #F6F6F6;  /* Match the background */
+section.how-it-works:before, section.how-it-works:after, section.who-have-we-helped:before, section.who-have-we-helped:after {
+  background: @lightest-grey;  /* Match the background */
 }
 
-section.how-it-works:after {
-  background: #F6F6F6;  /* Match the background */
+section.what-you-get:before {
+  background: @white;  /* Match the background */
 }
 
+section.what-you-get:after {
+  background: @white;  /* Match the background */
+}
 
 
 // Wizard
