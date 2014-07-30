@@ -141,27 +141,41 @@ a {
   }
 }
 
-.landing-body-right {
-  text-align: right;
-  display: inline-block;
-  img {
-    float: right;
-    margin-left: 25px;
-  }
+// .landing-body-right {
+//   text-align: right;
+//   display: inline-block;
+//   img {
+//     float: right;
+//     margin-left: 25px;
+//   }
+// }
+
+// .landing-header, .landing-last {
+//   text-align: center;
+//   display: inline-block;
+// }
+
+// .landing-body-left {
+//   text-align: left;
+// }
+
+.landing {
+  background: url(../img/coffeeshop-guy.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin: -80px -300px 0px;
 }
 
-.landing-header, .landing-last {
-  text-align: center;
-  display: inline-block;
+.landing-header {
+  position: absolute;
+  bottom: 25px;
 }
 
-.landing-body-left {
-  text-align: left;
-}
-
-.title {
-  color: @navy;
-  font-size: 550%;
+h1.title{
+  color: @white;
+  font-size: 250%;
   font-weight: bold;
 }
 
@@ -171,6 +185,7 @@ a {
 
 section {
   text-align: center;
+  min-height: 650px;
 }
 
 .how-it-works, .who-have-we-helped {
