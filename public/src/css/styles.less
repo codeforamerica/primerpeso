@@ -7,8 +7,10 @@
 @import (less) "lib/select2-bootstrap.css";
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
 
 @font-family: 'Montserrat', sans-serif;
+@font-family-secondary: 'Open Sans', sans serif;
 
 //BizWallet Colors
 @green: #97e8c1;
@@ -35,10 +37,6 @@ html, body {
   height: 100%;
   font-family: @font-family;
   color: @dark-grey;
-}
-
-h1, h2, h3, h4, h5 {
-	font-family: @font-family;
 }
 
 h2, h3, h4 {
@@ -121,6 +119,7 @@ a {
 
 .landing {
   text-align: center;
+  font-family: @font-family-secondary;
   .title {
     margin-top: 50px;
   }
@@ -166,11 +165,12 @@ a {
   -o-background-size: cover;
   background-size: cover;
   margin: -80px -300px 0px;
+  height: 650px;
 }
 
 .landing-header {
   position: absolute;
-  bottom: 25px;
+  bottom: 5px;
 }
 
 h1.title{
@@ -185,11 +185,27 @@ h1.title{
 
 section {
   text-align: center;
-  min-height: 650px;
+  h1 {
+    font-family: @font-family;
+    margin-top: 50px;
+  }
 }
 
 .how-it-works, .who-have-we-helped {
   background-color: @lightest-grey;
+}
+
+.how-it-works.section-title h1 {
+  margin-top: 70px;
+  margin-bottom: 30px;
+}
+
+.action-words {
+  margin: 50px 0px 80px;
+}
+
+.how-it-works img {
+  padding-bottom: 15px;
 }
 
 .how-can-we-help {
