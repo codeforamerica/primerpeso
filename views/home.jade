@@ -50,19 +50,24 @@ html
           .testimonials.left
             img(src=CDN("/img/applications.png"))
             p "I wish this would have existed three years ago when I was starting my business.”
-            p -Arturo Lopez, founder of Huerto isleño.
+            p -Arturo Lopez, founder of Huerto Isleño.
             a.btn(href='/fundme') Get Started!
 
-      include partials/footer
-      // This should be dynamically controlled.
-      // Set a column variable for all JSON dumps out.
-      if formInfo
-        script.
-          var formInfo = !{JSON.stringify(formInfo)}
+          #footer
+              div © 2014 CoquiCoders.
+              div
+                strong BizWallet
+                |  Project
+                |  Created by
+                a(href='http://coquicoders.org')  Coqui Coders
+              div
+                | Code licensed under&nbsp;
+                a(href='http://opensource.org/licenses/mit-license.html') MIT License
+              div
+                a(href='https://github.com/') GitHub Project
+                |  ·&nbsp;
+                a(href='https://github.com/') Issues
 
-      if searchResult
-        script.
-          var searchResult = !{JSON.stringify(searchResult)}
 
       script(type='text/javascript', src=CDN('/js/vendor.min.js'))
       script(type='text/javascript', src=CDN('/js/main.js'))
