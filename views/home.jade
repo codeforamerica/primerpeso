@@ -1,42 +1,78 @@
-extends layout
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='csrf-token', content=_csrf)
+    meta(name='author', content='')
+    title #{title} | Bizwallet
+    link(rel='stylesheet', href=CDN('/css/styles.css'))
+  body(class=bodyClass)
+    #wrap
+      include partials/navigation
+        include partials/flash
+      section.landing
+        .landing-header
+          h1.title Startlight helps you grow your business
+              h2.subtitle Helping you navigate the $200 million available in government programs for small businesses in Puerto Rico.
+              a.btn(href='/fundme') Start Now!
 
-block content
-  section.landing
-    .landing-header
-      h1.title Startlight helps you grow your business
-          h2.subtitle Helping you navigate the $200 million available in government programs for small businesses in Puerto Rico.
-          a.btn(href='/fundme') Start Now!
+      section.how-it-works.col-lg-12
+          h1.section-title How Startlight Works:
+          .action-words.col-lg-12
+            .col-lg-4
+              img(src=CDN("/img/answer.png"))
+              h3 1. Answer
+              p 10 simple questions about you and your business.
+            .col-lg-4
+              img(src=CDN("/img/filter.png"))
+              h3 2. Filter
+              p Our app filters available programs from private and public agencies and organizations.
+            .col-lg-4
+              img(src=CDN("/img/apply.png"))
+              h3 3. Review & Apply
+              p Review your choices and apply to the ones that interest you.
+      section.how-can-we-help.col-lg-12
+        h1.section-title How can we help you?
+          .options
+            a.btn.help-you(href='/fundme') I want to start a business
+            a.btn.help-you(href='/fundme') I want to grow my business
+            a.btn.help-you(href='/fundme') I want to open a new location
+            a.btn.help-you(href='/fundme') I want to learn about available incentives
+      section.what-you-get.col-lg-12
+          h1.section-title What do you get?
+          h3 We provide results from over 10 agencies and 100+ programs.
+          img(src=CDN("/img/options.png"))
+      section.who-have-we-helped.col-lg-12
+          h1.section-title Who have we helped?
+          .testimonials.left
+            img(src=CDN("/img/applications.png"))
+            p "I wish this would have existed three years ago when I was starting my business.”
+            p -Arturo Lopez, founder of Huerto isleño.
+            a.btn(href='/fundme') Get Started!
 
-  section.how-it-works.col-lg-12
-      h1.section-title How Startlight Works:
-      .action-words.col-lg-12
-        .col-lg-4
-          img(src=CDN("/img/answer.png"))
-          h3 1. Answer
-          p 10 simple questions about you and your business.
-        .col-lg-4
-          img(src=CDN("/img/filter.png"))
-          h3 2. Filter
-          p Our app filters available programs from private and public agencies and organizations.
-        .col-lg-4
-          img(src=CDN("/img/apply.png"))
-          h3 3. Review & Apply
-          p Review your choices and apply to the ones that interest you.
-  section.how-can-we-help.col-lg-12
-    h1.section-title How can we help you?
-      .options
-        a.btn.help-you(href='/fundme') I want to start a business
-        a.btn.help-you(href='/fundme') I want to grow my business
-        a.btn.help-you(href='/fundme') I want to open a new location
-        a.btn.help-you(href='/fundme') I want to learn about available incentives
-  section.what-you-get.col-lg-12
-      h1.section-title What do you get?
-      h3 We provide results from over 10 agencies and 100+ programs.
-      img(src=CDN("/img/options.png"))
-  section.who-have-we-helped.col-lg-12
-      h1.section-title Who have we helped?
-      .testimonials.left
-        img(src=CDN("/img/applications.png"))
-        p "I wish this would have existed three years ago when I was starting my business.”
-        p -Arturo Lopez, founder of Huerto isleño.
-        a.btn(href='/fundme') Get Started!
+      include partials/footer
+      // This should be dynamically controlled.
+      // Set a column variable for all JSON dumps out.
+      if formInfo
+        script.
+          var formInfo = !{JSON.stringify(formInfo)}
+
+      if searchResult
+        script.
+          var searchResult = !{JSON.stringify(searchResult)}
+
+      script(type='text/javascript', src=CDN('/js/vendor.min.js'))
+      script(type='text/javascript', src=CDN('/js/main.js'))
+      script.
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();

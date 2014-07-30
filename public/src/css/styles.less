@@ -57,11 +57,11 @@ a {
 }
 
 #wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
+  // min-height: 100%;
+  // // height: auto !important;
+  // height: 100%;
   /* Negative indent footer by its height */
-  margin: 0 auto -130px;
+  margin: 0 auto;
   /* Pad bottom by footer height + (optional) extra spacing */
   padding: 0 0 131px;
 }
@@ -75,6 +75,10 @@ a {
 // -------------------------
 
 @navbar-height: 100px;
+
+.navbar {
+  margin-bottom: 0px;
+}
 
 .navbar-default {
   background-color: @green;
@@ -128,11 +132,12 @@ a {
   }
   .subtitle {
     color: @white;
-    font-size: 200%
+    font-size: 200%;
+    max-width: 600px;
   }
   h2 {
     font-size: 270%;
-    margin: 20px 0px;
+    margin: 20px auto;
   }
   img {
     margin: auto;
@@ -159,12 +164,13 @@ a {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  margin: -21px -300px 0px;
   height: 650px;
 }
 
 .landing-header {
   position: absolute;
+  left: 0;
+  right:0;
   bottom: 5px;
   background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 53%, rgba(0,0,0,0) 99%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(53%,rgba(0,0,0,0.65)), color-stop(99%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
@@ -192,6 +198,7 @@ section {
 
 .how-it-works, .who-have-we-helped {
   background-color: @lightest-grey;
+  padding-top: 1px;
 }
 
 .action-words {
@@ -221,7 +228,6 @@ section:before, section:after {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 9999px;
 }
 
 section:before {
