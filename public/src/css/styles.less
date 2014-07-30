@@ -171,6 +171,34 @@ a {
   text-align: center;
 }
 
+.how-can-we-help {
+  background-color: #2C3E50;
+}
+
+section:before, section:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 9999px;
+}
+
+section:before {
+  right: 100%;
+}
+
+section:after {
+  left: 100%;
+}
+
+section.how-can-we-help:before {
+  background: #2C3E50;  /* Match the background */
+}
+
+section.how-can-we-help:after {
+  background: #2C3E50;  /* Match the background */
+}
+
 // Wizard
 // -------------------------
 
