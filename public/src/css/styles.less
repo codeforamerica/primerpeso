@@ -194,7 +194,8 @@ section {
 }
 
 .how-can-we-help {
-  background-color: #2C3E50;
+  background: url("../img/bg-pattern.png");
+  // background-color: #2C3E50;
   h1 {
     color: white;
   }
@@ -208,42 +209,6 @@ section {
 .what-you-get {
   background-color: @white;
 }
-
-section:before, section:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-
-section:before {
-  right: 100%;
-}
-
-section:after {
-  left: 100%;
-}
-
-section.how-can-we-help:before {
-  background: #2C3E50;  /* Match the background */
-}
-
-section.how-can-we-help:after {
-  background: #2C3E50;  /* Match the background */
-}
-
-section.how-it-works:before, section.how-it-works:after, section.who-have-we-helped:before, section.who-have-we-helped:after {
-  background: @lightest-grey;  /* Match the background */
-}
-
-section.what-you-get:before {
-  background: @white;  /* Match the background */
-}
-
-section.what-you-get:after {
-  background: @white;  /* Match the background */
-}
-
 
 // Wizard
 // -------------------------
