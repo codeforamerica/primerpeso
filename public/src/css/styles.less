@@ -7,8 +7,10 @@
 @import (less) "lib/select2-bootstrap.css";
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
 
 @font-family: 'Montserrat', sans-serif;
+@font-family-secondary: 'Open Sans', sans serif;
 
 //BizWallet Colors
 @green: #97e8c1;
@@ -20,11 +22,13 @@
 @white: #ffffff;
 @red: #db4e4d;
 @darker-red: #ad2121;
+@white: #ffffff;
 
 //Greys
-@dark-grey: #333333;
+@dark-grey: #4A4A4A;
 @light-grey: #808080;
 @lighter-grey: #eee;
+@lightest-grey: #F6F6F6;
 
 // Scaffolding
 // -------------------------
@@ -33,10 +37,6 @@ html, body {
   height: 100%;
   font-family: @font-family;
   color: @dark-grey;
-}
-
-h1, h2, h3, h4, h5 {
-	font-family: @font-family;
 }
 
 h2, h3, h4 {
@@ -57,24 +57,22 @@ a {
 }
 
 #wrap {
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  /* Negative indent footer by its height */
-  margin: 0 auto -110px;
-  /* Pad bottom by footer height + (optional) extra spacing */
-  padding: 0 0 140px;
+  margin: 0 auto;
+  padding: 0 0 131px;
 }
 
 #footer {
-  height: 130px;
-  padding-top: 20px;
+  padding: 20px;
 }
 
 // Navbar
 // -------------------------
 
 @navbar-height: 100px;
+
+.navbar {
+  margin-bottom: 0px;
+}
 
 .navbar-default {
   background-color: @green;
@@ -119,7 +117,7 @@ a {
 
 .landing {
   text-align: center;
-  display: inline-block;
+  font-family: @font-family-secondary;
   .title {
     margin-top: 50px;
   }
@@ -127,46 +125,89 @@ a {
     font-size: 150%;
   }
   .subtitle {
-    color: @dark-grey;
-    font-size: 200%
+    color: @white;
+    font-size: 200%;
+    max-width: 800px;
+    font-weight: 300;
   }
   h2 {
     font-size: 270%;
-    margin: 20px 0px;
+    margin: 20px auto;
   }
   img {
-    float: left;
-    display: inline;
-    margin-right: 25px;
+    margin: auto;
+    display: block;
   }
 }
 
-.landing-body-right {
-  text-align: right;
-  display: inline-block;
-  img {
-    float: right;
-    margin-left: 25px;
-  }
+.landing {
+  background: url(../img/coffeeshop-guy.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 650px;
 }
 
-.landing-header, .landing-last {
+.landing-header {
+  position: absolute;
+  left: 0;
+  right:0;
+  bottom: 5px;
+  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 53%, rgba(0,0,0,0) 99%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(53%,rgba(0,0,0,0.65)), color-stop(99%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+}
+
+h1.title{
+  color: @white;
+  font-size: 275%;
+  font-weight: bold;
+}
+
+section {
   text-align: center;
-  display: inline-block;
+  h1.section-title {
+    font-family: @font-family;
+    margin-top: 70px;
+    margin-bottom: 30px;
+  }
 }
 
-.landing-body-left {
-  text-align: left;
+.how-it-works, .who-have-we-helped {
+  background-color: @lightest-grey;
+  padding-top: 1px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.title {
-  color: @navy;
-  font-size: 550%;
-  font-weight: bold;
+.action-words {
+  margin: 50px 0px 80px;
 }
 
-.subtitle {
-  font-weight: bold;
+.how-it-works img {
+  padding-bottom: 15px;
+}
+
+.how-can-we-help {
+  background: url("../img/bg-pattern.png");
+  // background-color: #2C3E50;
+  h1 {
+    color: white;
+  }
+  .options {
+    margin: 30px 0px 40px;
+    width: 80%;
+    margin: auto;
+  }
+}
+
+.what-you-get {
+  background-color: @white;
 }
 
 // Wizard
@@ -460,6 +501,11 @@ td {
 .btn-small {
   font-size: 95%;
   padding: 10px;
+}
+
+.help-you {
+  font: @font-family-secondary;
+  min-width: 560px;
 }
 
 
