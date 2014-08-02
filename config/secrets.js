@@ -6,7 +6,7 @@ module.exports = {
   sessionSecret: process.env.SESSION_SECRET || 'I Am A Monkey',
   staticFilePrefix: process.env.STATIC_FILE_PREFIX || '',
   env: process.env.NODE_ENV || 'development',
-  mailDev: process.env.MAIL_DEV || false,
+  mailHandler: process.env.MAILHANDLER || 'mandrill',
   mailFrom: process.env.MAIL_FROM || '',
   mailTo: process.env.MAIL_TO || '',
 
