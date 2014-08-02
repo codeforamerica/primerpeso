@@ -1,28 +1,82 @@
-extends layout
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='csrf-token', content=_csrf)
+    meta(name='author', content='')
+    title #{title} | Bizwallet
+    link(rel='stylesheet', href=CDN('/css/styles.css'))
+  body(class=bodyClass)
+    #wrap
+      include partials/navigation
+        include partials/flash
+      section.landing
+        .landing-header
+          h1.title StartLite helps you grow your business
+              h2.subtitle Navigating over <strong>$200 million available</strong> in government programs for <strong>small businesses</strong> in Puerto Rico.
+              a.btn(href='/fundme') Find out what you're eligible for
 
-block content
-  .landing
-    .landing-header
-      h1.title BizWallet
-      h2.subtitle Find the resources you need to grow your business in Puerto Rico.
-      a.btn(href='/fundme') Start Now!
-    .landing-body-left
-      img(src=CDN("/img/search.png"))
-      h2 Guided Search
-      p It's hard to know what financial resources are available to help fuel your growth.
-      img(src=CDN("/img/right.png"))
-    .landing-body-right
-      img(src=CDN("/img/filters.png"))
-      h2 Built-In Filter
-      p Once you find them, it's even harder to filter through the many programs available to small business owners and find the ones you qualify for.
-      br
-      img(src=CDN("/img/left.png"))
-    .landing-body-left
-      img(src=CDN("/img/applications.png"))
-      h2 Streamlined Application
-      p It's even more complicated to apply for one of those programs. The application process is either offline or unpredictable.
-    .landing-last
-      h2 BizWallet is here to help you!
-      p This is an online tool to guide small business owners through the process of finding and applying for financial resources which are tailored to them.
-      br
-      a.btn(href='/fundme') Get Started!
+      section.how-it-works.col-lg-12
+          h1.section-title How StartLite Works:
+          .action-words.col-lg-12
+            .col-lg-4
+              img(src=CDN("/img/answer.png"))
+              h3 1. Answer
+              p 10 simple questions about you and your business.
+            .col-lg-4
+              img(src=CDN("/img/filter.png"))
+              h3 2. Filter
+              p Our app filters available programs from private and public agencies and organizations.
+            .col-lg-4
+              img(src=CDN("/img/apply.png"))
+              h3 3. Review & Apply
+              p Review your choices and apply to the ones that interest you.
+      section.how-can-we-help.col-lg-12
+        h1.section-title How can we help you?
+        .options
+          a.btn.help-you(href='/fundme') I want to start a business
+          a.btn.help-you(href='/fundme') I want to grow my business
+          a.btn.help-you(href='/fundme') I want to open a new location
+          a.btn.help-you(href='/fundme') I want to learn about available incentives
+      section.what-you-get.col-lg-12
+          h1.section-title What do you get?
+          h3 We provide results from over 100 programs:
+          img(src=CDN("/img/options.png"))
+      section.who-have-we-helped.col-lg-12
+          h1.section-title Who have we helped?
+          .testimonials.left
+            img(src=CDN("/img/lettuce.png"))
+            p "I wish this would have existed three years ago when I was starting my business.”
+            a.btn(href='/fundme') Get Started!
+
+          #footer
+              div © 2014 CoquiCoders.
+              div
+                strong BizWallet
+                |  Project
+                |  Created by
+                a(href='http://coquicoders.org')  Coqui Coders
+              div
+                | Code licensed under&nbsp;
+                a(href='http://opensource.org/licenses/mit-license.html') MIT License
+              div
+                a(href='https://github.com/') GitHub Project
+                |  ·&nbsp;
+                a(href='https://github.com/') Issues
+
+
+      script(type='text/javascript', src=CDN('/js/vendor.min.js'))
+      script(type='text/javascript', src=CDN('/js/main.js'))
+      script.
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
