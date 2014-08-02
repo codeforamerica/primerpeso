@@ -88,6 +88,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  */
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
+  leadData.cartContents = req.session.cartContents || {};
   mailBoss.send({
     subject: "Bizwallet Lead Form Submission",
     text: JSON.stringify(leadData, null, 4)
