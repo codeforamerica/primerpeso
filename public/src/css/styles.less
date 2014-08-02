@@ -195,7 +195,6 @@ section {
 
 .how-can-we-help {
   background: url("../img/bg-pattern.png");
-  // background-color: #2C3E50;
   h1 {
     color: white;
   }
@@ -212,6 +211,9 @@ section {
     width: auto;
     margin: 10px;
     float:none;
+  }
+  .what-last {
+    margin-bottom: 50px;
   }
 }
 
@@ -510,7 +512,8 @@ td {
 
 .help-you {
   font: @font-family-secondary;
-  min-width: 560px;
+  width: 75%;
+  max-width: 560px;
 }
 
 a.btn.help-you:last-child {
@@ -584,5 +587,14 @@ a.btn.help-you:last-child {
     font-size: 130%;
     padding: 10px;
   }
+}
+}
+
+@media screen and (max-width: 1200px) {
+a.btn.help-you{
+  white-space: normal;
+}
+#wrap {
+  padding: 0;
 }
 }
