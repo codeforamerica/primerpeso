@@ -1,12 +1,14 @@
 var secrets = require('../config/secrets');
-var nodemailer = require("nodemailer");
-var smtpTransport = nodemailer.createTransport('SMTP', {
+var MailBoss = require('../lib/MailBoss');
+var mailBoss = new MailBoss();
+var Promise = require('bluebird');
+/*var smtpTransport = nodemailer.createTransport('SMTP', {
   service: 'SendGrid',
   auth: {
     user: secrets.sendgrid.user,
     pass: secrets.sendgrid.password
   }
-});
+});*/
 
 module.exports = function(app) {
   app.get('/contact', getContact);
@@ -43,26 +45,19 @@ function postContact(req, res) {
     req.flash('errors', errors);
     return res.redirect('/contact');
   }
-
-  var from = req.body.email;
-  var name = req.body.name;
-  var body = req.body.message;
-  var to = 'you@example.com';
-  var subject = 'Bizwallet | Contact';
-
-  var mailOptions = {
-    to: to,
-    from: from,
-    subject: subject,
-    text: body
-  };
-
-  smtpTransport.sendMail(mailOptions, function(err) {
-    if (err) {
-      req.flash('errors', { msg: err.message });
-      return res.redirect('/contact');
-    }
-    req.flash('success', { msg: 'Email has been sent successfully!' });
-    res.redirect('/contact');
+  mailBoss.send({
+    from: req.body.email,
+    subject: "Bizwallet Contact Form",
+    text: req.body.message,
+    }, function(err, info) {
+      console.log(err);
+      console.log(info);
+      if (err) {
+        req.flash('errors', { msg: err.message });
+        return res.redirect('/contact');
+      }
+      req.flash('success', { msg: 'Email has been sent successfully!' });
+      res.redirect('/contact');
   });
+
 };

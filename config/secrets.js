@@ -5,10 +5,12 @@ module.exports = {
   pg: process.env.DATABASE_URL,
   sessionSecret: process.env.SESSION_SECRET || 'I Am A Monkey',
   staticFilePrefix: process.env.STATIC_FILE_PREFIX || '',
+  env: process.env.NODE_ENV || 'development',
+  mailDev: process.env.MAIL_DEV || false,
+  mailFrom: process.env.MAIL_FROM || '',
 
   mandrill: {
     user: process.env.MANDRILL_USER || '',
-    apiKey: process.env.MANDRILL_APIKEY || '',
-    from: process.env.MANDRILL_FROM || '',
-  }
+    apiKey: process.env.MANDRILL_APIKEY || ''
+  },
 };
