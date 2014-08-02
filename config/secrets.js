@@ -8,6 +8,7 @@ module.exports = {
   env: process.env.NODE_ENV || 'development',
   mailDev: process.env.MAIL_DEV || false,
   mailFrom: process.env.MAIL_FROM || '',
+  mailTo: process.env.MAIL_TO || '',
 
   mandrill: {
     user: process.env.MANDRILL_USER || '',

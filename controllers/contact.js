@@ -2,13 +2,6 @@ var secrets = require('../config/secrets');
 var MailBoss = require('../lib/MailBoss');
 var mailBoss = new MailBoss();
 var Promise = require('bluebird');
-/*var smtpTransport = nodemailer.createTransport('SMTP', {
-  service: 'SendGrid',
-  auth: {
-    user: secrets.sendgrid.user,
-    pass: secrets.sendgrid.password
-  }
-});*/
 
 module.exports = function(app) {
   app.get('/contact', getContact);

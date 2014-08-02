@@ -1,9 +1,10 @@
+var _ = require('lodash');
 var OppQueryForm = require('../lib/OppQueryForm.js');
 var SendRequestForm = require('../lib/SendRequestForm.js');
 var searchResults = require('../test/mocks/searchResults');
-var Searcher = require('../lib/SearchQuery.js');
-var _ = require('lodash');
-var sendgrid = require('sendgrid')(process.env.SG_USER, process.env.SG_PASSWORD)
+var Searcher = require('../lib/SearchQuery');
+var MailBoss = require('../lib/MailBoss');
+var mailBoss = new MailBoss();
 
 module.exports = function(app) {
   app.get('/fundme', oppQueryCreate);
@@ -85,24 +86,24 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  * POST /sendLead
  * Handler for sending lead.  Returns confirm page
  */
-
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
-  var payload = {
-    to: 'clara@codeforamerica.org',
-    from: 'crodriguez@codeforamerica.org',
-    subject: 'Bizwallet Lead',
+  mailBoss.send({
+    subject: "Bizwallet Lead Form Submission",
     text: JSON.stringify(leadData, null, 4)
-  };
-  sendgrid.send(payload, function(err, json) {
-    if (err) { console.error(err); }
-    console.log(json);
-  });
-  return res.render('leadSentConfirmation', {
-    title: 'Lead Sent',
-    bodyClass: 'leadSentConfirmation',
-    meta: { type: 'leadSentConfirmation' },
-    leadData: leadData
+  }, function(err, info) {
+      console.log(err);
+      console.log(info);
+      if (err) {
+        req.flash('errors', { msg: err.message });
+        //return res.redirect('/contact');
+      }
+      return res.render('leadSentConfirmation', {
+        title: 'Lead Sent',
+        bodyClass: 'leadSentConfirmation',
+        meta: { type: 'leadSentConfirmation' },
+        leadData: leadData
+      });
   });
 
 
