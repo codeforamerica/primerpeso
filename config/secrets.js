@@ -1,4 +1,4 @@
-// @TODO -- REMOVE THIS FROM GIT
+// @TODO -- REMOVE ANY DEFAULT DEPENDENCE
 module.exports = {
 
   redis: process.env.REDISTOGO_URL || 'redis://127.0.0.1:6379/2',
@@ -7,6 +7,8 @@ module.exports = {
   staticFilePrefix: process.env.STATIC_FILE_PREFIX || '',
 
   mandrill: {
-    apiKey: process.env.MANDRILL_API_KEY || '',
+    user: process.env.MANDRILL_USER || '',
+    apiKey: process.env.MANDRILL_APIKEY || '',
+    from: process.env.MANDRILL_FROM || '',
   }
 };
