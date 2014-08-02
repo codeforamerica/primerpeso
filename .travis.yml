@@ -38,6 +38,7 @@ deploy:
     on:
       branch: master
   - provider: heroku
+    strategy: git
     api_key:
       master:
         secure: rN6DMbMNXh0X6GSJk1RMVP8mtWnkB71pmI5/ypMe6eHti1JgD7y2SF7AW6p770S0PVwMr1PIY301msmIsZ/8+i0Sov4Quuj9QqknBBwd2H8iEhtEepBF+H3mTKFJKSd1C+klodsbsJr+H4N/PdcLY7VLfqIY1pLQ9+gKv69dlBs=
@@ -50,6 +51,6 @@ deploy:
       repo: CoquiCoders/bizwallet
     run:
       - "gulp migrate"
-      - "restart"
+      - restart
 
 
