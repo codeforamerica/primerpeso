@@ -15,12 +15,12 @@ html
         include partials/flash
       section.landing
         .landing-header
-          h1.title StartLite helps you grow your business
+          h1.title <strong>PrimerPeso</strong> helps you grow your business
               h2.subtitle Navigating over <strong>$200 million available</strong> in government programs for <strong>small businesses</strong> in Puerto Rico.
               a.btn(href='/fundme') Find out what you're eligible for
 
       section.how-it-works.col-lg-12
-          h1.section-title How StartLite Works:
+          h1.section-title How PrimerPeso Works:
           .action-words.col-lg-12
             .col-lg-4
               img(src=CDN("/img/answer.png"))
@@ -44,18 +44,26 @@ html
       section.what-you-get.col-lg-12
           h1.section-title What do you get?
           h3 We provide results from over 100 programs:
-          img(src=CDN("/img/options.png"))
+          .col-lg-12
+            img.col-lg-4.col-md-6.col-sm-12(src=CDN("/img/reimbursements.png"))
+            img.col-lg-4.col-md-6.col-sm-12(src=CDN("/img/loans.png"))
+            img.col-lg-4.col-md-6.col-sm-12(src=CDN("/img/grants.png"))
+          .what-last.col-lg-12
+            img.col-lg-4.col-md-6.col-sm-12(src=CDN("/img/taxcredits.png"))
+            img.col-lg-4.col-md-6.col-sm-12(src=CDN("/img/competitions.png"))
+            img.col-lg-4.col-md-6.col-sm-12(src=CDN("/img/venturecapital.png"))
+
       section.who-have-we-helped.col-lg-12
           h1.section-title Who have we helped?
           .testimonials.left
             img(src=CDN("/img/lettuce.png"))
             p "I wish this would have existed three years ago when I was starting my business.”
-            a.btn(href='/fundme') Get Started!
+            a.btn.last-butt(href='/fundme') Get Started!
 
           #footer
               div © 2014 CoquiCoders.
               div
-                strong BizWallet
+                strong PrimerPeso
                 |  Project
                 |  Created by
                 a(href='http://coquicoders.org')  Coqui Coders
