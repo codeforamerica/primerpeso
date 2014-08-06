@@ -6,6 +6,7 @@
 var dotenv = require('dotenv');
 dotenv.load();
 
+var _ = require('lodash');
 var express = require('express');
 var cors = require('cors');
 var http = require('http');
@@ -51,7 +52,7 @@ var app = express();
  * CSRF Whitelist
  */
 // @TODO -- ya know.
-var whitelist = ['/opportunity/create', '/', '/admin/Opportunities/new', '/admin/Opportunities'];
+var csrfExclude = ['/results/pick']; //['/opportunity/create', '/', '/admin/Opportunities/new', '/admin/Opportunities'];
 
 /**
  * Express configuration.
@@ -81,10 +82,10 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-/*app.use(function(req, res, next) {
-  if (whitelist.indexOf(req.path) !== -1) next();
+app.use(function(req, res, next) {
+  if (_.contains(csrfExclude, req.path)) return next();
   else csrf(req, res, next);
-});*/
+});
 
 // Set up locals via middleware
 app.use(function(req, res, next) {
