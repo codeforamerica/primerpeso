@@ -18,6 +18,7 @@
 @darker-green: #128d75;
 @light-green: #cbf7e1;
 @navy: #146482;
+@dark-navy: #2c3e50;
 @light-blue: #2bd8eb;
 @white: #ffffff;
 @red: #db4e4d;
@@ -37,6 +38,7 @@ html, body {
   height: 100%;
   font-family: @font-family;
   color: @dark-grey;
+  font-size: 12px;
 }
 
 h2, h3, h4 {
@@ -102,7 +104,7 @@ a {
 }
 
 .navbar-brand {
-  background-image: url(../img/bizwallet-logo.png);
+  background-image: url(../img/logo_beta.png);
   background-repeat: no-repeat;
   background-size: 75px;
   background-position: left center;
@@ -593,6 +595,26 @@ a.btn.help-you:last-child {
     font-size: 130%;
     padding: 10px;
   }
+}
+.landing {
+  background-image: none;
+  background-color: @dark-navy;
+  height: 500px;
+}
+
+.landing-header {
+  background: none;
+  bottom: 200px;
+}
+
+section h1.section-title {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.subtitle {
+  font-size: 170%;
+  line-height: 1.5;
+  max-width: 270px;
 }
 }
 
