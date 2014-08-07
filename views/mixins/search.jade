@@ -27,7 +27,7 @@ mixin renderResultSubset(benefitList, benefitType)
       h4 Deadline
 
     div(class="col-md-3 col-est-time-header")
-      h4 Estimated Response Time
+      h4 Estimated Completion Time
 
   div(class="panel-group" id="accordion")
     each benefitDesc, benefitName in benefitList
@@ -43,28 +43,28 @@ mixin renderResultSubset(benefitList, benefitType)
               div(class="panel-body")
                 div(class=benefitName + "-inner-text benefit-description")
                   strong
-                    | Purpose: 
+                    | Purpose:
                   = benefitDesc.purpose
                   br
                   strong
-                    | Description: 
+                    | Description:
                   = benefitDesc.description
                   br
                   strong
-                    | Paperwork Required: 
+                    | Paperwork Required:
                   = benefitDesc.paperwork
                   br
                   strong
-                    | Application Cost: 
+                    | Application Cost:
                   = benefitDesc.cost
                   br
                   strong
-                    | Agency Name: 
+                    | Agency Name:
                   = benefitDesc.agencyName
                   br
                   if !_.isEmpty(benefitDesc.info)
                     strong
-                      | Additional Information: 
+                      | Additional Information:
                     = benefitDesc.info
 
           div(class="col-md-3 col-deadline col-" + benefitName)
