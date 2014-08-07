@@ -4,6 +4,7 @@ extends layout
 
 block content
   form#fundMeWizard(action='results' method="GET")
+    //input(type='hidden', name='_csrf', value=_csrf)
     each fieldSet, fieldSetIndex in form.fields
       h3= form.options.fieldSets[ fieldSetIndex ].label
       fieldset
