@@ -19,13 +19,13 @@ FormValidator.prototype.validateFields = function(fields) {
 }
 
 FormValidator.prototype.getValue = function(field) {
-  console.log(field);
   var val = '';
-  if (field.widget === 'select' || field.widget === 'multiSelect') {
-    var name = 'select[name="' + field.name + '"]';
-    console.log(name);
-    val = $(name).select2("val");
-  }
+  if (field.widget === 'select' || field.widget === 'multiSelect')
+    val = $('select[name="' + field.name + '"]').select2("val");
+  else if (field.widget === 'checkbox' || field.widget == 'radio')
+    val = $('input[name="'+ field.name +'"]:checked').attr('value');
+  else
+    val = $('input[name="'+ field +'"]').val();
 
   console.log(val);
 }
