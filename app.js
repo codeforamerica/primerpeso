@@ -8,7 +8,6 @@ dotenv.load();
 
 var _ = require('lodash');
 var express = require('express');
-var cors = require('cors');
 var http = require('http');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -102,19 +101,6 @@ app.use(function(req, res, next) {
 
 app.use(flash());
 
-// Allow cross-site queries (CORS)
-app.use(cors());
-
-// Pre Route.
-app.options('*', function(req, res) {
-  res.set({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'X-Requested-With, X-Prototype-Version, Authorization',
-    'Content-Type': 'application/json;charset=utf-8'
-  });
-  res.send('supported options: GET, OPTIONS [non-CORS]');
-});
 
 /**
  * Static
