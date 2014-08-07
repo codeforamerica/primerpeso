@@ -1,6 +1,10 @@
+var _ = require('lodash');
 var SearchShop = require('./searchShop.js');
+var FormValidator = require('./ppFormValidator.js');
 
 $(document).ready(function() {
+  var validator = new FormValidator();
+  var fieldSets = _.keys(formInfo.options.fieldSets);
 	$("#fundMeWizard").steps({
 	  headerTag: "h3",
 	  bodyTag: "fieldset",
@@ -8,16 +12,11 @@ $(document).ready(function() {
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
     onStepChanging: function (event, currentIndex, newIndex) {
-      var valid = true;
-      var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
-      var fieldSets = formInfo['options']['fieldSets']
-      for (var key in fieldSets) {
-        if (fieldSets[key]['label'] == label) {
-          var fieldSetName = key;
-          break;
-        };
-      }
-      var currentFields = formInfo['fields'][fieldSetName]
+      var currentFieldSet = fieldSets[currentIndex];
+      var currentFields = formInfo.fields[currentFieldSet];
+      validatorResult = validator.validateFields(currentFields);
+
+      /*
       for (var field in currentFields) {
         if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
           var checked = $('input[name="'+ field +'"]:checked').attr('value');
@@ -30,9 +29,9 @@ $(document).ready(function() {
       if (!valid) {
         alert('You have missing fields');
       };
-      return valid;
+      return valid;*/
     },
-    onFinished: function (event, currentIndex){
+    onFinished: function (event, currentIndex) {
       var form = $(this);
       form.submit();
     },
