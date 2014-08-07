@@ -599,12 +599,16 @@ a.btn.help-you:last-child {
 .landing {
   background-image: none;
   background-color: @dark-navy;
-  height: 500px;
+  height: auto;
+  padding: 40px;
+  .title {
+    margin-top: 0;
+  }
 }
 
 .landing-header {
   background: none;
-  bottom: 200px;
+  position: relative;
 }
 
 section h1.section-title {
@@ -617,6 +621,9 @@ section h1.section-title {
   max-width: 270px;
 }
 }
+
+// Large Screens
+// -------------------------
 
 @media screen and (max-width: 1200px) {
 a.btn.help-you{
