@@ -16,22 +16,15 @@ $(document).ready(function() {
       var currentFields = formInfo.fields[currentFieldSet];
       validatorResult = validator.validateFields(currentFields);
       console.log(validatorResult);
+      _.each(validatorResult, function(valRes) {
+        var element = $('label[for="' + valRes.fieldName + '"]');
+        element.after(valRes.message);
+      });
+      if (_.isEmpty(validatorResult))
+        return false;
 
-      /*
-      for (var field in currentFields) {
-        if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
-          var checked = $('input[name="'+ field +'"]:checked').attr('value');
-          valid = !checked ? false : true;
-        } else if (currentFields[field]['widget'] == 'text' && $('input[name="'+ field +'"]').attr('required') == 'required') {
-          var text = $('input[name="'+ field +'"]').val();
-          valid = text === "" ? false : true;
-        }
-      };
-      if (!valid) {
-        alert('You have missing fields');
-      };
-      return valid;*/
-    },
+      return false;
+   },
     onFinished: function (event, currentIndex) {
       var form = $(this);
       form.submit();
