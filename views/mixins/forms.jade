@@ -46,7 +46,7 @@ mixin choiceField(formOptions)
 
 mixin textField(formOptions)
   +fieldLabel(formOptions)
-  div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
+  div(class=formOptions.fieldClasses || "col-sm-10 col-md-6")
     - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     if (formOptions.widget == 'date' && formOptions.value)
       - var year = formOptions.value.getFullYear()
@@ -58,21 +58,21 @@ mixin textField(formOptions)
 
 mixin textAreaField(formOptions)
   +fieldLabel(formOptions)
-  div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
+  div(class=formOptions.fieldClasses || "col-sm-10 col-md-6")
     - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     textarea(class="form-control" required=req rows="3" name=formOptions.name) #{formOptions.value || ''}
 
 mixin arrayTextField(formOptions)
   - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
   +fieldLabel(formOptions)
-  div(class=formOptions.fieldClasses || "col-sm-10 col-lg-6")
+  div(class=formOptions.fieldClasses || "col-sm-10 col-md-6")
     button(class="array-text-field" name=formOptions.name type="button") Add another
     input(type="text" required=req name=formOptions.name+'[]' value=formOptions.value || '' class="form-control array-text-field" placeholder=formOptions.placeholder)
 
 // Helpers
 mixin choiceOther(formOptions)
-  label(for=formOptions.name class="col-sm-2 col-lg-4 control-label") Other
-  div(class="col-sm-10 col-lg-6")
+  label(for=formOptions.name class="col-sm-2 col-md-4 control-label") Other
+  div(class="col-sm-10 col-md-6")
     - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
     if formOptions.widget == 'checkbox'
       input(type="text" name=formOptions.name value=formOptions.otherValue || '' class="form-control col-lg-6" placeholder=formOptions.placeholder)
@@ -80,7 +80,7 @@ mixin choiceOther(formOptions)
       input(type="text" name=formOptions.name + "Other" value=formOptions.otherValue || '' class="form-control col-lg-6" placeholder=formOptions.placeholder)
 
 mixin fieldLabel(formOptions)
-  - var fieldLabelClasses = formOptions.fieldLabelClasses || 'col-sm-2 col-lg-4'
+  - var fieldLabelClasses = formOptions.fieldLabelClasses || 'col-sm-2 col-md-4'
   label(for=formOptions.name class=fieldLabelClasses + " control-label") #{formOptions.label}
     if formOptions.required == true || formOptions.allowNull == false
       span.required *

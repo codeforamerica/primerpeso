@@ -71,7 +71,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       widget: 'text',
-      label: 'Average Application Time'
+      label: 'Avg Completion Time (from ___ to ___)'
     },
     // TODO -- abstract choices to freaking callbacks.
     benefitType: {
