@@ -117,10 +117,17 @@ $(document).ready(function() {
       transitionEffect: "fade",
       saveState: true,
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
-      onFinished: function (event, currentIndex){
+      onStepChanging: function (event, currentIndex, newIndex) {
+        return validateTransition(currentIndex, newIndex);
+      },
+      onFinished: function (event, currentIndex) {
         var form = $(this);
         form.submit();
       },
+      onFinishing: function (event, currentIndex) {
+        return validateTransition(currentIndex);
+      }
+
     });
   }
 

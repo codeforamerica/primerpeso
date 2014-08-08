@@ -77,7 +77,8 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     title: 'You Have Selected',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
-    form: sendRequestForm.getFormConfig(true),
+    form: sendRequestForm.getFormConfig(true), // Deep.
+    formInfo: sendRequestForm.getFormConfig(false), // Shallow.
     meta: { type: 'confirmPicked' }
   });
 };
