@@ -3,8 +3,6 @@ var SearchShop = require('./searchShop.js');
 var FormValidator = require('./ppFormValidator.js');
 
 $(document).ready(function() {
-  var validator = new FormValidator();
-  var fieldSets = _.keys(formInfo.options.fieldSets);
 	$("#fundMeWizard").steps({
 	  headerTag: "h3",
 	  bodyTag: "fieldset",
@@ -12,9 +10,12 @@ $(document).ready(function() {
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
     onStepChanging: function (event, currentIndex, newIndex) {
+      var fieldSets = _.keys(formInfo.options.fieldSets);
+      var validator = new FormValidator();
       var currentFieldSet = fieldSets[currentIndex];
       var currentFields = formInfo.fields[currentFieldSet];
       validatorResult = validator.validateFields(currentFields);
+      console.log(validatorResult);
 
       /*
       for (var field in currentFields) {

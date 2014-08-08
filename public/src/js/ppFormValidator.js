@@ -9,13 +9,21 @@ Validator.extend('notEmpty', function(str) {
 
 function FormValidator() {
   this.validator = Validator;
+  this.validationFailures = [];
+  this.validatorMessages = {
+    notEmpty: "Cannot be empty"
+  }
+}
+
+FormValidator.prototype.getMessageForValidator = function(field, validatorName) {
+  return field.name + ' ' + this.validatorMessages[validatorName];
 }
 
 FormValidator.prototype.validateFields = function(fields) {
-  console.log(fields);
   _.each(fields, function(field, index) {
-    this.getValue(field);
+    this.validateValue(field);
   }, this);
+ return this.validationFailures;
 }
 
 FormValidator.prototype.getValue = function(field) {
@@ -25,9 +33,37 @@ FormValidator.prototype.getValue = function(field) {
   else if (field.widget === 'checkbox' || field.widget == 'radio')
     val = $('input[name="'+ field.name +'"]:checked').attr('value');
   else
-    val = $('input[name="'+ field +'"]').val();
+    val = $('input[name="'+ field.name +'"]').val();
 
-  console.log(val);
+  return val;
+}
+
+FormValidator.prototype.validateValue = function(field) {
+  var val = this.getValue(field);
+  var validated = true;
+  if (field.required === true) {
+    if (!this.validator.notEmpty(val)) {
+      this.validationFailures.push({
+        fieldName: field.name,
+        message: this.getMessageForValidator(field, 'notEmpty')
+      });
+    }
+  }
+  if (field.validate) {
+    _.each(field.validate, function(validatorVal, validatorName) {
+      if (_.isBoolean(validatorVal) || _.isString(validatorVal)) {
+        console.log(val);
+        console.log(validatorVal);
+        console.log(validatorName);
+        if (!validatorVal === this.validator[validatorName](val)) {
+          this.validationFailures.push({
+            fieldName: field.name,
+            message: this.getMessageForValidator(field, validatorName)
+          });
+        }
+      }
+    }, this)
+  }
 }
 
 exports = module.exports = FormValidator;
