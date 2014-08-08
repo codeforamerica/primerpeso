@@ -2,10 +2,11 @@ extends layout
 
 block content
   div.congratulations-message
-    h2 Congratulations, #{leadData.name} we sent your info to the agency.
+    h2 Congratulations, #{leadData.name} we sent your info to .
+    - console.log(leadData);
     h2 An employee will be contacting you soon!
   div.additional-options
-    h3 If you want to look for more programs you can 
+    h3 If you want to look for more programs you can
       a(href="/fundme") Start Again.
     br
     | Please give us feedback on your experience.
