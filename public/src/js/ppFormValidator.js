@@ -11,7 +11,7 @@ function FormValidator() {
   this.validator = Validator;
   this.validationFailures = [];
   this.validatorMessages = {
-    notEmpty: "Cannot be empty"
+    notEmpty: "cannot be empty"
   }
 }
 

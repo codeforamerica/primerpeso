@@ -12,7 +12,7 @@ var validateTransition = function(currentIndex, newIndex) {
     validatorResult = validator.validateFields(currentFields);
     _.each(validatorResult, function(valRes) {
       var element = $('label[for="' + valRes.fieldName + '"]');
-      element.after(valRes.message);
+      element.after('<div class="empty">' + valRes.message + '</div>');
     });
     if (!_.isEmpty(validatorResult))
       return false;
