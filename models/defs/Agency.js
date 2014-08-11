@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
       autoIncrement: true
     },
-    name:  {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       label:'Agency Name',
