@@ -91,7 +91,7 @@ var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
   leadData.cartContents = req.session.cartContents || {};
   mailBoss.send({
-    subject: "Primer Peso Lead Form Submission",
+    subject: "PrimerPeso Lead Form Submission",
     text: JSON.stringify(leadData, null, 4)
   }, function(err, info) {
       console.log(err);
