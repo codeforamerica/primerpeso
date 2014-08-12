@@ -17,7 +17,6 @@ exports = module.exports = function(overrides) {
     "benefitType": ["incentive"],
     "benefitTypeOther": "",
     "benefitDescription": "Una descripcion",
-    "agencyName": "Una gencia",
     "agencyContactName": "Un contacto",
     "agencyContactEmail": "unemail",
     "agencyContactPhone": "7875663317",

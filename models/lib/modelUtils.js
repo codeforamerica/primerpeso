@@ -119,10 +119,7 @@ var classMethods = {
     // NOW THIS IS HOW YOU DO PROMISES!
     return instance.validate().then(function(err) {
       if (err) throw(err);
-        return instance.save();
-    }).then(function(savedInstance) {
-      // This section is probably not needed.
-      return savedInstance;
+      return instance.save();
     });
   }
 };
