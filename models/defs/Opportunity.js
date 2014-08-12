@@ -89,12 +89,6 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'textArea',
       label: 'Benefit Description',
     },
-    agencyName: {
-      type: DataTypes.STRING,
-      label: 'Agency Name',
-      allowNull: false,
-      widget: 'text',
-    },
     agencyContactName: {
       type: DataTypes.STRING,
       label: 'Agency Contact Name',
@@ -193,6 +187,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     // Association
     creatorId: {
+      type: DataTypes.INTEGER,
+    },
+    agencyId: {
       type: DataTypes.INTEGER,
     }
   }

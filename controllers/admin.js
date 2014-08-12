@@ -29,12 +29,7 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/:id'), entry);
   app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
-  // TODO: Need a route for all models, can't fit it anywhere though listAll function does that
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
-
-  /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
-  app.post(path.join(base, '/:path/:id'), adminRouter);
-  app.post(path.join(base, '/:path'), adminRouter);*/
 };
 
 /**
