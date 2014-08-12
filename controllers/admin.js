@@ -26,7 +26,7 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
-  app.get(path.join(base, '/:model/:id'), entry);
+  app.get(path.join(base, '/:model/:id'), view);
   app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
@@ -37,12 +37,8 @@ module.exports = function(app) {
  */
 function dashboard(req, res) {
   return res.redirect('/admin/opportunity');
-  //return res.render('admin/index', { title: 'Admin' });
 }
 
-function debug(req, res) {j
-  return res.json(db.sequelize.models);
-}
 
 /**
  * GET list
@@ -94,6 +90,7 @@ function edit(req, res) {
     });
   }
 }
+
 /**
  * POST Edit / Create
  */
@@ -110,7 +107,7 @@ function save(req, res) {
       return res.redirect(req.path);
     }).error(function(err) {
       req.flash('errors', err.message);
-      return res.json(err);
+      return res.redirect(req.path);
     });
   // If we have an id then we are updating an existing instance
   } else {
@@ -125,7 +122,10 @@ function save(req, res) {
   };
 }
 
-function entry (req, res) {
+/**
+ * GET model/{id}
+ */
+function view(req, res) {
   var render = _.extend(res.locals, {
     model: req.params.model
   });
