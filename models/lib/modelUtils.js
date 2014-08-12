@@ -49,6 +49,7 @@ var buildElementValues = function(element, value) {
 }
 
 var classMethods = {
+  // Parses raw attributes of model and generates fields based on them as well as operation.
   getFormFields: function(op, model) {
     var choicesList = new OptionsList();
     var op = op || 'new';
@@ -57,8 +58,6 @@ var classMethods = {
     _.each(this.rawAttributes, function(element, key) {
       if (!_.contains(blacklist, key)) {
         // Set some properties.
-        //console.log(key);
-        //console.log(model.get(key));
         element.name = key;
 
         // TODO -- this is an abomination.
@@ -70,10 +69,6 @@ var classMethods = {
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-        if (key == 'gender') {
-          var choices = choicesList.getFormChoices(key);
-          element.choices =  _.isEmpty(choices) ? element.choices : choices;
-        }
         var choices = choicesList.getFormChoices(key);
         element.choices =  _.isEmpty(choices) ? element.choices : choices;
         element.widget = element.widget ? element.widget : 'text';
@@ -82,6 +77,8 @@ var classMethods = {
     });
     return fieldList;
   },
+
+  // Gets default fields for a model in a list view.
   getDefaultFields: function() {
     var defaultFields = {};
     var formFields = this.getFormFields('new');
@@ -89,6 +86,8 @@ var classMethods = {
       return element.label;
     });
   },
+
+  // Build the submission from the admin form submitted.
   buildFromAdminForm: function(reqBody) {
     var fields = this.getFormFields('new');
     var modelData = {};
@@ -96,8 +95,8 @@ var classMethods = {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
         // Get value from 'other' text fields if necessary
-        if (value == 'other' && reqBody[fieldKey+'Other'] !== '') {
-          value = reqBody[fieldKey+'Other'];
+        if (value == 'other' && reqBody[fieldKey + 'Other'] !== '') {
+          value = reqBody[fieldKey + 'Other'];
           value = OptionsList.optionizeValue(value);
         };
 
@@ -112,7 +111,7 @@ var classMethods = {
     var instance = this.build(modelData);
     return instance;
   },
-
+  // Create instance based on admin form submission.
   createInstance: function(body) {
     // We can depend on this because it's getting covered in another test.
     var instance = this.buildFromAdminForm(body);

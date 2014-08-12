@@ -23,6 +23,7 @@ module.exports = function(app) {
 
   app.get(base, dashboard);
 
+  app.get(path.join(base, '/debug'), debug);
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
@@ -31,6 +32,13 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model'), list);
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 };
+
+function debug(req, res) {
+  var Opportunity = sequelize.model('opportunity');
+  console.log(Opportunity.associations);
+  return res.json(Opportunity.associations);
+}
+
 
 /**
  * Index / Dashboard

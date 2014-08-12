@@ -191,6 +191,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     agencyId: {
       type: DataTypes.INTEGER,
+      widget: 'ref',
     }
   }
 
@@ -206,6 +207,7 @@ module.exports = function(sequelize, DataTypes) {
     associate: function(sequelize) {
       var User = sequelize.model('user');
       var Agency = sequelize.model('agency');
+      this.belongsTo(User, { as: 'creator', foreignKey: 'creatorId' });
       this.belongsTo(Agency, { as: 'agency', foreignKey: 'agencyId' });
     }
   });

@@ -36,7 +36,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     associate: function(sequelize) {
       var User = sequelize.model('user');
+      var Opportunity = sequelize.model('user');
       this.belongsTo(User, { as: 'creator', foreignKey: 'creatorId' });
+      // TODO not sure.
+      this.hasMany(Opportunity);
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
