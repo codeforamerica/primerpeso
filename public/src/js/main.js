@@ -1,4 +1,24 @@
+var _ = require('lodash');
 var SearchShop = require('./searchShop.js');
+var FormValidator = require('./ppFormValidator.js');
+
+var validateTransition = function(currentIndex, newIndex) {
+  // Only do validation on forward.
+  if (!newIndex || currentIndex < newIndex) {
+    var fieldSets = _.keys(formInfo.options.fieldSets);
+    var validator = new FormValidator();
+    var currentFieldSet = fieldSets[currentIndex];
+    var currentFields = formInfo.fields[currentFieldSet];
+    validatorResult = validator.validateFields(currentFields);
+    _.each(validatorResult, function(valRes) {
+      var element = $('label[for="' + valRes.fieldName + '"]');
+      element.after('<div class="empty">' + valRes.message + '</div>');
+    });
+    if (!_.isEmpty(validatorResult))
+      return false;
+  }
+  return true;
+}
 
 $(document).ready(function() {
 	$("#fundMeWizard").steps({
@@ -8,58 +28,14 @@ $(document).ready(function() {
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
     onStepChanging: function (event, currentIndex, newIndex) {
-      var valid = true;
-      var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
-      var fieldSets = formInfo['options']['fieldSets']
-      for (var key in fieldSets) {
-        if (fieldSets[key]['label'] == label) {
-          var fieldSetName = key;
-          break;
-        };
-      }
-      var currentFields = formInfo['fields'][fieldSetName]
-      for (var field in currentFields) {
-        if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
-          var checked = $('input[name="'+ field +'"]:checked').attr('value');
-          valid = !checked ? false : true;
-        } else if (currentFields[field]['widget'] == 'text' && $('input[name="'+ field +'"]').attr('required') == 'required') {
-          var text = $('input[name="'+ field +'"]').val();
-          valid = text === "" ? false : true;
-        }
-      };
-      if (!valid) {
-        alert('You have missing fields');
-      };
-      return valid;
+      return validateTransition(currentIndex, newIndex);
     },
-    onFinished: function (event, currentIndex){
+    onFinished: function (event, currentIndex) {
       var form = $(this);
       form.submit();
     },
-    onFinishing: function (event, currentIndex){
-      var valid = true;
-      var label = $('fieldset#fundMeWizard-p-'+currentIndex).prev().text();
-      var fieldSets = formInfo['options']['fieldSets']
-      for (var key in fieldSets) {
-        if (fieldSets[key]['label'] == label) {
-          var fieldSetName = key;
-          break;
-        };
-      }
-      var currentFields = formInfo['fields'][fieldSetName]
-      for (var field in currentFields) {
-        if (currentFields[field]['widget'] == 'checkbox' || currentFields[field]['widget'] == 'radio') {
-          var checked = $('input[name="'+ field +'"]:checked').attr('value');
-          valid = !checked ? false : true;
-        } else if (currentFields[field]['widget'] == 'text') {
-          var text = $('input[name="'+ field +'"]').val();
-          valid = text === "" ? false : true;
-        }
-      };
-      if (!valid) {
-        alert('You have missing fields');
-      };
-      return valid;
+    onFinishing: function (event, currentIndex) {
+      return validateTransition(currentIndex);
     }
   });
 
@@ -141,10 +117,17 @@ $(document).ready(function() {
       transitionEffect: "fade",
       saveState: true,
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
-      onFinished: function (event, currentIndex){
+      onStepChanging: function (event, currentIndex, newIndex) {
+        return validateTransition(currentIndex, newIndex);
+      },
+      onFinished: function (event, currentIndex) {
         var form = $(this);
         form.submit();
       },
+      onFinishing: function (event, currentIndex) {
+        return validateTransition(currentIndex);
+      }
+
     });
   }
 

@@ -9,7 +9,7 @@ block content
 
   #form
     form.form-horizontal(method="post", action=action, role="form" class="model-form")
-      input(type="hidden", name="_csrf", value="#{_csrf}")
+      input(type="hidden", name="_csrf", value=_csrf)
       input(type="hidden", name="_doc_id", value=id)
 
       each f in fields

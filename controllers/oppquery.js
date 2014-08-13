@@ -77,7 +77,8 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     title: 'You Have Selected',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
-    form: sendRequestForm.getFormConfig(true),
+    form: sendRequestForm.getFormConfig(true), // Deep.
+    formInfo: sendRequestForm.getFormConfig(false), // Shallow.
     meta: { type: 'confirmPicked' }
   });
 };
@@ -90,7 +91,7 @@ var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
   leadData.cartContents = req.session.cartContents || {};
   mailBoss.send({
-    subject: "Bizwallet Lead Form Submission",
+    subject: "PrimerPeso Lead Form Submission",
     text: JSON.stringify(leadData, null, 4)
   }, function(err, info) {
       console.log(err);

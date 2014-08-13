@@ -10,6 +10,7 @@ block content
   div.send-request-container
     h3.additional-info We need some additional information about you to send to the agencies that own the programs you have selected. This information will be stored safely and will not be used for any other purpose.
     form#sendRequestForm(action='/sendlead' method="POST")
+      input(type='hidden', name='_csrf', value=_csrf)
       each fieldSet, fieldSetIndex in form.fields
         h3= form.options.fieldSets[ fieldSetIndex ].label
         fieldset
