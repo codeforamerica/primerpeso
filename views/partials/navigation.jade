@@ -11,6 +11,8 @@
       ul.nav.navbar-nav.navbar-right
         li(class=title=='About'?'active':undefined)
           a(href='/about') About
+        li(class=title=='Contact'?'contact':undefined)
+          a(href='/contact') Are you an agency?
         if !user
           if displayCart
             li.cartButton
