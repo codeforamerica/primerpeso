@@ -540,6 +540,12 @@ a.btn.help-you:last-child {
 }
 
 
+// Form Field Validator Message
+// -------------------------
+.empty {
+  color: @red;
+}
+
 // Social Buttons
 // -------------------------
 
@@ -637,10 +643,22 @@ section h1.section-title {
 // -------------------------
 
 @media screen and (max-width: 1200px) {
-a.btn.help-you{
-  white-space: normal;
-}
+  a.btn.help-you{
+    white-space: normal;
+  }
 #wrap {
   padding: 0;
 }
+}
+
+@media screen and (min-width: 992px) {
+  .landing-header {
+    bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .landing-header {
+    bottom: 40px;
+  }
 }
