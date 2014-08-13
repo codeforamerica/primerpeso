@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var OptionsList = require('../../lib/OptionsList.js');
+var Promise = require('Sequelize').Promise;
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
@@ -55,6 +56,7 @@ var classMethods = {
     var op = op || 'new';
     var blacklist = fieldBlackList[op];
     var fieldList = {};
+    var refPromises = [];
     _.each(this.rawAttributes, function(element, key) {
       if (!_.contains(blacklist, key)) {
         // Set some properties.
@@ -64,18 +66,37 @@ var classMethods = {
         element.value = null
         element.otherValue = null;
 
+        var choices = choicesList.getFormChoices(key);
+        element.choices =  _.isEmpty(choices) ? element.choices : choices;
+        element.widget = element.widget ? element.widget : 'text';
+
+        // Handle reference fields.
+        // TODO -- this only handles belongsTo associations
+        if (element.widget === 'ref') {
+          var refedModel = _.find(this.associations, function(association, index) {
+            return association.options.foreignKey === element.name;
+          });
+          refedModel = refedModel.target;
+          // Populate the list with available options.
+          refPromises.push(refedModel.findAll());
+        }
+
         if (op == 'edit') {
           var valueSet = buildElementValues(element, model.get(key));
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-        var choices = choicesList.getFormChoices(key);
-        element.choices =  _.isEmpty(choices) ? element.choices : choices;
-        element.widget = element.widget ? element.widget : 'text';
+
         fieldList[key] = element;
       }
+    }, this);
+    Promise.all(refPromises).then(function(results) {
+      console.log(results);
+      return fieldList;
     });
-    return fieldList;
+  },
+
+  getRefModelFromAttribute: function(attribute) {
   },
 
   // Gets default fields for a model in a list view.

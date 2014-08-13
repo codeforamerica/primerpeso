@@ -192,6 +192,7 @@ module.exports = function(sequelize, DataTypes) {
     agencyId: {
       type: DataTypes.INTEGER,
       widget: 'ref',
+      label: 'Agency Name'
     }
   }
 
