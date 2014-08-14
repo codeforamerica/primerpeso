@@ -7,7 +7,7 @@ describe('Options List', function() {
     // Test Object.
     var optList = new OptionsList();
     var genderChoices = optList.getFormChoices('gender');
-    var genderChoicesControl = { any: 'Any', male: 'Male', female: 'Female', other: 'Other' };
+    var genderChoicesControl = { any: 'Any', male: 'Male', female: 'Female', other_gender: 'Other' };
     genderChoices.should.eql(genderChoicesControl);
 
     // Test Array.
