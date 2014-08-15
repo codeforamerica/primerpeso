@@ -2,9 +2,11 @@ extends layout
 
 block content
   div.congratulations-message
-    h2 Congratulations, #{leadData.name} we sent your info to .
+    h2 Congratulations, #{leadData.name}!
+    h2 You applied for #{selectedPrograms.name}
+
     - console.log(leadData);
-    h2 An employee will be contacting you soon!
+    h2 An employee from the agency providing those programs will contact you within one business week.
   div.additional-options
     h3 If you want to look for more programs you can
       a(href="/fundme") Start Again.
