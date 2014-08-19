@@ -50,8 +50,7 @@ var app = express();
 /**
  * CSRF Whitelist
  */
-// @TODO -- ya know.
-var csrfExclude = ['/results/pick']; //['/opportunity/create', '/', '/admin/Opportunities/new', '/admin/Opportunities'];
+var csrfExclude = ['/results/pick'];
 
 /**
  * Express configuration.
