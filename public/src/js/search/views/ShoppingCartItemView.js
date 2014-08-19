@@ -2,7 +2,7 @@ module.exports = function(Backbone, _, SearchShop) {
   return Backbone.View.extend({
     tagName: 'div',
     className: 'row',
-    template: '<div class="col-md-12"><%= title %></div>',
+    template: '<div class="col-md-12 cart-title"><%= title %></div>',
     events: {
       'click .name' : 'remove'
     },
