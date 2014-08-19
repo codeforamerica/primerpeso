@@ -100,7 +100,6 @@ var oppQuerySendLead = function(req, res, next) {
       if (err)
         req.flash('errors', { msg: err.message });
 
-      return res.json(leadData);
       return res.render('leadSentConfirmation', {
         title: 'Lead Sent',
         bodyClass: 'leadSentConfirmation',
