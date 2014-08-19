@@ -59,6 +59,17 @@ module.exports = function(Backbone, _, SearchShop) {
         '<div class="row"><div class="col-md-12">Cart is empty</div></div>');
     },
 
+    remove: function( item ) {
+      // Decrease the quanity by 1
+      item.quanity('decrease');
+      this.collection.remove( item );
+
+      // Render the view
+      this.render();
+      $('#toggleCart').popover('show');
+    },
+
+
     add : function( item ) {
       // Remove .empty class from the view
       this.$el.removeClass('empty');
@@ -80,8 +91,7 @@ module.exports = function(Backbone, _, SearchShop) {
         // Render the view
         this.render();
       }
-      $('#toggleCart').popover('toggle');
-      $('#toggleCart').popover('toggle');
+      $('#toggleCart').popover('show');
     },
 
     sendPrograms: function(e) {
