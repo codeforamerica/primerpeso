@@ -40,7 +40,7 @@ function postContact(req, res) {
   }
   mailBoss.send({
     from: req.body.email,
-    subject: "Bizwallet Contact Form",
+    subject: "PrimerPeso Contact Form",
     text: req.body.message,
     }, function(err, info) {
       console.log(err);

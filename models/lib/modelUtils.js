@@ -116,7 +116,7 @@ var classMethods = {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
         // Get value from 'other' text fields if necessary
-        if (value == 'other' && reqBody[fieldKey + 'Other'] !== '') {
+        if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
           value = reqBody[fieldKey + 'Other'];
           value = OptionsList.optionizeValue(value);
         };
