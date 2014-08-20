@@ -40,8 +40,8 @@ module.exports = function(sequelize, DataTypes) {
     associate: function(sequelize) {
       var Opportunity = sequelize.model('opportunity');
       var Agency = sequelize.model('agency');
-      this.hasMany(Opportunity, { foreignKey: 'creatorId' });
-      this.hasMany(Agency, { foreignKey: 'creatorId' });
+      //this.hasMany(Opportunity, { as: 'opportunities', foreignKey: 'creatorId', through: null });
+      //this.hasMany(Agency, { as: 'agencies', foreignKey: 'creatorId', through: null });
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {

@@ -3,7 +3,7 @@ var config = require('../config');
 var db = require('../../models');
 
 
-gulp.task('migrate', ['dbmigrate', 'dbsync']);
+gulp.task('migrate', ['dbsync', 'dbmigrate']);
 
 gulp.task('dbsync', function() {
   return db.sequelize.sync({ force: false }).complete(function(err) {

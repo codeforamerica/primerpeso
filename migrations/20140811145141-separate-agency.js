@@ -7,7 +7,7 @@ module.exports = {
     var sequelize = migration.migrator.sequelize;
     // add altering commands here, calling 'done' when finished
     var Opportunity = sequelize.model('opportunity');
-    var User = migration.migrator.sequelize.model('user');
+    var User = sequelize.model('user');
     var Agency = sequelize.model('agency');
     var defaultCreator;
 
