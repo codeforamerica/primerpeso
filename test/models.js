@@ -67,6 +67,26 @@ describe('Opportunity Model', function() {
     });
   });
 
+  it('should NOT crash when someone picks other and does not enter a string', function(done) {
+    // purpose other is filled out, additionalGeneralInformation is filled out
+    var body = opportunityMock({
+      purpose: ['other'],
+      'purposeOther': '',
+      additionalGeneralInformation: 'Some other general information'
+    });
+
+    var Opportunity = sequelize.model('opportunity');
+    Opportunity.createInstance(body).then(function() {
+      return Opportunity.find({where: {title: 'Test opp3'} });
+    }).then(function(op) {
+      op.purpose.should.deep.equal(['other']);
+      return done();
+    }).error(function(err) {
+      return done(err);
+    });
+  });
+
+
   it('should correctly save "other" checkbox fields', function(done) {
     // purpose other is filled out, additionalGeneralInformation is filled out
     var body = opportunityMock({
@@ -121,7 +141,7 @@ describe('Opportunity Model', function() {
       return User.destroy({email: 'clara@example.com'});
     }).then(function() {
       return Opportunity.destroy({title: 'TEST2'});
-      
+
     }).then(function() {
       return done();
     });
