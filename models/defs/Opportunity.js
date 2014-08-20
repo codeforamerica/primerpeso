@@ -208,8 +208,8 @@ module.exports = function(sequelize, DataTypes) {
     associate: function(sequelize) {
       var User = sequelize.model('user');
       var Agency = sequelize.model('agency');
-      this.belongsTo(User, { as: 'creator', foreignKey: 'creatorId' });
-      this.belongsTo(Agency, { as: 'agency', foreignKey: 'agencyId' });
+      this.belongsTo(User, { as: 'creator' });
+      this.belongsTo(Agency, { as: 'agency'});
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
