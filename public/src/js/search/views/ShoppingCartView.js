@@ -59,6 +59,17 @@ module.exports = function(Backbone, _, SearchShop) {
         '<div class="row"><div class="col-md-12">Cart is empty</div></div>');
     },
 
+    remove: function( item ) {
+      // Decrease the quantity by 1
+      item.quanity('decrease');
+      this.collection.remove( item );
+
+      // Render the view
+      this.render();
+      $('#toggleCart').popover('show');
+    },
+
+
     add : function( item ) {
       // Remove .empty class from the view
       this.$el.removeClass('empty');
@@ -80,8 +91,7 @@ module.exports = function(Backbone, _, SearchShop) {
         // Render the view
         this.render();
       }
-      $('#toggleCart').popover('toggle');
-      $('#toggleCart').popover('toggle');
+      $('#toggleCart').popover('show');
     },
 
     sendPrograms: function(e) {
@@ -105,7 +115,7 @@ module.exports = function(Backbone, _, SearchShop) {
       // Pass this list views context
       }, this);
       if (this.collection.length > 0) {
-        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Continue</button></div></div>');
+        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Finish</button></div></div>');
       }
     }
   });

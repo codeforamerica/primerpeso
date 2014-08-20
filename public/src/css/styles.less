@@ -371,8 +371,8 @@ section {
   overflow: hidden;
 }
 
-#shopping-cart {
-  //display:none;
+.cart-title {
+  text-transform: capitalize;
 }
 
 //Collapsible Styling
@@ -536,6 +536,14 @@ a.btn.help-you:last-child {
   display: inline;
   float: left;
 }
+
+.removeItem {
+  background-color: @red;
+  &:hover {
+    background-color: @darker-red;
+  }
+}
+
 
 .last-butt {
   margin-bottom: 60px;
