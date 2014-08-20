@@ -115,7 +115,7 @@ module.exports = function(Backbone, _, SearchShop) {
       // Pass this list views context
       }, this);
       if (this.collection.length > 0) {
-        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Continue</button></div></div>');
+        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Finish</button></div></div>');
       }
     }
   });
