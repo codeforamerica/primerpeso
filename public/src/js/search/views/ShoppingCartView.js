@@ -60,7 +60,7 @@ module.exports = function(Backbone, _, SearchShop) {
     },
 
     remove: function( item ) {
-      // Decrease the quanity by 1
+      // Decrease the quantity by 1
       item.quanity('decrease');
       this.collection.remove( item );
 
