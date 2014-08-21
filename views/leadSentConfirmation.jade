@@ -3,13 +3,13 @@ extends layout
 block content
   div.congratulations-message
     h2 Congratulations, #{leadData.name}!
-    h2 You applied for the following programs:
+    h2 You submitted to the following programs:
       ul
         each programs, org in leadData.selectedPrograms
           each progData, progName in programs
             li= progData.title
 
-    h2 An employee from the agency providing those programs will contact you within one business week.
+    h2 An employee from the agency providing those programs will contact you within <strong>one business week.</strong>
   div.additional-options
     h3 If you want to look for more programs you can &nbsp;
       a(href="/fundme") Start Again.
