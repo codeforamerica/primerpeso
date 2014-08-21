@@ -172,7 +172,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       widget: 'checkbox',
       label: 'Otros',
-      choices: { any: 'any', student: 'student', veteran: 'veteran', minority: 'minority' },
+      choices: { any: 'cualquiera', student: 'estudiante', veteran: 'veterano', minority: 'minoría' },
       multiple: true
     },
     additionalGeneralInformation: {
