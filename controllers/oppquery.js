@@ -40,7 +40,7 @@ var oppQueryExecute = function(req, res, next) {
   searchResult.execute().success(function(searchResult) {
     req.session.searchResult = searchResult;
     res.render('searchResults', {
-      title: 'Search Results',
+      title: 'Ver Resultados',
       bodyClass: 'searchResults',
       isSearch: true,
       displayCart: true,
@@ -74,7 +74,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
 
   var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
-    title: 'You Have Selected',
+    title: 'Ha seleccionado',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
     form: sendRequestForm.getFormConfig(true), // Deep.
@@ -91,7 +91,7 @@ var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
   leadData.cartContents = req.session.cartContents || {};
   mailBoss.send({
-    subject: "PrimerPeso Lead Form Submission",
+    subject: "Formulario de solicitud de PrimerPeso",
     text: JSON.stringify(leadData, null, 4)
   }, function(err, info) {
       console.log(err);
@@ -101,7 +101,7 @@ var oppQuerySendLead = function(req, res, next) {
         //return res.redirect('/contact');
       }
       return res.render('leadSentConfirmation', {
-        title: 'Lead Sent',
+        title: 'Solicitud Enviada',
         bodyClass: 'leadSentConfirmation',
         meta: { type: 'leadSentConfirmation' },
         leadData: leadData
