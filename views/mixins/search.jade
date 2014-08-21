@@ -43,28 +43,28 @@ mixin renderResultSubset(benefitList, benefitType)
               div(class="panel-body")
                 div(class=benefitName + "-inner-text benefit-description")
                   strong
-                    | Purpose:
+                    | Propósito:
                   = benefitDesc.purpose
                   br
                   strong
-                    | Description:
+                    | Descripción:
                   = benefitDesc.description
                   br
                   strong
-                    | Paperwork Required:
+                    | Documentación requerida:
                   = benefitDesc.paperwork
                   br
                   strong
-                    | Application Cost:
+                    | Costo de Aplicación:
                   = benefitDesc.cost
                   br
                   strong
-                    | Agency Name:
+                    | Nombre de Agencia:
                   = benefitDesc.agencyName
                   br
                   if !_.isEmpty(benefitDesc.info)
                     strong
-                      | Additional Information:
+                      | Información Adicional:
                     = benefitDesc.info
 
           div(class="col-md-3 col-deadline col-" + benefitName)
