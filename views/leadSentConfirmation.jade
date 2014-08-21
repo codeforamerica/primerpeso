@@ -2,17 +2,17 @@ extends layout
 
 block content
   div.congratulations-message
-    h2 Congratulations, #{leadData.name} we sent your info to the agency.
-    h2 An employee will be contacting you soon!
+    h2 Felicitaciones, #{leadData.name} hemos enviado tu información a la agencia.
+    h2 Un empleado de Gobierno se contactará pronto!
   div.additional-options
-    h3 If you want to look for more programs you can 
-      a(href="/fundme") Start Again.
+    h3 Si quieres buscar otros programas puedes
+      a(href="/fundme")  empezar nuevamente.
     br
-    | Please give us feedback on your experience.
+    | Por favor envianos tus comentarios.
     br
     iframe(src="https://www.surveymonkey.com/s/HMKWJYJ" height="400px" width="500px")
     br
-    | If this was useful to you please share on your social networks.
+    | Si te pareció una herramienta útil por favor compartela en las redes sociales. 
     br
     <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bizwallet.herokuapp.com" data-lang="en">Tweet</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
