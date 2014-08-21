@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
-    res.locals.menu = { opportunity: 'opportunity' };
+    res.locals.menu = { opportunity: 'oportunidad' };
     res.locals.isAdminPath = true;
     res.locals.title = 'Panel - Programas Disponibles';
     next();

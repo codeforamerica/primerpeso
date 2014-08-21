@@ -48,7 +48,7 @@ module.exports = function(sequelize, DataTypes) {
     paperworkRequired: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       widget: 'arrayTextField',
-      label: 'Requisitos',
+      label: 'Documentación requerida',
       multiple: true,
       allowNull: false
     },
@@ -184,7 +184,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       widget: 'radio',
       choices: {true: 'yes', false: 'no'},
-      label: 'Is there any amount the business needs to invest?'
+      label: '¿Hay algún monto que el empresario deba invertir?'
     },
     moneyInvested: {
       type: DataTypes.STRING,

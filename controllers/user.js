@@ -68,7 +68,7 @@ var postLogin = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
-      req.flash('success', { msg: 'Ya está logeado/a.' });
+      req.flash('success', { msg: 'Ya estás logeado/a.' });
       // TODO: User should be redirected to previous page on login.
       res.redirect('/admin');
     });

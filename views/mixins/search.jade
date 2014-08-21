@@ -4,7 +4,7 @@
 mixin searchResultNav(searchResult)
   ul(class="nav nav-tabs nav-justified search-tabs results-tabs" role="tablist")
     li(class="active search-tab")
-      a(href="#" id="all") All
+      a(href="#" id="all") Todos
     each benefitList, benefitType in searchResult
       li.search-tab
         a(href="#" id=benefitType)= benefitType
@@ -21,13 +21,13 @@ mixin renderResultSubset(benefitList, benefitType)
 
   div(class="row row-header row-" + benefitType)
     div(class="col-md-6 col-description-header")
-      h4 Resource
+      h4 Recursos
 
     div(class="col-md-3 col-deadline-header")
-      h4 Deadline
+      h4 Vencimiento
 
     div(class="col-md-3 col-est-time-header")
-      h4 Estimated Completion Time
+      h4 Tiempo estimado de finalización
 
   div(class="panel-group" id="accordion")
     each benefitDesc, benefitName in benefitList
@@ -36,7 +36,7 @@ mixin renderResultSubset(benefitList, benefitType)
         div(class="row row-" + benefitType)
           div(class="col-md-6 col-description col-" + benefitName)
             if meta.type != 'confirmPicked'
-              a(href="#" + benefitName + "Add" class="btn btn-small addItem" data-bname=benefitName data-btype=benefitType) add
+              a(href="#" + benefitName + "Add" class="btn btn-small addItem" data-bname=benefitName data-btype=benefitType) agregar
             a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= benefitDesc.title
 
             div(id=oppCount class="panel-collapse collapse")
