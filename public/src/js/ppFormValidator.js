@@ -11,12 +11,12 @@ function FormValidator() {
   this.validator = Validator;
   this.validationFailures = [];
   this.validatorMessages = {
-    notEmpty: "cannot be empty"
+    notEmpty: "El campo no puede quedar vacío"
   }
 }
 
 FormValidator.prototype.getMessageForValidator = function(field, validatorName) {
-  return field.name + ' ' + this.validatorMessages[validatorName];
+  return this.validatorMessages[validatorName];
 }
 
 FormValidator.prototype.validateFields = function(fields) {

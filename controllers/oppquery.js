@@ -23,7 +23,7 @@ var oppQueryCreate = function(req, res, next) {
   var options = options || {};
   var oppQueryForm = new OppQueryForm();
   res.render('fundmeWizard', {
-    title: 'Filtros',
+    title: 'Preguntas',
     bodyClass: 'fundmeWizard',
     form: oppQueryForm.getFormConfig(true), // Deep.
     formInfo: oppQueryForm.getFormConfig(false) // Shallow.

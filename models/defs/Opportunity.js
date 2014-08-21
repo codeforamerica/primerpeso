@@ -189,7 +189,7 @@ module.exports = function(sequelize, DataTypes) {
     moneyInvested: {
       type: DataTypes.STRING,
       widget: 'text',
-      label: '¿Cuanto cuesta?'
+      label: '¿Cuanto debería invertir?'
     },
     // Association
     creatorId: {
@@ -203,7 +203,7 @@ module.exports = function(sequelize, DataTypes) {
         'title': 'Título',
         'applicationDeadline': 'Vencimiento de la Aplicación',
         'benefitType': 'Tipo de beneficio',
-        'agencyContactName': 'Contacti de la agencia',
+        'agencyContactName': 'Contacto de la agencia',
       };
     },
     associate: function(sequelize) {
