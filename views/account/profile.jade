@@ -11,11 +11,11 @@ block content
       .col-sm-4
         input.form-control(type='email', name='email', id='email', value='#{user.email}')
     .form-group
-      label.col-sm-2.control-label(for='name') Name
+      label.col-sm-2.control-label(for='name') Nombre
       .col-sm-4
         input.form-control(type='text', name='name', id='name', value='#{user.profile.name}')
     .form-group
-      label.col-sm-2.control-label(for='gender') Gender
+      label.col-sm-2.control-label(for='gender') Género
       .col-sm-4
         label.radio
           input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
@@ -24,7 +24,7 @@ block content
           input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
           span Female
     .form-group
-      label.col-sm-2.control-label(for='location') Location
+      label.col-sm-2.control-label(for='location') Ubicación
       .col-sm-4
         input.form-control(type='text', name='location', id='location', value='#{user.profile.location}')
     .form-group
@@ -39,36 +39,36 @@ block content
       .col-sm-offset-2.col-sm-4
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-magnet
-          | Update Profile
+          | Actualizar Perfil
 
   .page-header
-    h3 Change Password
+    h3 Cambiar contraseña
 
   form.form-horizontal(action='/account/password', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='password') New Password
+      label.col-sm-3.control-label(for='password') Nueva Contraseña 
       .col-sm-4
         input.form-control(type='password', name='password', id='password')
     .form-group
-      label.col-sm-3.control-label(for='confirmPassword') Confirm Password
+      label.col-sm-3.control-label(for='confirmPassword') Confirmar Contraseña
       .col-sm-4
         input.form-control(type='password', name='confirmPassword', id='confirmPassword')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
           i.fa.fa-keyboard-o
-          | Change Password
+          | Cambiar Contraseña 
 
   .page-header
-    h3 Delete Account
+    h3 Borrar Cuenta
 
-  p You can delete your account, but keep in mind this action is irreversible.
+  p Puedes borrar tu cuenta pero recuerda que esta acción es irreversible.
   form(action='/account/delete', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     button.btn.btn-danger(type='submit')
       i.fa.fa-trash-o
-      | Delete my account
+      | Borrar mi cuenta
 
   .page-header
-    h3 Linked Accounts
+    h3 Cuentas conectadas
