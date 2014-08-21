@@ -68,7 +68,7 @@ var oppQueryPickResults = function(req, res, next) {
  */
 
 var oppQueryConfirmPickedResults = function(req, res, next) {
-  var cartContents = req.session.cartContents || null;
+  var cartContents = req.session.cartContents || {};
   if (_.isEmpty(cartContents))
     return res.redirect('/fundme');
 
@@ -89,17 +89,17 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  */
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
-  leadData.cartContents = req.session.cartContents || {};
+  leadData.selectedPrograms = req.session.cartContents || {};
+  buildLeadDataForConfirmPage(leadData);
   mailBoss.send({
     subject: "PrimerPeso Lead Form Submission",
     text: JSON.stringify(leadData, null, 4)
   }, function(err, info) {
       console.log(err);
       console.log(info);
-      if (err) {
+      if (err)
         req.flash('errors', { msg: err.message });
-        //return res.redirect('/contact');
-      }
+
       return res.render('leadSentConfirmation', {
         title: 'Lead Sent',
         bodyClass: 'leadSentConfirmation',
@@ -107,6 +107,16 @@ var oppQuerySendLead = function(req, res, next) {
         leadData: leadData
       });
   });
+}
 
-
+var buildLeadDataForConfirmPage = function(leadData) {
+  // Extract all selections and normalize them.
+  var selections = {};
+  _.each(leadData.selectedPrograms, function(progsOfType, typeName) {
+    _.each(progsOfType, function(programData, programName) {
+      selections[programData.agencyName] = selections[programData.agencyName] || {};
+      selections[programData.agencyName][programName] = programData;
+    });
+  });
+  leadData.selectedPrograms = selections;
 }
