@@ -41,6 +41,8 @@ module.exports = function(sequelize, DataTypes) {
       // TODO - clean?
       var Opportunity = sequelize.model('opportunity');
       var Agency = sequelize.model('agency');
+      this.hasMany(Opportunity, { foreignKey: 'creatorId' });
+      this.hasMany(Agency, { foreignKey: 'creatorId' });
     },
     createInstance: function(body) {
       console.log(body);
