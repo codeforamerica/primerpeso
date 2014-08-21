@@ -5,13 +5,13 @@ block content
     #list-top
       h2= title
       #new
-        a.btn.btn-default(href="#{base}/#{model}", role="button") Back to all #{model}
+        a.btn.btn-default(href="#{base}/#{model}", role="button") Volver a oportunidades #{model}
     table.table.table-striped.table-hover.table-condensed.admin
       thead
         tr
           th
-            a.btn.btn-default.admin-edit.entry(href="#{base}#{path}/edit") edit
-            a.btn.btn-default.delete-model.admin-edit.entry(href="#{base}#{path}/delete") delete
+            a.btn.btn-default.admin-edit.entry(href="#{base}#{path}/edit") editar
+            a.btn.btn-default.delete-model.admin-edit.entry(href="#{base}#{path}/delete") borrar
       tbody.admin
           each field, fieldIndex in fields
             tr
