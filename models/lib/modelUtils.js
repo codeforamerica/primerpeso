@@ -51,7 +51,8 @@ var buildElementValues = function(element, value) {
 
 var classMethods = {
   // Parses raw attributes of model and generates fields based on them as well as operation.
-  getFormFields: function(op, model) {
+  getFormFields: function(op, includeValues) {
+    var includeValues = includeValues || false;
     var choicesList = new OptionsList();
     var op = op || 'new';
     var blacklist = fieldBlackList[op];
@@ -78,7 +79,8 @@ var classMethods = {
           });
           refedModel = refedModel.target;
           // Populate the list with available options.
-          refPromises.push(refedModel.findAll());
+          if (includeValues)
+            refPromises.push(refedModel.findAll());
         }
 
         if (op == 'edit') {
@@ -86,12 +88,13 @@ var classMethods = {
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-
         fieldList[key] = element;
       }
     }, this);
     Promise.all(refPromises).then(function(results) {
       console.log(results);
+      console.log('refres!');
+      console.log('return field list');
       return fieldList;
     });
   },
@@ -101,8 +104,7 @@ var classMethods = {
 
   // Gets default fields for a model in a list view.
   getDefaultFields: function() {
-    var defaultFields = {};
-    var formFields = this.getFormFields('new');
+    var formFields = this.getFormFields('new', false);
     return _.mapValues(formFields, function(element, index) {
       return element.label;
     });
@@ -110,7 +112,10 @@ var classMethods = {
 
   // Build the submission from the admin form submitted.
   buildFromAdminForm: function(reqBody) {
-    var fields = this.getFormFields('new');
+    console.log(reqBody);
+    var fields = this.getFormFields('new', false);
+    console.log('fields');
+    console.log(fields);
     var modelData = {};
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(reqBody[fieldKey])) {
@@ -129,6 +134,7 @@ var classMethods = {
         modelData[fieldKey] = value;
       }
     });
+    console.log(modelData);
     var instance = this.build(modelData);
     return instance;
   },
