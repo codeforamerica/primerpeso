@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     title:  {
       type: DataTypes.STRING,
       allowNull: false,
-      label:'Program Title',
+      label:'Nombre del Programa',
       unique: true,
       validate: {
       }
@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       choices: choicesList.getFormChoices('purpose'),
       validate: {
       },
-      label: 'Purpose of Program',
+      label: 'Propósito del Programa',
       choiceOther: true,
       multiple: true
     },
@@ -39,21 +39,21 @@ module.exports = function(sequelize, DataTypes) {
       multiple: true,
       widget: 'select',
       choices: choicesList.getFormChoices('eligibleBusinessLocation'),
-      label: 'Eligible Business Location',
+      label: 'Ubicación del negocio elegible',
     },
     // TODO: These need to be separate inputs on the UI that get joined
     // in the backend.
     paperworkRequired: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       widget: 'arrayTextField',
-      label: 'Paperwork Required',
+      label: 'Documentación requerida',
       multiple: true,
       allowNull: false
     },
     applicationCost: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      label: 'Application Cost',
+      label: 'Costo de la aplicación',
       widget: 'text',
       validate: {
         isNumeric: true
@@ -63,13 +63,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false,
       widget: 'date',
-      label: 'Application Deadline'
+      label: 'Fecha de expiración'
     },
     avgApplicationTime: {
       type: DataTypes.STRING,
       allowNull: false,
       widget: 'text',
-      label: 'Avg Completion Time (from ___ to ___)'
+      label: 'Tiempo estimado (desde ___ hasta ___)'
     },
     // TODO -- abstract choices to freaking callbacks.
     benefitType: {
@@ -77,7 +77,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       widget: 'multiSelect',
       choices: choicesList.getFormChoices('benefitType'),
-      label: 'Benefit Type',
+      label: 'Tipo de Beneficio',
       choiceOther: true,
       multiple: true
     },
@@ -85,36 +85,36 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TEXT,
       allowNull: false,
       widget: 'textArea',
-      label: 'Benefit Description',
+      label: 'Descripción de Beneficio',
     },
     agencyName: {
       type: DataTypes.STRING,
-      label: 'Agency Name',
+      label: 'Nombre de Agencia',
       allowNull: false,
       widget: 'text',
     },
     agencyContactName: {
       type: DataTypes.STRING,
-      label: 'Agency Contact Name',
+      label: 'Nombre de contacto en Agencia',
       allowNull: false,
       widget: 'text',
     },
     agencyContactEmail: {
       type: DataTypes.STRING,
-      label: 'Agency Contact Email',
+      label: 'Email de contacto',
       allowNull: false,
       widget: 'text',
     },
     agencyContactPhone: {
       type: DataTypes.STRING,
-      label: 'Agency Contact Phone',
+      label: 'Teléfono de contacto en Agencia',
       allowNull: false,
       widget: 'text',
     },
     minimumYearsInBusiness: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      label: 'Minimum Years In Business',
+      label: 'Mínimo de años en Negocio',
       widget: 'select',
       choices: choicesList.getFormChoices('yearsInBusiness'),
     },
@@ -124,7 +124,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       multiple: true,
       choices: choicesList.getFormChoices('eligibleEntityTypes'),
-      label: 'Eligible Entity Types'
+      label: 'Tipo de entidades elegibles'
     },
     currentEmployeesRequired: {
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -132,7 +132,7 @@ module.exports = function(sequelize, DataTypes) {
       multiple: true,
       allowNull: false,
       choices: choicesList.getFormChoices('currentEmployeesRequired'),
-      label: 'Current Employees Required',
+      label: 'Número de empleados requeridos',
     },
     annualRevenue: {
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -140,7 +140,7 @@ module.exports = function(sequelize, DataTypes) {
       choices: choicesList.getFormChoices('annualRevenue'),
       multiple: true,
       allowNull: false,
-      label: 'Annual Revenue',
+      label: 'Ganancia anual requerida',
     },
     eligibleIndustries: {
       type: DataTypes.ARRAY(DataTypes.STRING),
@@ -148,20 +148,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       widget: 'multiSelect',
       choices: choicesList.getFormChoices('eligibleIndustries'),
-      label: 'Eligible Industries',
+      label: 'Industrias elegibles',
       choiceOther: true
     },
     gender: {
       type: DataTypes.STRING,
       allowNull: false,
-      label: 'Gender',
+      label: 'Género',
       widget: 'select',
       choices: choicesList.getFormChoices('gender')
     },
     age: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: false,
-      label: 'Age',
+      label: 'Edad',
       widget: 'multiSelect',
       choices: choicesList.getFormChoices('age'),
       multiple: true
@@ -169,25 +169,25 @@ module.exports = function(sequelize, DataTypes) {
     additionalDemographics: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       widget: 'checkbox',
-      label: 'Additional Demographics',
-      choices: { any: 'any', student: 'student', veteran: 'veteran', minority: 'minority' },
+      label: 'Otros',
+      choices: { any: 'cualquiera', student: 'estudiante', veteran: 'veterano', minority: 'minoría' },
       multiple: true
     },
     additionalGeneralInformation: {
       type: DataTypes.TEXT,
       widget: 'textArea',
-      label: 'Additional General Information'
+      label: 'Información general adicional'
     },
     investingOwnMoney: {
       type: DataTypes.STRING,
       widget: 'radio',
       choices: {true: 'yes', false: 'no'},
-      label: 'Is there any amount the business needs to invest?'
+      label: '¿Hay algún monto que el empresario deba invertir?'
     },
     moneyInvested: {
       type: DataTypes.STRING,
       widget: 'text',
-      label: 'How much?'
+      label: '¿Cuanto debería invertir?'
     },
     // Association
     creatorId: {
@@ -198,10 +198,10 @@ module.exports = function(sequelize, DataTypes) {
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
       return {
-        'title': 'Title',
-        'applicationDeadline': 'Application Deadline',
-        'benefitType': 'Benefit Type',
-        'agencyContactName': 'Agency Contact Name',
+        'title': 'Título',
+        'applicationDeadline': 'Vencimiento de la Aplicación',
+        'benefitType': 'Tipo de beneficio',
+        'agencyContactName': 'Contacto de la agencia',
       };
     },
     associate: function(sequelize) {

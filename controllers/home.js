@@ -18,6 +18,6 @@ var index = function(req, res) {
 
 var about = function(req, res) {
   return res.render('about', {
-    title: 'About'
+    title: 'Sobre'
   });
 };

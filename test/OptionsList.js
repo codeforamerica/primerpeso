@@ -7,12 +7,12 @@ describe('Options List', function() {
     // Test Object.
     var optList = new OptionsList();
     var genderChoices = optList.getFormChoices('gender');
-    var genderChoicesControl = { any: 'Any', male: 'Male', female: 'Female', other_gender: 'Other' };
+    var genderChoicesControl = { any: 'Cualquier', male: 'Hombre', female: 'Mujer', other_gender: 'Otro' };
     genderChoices.should.eql(genderChoicesControl);
 
     // Test Array.
     var ageChoices = optList.getFormChoices('age');
-    var ageChoicesControl = ['Any', '16-25', '26-40', '41-64', '65+'];
+    var ageChoicesControl = ['Cualquier', '16-25', '26-40', '41-64', '65+'];
     var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
     ageChoices.should.eql(ageChoicesControl);
     return done();
@@ -22,12 +22,12 @@ describe('Options List', function() {
     // Test Object.
     var optList = new OptionsList('fundMeWizard');
     var genderChoices = optList.getFormChoices('gender');
-    var genderChoicesControl = { any: 'Both - if multiple owners', male: 'Male', female: 'Female'};
+    var genderChoicesControl = { any: 'Ambos - si propietarios de ambos géneros', male: 'Hombre', female: 'Mujer'};
     genderChoices.should.eql(genderChoicesControl);
 
     // Test Array.
     var ageChoices = optList.getFormChoices('age');
-    var ageChoicesControl = ['Any', '16-25', '26-40', '41-64', '65+'];
+    var ageChoicesControl = ['Cualquier', '16-25', '26-40', '41-64', '65+'];
     var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
     // Delete to simulate override.
     delete ageChoicesControl['0'];

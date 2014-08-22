@@ -5,7 +5,8 @@ block content
   - var action = base + '/' +  model
   - action += id ? '/' + id : ''
 
-  h2.col-lg-offset-1= ( (id) ? "Edit " : "New " ) + ( (name) ? name : model )
+  //h2.col-lg-offset-1= ( (id) ? "Editar " : "Nuevo " ) + ( (name) ? name : model )
+  h2.col-lg-offset-1= ( (id) ? "Editar " : "Nuevo " )
 
   #form
     form.form-horizontal(method="post", action=action, role="form" class="model-form")
@@ -17,8 +18,8 @@ block content
         +makeField(f)
       .form-group
         .col-sm-offset-4.col-sm-10
-          button(type="submit" class="btn btn-default btn-primary admin-save") Save #{model}
-          a.btn(href='#{base}/#{model}', title="cancel") Cancel
+          button(type="submit" class="btn btn-default btn-primary admin-save") Guardar
+          a.btn(href='#{base}/#{model}', title="cancel") Cancelar
   block javascripts
     script(type='text/javacript', src='http://cdn.jsdelivr.net/select2/3.4.8/select2.min.js')
 //

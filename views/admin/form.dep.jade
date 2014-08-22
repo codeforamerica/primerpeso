@@ -34,12 +34,12 @@ block content
         .col-sm-2
         .col-sm-10
           #form-btn
-            button.btn.btn-primary(type='submit') Save changes
+            button.btn.btn-primary(type='submit') Guardar cambios
               &nbsp;
-            a.btn(href='#{base}/#{path}', title="cancel") Cancel
+            a.btn(href='#{base}/#{path}', title="cancel") Cancelar
 
             if !doc.isNew
               #del-btn
                 form(action=action+'/delete' method="post")
-                  button.btn.btn-danger(type='submit') Delete
+                  button.btn.btn-danger(type='submit') Borrar
 
