@@ -33,7 +33,6 @@ module.exports = function(sequelize, DataTypes) {
       choiceOther: true,
       multiple: true
     },
-    // TODO: Need to add distinct municipalities to options
     eligibleBusinessLocation: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
@@ -41,7 +40,6 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'select',
       choices: choicesList.getFormChoices('eligibleBusinessLocation'),
       label: 'Ubicación del negocio elegible',
-      choiceOther: true
     },
     // TODO: These need to be separate inputs on the UI that get joined
     // in the backend.
