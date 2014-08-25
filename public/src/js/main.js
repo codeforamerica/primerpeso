@@ -29,7 +29,8 @@ $(document).ready(function() {
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
     labels: {
       next: "Siguiente",
-      previous: "Anterior"
+      previous: "Anterior",
+      finish: "Finalizar"
     },
     onStepChanging: function (event, currentIndex, newIndex) {
       return validateTransition(currentIndex, newIndex);
@@ -123,7 +124,8 @@ $(document).ready(function() {
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
       labels: {
         next: "Siguiente",
-        previous: "Anterior"
+        previous: "Anterior",
+        finish: "Finalizar"
       },
       onStepChanging: function (event, currentIndex, newIndex) {
         return validateTransition(currentIndex, newIndex);
