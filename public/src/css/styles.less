@@ -647,6 +647,7 @@ a.btn.help-you:last-child {
   background-color: @dark-navy;
   height: auto;
   padding: 40px;
+  padding-top: 140px;
   .title {
     margin-top: 0;
   }
@@ -655,6 +656,19 @@ a.btn.help-you:last-child {
 .landing-header {
   background: none;
   position: relative;
+  .btn {
+    visibility: hidden;
+    margin: 0;
+  }
+  .btn:after {
+    content: 'Start';
+    visibility: visible;
+    display: block;
+    position: absolute;
+    background-color: @dark-green;
+    padding: 15px;
+    border-radius: 10px;
+  }
 }
 
 section h1.section-title {
