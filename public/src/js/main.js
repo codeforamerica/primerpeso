@@ -27,6 +27,10 @@ $(document).ready(function() {
 	  transitionEffect: "slideLeft",
     saveState: true,
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
+    labels: {
+      next: "Siguiente",
+      previous: "Anterior"
+    },
     onStepChanging: function (event, currentIndex, newIndex) {
       return validateTransition(currentIndex, newIndex);
     },
@@ -117,6 +121,10 @@ $(document).ready(function() {
       transitionEffect: "fade",
       saveState: true,
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
+      labels: {
+        next: "Siguiente",
+        previous: "Anterior"
+      },
       onStepChanging: function (event, currentIndex, newIndex) {
         return validateTransition(currentIndex, newIndex);
       },

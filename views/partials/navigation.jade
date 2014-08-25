@@ -10,9 +10,9 @@
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li(class=title=='About'?'active':undefined)
-          a(href='/about') About
+          a(href='/about') Sobre
         li(class=title=='Contact'?'contact':undefined)
-          a(href='/contact') Are you an agency?
+          a(href='/contact') ¿Eres una agencia?
         if !user
           if displayCart
             li.cartButton
@@ -26,4 +26,4 @@
               | #{ user.email || user.id}&nbsp;
               i.caret
             ul.dropdown-menu
-              li: a(href='/logout') Logout
+              li: a(href='/logout') Salir

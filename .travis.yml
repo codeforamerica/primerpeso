@@ -22,7 +22,7 @@ deploy:
   - provider: s3
     access_key_id: AKIAJKINSR3KS7NCOKIQ
     secret_access_key:
-      secure: i3IuFD2zBvt5YUDBY0n6QJYj5upGKR9XOQiDqeeHzP6rXx4R9FeWccGAQZAM+fFWM6L3bWU4K92YguHw0AzPhmHOGerlO+KcpuLQqwcO5BtQbXBUlb4QCwfW48KW6ceRlG2WgYEKvF5PswNBGbVVkJKoaDGoc355ior7M59Kq20=
+      secure: JyiuTr7Mo5CiFshcLagv/fkKtdVTW7gc8lEZ/s4ctV1Flg7RNJXv2/rnawE0UNJbsx+qkR0B8eI8V0kghDzmNrdEHw2WMXlLiOTQcYJ8CCjY4WtikizT9/dV4fg8CAqyqaUaKch0AcUR8h6/q2Sq+nPshHs1nUDPLbhGoNxzIg8=
     bucket: bizwallet
     local-dir: public/build
     skip_cleanup: true
@@ -31,7 +31,7 @@ deploy:
   - provider: s3
     access_key_id: AKIAJKINSR3KS7NCOKIQ
     secret_access_key:
-      secure: i3IuFD2zBvt5YUDBY0n6QJYj5upGKR9XOQiDqeeHzP6rXx4R9FeWccGAQZAM+fFWM6L3bWU4K92YguHw0AzPhmHOGerlO+KcpuLQqwcO5BtQbXBUlb4QCwfW48KW6ceRlG2WgYEKvF5PswNBGbVVkJKoaDGoc355ior7M59Kq20=
+      secure: JyiuTr7Mo5CiFshcLagv/fkKtdVTW7gc8lEZ/s4ctV1Flg7RNJXv2/rnawE0UNJbsx+qkR0B8eI8V0kghDzmNrdEHw2WMXlLiOTQcYJ8CCjY4WtikizT9/dV4fg8CAqyqaUaKch0AcUR8h6/q2Sq+nPshHs1nUDPLbhGoNxzIg8=
     bucket: bizwallet-staging
     local-dir: public/build
     skip_cleanup: true
@@ -41,9 +41,9 @@ deploy:
     strategy: git
     api_key:
       master:
-        secure: rN6DMbMNXh0X6GSJk1RMVP8mtWnkB71pmI5/ypMe6eHti1JgD7y2SF7AW6p770S0PVwMr1PIY301msmIsZ/8+i0Sov4Quuj9QqknBBwd2H8iEhtEepBF+H3mTKFJKSd1C+klodsbsJr+H4N/PdcLY7VLfqIY1pLQ9+gKv69dlBs=
+        secure: oiMMOUAqJ8V9DGn8MDNnTZZVhiaFMMibsebhtw7NVYKE0kKBKvpBb61EoDWG7DYQ0M/ipnL4MVd4WS853tk0Wjqdy/zlcjV+skoq8pmTVqyqG4OkbLPfF7B73x/6FZj4+juyezwEtcTjw6F5JzjCWAvh429L9TX/B3FWiX9togA=
       production:
-        secure: o1ALDx9zYsdJXiadb8tTv3BmMA+2TKbICMp2K/in8TzMXueH4k7cu+aYndlClDlu2daNTplp2AyVu54Q0xDervHeHTU/YIiVImKKrrMZ9AVHB2RlJOG5YhmAC6K+T2IwhLDEuGJZXCy+nzOpihL2/oudlFJUj8X4ytEDIDw1REY=
+        secure: ACPvM4AiUazlzwgGT5nysW/xtKSFE8+7b/cebEwZ30X8CFiTczlqwCNB/YkmklAEIqxpgMR7eWLoRs63LSORETbBz6MoDTSrTXffFnWEKobt/trhoJUs1ZxhRvc1amrkrwyoMMdyD+oCbZw63vuf7FZxX+XJhmrK1KKTnQ1v0jQ=
     app:
       master: bizwallet-staging
       production: bizwallet

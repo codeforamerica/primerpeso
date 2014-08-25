@@ -15,9 +15,9 @@ module.exports = function(app) {
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
-    res.locals.menu = { opportunity: 'opportunity' };
+    res.locals.menu = { opportunity: 'oportunidad' };
     res.locals.isAdminPath = true;
-    res.locals.title = 'Admin Panel - Available Programs';
+    res.locals.title = 'Panel - Programas Disponibles';
     next();
   });
 
@@ -111,7 +111,7 @@ function save(req, res) {
     Model.createInstance(req.body).then(function(instance) {
       return req.user.addOpportunity(instance);
     }).then(function() {
-      req.flash('info', req.params.model + ' Successfully Added');
+      req.flash('info', req.params.model + ' Añadido exitosamente');
       return res.redirect(req.path);
     }).error(function(err) {
       req.flash('errors', err.message);
@@ -154,7 +154,7 @@ function deleteModel (req, res) {
 
   Model.find(req.params.id).success(function(result) {
     result.destroy().success(function() {
-      req.flash('info', 'Successfully Deleted Entry');
+      req.flash('info', 'Programa borrado con éxito');
       res.redirect('/admin/' + render.model);
     });
   });

@@ -23,7 +23,7 @@ var oppQueryCreate = function(req, res, next) {
   var options = options || {};
   var oppQueryForm = new OppQueryForm();
   res.render('fundmeWizard', {
-    title: 'Wizard',
+    title: 'Preguntas',
     bodyClass: 'fundmeWizard',
     form: oppQueryForm.getFormConfig(true), // Deep.
     formInfo: oppQueryForm.getFormConfig(false) // Shallow.
@@ -40,7 +40,7 @@ var oppQueryExecute = function(req, res, next) {
   searchResult.execute().success(function(searchResult) {
     req.session.searchResult = searchResult;
     res.render('searchResults', {
-      title: 'Search Results',
+      title: 'Ver Resultados',
       bodyClass: 'searchResults',
       isSearch: true,
       displayCart: true,
@@ -74,7 +74,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
 
   var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
-    title: 'You Have Selected',
+    title: 'Ha seleccionado',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
     form: sendRequestForm.getFormConfig(true), // Deep.
@@ -92,7 +92,7 @@ var oppQuerySendLead = function(req, res, next) {
   leadData.selectedPrograms = req.session.cartContents || {};
   buildLeadDataForConfirmPage(leadData);
   mailBoss.send({
-    subject: "PrimerPeso Lead Form Submission",
+    subject: "Formulario de solicitud de PrimerPeso",
     text: JSON.stringify(leadData, null, 4)
   }, function(err, info) {
       console.log(err);
@@ -101,7 +101,7 @@ var oppQuerySendLead = function(req, res, next) {
         req.flash('errors', { msg: err.message });
 
       return res.render('leadSentConfirmation', {
-        title: 'Lead Sent',
+        title: 'Solicitud Enviada',
         bodyClass: 'leadSentConfirmation',
         meta: { type: 'leadSentConfirmation' },
         leadData: leadData
