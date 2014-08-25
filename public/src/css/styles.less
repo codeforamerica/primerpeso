@@ -70,19 +70,19 @@ a {
 // Navbar
 // -------------------------
 
-@navbar-height: 100px;
-
 .navbar {
   margin-bottom: 0px;
 }
 
 .navbar-default {
-  background-color: @green;
-  border: none;
+  background-color: transparent;
+  border-bottom: 3px solid @green;
 	font-size: 24px;
   .navbar-nav {
     li a {
+      color: @dark-green;
       text-decoration: none;
+      padding-top: 40px;
     }
     .open a:focus {
       background-color: @navy;
@@ -258,7 +258,6 @@ section {
 
 .wizard .steps{
   margin-top: 23px;
-  border-bottom: @light-grey 2px solid;
   a, a:hover {
     margin: 0 0.5em 1.2em;
   }
