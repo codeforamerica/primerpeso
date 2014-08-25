@@ -48,7 +48,7 @@ deploy:
       master: bizwallet-staging
       production: bizwallet
     on:
-      repo: CoquiCoders/bizwallet
+      repo: codeforamerica/primerpeso
     run:
       - "gulp migrate"
       - restart
