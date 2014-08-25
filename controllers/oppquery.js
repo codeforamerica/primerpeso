@@ -36,15 +36,21 @@ var oppQueryCreate = function(req, res, next) {
  */
 var oppQueryExecute = function(req, res, next) {
   var query = req.query;
-  var searchResult = new Searcher(query);
-  searchResult.execute().success(function(searchResult) {
+  var searcher = new Searcher(query);
+  searcher.execute().success(function() {
+    var searchResult = searcher.formatResult();
+    var benefitTypes = searcher.getBenefitTypes();
+
+
     req.session.searchResult = searchResult;
-    res.render('searchResults', {
+
+    return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',
-      isSearch: true,
+//      isSearch: true,
       displayCart: true,
       searchResult: searchResult,
+      benefitTypes: benefitTypes,
       meta: { type: 'searchResults' }
     });
   });
