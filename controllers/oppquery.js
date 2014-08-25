@@ -46,7 +46,6 @@ var oppQueryExecute = function(req, res, next) {
     return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',
-//      isSearch: true,
       displayCart: true,
       searchResult: searchResult,
       benefitTypes: benefitTypes,
