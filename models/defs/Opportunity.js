@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
       multiple: true,
-      widget: 'select',
+      widget: 'multiSelect',
       choices: choicesList.getFormChoices('eligibleBusinessLocation'),
       label: 'Ubicación del negocio elegible',
     },
