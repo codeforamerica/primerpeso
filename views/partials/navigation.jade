@@ -11,9 +11,9 @@
       ul.nav.navbar-nav.navbar-right
         li(class=title=='About'?'active':undefined)
           a(href='/about') Sobre
-        li(class=title=='Contact'?'contact':undefined)
-          a(href='/contact') ¿Eres una agencia?
         if !user
+          li(class=title=='Contact'?'contact':undefined)
+            a(href='/contact') ¿Eres una agencia?
           if displayCart
             li.cartButton
               a(href="#toggleCart" class="toggleCart" id="toggleCart")

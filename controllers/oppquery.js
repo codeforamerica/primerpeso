@@ -96,7 +96,6 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
   leadData.selectedPrograms = req.session.cart.programs || {};
-  buildLeadDataForConfirmPage(leadData);
   mailBoss.send({
     subject: "Formulario de solicitud de PrimerPeso",
     text: JSON.stringify(leadData, null, 4)

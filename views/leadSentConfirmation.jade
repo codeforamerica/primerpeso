@@ -5,11 +5,10 @@ block content
     h2 Felicitaciones, #{leadData.name}!
     h2 Has solicitado información para los siguientes programas:
       ul
-        each programs, org in leadData.selectedPrograms
-          each progData, progName in programs
+        each progData, pIndex in leadData.selectedPrograms
             li= progData.title
 
-    h2 Un empleado de la agencia que maneja el programa se contactará contigo en la próxima semana. 
+    h2 Un empleado de la agencia que maneja el programa se contactará contigo en la próxima semana.
   div.additional-options
     h3 Si quieres ver otros programas &nbsp;
       a(href="/fundme") empieza nuevamente.
