@@ -10,6 +10,7 @@ var validateTransition = function(currentIndex, newIndex) {
     var currentFieldSet = fieldSets[currentIndex];
     var currentFields = formInfo.fields[currentFieldSet];
     validatorResult = validator.validateFields(currentFields);
+    $('.empty').remove();
     _.each(validatorResult, function(valRes) {
       var element = $('label[for="' + valRes.fieldName + '"]');
       element.after('<div class="empty">' + valRes.message + '</div>');
