@@ -128,7 +128,14 @@ $(document).ready(function() {
         finish: "Finalizar"
       },
       onStepChanging: function (event, currentIndex, newIndex) {
-        return validateTransition(currentIndex, newIndex);
+        if (validateTransition(currentIndex) === false)
+          return false;
+        if (currentIndex === 0 && $('input[name=areYouInc]:checked', '#sendRequestForm').val() == false) {
+          var form = $(this);
+          form.submit();
+        }
+        else
+          return true;
       },
       onFinished: function (event, currentIndex) {
         var form = $(this);
@@ -137,7 +144,6 @@ $(document).ready(function() {
       onFinishing: function (event, currentIndex) {
         return validateTransition(currentIndex);
       }
-
     });
   }
 
