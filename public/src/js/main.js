@@ -10,6 +10,7 @@ var validateTransition = function(currentIndex, newIndex) {
     var currentFieldSet = fieldSets[currentIndex];
     var currentFields = formInfo.fields[currentFieldSet];
     validatorResult = validator.validateFields(currentFields);
+    $('.empty').remove();
     _.each(validatorResult, function(valRes) {
       var element = $('label[for="' + valRes.fieldName + '"]');
       element.after('<div class="empty">' + valRes.message + '</div>');
@@ -29,7 +30,8 @@ $(document).ready(function() {
     titleTemplate: '<span class="monkey">#index#.</span> #title#',
     labels: {
       next: "Siguiente",
-      previous: "Anterior"
+      previous: "Anterior",
+      finish: "Finalizar"
     },
     onStepChanging: function (event, currentIndex, newIndex) {
       return validateTransition(currentIndex, newIndex);
@@ -123,10 +125,18 @@ $(document).ready(function() {
       titleTemplate: '<span class="monkey">#index#.</span> #title#',
       labels: {
         next: "Siguiente",
-        previous: "Anterior"
+        previous: "Anterior",
+        finish: "Finalizar"
       },
       onStepChanging: function (event, currentIndex, newIndex) {
-        return validateTransition(currentIndex, newIndex);
+        if (validateTransition(currentIndex) === false)
+          return false;
+        if (currentIndex === 0 && $('input[name=areYouInc]:checked', '#sendRequestForm').val() == false) {
+          var form = $(this);
+          form.submit();
+        }
+        else
+          return true;
       },
       onFinished: function (event, currentIndex) {
         var form = $(this);
@@ -135,7 +145,6 @@ $(document).ready(function() {
       onFinishing: function (event, currentIndex) {
         return validateTransition(currentIndex);
       }
-
     });
   }
 

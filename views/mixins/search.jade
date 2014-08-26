@@ -5,21 +5,21 @@ mixin searchResultNav(searchResult)
   ul(class="nav nav-tabs nav-justified search-tabs results-tabs" role="tablist")
     li(class="active search-tab")
       a(href="#" id="all") Todos
-    each benefitList, benefitType in searchResult
+    each benefitTypeName, benefitTypeMachineName in benefitTypes
       li.search-tab
-        a(href="#" id=benefitType)= benefitType
+        a(href="#" id=benefitTypeMachineName)= benefitTypeName
 
 mixin renderResultList(searchResult)
-  each benefitList, benefitType in searchResult
-    div(class=benefitType + '-container')
-      +renderResultSubset(benefitList, benefitType)
+  each benefitTypeName, benefitTypeMachineName in benefitTypes
+    div(class=benefitTypeMachineName + '-container')
+      +renderResultSubset(searchResult[benefitTypeMachineName], benefitTypeName, benefitTypeMachineName)
 
-mixin renderResultSubset(benefitList, benefitType)
-  - var resCountHeader = Object.keys(benefitList).length + ' ' + benefitType
-  div(class="row row-benefit-count row-" + benefitType)
+mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineName)
+  - var resCountHeader = Object.keys(benefitProgList).length + ' ' + benefitTypeName
+  div(class="row row-benefit-count row-" + benefitTypeMachineName)
     h3= resCountHeader
 
-  div(class="row row-header row-" + benefitType)
+  div(class="row row-header row-" + benefitTypeMachineName)
     div(class="col-md-6 col-description-header")
       h4 Recursos
 
@@ -30,41 +30,41 @@ mixin renderResultSubset(benefitList, benefitType)
       h4 Tiempo estimado de finalización
 
   div(class="panel-group" id="accordion")
-    each benefitDesc, benefitName in benefitList
+    each progDesc, progName in benefitProgList
       - oppCount = oppCount + 1
       div(class="panel panel-default")
-        div(class="row row-" + benefitType)
-          div(class="col-md-6 col-description col-" + benefitName)
+        div(class="row row-" + benefitTypeMachineName)
+          div(class="col-md-6 col-description col-" + progName)
             if meta.type != 'confirmPicked'
-              a(href="#" + benefitName + "Add" class="btn btn-small addItem" data-bname=benefitName data-btype=benefitType) agregar
-            a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= benefitDesc.title
+              a(href="#" + progName + "Add" class="btn btn-small addItem" data-bname=progName data-btype=benefitTypeMachineName) agregar
+            a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= progDesc.title
 
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
-                div(class=benefitName + "-inner-text benefit-description")
+                div(class=progName + "-inner-text benefit-description")
                   strong
                     | Descripción:
-                  = benefitDesc.description
+                  = progDesc.description
                   br
                   strong
                     | Documentación requerida:
-                  = benefitDesc.paperwork
+                  = progDesc.paperwork
                   br
                   strong
                     | Costo de Aplicación:
-                  = benefitDesc.cost
+                  = progDesc.cost
                   br
                   strong
                     | Nombre de Agencia:
-                  = benefitDesc.agencyName
+                  = progDesc.agencyName
                   br
-                  if !_.isEmpty(benefitDesc.info)
+                  if !_.isEmpty(progDesc.info)
                     strong
                       | Información Adicional:
-                    = benefitDesc.info
+                    = progDesc.info
 
-          div(class="col-md-3 col-deadline col-" + benefitName)
-            div(class=benefitName + "-inner-text")= benefitDesc.deadline
+          div(class="col-md-3 col-deadline col-" + progName)
+            div(class=progName + "-inner-text")= progDesc.deadline
 
-          div(class="col-md-3 col-est-time col-" + benefitName)
-            div(class=benefitName + "-inner-text")= benefitDesc.estimatedTime
+          div(class="col-md-3 col-est-time col-" + progName)
+            div(class=progName + "-inner-text")= progDesc.estimatedTime

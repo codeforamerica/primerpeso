@@ -8,7 +8,7 @@ var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
 var Opportunity = sequelize.model('opportunity');
-var SearchQuery = require('../lib/SearchQuery');
+var Searcher = require('../lib/SearchQuery');
 var searchQueryMock = require('./mocks/searchQuery');
 //var searchResultMock = require('./mocks/searchResults');
 var oppMock = require('./mocks/opportunity.js');
@@ -43,6 +43,13 @@ var modelOverrideSet = [
     gender:  "any",
     benefitType: ["expertise"]
   },
+  // Test of other benefit types
+  {
+    title:   "TEST: Opportunity Other Benefit Types",
+    purpose: ["anything"],
+    gender:  "any",
+    benefitType: ["expertise", "monkeys", "other"]
+  }
 ];
 
 function createOpportunity(overrides, done) {
@@ -84,9 +91,7 @@ describe('Search Query', function() {
   after(function(done) {
     var oppPromises = [];
     _.each(modelOverrideSet, function(overrides, index) {
-      oppPromises.push(
-	Opportunity.destroy({ title: overrides.title })
-      );
+      oppPromises.push(Opportunity.destroy({ title: overrides.title }));
     });
     Promise.all(oppPromises).then(function() {
       return done();
@@ -95,28 +100,43 @@ describe('Search Query', function() {
 
   describe('Return Structure', function() {
     var searchResult;
+    var benefitTypes, searchResult;
     before(function(done) {
-      var body = new searchQueryMock({ gender: 'male' });
-      var searchQuery = new SearchQuery(body);
-      searchQuery.execute().success(function(result) {
-        searchResult = result;
-        console.log('----FORMATTED RESULT 2----');
-        console.log(searchResult);
+      var searchMock = new searchQueryMock({ gender: 'male' });
+      var searcher = new Searcher(searchMock);
+
+      searcher.execute().success(function() {
+        benefitTypes = Searcher.extractBenefitTypes(searcher.result);
+        searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
         return done();
       });
     });
 
 
-    it('should set top keys to benefit types, by default', function(done) {
-      var topKeys = _.keys(searchResult);
-      topKeys.should.include('incentive');
-      topKeys.should.include('grant');
-      topKeys.should.include('expertise');
+    it('should properly extract benefit types', function(done) {
+      var benefitTypesKeys = _.keys(benefitTypes);
+      benefitTypesKeys.should.include('incentive');
+      benefitTypesKeys.should.include('grant');
+      benefitTypesKeys.should.include('expertise');
+      return done();
+    });
+
+    it('should properly exclude not explicitly defined other types', function(done) {
+      var benefitTypesKeys = _.keys(benefitTypes);
+      benefitTypesKeys.should.include('other');
+      benefitTypesKeys.should.include('expertise');
+      benefitTypesKeys.should.not.include('monkeys');
       return done();
     });
 
     it('should place opportunities with multiple benefits in different top keys, multiple times', function(done) {
-      searchResult.incentive.TESTOpportunityMatch.should.eql(searchResult.grant.TESTOpportunityMatch);
+      //searchResult.incentive.TESTOpportunityMatch.should.eql(searchResult.grant.TESTOpportunityMatch);
+      // Get id for TestOpportunityMatch
+      var matchOpp = _.find(searchResult.incentive, function(opp) {
+        if (opp.title === 'Test: opportunity match')
+          return true;
+      });
+      matchOpp.should.eql(searchResult.grant[matchOpp.id]);
       return done();
     });
   });
@@ -125,29 +145,27 @@ describe('Search Query', function() {
   describe('Single to Single', function() {
     it('should find opportunities with matching gender, any or other when I search for male; and not find those without match.', function(done) {
       var searchResult;
-      var body = new searchQueryMock({ gender: 'male' });
-      var searchQuery = new SearchQuery(body);
-      searchQuery.execute().success(function(result) {
-        searchResult = result;
+      var searchMock = new searchQueryMock({ gender: 'male' });
+      var searcher = new Searcher(searchMock);
+      searcher.execute().success(function(result) {
+        _.each(result, function(element, index) {
+          ['any', 'male', 'other'].should.contain(element.gender);
+          element.gender.should.not.equal('female');
+        });
+        return done();
       });
-      _.each(searchResult, function(element, index) {
-        ['any', 'male', 'other'].should.contain(element.gender);
-        element.gender.should.not.equal('female');
-      });
-      return done();
     });
 
     it('should find opportunities marked as any, other, male or female when I search for any', function(done) {
       var searchResult;
-      var body = new searchQueryMock({ gender: 'any' });
-      var searchQuery = new SearchQuery(body);
-      searchQuery.execute().success(function(result) {
-        searchResult = result;
+      var searchMock = new searchQueryMock({ gender: 'any' });
+      var searcher = new Searcher(searchMock);
+      searcher.execute().success(function(result) {
+        _.each(result, function(element, index) {
+          ['any', 'male', 'other', 'female'].should.contain(element.gender);
+        });
+        return done();
       });
-      _.each(searchResult, function(element, index) {
-        ['any', 'male', 'other', 'female'].should.contain(element.gender);
-      });
-      return done();
     });
   });
 
