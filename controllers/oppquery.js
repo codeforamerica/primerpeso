@@ -38,10 +38,8 @@ var oppQueryExecute = function(req, res, next) {
   var query = req.query;
   var searcher = new Searcher(query);
   searcher.execute().success(function() {
-    var benefitTypes = searcher.getBenefitTypes();
+    var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
-
-    req.session.searchResult = searchResult;
 
     return res.render('searchResults', {
       title: 'Ver Resultados',
@@ -62,7 +60,8 @@ var oppQueryPickResults = function(req, res, next) {
   // TODO -- security hoooolllleeee?
   // Recycle Searcher to format the incoming result from collection.
   // Don't re-format.
-  req.session.cartContents = Searcher.structureResult(req.body, false);
+  var pickedBenefitTypes = Searcher.extractBenefitTypes(req.body);
+  req.session.cart = { programs: req.body };
   return res.json(200, {status: 'ok'});
 }
 /**
@@ -72,15 +71,18 @@ var oppQueryPickResults = function(req, res, next) {
  */
 
 var oppQueryConfirmPickedResults = function(req, res, next) {
-  var cartContents = req.session.cartContents || {};
-  if (_.isEmpty(cartContents))
+  if (_.isEmpty(req.session.cart.programs))
     return res.redirect('/fundme');
+
+  var pickedBenefitTypes = Searcher.extractBenefitTypes(req.session.cart.programs);
+  var cartContents = Searcher.structureResultByBenefitType(pickedBenefitTypes, req.session.cart.programs);
 
   var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
     title: 'Ha seleccionado',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
+    benefitTypes: pickedBenefitTypes,
     form: sendRequestForm.getFormConfig(true), // Deep.
     formInfo: sendRequestForm.getFormConfig(false), // Shallow.
     meta: { type: 'confirmPicked' }
@@ -93,7 +95,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  */
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
-  leadData.selectedPrograms = req.session.cartContents || {};
+  leadData.selectedPrograms = req.session.cart.programs || {};
   buildLeadDataForConfirmPage(leadData);
   mailBoss.send({
     subject: "Formulario de solicitud de PrimerPeso",

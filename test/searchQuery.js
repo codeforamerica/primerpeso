@@ -106,7 +106,7 @@ describe('Search Query', function() {
       var searcher = new Searcher(searchMock);
 
       searcher.execute().success(function() {
-        benefitTypes = searcher.getBenefitTypes();
+        benefitTypes = Searcher.extractBenefitTypes(searcher.result);
         searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
         return done();
       });
