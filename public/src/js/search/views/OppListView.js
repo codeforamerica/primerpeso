@@ -33,7 +33,7 @@ module.exports = function(Backbone, _, SearchShop) {
       });
       SearchShop.cart.add(oppInstance);
       $(e.currentTarget)
-        .text('remove')
+        .text('eliminar')
         .removeClass('addItem')
         .addClass('removeItem');
       return false;
@@ -47,7 +47,7 @@ module.exports = function(Backbone, _, SearchShop) {
 
       SearchShop.cart.remove(oppInstance);
       $(e.currentTarget)
-        .text('add')
+        .text('aggregar')
         .removeClass('removeItem')
         .addClass('addItem');
       return false;
