@@ -78,7 +78,7 @@ a {
   background-color: transparent;
   border: none;
   border-bottom: 3px solid @green;
-	font-size: 24px;
+  font-size: 24px;
   .navbar-nav {
     li a {
       color: @dark-green;
@@ -719,8 +719,15 @@ section h1.section-title {
 // Medium Screens
 // -------------------------
 
-@media screen and (min-width: 767px) {
-
+@media screen and (max-width: 767px) {
+  .home {
+    .navbar {
+    background: @dark-navy;
+      li a {
+        text-shadow: none;
+      }
+    }
+  }
 }
 
 
