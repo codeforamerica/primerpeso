@@ -646,13 +646,16 @@ a.btn.help-you:last-child {
   }
 }
 
-// Responsive Styles
-// -------------------------
+// Responsive Styles \\
 
 // Mobile
 // -------------------------
 
 @media screen and (max-width: 480px) {
+.home .navbar {
+  background: transparent;
+}
+
 .cart-popover {
   position: fixed;
   top: 50px !important;
@@ -663,7 +666,9 @@ a.btn.help-you:last-child {
     padding: 10px;
   }
 }
+
 .landing {
+  min-height: 500px;
   background-image: none;
   background-color: @dark-navy;
   height: auto;
@@ -677,6 +682,7 @@ a.btn.help-you:last-child {
 .landing-header {
   background: none;
   position: relative;
+  bottom: -25px;
   .btn {
     visibility: hidden;
     margin: 0;
@@ -689,6 +695,7 @@ a.btn.help-you:last-child {
     background-color: @dark-green;
     padding: 15px;
     border-radius: 10px;
+    margin-left: 40px;
   }
 }
 
@@ -714,13 +721,7 @@ section h1.section-title {
 }
 
 @media screen and (min-width: 992px) {
-  // .landing-header {
-  //   bottom: 20px;
-  // }
 }
 
 @media screen and (min-width: 1200px) {
-  // .landing-header {
-  //   bottom: 40px;
-  // }
 }
