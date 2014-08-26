@@ -7,7 +7,7 @@ var MailBoss = require('../lib/MailBoss');
 var mailBoss = new MailBoss();
 
 module.exports = function(app) {
-  app.get('/fundme', oppQueryCreate);
+  app.get('/preguntas', oppQueryCreate);
   app.get('/results', oppQueryExecute);
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
@@ -16,7 +16,7 @@ module.exports = function(app) {
 };
 
 /**
- * GET /fundme
+ * GET /preguntas
  * Build and render FundMe Wizard.
  */
 var oppQueryCreate = function(req, res, next) {
@@ -72,7 +72,7 @@ var oppQueryPickResults = function(req, res, next) {
 
 var oppQueryConfirmPickedResults = function(req, res, next) {
   if (_.isEmpty(req.session.cart.programs))
-    return res.redirect('/fundme');
+    return res.redirect('/preguntas');
 
   var pickedBenefitTypes = Searcher.extractBenefitTypes(req.session.cart.programs);
   var cartContents = Searcher.structureResultByBenefitType(pickedBenefitTypes, req.session.cart.programs);
