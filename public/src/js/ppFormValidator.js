@@ -41,7 +41,7 @@ FormValidator.prototype.getValue = function(field) {
 FormValidator.prototype.validateValue = function(field) {
   var val = this.getValue(field);
   var validated = true;
-  if (field.required === true) {
+  if (field.required === true || field.allowNull === false) {
     if (!this.validator.notEmpty(val)) {
       this.validationFailures.push({
         fieldName: field.name,
@@ -52,9 +52,6 @@ FormValidator.prototype.validateValue = function(field) {
   if (field.validate) {
     _.each(field.validate, function(validatorVal, validatorName) {
       if (_.isBoolean(validatorVal) || _.isString(validatorVal)) {
-        console.log(val);
-        console.log(validatorVal);
-        console.log(validatorName);
         if (!validatorVal === this.validator[validatorName](val)) {
           this.validationFailures.push({
             fieldName: field.name,

@@ -81,7 +81,7 @@ var classMethods = {
         var choices = choicesList.getFormChoices(key);
         element.choices =  _.isEmpty(choices) ? element.choices : choices;
         element.widget = element.widget ? element.widget : 'text';
-        fieldList[key] = element;
+        fieldList[key] = _.omit(element, ['Model', 'type']);
       }
     });
     return fieldList;

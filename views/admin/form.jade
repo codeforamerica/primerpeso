@@ -5,7 +5,6 @@ block content
   - var action = base + '/' +  model
   - action += id ? '/' + id : ''
 
-  //h2.col-lg-offset-1= ( (id) ? "Editar " : "Nuevo " ) + ( (name) ? name : model )
   h2.col-lg-offset-1= ( (id) ? "Editar " : "Nuevo " )
 
   #form
@@ -13,8 +12,7 @@ block content
       input(type="hidden", name="_csrf", value=_csrf)
       input(type="hidden", name="_doc_id", value=id)
 
-      each f in fields
-        //- console.log(f)
+      each f in formInfo
         +makeField(f)
       .form-group
         .col-sm-offset-4.col-sm-10
