@@ -75,7 +75,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     return res.redirect('/preguntas');
 
   var pickedBenefitTypes = Searcher.extractBenefitTypes(req.session.cart.programs);
-  var cartContents = Searcher.structureResultByBenefitType(pickedBenefitTypes, req.session.cart.programs);
+  var cartContents = req.session.cart.programs;
 
   var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
