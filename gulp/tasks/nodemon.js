@@ -6,6 +6,9 @@ gulp.task('nodemon', function() {
   gnodemon({
     script: "app.js",
     env: { 'PORT': config.port },
+    watch: [
+      "locales/"
+    ],
     ignore: [
       "gulp/*",
       "Gulpfile.js",

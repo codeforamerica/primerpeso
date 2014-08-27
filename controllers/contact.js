@@ -15,7 +15,7 @@ module.exports = function(app) {
 
 function getContact(req, res) {
   res.render('contact', {
-    title: 'Contact'
+    title: 'Contacto'
   });
 };
 
@@ -28,9 +28,9 @@ function getContact(req, res) {
  */
 
 function postContact(req, res) {
-  req.assert('name', 'Name cannot be blank').notEmpty();
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('message', 'Message cannot be blank').notEmpty();
+  req.assert('name', 'Nombre debe ser completado').notEmpty();
+  req.assert('email', 'Email no es válido').isEmail();
+  req.assert('message', 'Mensaje debe ser completado').notEmpty();
 
   var errors = req.validationErrors();
 
@@ -40,7 +40,7 @@ function postContact(req, res) {
   }
   mailBoss.send({
     from: req.body.email,
-    subject: "Bizwallet Contact Form",
+    subject: "Formulario de contacto de PrimerPeso",
     text: req.body.message,
     }, function(err, info) {
       console.log(err);
@@ -49,7 +49,7 @@ function postContact(req, res) {
         req.flash('errors', { msg: err.message });
         return res.redirect('/contact');
       }
-      req.flash('success', { msg: 'Email has been sent successfully!' });
+      req.flash('success', { msg: 'Email fue enviado con éxito!' });
       res.redirect('/contact');
   });
 

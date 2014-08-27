@@ -7,7 +7,7 @@ var MailBoss = require('../lib/MailBoss');
 var mailBoss = new MailBoss();
 
 module.exports = function(app) {
-  app.get('/fundme', oppQueryCreate);
+  app.get('/preguntas', oppQueryCreate);
   app.get('/results', oppQueryExecute);
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
@@ -16,14 +16,14 @@ module.exports = function(app) {
 };
 
 /**
- * GET /fundme
+ * GET /preguntas
  * Build and render FundMe Wizard.
  */
 var oppQueryCreate = function(req, res, next) {
   var options = options || {};
   var oppQueryForm = new OppQueryForm();
   res.render('fundmeWizard', {
-    title: 'Wizard',
+    title: 'Preguntas',
     bodyClass: 'fundmeWizard',
     form: oppQueryForm.getFormConfig(true), // Deep.
     formInfo: oppQueryForm.getFormConfig(false) // Shallow.
@@ -36,15 +36,17 @@ var oppQueryCreate = function(req, res, next) {
  */
 var oppQueryExecute = function(req, res, next) {
   var query = req.query;
-  var searchResult = new Searcher(query);
-  searchResult.execute().success(function(searchResult) {
-    req.session.searchResult = searchResult;
-    res.render('searchResults', {
-      title: 'Search Results',
+  var searcher = new Searcher(query);
+  searcher.execute().success(function() {
+    var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
+    var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
+
+    return res.render('searchResults', {
+      title: 'Ver Resultados',
       bodyClass: 'searchResults',
-      isSearch: true,
       displayCart: true,
       searchResult: searchResult,
+      benefitTypes: benefitTypes,
       meta: { type: 'searchResults' }
     });
   });
@@ -58,7 +60,8 @@ var oppQueryPickResults = function(req, res, next) {
   // TODO -- security hoooolllleeee?
   // Recycle Searcher to format the incoming result from collection.
   // Don't re-format.
-  req.session.cartContents = Searcher.structureResult(req.body, false);
+  var pickedBenefitTypes = Searcher.extractBenefitTypes(req.body);
+  req.session.cart = { programs: req.body };
   return res.json(200, {status: 'ok'});
 }
 /**
@@ -68,15 +71,18 @@ var oppQueryPickResults = function(req, res, next) {
  */
 
 var oppQueryConfirmPickedResults = function(req, res, next) {
-  var cartContents = req.session.cartContents || null;
-  if (_.isEmpty(cartContents))
-    return res.redirect('/fundme');
+  if (_.isEmpty(req.session.cart.programs))
+    return res.redirect('/preguntas');
+
+  var pickedBenefitTypes = Searcher.extractBenefitTypes(req.session.cart.programs);
+  var cartContents = req.session.cart.programs;
 
   var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
-    title: 'You Have Selected',
+    title: 'Ha seleccionado',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
+    benefitTypes: pickedBenefitTypes,
     form: sendRequestForm.getFormConfig(true), // Deep.
     formInfo: sendRequestForm.getFormConfig(false), // Shallow.
     meta: { type: 'confirmPicked' }
@@ -89,24 +95,33 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  */
 var oppQuerySendLead = function(req, res, next) {
   var leadData = req.body;
-  leadData.cartContents = req.session.cartContents || {};
+  leadData.selectedPrograms = req.session.cart.programs || {};
   mailBoss.send({
-    subject: "PrimerPeso Lead Form Submission",
+    subject: "Formulario de solicitud de PrimerPeso",
     text: JSON.stringify(leadData, null, 4)
   }, function(err, info) {
       console.log(err);
       console.log(info);
-      if (err) {
+      if (err)
         req.flash('errors', { msg: err.message });
-        //return res.redirect('/contact');
-      }
+
       return res.render('leadSentConfirmation', {
-        title: 'Lead Sent',
+        title: 'Solicitud Enviada',
         bodyClass: 'leadSentConfirmation',
         meta: { type: 'leadSentConfirmation' },
         leadData: leadData
       });
   });
+}
 
-
+var buildLeadDataForConfirmPage = function(leadData) {
+  // Extract all selections and normalize them.
+  var selections = {};
+  _.each(leadData.selectedPrograms, function(progsOfType, typeName) {
+    _.each(progsOfType, function(programData, programName) {
+      selections[programData.agencyName] = selections[programData.agencyName] || {};
+      selections[programData.agencyName][programName] = programData;
+    });
+  });
+  leadData.selectedPrograms = selections;
 }

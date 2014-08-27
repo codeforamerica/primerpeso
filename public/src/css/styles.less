@@ -28,7 +28,7 @@
 //Greys
 @dark-grey: #4A4A4A;
 @light-grey: #808080;
-@lighter-grey: #eee;
+@lighter-grey: #ddd;
 @lightest-grey: #F6F6F6;
 
 // Scaffolding
@@ -52,7 +52,6 @@ p {
 
 a {
   color: @dark-green;
-  text-decoration: underline;
   &:hover {
     color: @darker-green;
   }
@@ -70,28 +69,32 @@ a {
 // Navbar
 // -------------------------
 
-@navbar-height: 100px;
-
 .navbar {
   margin-bottom: 0px;
 }
 
 .navbar-default {
-  background-color: @green;
+  background-color: transparent;
   border: none;
-	font-size: 24px;
+  border-bottom: 3px solid @green;
+  font-size: 24px;
   .navbar-nav {
     li a {
+      color: @dark-green;
       text-decoration: none;
+      padding-top: 40px;
     }
     .open a:focus {
-      background-color: @navy;
+      background-color: transparent;
+      color: @dark-green;
     }
     .active a {
-      background-color: @dark-green;
+      background-color: transparent;
+      color: @dark-navy;
       text-decoration: none;
     a:focus, &:hover, &:focus {
-      background-color: @navy;
+      background-color: transparent;
+      color: @dark-navy;
       }
     }
   }
@@ -114,10 +117,48 @@ a {
   font-size: 24px;
 }
 
+.navbar-toggle {
+  background-color: @dark-green;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+}
+
+.navbar-collapse {
+  border-top: 3px solid transparent;
+}
+
+.navbar-default .navbar-collapse {
+  border-color: transparent;
+}
+
 // Landing Page
 // -------------------------
 
+.home .navbar {
+  border-bottom: none;
+  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+  li a {
+    color: #fff;
+    text-shadow: 3px 2px 4px #000;
+  }
+}
+
 .landing {
+  background: url(../img/dehojas.jpg) no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 650px;
+  margin-top: -100px;
   text-align: center;
   font-family: @font-family-secondary;
   .title {
@@ -142,20 +183,11 @@ a {
   }
 }
 
-.landing {
-  background: url(../img/haciendasanpedro.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 650px;
-}
-
 .landing-header {
   position: absolute;
   left: 0;
   right:0;
-  bottom: 5px;
+  bottom: 100px;
   background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 53%, rgba(0,0,0,0) 99%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(53%,rgba(0,0,0,0.65)), color-stop(99%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* Chrome10+,Safari5.1+ */
@@ -175,7 +207,6 @@ section {
   text-align: center;
   h1.section-title {
     font-family: @font-family;
-    // margin-top: 70px;
     margin: 0px 0px 30px;
     padding-top: 70px;
   }
@@ -252,13 +283,12 @@ section {
 }
 
 .wizard .actions a:hover {
-  background-color: @navy;
+  background-color: @dark-navy;
   padding: 15px 35px;
 }
 
 .wizard .steps{
   margin-top: 23px;
-  border-bottom: @light-grey 2px solid;
   a, a:hover {
     margin: 0 0.5em 1.2em;
   }
@@ -286,36 +316,57 @@ section {
   margin: 10px 0px 0px 60px;
 }
 
+.has-error .radio label {
+  color: black !important;
+}
+
 // Search Results
 // -------------------------
 
 .results-tabs {
-  font-size: 220%;
-  margin: 20px 0px 30px;
-  background-color: @lighter-grey;
+  font-size: 190%;
+  margin: 30px 0px 0px;
+  background-color: transparent;
   text-transform: capitalize;
-  li.active a {
-    color: white;
-    background-color: @green;
-    cursor: hover;
+  &:first-child {
+    border-left: 2px solid @lighter-grey;
+  }
+  li a {
+    text-decoration: none;
+    color: @light-grey;
+    border: 2px solid @lighter-grey;
+    border-left: transparent;
+    border-bottom: 2px solid @light-grey !important;
     &:hover {
       color: @dark-green;
-      background-color: @green;
+      border: 2px solid @light-grey;
+      border-left: transparent;
+      border-bottom: transparent;
+    }
+  }
+  li.active a {
+    border: 2px solid @light-grey !important;
+    border-left: transparent;
+    border-bottom: transparent !important;
+    color: @dark-green;
+    cursor: hover;
+    &:hover {
+      color: @dark-navy;
     }
   }
 }
 
 .search-intro {
-  color: @dark-green;
+  display: none;
+  color: @navy;
   font-weight: bold;
-  font-size: 200%;
-  padding-top: 40px;
+  font-size: 250%;
 }
 
 .results {
   padding-top: 0;
-  font-size: 250%;
-  color: @navy;
+  display: inherit;
+  padding-top: 40px;
 }
 
 .opportunities-container {
@@ -332,21 +383,24 @@ section {
 }
 
 .row-benefit-count {
-  border-bottom: 2px solid @light-grey;
+  margin-bottom: 40px;
   h3 {
+    font-family: 'Montserrat';
+    margin-top: 30px;
     color: @light-blue;
     font-size: 270%;
   }
 }
 
 .row-header h4 {
-  font-size: 175%;
+  font-size: 135%;
+  position: absolute;
+  bottom: 0;
 }
 
 .benefit-title {
   color: @dark-green;
-  font-size: 150%;
-  margin-left: 8px;
+  font-size: 130%;
   text-transform: capitalize;
   &:hover {
     text-decoration: none;
@@ -355,6 +409,32 @@ section {
 
 .col-deadline, .col-est-time {
   font-size: 115%;
+}
+
+.panel-group .panel {
+  border: none;
+  border-radius: 0;
+  &:nth-of-type(odd) {
+    background: @lightest-grey;
+  }
+  + .panel {
+    margin-top: 0;
+  }
+}
+
+.panel {
+  .row {
+  padding-top: 20px;
+  }
+}
+
+.benefit-description {
+  display: table;
+}
+
+.panel-body {
+  padding: 15px 0px;
+  line-height: 1.5;
 }
 
 .additional-info {
@@ -374,8 +454,8 @@ section {
   overflow: hidden;
 }
 
-#shopping-cart {
-  //display:none;
+.cart-title {
+  text-transform: capitalize;
 }
 
 //Collapsible Styling
@@ -467,6 +547,7 @@ td {
   width: 75%;
   h2 {
     margin-top: 15px;
+    font-weight: 100;
   }
 }
 
@@ -535,15 +616,42 @@ a.btn.help-you:last-child {
     margin-bottom: 70px;
 }
 
+.addItem {
+  display: inline;
+  float: left;
+  margin-top: 0px;
+}
+
+.removeItem {
+  margin-top: 0px;
+  background-color: @red;
+  &:hover {
+    background-color: @darker-red;
+  }
+}
+
 .last-butt {
   margin-bottom: 60px;
 }
 
 
-// Form Field Validator Message
+// Special Messages
 // -------------------------
 .empty {
   color: @red;
+}
+
+.alert {
+  margin: 21px 0px;
+}
+
+.tooltip-inner {
+  background: @dark-navy;
+  width: 400px;
+}
+
+.tooltip.right .tooltip-arrow {
+  border-right-color: @dark-navy;
 }
 
 // Social Buttons
@@ -559,6 +667,15 @@ a.btn.help-you:last-child {
 [class^="fa-"],
 [class*="fa-"] {
   margin-right: 5px;
+}
+
+.fa-sort-desc {
+  margin-left: 5px;
+}
+
+.fa-plus-circle {
+  color: @dark-green;
+  padding-left: 5px;
 }
 
 // API Examples
@@ -596,13 +713,16 @@ a.btn.help-you:last-child {
   }
 }
 
-// Responsive Styles
-// -------------------------
+// Responsive Styles \\
 
 // Mobile
 // -------------------------
 
 @media screen and (max-width: 480px) {
+.home .navbar {
+  background: transparent;
+}
+
 .cart-popover {
   position: fixed;
   top: 50px !important;
@@ -613,11 +733,14 @@ a.btn.help-you:last-child {
     padding: 10px;
   }
 }
+
 .landing {
+  min-height: 500px;
   background-image: none;
   background-color: @dark-navy;
   height: auto;
   padding: 40px;
+  padding-top: 140px;
   .title {
     margin-top: 0;
   }
@@ -626,6 +749,21 @@ a.btn.help-you:last-child {
 .landing-header {
   background: none;
   position: relative;
+  bottom: -25px;
+  .btn {
+    visibility: hidden;
+    margin: 0;
+  }
+  .btn:after {
+    content: 'Averigua tus opciones';
+    visibility: visible;
+    display: block;
+    position: absolute;
+    background-color: @dark-green;
+    padding: 15px;
+    border-radius: 10px;
+    margin-left: 40px;
+  }
 }
 
 section h1.section-title {
@@ -633,11 +771,24 @@ section h1.section-title {
   padding-left: 15px;
 }
 .subtitle {
-  font-size: 170%;
-  line-height: 1.5;
-  max-width: 270px;
+  display: none;
 }
 }
+
+// Medium Screens
+// -------------------------
+
+@media screen and (max-width: 767px) {
+  .home {
+    .navbar {
+    background: @dark-navy;
+      li a {
+        text-shadow: none;
+      }
+    }
+  }
+}
+
 
 // Large Screens
 // -------------------------
@@ -652,13 +803,7 @@ section h1.section-title {
 }
 
 @media screen and (min-width: 992px) {
-  .landing-header {
-    bottom: 20px;
-  }
 }
 
 @media screen and (min-width: 1200px) {
-  .landing-header {
-    bottom: 40px;
-  }
 }

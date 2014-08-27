@@ -11,12 +11,12 @@ function FormValidator() {
   this.validator = Validator;
   this.validationFailures = [];
   this.validatorMessages = {
-    notEmpty: "cannot be empty"
+    notEmpty: "El campo no puede quedar vacío"
   }
 }
 
 FormValidator.prototype.getMessageForValidator = function(field, validatorName) {
-  return field.name + ' ' + this.validatorMessages[validatorName];
+  return this.validatorMessages[validatorName];
 }
 
 FormValidator.prototype.validateFields = function(fields) {
@@ -32,8 +32,12 @@ FormValidator.prototype.getValue = function(field) {
     val = $('select[name="' + field.name + '"]').select2("val");
   else if (field.widget === 'checkbox' || field.widget == 'radio')
     val = $('input[name="'+ field.name +'"]:checked').attr('value');
+  else if (field.widget === 'textArea')
+    val = $('textarea[name="' + field.name + '"]').val();
+  else if (field.widget === 'arrayTextField')
+    val = $('input[name="' + field.name + '[]"]').val();
   else
-    val = $('input[name="'+ field.name +'"]').val();
+    val = $('input[name="' + field.name + '"]').val();
 
   return val;
 }
@@ -41,7 +45,7 @@ FormValidator.prototype.getValue = function(field) {
 FormValidator.prototype.validateValue = function(field) {
   var val = this.getValue(field);
   var validated = true;
-  if (field.required === true) {
+  if (field.required === true || field.allowNull === false) {
     if (!this.validator.notEmpty(val)) {
       this.validationFailures.push({
         fieldName: field.name,
@@ -52,9 +56,6 @@ FormValidator.prototype.validateValue = function(field) {
   if (field.validate) {
     _.each(field.validate, function(validatorVal, validatorName) {
       if (_.isBoolean(validatorVal) || _.isString(validatorVal)) {
-        console.log(val);
-        console.log(validatorVal);
-        console.log(validatorName);
         if (!validatorVal === this.validator[validatorName](val)) {
           this.validationFailures.push({
             fieldName: field.name,

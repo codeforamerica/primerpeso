@@ -2,12 +2,13 @@ extends layout
 
 block content
   .page-header
-    h3 Contact Form
+    h3 Si eres empleado de una Agencia de Gobierno que cuenta con recursos para pequeños empresarios, nos gustaría trabajar contigo.
+    h4 Por favor completa este formulario y nos comunicaremos a la brevedad. 
 
   form.form-horizontal(role='form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label(class='col-sm-2 control-label', for='name') Name
+      label(class='col-sm-2 control-label', for='name') Nombre
       .col-sm-8
         input.form-control(type='text', name='name', id='name', autofocus=true)
     .form-group
@@ -15,11 +16,11 @@ block content
       .col-sm-8
         input.form-control(type='text', name='email', id='email')
     .form-group
-      label(class='col-sm-2 control-label', for='message') Body
+      label(class='col-sm-2 control-label', for='message') Mensaje
       .col-sm-8
         textarea.form-control(type='text', name='message', id='message', rows='7')
     .form-group
       .col-sm-offset-2.col-sm-8
         button.btn.btn-default(type='submit')
           i.fa.fa-mail-forward
-          | Send
+          | Enviar

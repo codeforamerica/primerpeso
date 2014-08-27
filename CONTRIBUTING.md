@@ -1,12 +1,12 @@
-## Working on BizWallet
+## Trabajando en Biz Wallet
 
-For everything you do, please make a separate branch.
+Para todo lo que hagas, por favor crea una nueva branch. 
 
-Whenever you need to link to a static asset, such as a CSS / JS / or an image file in a template, please wrap the link in a CDN() function like so:
-```
+Siempre que necesites linkear a una página estática, como un CSS / JS / o un archivo de imagen en un template, incluye el enlace en una función CDN () de esta manera:
+`` `
 a(href=CDN('/path/to/my/asset.js'))
 ```
-That will allow the system to know which bucket to link to.
+Esto le permitirá al sistema saber a donde linkearlo.
 
-Master branch will automatically get deployed to http://bizwallet-staging.herokuapp.com
-Production branch will automatically get deployed to http://bizwallet.herokuapp.com
+La Rama Maestra automáticamente será deployed a http://bizwallet-staging.herokuapp.com
+La Rama de producción automáticamente será deployed a http://bizwallet.herokuapp.com

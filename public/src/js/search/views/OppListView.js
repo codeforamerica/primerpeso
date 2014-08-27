@@ -4,6 +4,7 @@ module.exports = function(Backbone, _, SearchShop) {
 
     events: {
       'click a.addItem': 'addToCart',
+      'click a.removeItem': 'removeFromCart',
       'click li.search-tab a': 'switchTab',
       'click #toggleCart': 'toggleCartPopover'
     },
@@ -16,11 +17,6 @@ module.exports = function(Backbone, _, SearchShop) {
 
     render: function(){
       console.log('render opplist view.');
-      /*console.log('FAKE ADD CART ITEM');
-      var oppInstance = new SearchShop.Model.OppModel({
-        title: 'Monkey',
-      });*/
-      //SearchShop.cart.add(oppInstance);
     },
 
     // TODO - review if this is the right placement.
@@ -36,6 +32,24 @@ module.exports = function(Backbone, _, SearchShop) {
         benefitType: $(e.currentTarget).data('btype')
       });
       SearchShop.cart.add(oppInstance);
+      $(e.currentTarget)
+        .text('eliminar')
+        .removeClass('addItem')
+        .addClass('removeItem');
+      return false;
+    },
+
+    removeFromCart: function(e) {
+      var oppInstance = new SearchShop.Model.OppModel({
+        benefitName: $(e.currentTarget).data('bname'),
+        benefitType: $(e.currentTarget).data('btype')
+      });
+
+      SearchShop.cart.remove(oppInstance);
+      $(e.currentTarget)
+        .text('aggregar')
+        .removeClass('removeItem')
+        .addClass('addItem');
       return false;
     },
 
