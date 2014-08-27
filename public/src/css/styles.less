@@ -28,7 +28,7 @@
 //Greys
 @dark-grey: #4A4A4A;
 @light-grey: #808080;
-@lighter-grey: #eee;
+@lighter-grey: #ddd;
 @lightest-grey: #F6F6F6;
 
 // Scaffolding
@@ -327,12 +327,20 @@ section {
   text-transform: capitalize;
   li a {
     text-decoration: none;
-    color: @green;
+    color: @light-grey;
+    border: 2px solid @lighter-grey;
+    border-left: transparent;
+    border-bottom: 3px solid @light-grey !important;
     &:hover {
       color: @dark-green;
+      border: 2px solid @light-grey;
+      border-left: transparent;
+      border-bottom: transparent;
     }
   }
   li.active a {
+    border: 3px solid @light-grey !important;
+    border-bottom: transparent !important;
     color: @dark-green;
     cursor: hover;
     &:hover {
@@ -341,8 +349,8 @@ section {
   }
 }
 
-
 .search-intro {
+  display: none;
   color: @navy;
   font-weight: bold;
   font-size: 250%;
@@ -367,7 +375,6 @@ section {
 }
 
 .row-benefit-count {
-  // border-bottom: 2px solid @light-grey;
   h3 {
     color: @light-blue;
     font-size: 270%;
