@@ -325,16 +325,22 @@ section {
   margin: 20px 0px 0px;
   background-color: transparent;
   text-transform: capitalize;
-  li.active a {
-    color: white;
-    background-color: @green;
-    cursor: hover;
+  li a {
+    text-decoration: none;
+    color: @green;
     &:hover {
       color: @dark-green;
-      background-color: @green;
+    }
+  }
+  li.active a {
+    color: @dark-green;
+    cursor: hover;
+    &:hover {
+      color: @dark-navy;
     }
   }
 }
+
 
 .search-intro {
   color: @navy;
@@ -361,7 +367,7 @@ section {
 }
 
 .row-benefit-count {
-  border-bottom: 2px solid @light-grey;
+  // border-bottom: 2px solid @light-grey;
   h3 {
     color: @light-blue;
     font-size: 270%;
