@@ -346,6 +346,7 @@ section {
   }
   li.active a {
     border: 2px solid @light-grey !important;
+    border-left: transparent;
     border-bottom: transparent !important;
     color: @dark-green;
     cursor: hover;
@@ -418,6 +419,21 @@ section {
   + .panel {
     margin-top: 0;
   }
+}
+
+.panel {
+  .row {
+  padding-top: 20px;
+  }
+}
+
+.benefit-description {
+  display: table;
+}
+
+.panel-body {
+  padding: 15px 0px;
+  line-height: 1.5;
 }
 
 .additional-info {
@@ -602,9 +618,11 @@ a.btn.help-you:last-child {
 .addItem {
   display: inline;
   float: left;
+  margin-top: 0px;
 }
 
 .removeItem {
+  margin-top: 0px;
   background-color: @red;
   &:hover {
     background-color: @darker-red;
