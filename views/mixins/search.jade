@@ -15,7 +15,7 @@ mixin renderResultList(searchResult)
       +renderResultSubset(searchResult[benefitTypeMachineName], benefitTypeName, benefitTypeMachineName)
 
 mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineName)
-  - var resCountHeader = Object.keys(benefitProgList).length + ' ' + benefitTypeName
+  - var resCountHeader = __n("%s " + benefitTypeMachineName, "%s " + benefitTypeMachineName, _.keys(benefitProgList).length)
   div(class="row row-benefit-count row-" + benefitTypeMachineName)
     h3= resCountHeader
 

@@ -1,0 +1,26 @@
+{
+  "%s incentive": {
+    "one": "%s Incentivo",
+    "other": "%s Incentivos"
+  },
+  "%s loan": {
+    "one": "%s Crédito",
+    "other": "%s Créditos"
+  },
+  "%s reimbursement": {
+    "one": "%s Reembolso de salario",
+    "other": "%s Reembolsos de salario"
+  },
+  "%s expertise": {
+    "one": "%s Tallere",
+    "other": "%s Talleres"
+  },
+  "%s grant": {
+    "one": "%s Beca",
+    "other": "%s Becas"
+  },
+  "%s other": {
+    "one": "%s Otro",
+    "other": "%s Otros"
+  }
+}

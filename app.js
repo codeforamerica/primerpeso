@@ -8,6 +8,7 @@ dotenv.load();
 
 var _ = require('lodash');
 var express = require('express');
+var i18n = require('i18n');
 var http = require('http');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -47,6 +48,7 @@ var passportConf = require('./config/passport');
 var app = express();
 
 
+
 /**
  * CSRF Whitelist
  */
@@ -63,6 +65,25 @@ var week = day * 7;
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+i18n.configure({
+  locales: ['es'],
+  defaultLocale: 'es',
+  //cookie: 'pplocalecookie',
+  directory: './locales',
+  indent: "  ",
+  updateFiles: true,
+  objectNotation: true
+});
+
+app.use(i18n.init);
+
+
+app.use(function(req, res, next) {
+  //console.log(req.getLocale());
+  return next();
+});
+
 app.use(compress());
 app.use(logger('dev'));
 app.use(bodyParser.json());

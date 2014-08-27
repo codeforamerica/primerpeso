@@ -17,7 +17,7 @@ module.exports = function(app) {
     res.locals.path = req.path || '';
     res.locals.menu = { opportunity: 'oportunidad' };
     res.locals.isAdminPath = true;
-    res.locals.title = 'Panel - Programas Disponibles';
+    res.locals.title = 'Admin';
     next();
   });
 
@@ -29,12 +29,8 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model/:id'), entry);
   app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
-  // TODO: Need a route for all models, can't fit it anywhere though listAll function does that
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
-  /*app.post(path.join(base, '/:path/:id/delete'), adminRouter);
-  app.post(path.join(base, '/:path/:id'), adminRouter);
-  app.post(path.join(base, '/:path'), adminRouter);*/
 };
 
 /**
@@ -42,7 +38,6 @@ module.exports = function(app) {
  */
 function dashboard(req, res) {
   return res.redirect('/admin/opportunity');
-  //return res.render('admin/index', { title: 'Admin' });
 }
 
 function debug(req, res) {j
