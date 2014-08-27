@@ -812,19 +812,18 @@ section h1.section-title {
 @media screen and (max-width: 1199px) {
   .wizard .steps{
       margin-top: 23px;
-      border-bottom: 2px solid @gray;
       a, a:hover {
         font-size: 95%;
         margin: 0;
-        padding: 12px;
-        color: @dark-navy;
+        padding: 10px;
+        color: @navy;
       }
       .current a {
         color: @dark-green;
         background-color: transparent;
         &:hover {
           background-color: transparent;
-          color: @dark-navy;
+          color: @navy;
         }
       }
       .done a {
@@ -838,8 +837,11 @@ section h1.section-title {
         }
       }
     }
-
     .wizard .steps .done a:hover {
       background-color: transparent;
     }
+
+  .body .control-label {
+    font-size: 160%;
+  }
 }
