@@ -10,35 +10,49 @@ mixin searchResultNav(searchResult)
         a(href="#" id=benefitTypeMachineName)= benefitTypeName
 
 mixin renderResultList(searchResult)
-  each benefitTypeName, benefitTypeMachineName in benefitTypes
-    div(class=benefitTypeMachineName + '-container')
-      +renderResultSubset(searchResult[benefitTypeMachineName], benefitTypeName, benefitTypeMachineName)
+  - console.log(searchResult);
+  - console.log(benefitTypes);
+  - var benefitTypeName = 'All'
+  - var benefitTypeMachineName = 'all'
+  div(class=benefitTypeMachineName + '-container')
+    +renderResultSubset(searchResult, benefitTypeName, benefitTypeMachineName)
 
-mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineName)
-  - var resCountHeader = __n("%s " + benefitTypeMachineName, "%s " + benefitTypeMachineName, _.keys(benefitProgList).length)
-  div(class="row row-benefit-count row-" + benefitTypeMachineName)
-    h3= resCountHeader
+mixin renderStructuredResultList(searchResult)
+  each benefitTypeName, benefitTypeMachineName in benefitTypes
+    - var searchResultSubset = searchResult[benefitTypeMachineName];
+    - var rcKey = "%s " + benefitTypeMachineName;
+    - var resCountHeader = __n(rcKey, rcKey, _.keys(searchResultSubset).length);
+    div(class=benefitTypeMachineName + '-container')
+      +renderResultSubset(searchResultSubset, benefitTypeName, benefitTypeMachineName, resCountHeader)
+
+mixin renderResultListHeader
+  div(class="col-md-8 col-description-header")
+    h4 Recursos
+
+  div(class="col-md-2 col-deadline-header")
+    h4 Vencimiento
+
+  div(class="col-md-2 col-est-time-header")
+    h4 Tiempo estimado de finalización
+
+mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineName, resCountHeader)
+  if (resCountHeader)
+    div(class="row row-benefit-count row-" + benefitTypeMachineName)
+      h3= resCountHeader
 
   div(class="row row-header row-" + benefitTypeMachineName)
-    div(class="col-md-6 col-description-header")
-      h4 Recursos
-
-    div(class="col-md-3 col-deadline-header")
-      h4 Vencimiento
-
-    div(class="col-md-3 col-est-time-header")
-      h4 Tiempo estimado de finalización
+    +renderResultListHeader
 
   div(class="panel-group" id="accordion")
     each progDesc, progName in benefitProgList
       - oppCount = oppCount + 1
       div(class="panel panel-default")
         div(class="row row-" + benefitTypeMachineName)
-          div(class="col-md-6 col-description col-" + progName)
+          div(class="col-md-8 col-description col-" + progName)
             if meta.type != 'confirmPicked'
               a(href="#" + progName + "Add" class="btn btn-small addItem" data-bname=progName data-btype=benefitTypeMachineName) agregar
             a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= progDesc.title
-
+              i.fa.fa-sort-desc
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
                 div(class=progName + "-inner-text benefit-description")
@@ -63,8 +77,8 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
                       | Información Adicional:
                     = progDesc.info
 
-          div(class="col-md-3 col-deadline col-" + progName)
+          div(class="col-md-2 col-deadline col-" + progName)
             div(class=progName + "-inner-text")= progDesc.deadline
 
-          div(class="col-md-3 col-est-time col-" + progName)
+          div(class="col-md-2 col-est-time col-" + progName)
             div(class=progName + "-inner-text")= progDesc.estimatedTime
