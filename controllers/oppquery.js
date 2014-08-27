@@ -79,7 +79,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
 
   var sendRequestForm = new SendRequestForm();
   return res.render('confirmPicked', {
-    title: 'Ha seleccionado',
+    title: 'Has seleccionado',
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
     benefitTypes: pickedBenefitTypes,
