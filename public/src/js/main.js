@@ -7,7 +7,6 @@ var validateGivenFields = function(fields) {
   validatorResult = validator.validateFields(fields);
   $('.form-group').removeClass('has-error');
   $('.empty').remove();
-  console.log(validatorResult);
   _.each(validatorResult, function(valRes) {
     var element = $('label[for="' + valRes.fieldName + '"]');
     element.parent('.form-group').addClass('has-error');

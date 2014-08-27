@@ -32,8 +32,12 @@ FormValidator.prototype.getValue = function(field) {
     val = $('select[name="' + field.name + '"]').select2("val");
   else if (field.widget === 'checkbox' || field.widget == 'radio')
     val = $('input[name="'+ field.name +'"]:checked').attr('value');
+  else if (field.widget === 'textArea')
+    val = $('textarea[name="' + field.name + '"]').val();
+  else if (field.widget === 'arrayTextField')
+    val = $('input[name="' + field.name + '[]"]').val();
   else
-    val = $('input[name="'+ field.name +'"]').val();
+    val = $('input[name="' + field.name + '"]').val();
 
   return val;
 }
