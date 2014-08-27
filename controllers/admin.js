@@ -84,8 +84,7 @@ function edit(req, res) {
   });
   var doc = sequelize.model(render.model);
   if (!render.id) {
-    render.fields = doc.getFormFields('new');
-    //return res.json(render.fields);
+    render.formInfo = doc.getFormFields('new');
     return res.render('admin/form', render);
   }
   else {
@@ -94,7 +93,7 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      render.fields = doc.getFormFields('edit', instance);
+      render.formInfo = doc.getFormFields('edit', instance);
       return res.render('admin/form', render);
     });
   }
