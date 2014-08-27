@@ -199,7 +199,7 @@ module.exports = function(sequelize, DataTypes) {
     getListFields: function() {
       return {
         'title': 'Título',
-        'applicationDeadline': 'Vencimiento de la Aplicación',
+        'applicationDeadline': 'Vencimiento del programa',
         'benefitType': 'Tipo de beneficio',
         'agencyContactName': 'Contacto de la agencia',
       };

@@ -22,7 +22,7 @@ describe('Options List', function() {
     // Test Object.
     var optList = new OptionsList('fundMeWizard');
     var genderChoices = optList.getFormChoices('gender');
-    var genderChoicesControl = { any: 'Ambos - si propietarios de ambos géneros', male: 'Hombre', female: 'Mujer'};
+    var genderChoicesControl = { any: 'Ambos - si hubieran propietarios de ambos sexos', male: 'Hombre', female: 'Mujer'};
     genderChoices.should.eql(genderChoicesControl);
 
     // Test Array.
