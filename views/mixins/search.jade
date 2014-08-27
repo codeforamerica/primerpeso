@@ -38,7 +38,7 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
             if meta.type != 'confirmPicked'
               a(href="#" + progName + "Add" class="btn btn-small addItem" data-bname=progName data-btype=benefitTypeMachineName) agregar
             a(href="#" + oppCount  class="benefit-title" data-toggle="collapse" data-parent="#accordion")= progDesc.title
-
+              i.fa.fa-sort-desc
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
                 div(class=progName + "-inner-text benefit-description")
