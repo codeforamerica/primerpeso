@@ -8,11 +8,11 @@
     "other": "%s Créditos"
   },
   "%s reimbursement": {
-    "one": "%s Reembolso de salario",
-    "other": "%s Reembolsos de salario"
+    "one": "%s Reembolso",
+    "other": "%s Reembolsos"
   },
   "%s expertise": {
-    "one": "%s Tallere",
+    "one": "%s Taller",
     "other": "%s Talleres"
   },
   "%s grant": {
