@@ -28,7 +28,7 @@
 //Greys
 @dark-grey: #4A4A4A;
 @light-grey: #808080;
-@lighter-grey: #eee;
+@lighter-grey: #ddd;
 @lightest-grey: #F6F6F6;
 
 // Scaffolding
@@ -52,7 +52,6 @@ p {
 
 a {
   color: @dark-green;
-  text-decoration: underline;
   &:hover {
     color: @darker-green;
   }
@@ -325,30 +324,49 @@ section {
 // -------------------------
 
 .results-tabs {
-  font-size: 220%;
-  margin: 20px 0px 0px;
-  background-color: @lighter-grey;
+  font-size: 190%;
+  margin: 30px 0px 0px;
+  background-color: transparent;
   text-transform: capitalize;
-  li.active a {
-    color: white;
-    background-color: @green;
-    cursor: hover;
+  &:first-child {
+    border-left: 2px solid @lighter-grey;
+  }
+  li a {
+    text-decoration: none;
+    color: @light-grey;
+    border: 2px solid @lighter-grey;
+    border-left: transparent;
+    border-bottom: 2px solid @light-grey !important;
     &:hover {
       color: @dark-green;
-      background-color: @green;
+      border: 2px solid @light-grey;
+      border-left: transparent;
+      border-bottom: transparent;
+    }
+  }
+  li.active a {
+    border: 2px solid @light-grey !important;
+    border-left: transparent;
+    border-bottom: transparent !important;
+    color: @dark-green;
+    cursor: hover;
+    &:hover {
+      color: @dark-navy;
     }
   }
 }
 
 .search-intro {
+  display: none;
   color: @navy;
   font-weight: bold;
   font-size: 250%;
-  padding-top: 40px;
 }
 
 .results {
   padding-top: 0;
+  display: inherit;
+  padding-top: 40px;
 }
 
 .opportunities-container {
@@ -365,20 +383,24 @@ section {
 }
 
 .row-benefit-count {
-  border-bottom: 2px solid @light-grey;
+  margin-bottom: 40px;
   h3 {
+    font-family: 'Montserrat';
+    margin-top: 30px;
     color: @light-blue;
     font-size: 270%;
   }
 }
 
 .row-header h4 {
-  font-size: 175%;
+  font-size: 135%;
+  position: absolute;
+  bottom: 0;
 }
 
 .benefit-title {
   color: @dark-green;
-  font-size: 150%;
+  font-size: 130%;
   text-transform: capitalize;
   &:hover {
     text-decoration: none;
@@ -387,6 +409,32 @@ section {
 
 .col-deadline, .col-est-time {
   font-size: 115%;
+}
+
+.panel-group .panel {
+  border: none;
+  border-radius: 0;
+  &:nth-of-type(odd) {
+    background: @lightest-grey;
+  }
+  + .panel {
+    margin-top: 0;
+  }
+}
+
+.panel {
+  .row {
+  padding-top: 20px;
+  }
+}
+
+.benefit-description {
+  display: table;
+}
+
+.panel-body {
+  padding: 15px 0px;
+  line-height: 1.5;
 }
 
 .additional-info {
@@ -571,9 +619,11 @@ a.btn.help-you:last-child {
 .addItem {
   display: inline;
   float: left;
+  margin-top: 0px;
 }
 
 .removeItem {
+  margin-top: 0px;
   background-color: @red;
   &:hover {
     background-color: @darker-red;
@@ -621,6 +671,11 @@ a.btn.help-you:last-child {
 
 .fa-sort-desc {
   margin-left: 5px;
+}
+
+.fa-plus-circle {
+  color: @dark-green;
+  padding-left: 5px;
 }
 
 // API Examples
