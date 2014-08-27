@@ -3,9 +3,9 @@ extends ../layout
 block content
   #list
     #list-top
-      h2= title
+      h2= entry.title
       #new
-        a.btn.btn-default(href="#{base}/#{model}", role="button") Volver a oportunidades #{model}
+        a.btn.btn-default(href="#{base}/#{model}", role="button") Volver a catálogo
     table.table.table-striped.table-hover.table-condensed.admin
       thead
         tr
