@@ -654,6 +654,10 @@ a.btn.help-you:last-child {
   border-right-color: @dark-navy;
 }
 
+.mandatory {
+  margin-bottom: 20px;
+}
+
 // Social Buttons
 // -------------------------
 
@@ -805,5 +809,37 @@ section h1.section-title {
 @media screen and (min-width: 992px) {
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (max-width: 1199px) {
+  .wizard .steps{
+      margin-top: 23px;
+      border-bottom: 2px solid @gray;
+      a, a:hover {
+        font-size: 95%;
+        margin: 0;
+        padding: 12px;
+        color: @dark-navy;
+      }
+      .current a {
+        color: @dark-green;
+        background-color: transparent;
+        &:hover {
+          background-color: transparent;
+          color: @dark-navy;
+        }
+      }
+      .done a {
+        background-color: transparent;
+      }
+      .disabled a {
+        background-color: transparent;
+        &:hover {
+          background-color: transparent;
+          color: @dark-grey;
+        }
+      }
+    }
+
+    .wizard .steps .done a:hover {
+      background-color: transparent;
+    }
 }
