@@ -10,9 +10,11 @@ var validateTransition = function(currentIndex, newIndex) {
     var currentFieldSet = fieldSets[currentIndex];
     var currentFields = formInfo.fields[currentFieldSet];
     validatorResult = validator.validateFields(currentFields);
+    $('.form-group').removeClass('has-error');
     $('.empty').remove();
     _.each(validatorResult, function(valRes) {
       var element = $('label[for="' + valRes.fieldName + '"]');
+      element.parent('.form-group').addClass('has-error');
       element.after('<div class="empty">' + valRes.message + '</div>');
     });
     if (!_.isEmpty(validatorResult))
