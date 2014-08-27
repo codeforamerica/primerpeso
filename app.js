@@ -129,6 +129,7 @@ app.use(flash());
 //app.use('/search', express.static(path.join(__dirname, 'client/build'), { maxAge: 0 }));
 //app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
 app.use(express.static(path.join(__dirname, 'public/build'), { maxAge: 0 }));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 0 }));
 
 app.use(function(req, res, next) {
   // Keep track of previous URL to redirect back to
