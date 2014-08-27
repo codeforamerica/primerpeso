@@ -1,4 +1,6 @@
 var _ = require('lodash');
+var moment = require('moment')
+
 var OptionsList = require('../../lib/OptionsList.js');
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
@@ -18,12 +20,17 @@ var fieldBlackList = {
 };
 
 var buildElementValues = function(element, value) {
+  console.log('element');
+  console.log(_.omit(element, 'Model'));
+  console.log('value');
+  console.log(value);
   var isArrayValue = _.isArray(value);
   var valueSet = {
     value: isArrayValue ? [] : null,
     otherValue: isArrayValue ? '' : null
   };
 
+  // Deal with other fields.
   if (!element.choiceOther) {
     valueSet.value = value;
     return valueSet;
@@ -56,9 +63,6 @@ var classMethods = {
     var fieldList = {};
     _.each(this.rawAttributes, function(element, key) {
       if (!_.contains(blacklist, key)) {
-        // Set some properties.
-        //console.log(key);
-        //console.log(model.get(key));
         element.name = key;
 
         // TODO -- this is an abomination.
@@ -70,10 +74,10 @@ var classMethods = {
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-        if (key == 'gender') {
+	/*if (key == 'gender') {
           var choices = choicesList.getFormChoices(key);
           element.choices =  _.isEmpty(choices) ? element.choices : choices;
-        }
+	}*/
         var choices = choicesList.getFormChoices(key);
         element.choices =  _.isEmpty(choices) ? element.choices : choices;
         element.widget = element.widget ? element.widget : 'text';

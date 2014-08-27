@@ -91,6 +91,7 @@ app.use(function(req, res, next) {
   res.locals.path = req.path;
   res.locals.env  = app.get('env');
   res.locals._ = require('lodash');
+  res.locals.moment = require('moment');
   res.locals.oppCount = 0;
   res.locals.CDN = function(relPath) {
     return secrets.staticFilePrefix + relPath;
