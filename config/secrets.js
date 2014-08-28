@@ -9,6 +9,7 @@ module.exports = {
   mailHandler: process.env.MAILHANDLER || 'mandrill',
   mailFrom: process.env.MAIL_FROM || '',
   mailTo: process.env.MAIL_TO || '',
+  gaNum: process.env.GA_NUM || 'UA-XXXXX-X',
 
   mandrill: {
     user: process.env.MANDRILL_USER || '',
