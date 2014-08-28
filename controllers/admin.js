@@ -105,7 +105,7 @@ function save(req, res) {
     Model.createInstance(req.body).then(function(instance) {
       return req.user.addOpportunity(instance);
     }).then(function() {
-      req.flash('info', req.params.model + ' Añadido exitosamente');
+      req.flash('info', 'Añadido exitosamente');
       return res.redirect(req.path);
     }).error(function(err) {
       req.flash('errors', err.message);

@@ -28,7 +28,7 @@
 //Greys
 @dark-grey: #4A4A4A;
 @light-grey: #808080;
-@lighter-grey: #eee;
+@lighter-grey: #ddd;
 @lightest-grey: #F6F6F6;
 
 // Scaffolding
@@ -52,7 +52,6 @@ p {
 
 a {
   color: @dark-green;
-  text-decoration: underline;
   &:hover {
     color: @darker-green;
   }
@@ -65,6 +64,11 @@ a {
 
 #footer {
   padding: 20px;
+  background-color: #333;
+  .pr-logo img {
+    width: 12%;
+    padding: 10px;
+  }
 }
 
 // Navbar
@@ -185,6 +189,10 @@ a {
 }
 
 .landing-header {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   position: absolute;
   left: 0;
   right:0;
@@ -196,6 +204,10 @@ a {
   background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* IE10+ */
   background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+  h2 {
+    color: @white;
+    font-weight: normal;
+  }
 }
 
 h1.title{
@@ -261,6 +273,10 @@ section {
   min-height: inherit;
   .body {
     position: relative !important;
+    padding: 1.5% 0;
+  }
+  .form-group {
+    padding-left: 0px;
   }
 }
 
@@ -276,7 +292,7 @@ section {
   }
   .actions {
     text-align: left;
-    margin-left: 5%;
+    margin-left: 1%;
     .disabled a {
       padding: 15px 35px;
     }
@@ -314,7 +330,7 @@ section {
 }
 
 .mandatory {
-  margin: 10px 0px 0px 60px;
+  margin: 10px 0px 0px 20px;
 }
 
 .has-error .radio label {
@@ -325,30 +341,48 @@ section {
 // -------------------------
 
 .results-tabs {
-  font-size: 220%;
-  margin: 20px 0px 0px;
-  background-color: @lighter-grey;
+  font-size: 190%;
+  margin: 30px 0px 0px;
+  background-color: transparent;
   text-transform: capitalize;
-  li.active a {
-    color: white;
-    background-color: @green;
-    cursor: hover;
+  &:first-child {
+    border-left: 2px solid @lighter-grey;
+  }
+  li a {
+    text-decoration: none;
+    color: @light-grey;
+    border: 2px solid @lighter-grey;
+    border-left: transparent;
+    border-bottom: 2px solid @light-grey !important;
     &:hover {
       color: @dark-green;
-      background-color: @green;
+      border: 2px solid @light-grey;
+      border-left: transparent;
+      border-bottom: transparent;
+    }
+  }
+  li.active a {
+    border: 2px solid @light-grey !important;
+    border-left: transparent;
+    border-bottom: transparent !important;
+    color: @dark-green;
+    cursor: hover;
+    &:hover {
+      color: @dark-navy;
     }
   }
 }
 
 .search-intro {
+  display: none;
   color: @navy;
   font-weight: bold;
   font-size: 250%;
-  padding-top: 40px;
 }
 
 .results {
-  padding-top: 0;
+  display: inherit;
+  padding: 40px 0px 60px;
 }
 
 .opportunities-container {
@@ -365,20 +399,24 @@ section {
 }
 
 .row-benefit-count {
-  border-bottom: 2px solid @light-grey;
+  margin-bottom: 40px;
   h3 {
+    font-family: 'Montserrat';
+    margin-top: 30px;
     color: @light-blue;
     font-size: 270%;
   }
 }
 
 .row-header h4 {
-  font-size: 175%;
+  font-size: 135%;
+  position: absolute;
+  bottom: 0;
 }
 
 .benefit-title {
   color: @dark-green;
-  font-size: 150%;
+  font-size: 130%;
   text-transform: capitalize;
   &:hover {
     text-decoration: none;
@@ -387,6 +425,32 @@ section {
 
 .col-deadline, .col-est-time {
   font-size: 115%;
+}
+
+.panel-group .panel {
+  border: none;
+  border-radius: 0;
+  &:nth-of-type(odd) {
+    background: @lightest-grey;
+  }
+  + .panel {
+    margin-top: 0;
+  }
+}
+
+.panel {
+  .row {
+  padding-top: 20px;
+  }
+}
+
+.benefit-description {
+  display: table;
+}
+
+.panel-body {
+  padding: 15px 0px;
+  line-height: 1.5;
 }
 
 .additional-info {
@@ -571,9 +635,11 @@ a.btn.help-you:last-child {
 .addItem {
   display: inline;
   float: left;
+  margin-top: 0px;
 }
 
 .removeItem {
+  margin-top: 0px;
   background-color: @red;
   &:hover {
     background-color: @darker-red;
@@ -604,6 +670,10 @@ a.btn.help-you:last-child {
   border-right-color: @dark-navy;
 }
 
+.mandatory {
+  margin-bottom: 20px;
+}
+
 // Social Buttons
 // -------------------------
 
@@ -621,6 +691,11 @@ a.btn.help-you:last-child {
 
 .fa-sort-desc {
   margin-left: 5px;
+}
+
+.fa-plus-circle {
+  color: @dark-green;
+  padding-left: 5px;
 }
 
 // API Examples
@@ -734,6 +809,12 @@ section h1.section-title {
   }
 }
 
+@media screen and (max-width: 991px) {
+  .row-header h4 {
+    display: none;
+  }  
+}
+
 
 // Large Screens
 // -------------------------
@@ -742,13 +823,67 @@ section h1.section-title {
   a.btn.help-you{
     white-space: normal;
   }
-#wrap {
-  padding: 0;
-}
+  #wrap {
+    padding: 0;
+  }
+  .landing-header {
+    background: transparent;
+    text-shadow: 3px 2px 4px #000;
+    h1 {
+      font-size: 200%
+    }
+    h2 {
+      font-size: 200%;
+    }
+    .btn {
+      text-shadow: none;
+    }
+  }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1300px) {
+  .landing-header {
+    bottom: 300px;
+  }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (max-width: 1199px) {
+  .wizard .steps{
+      margin-top: 23px;
+      a, a:hover {
+        font-size: 95%;
+        margin: 0;
+        padding: 10px;
+        color: @navy;
+      }
+      .current a {
+        color: @dark-green;
+        background-color: transparent;
+        &:hover {
+          background-color: transparent;
+          color: @navy;
+        }
+      }
+      .done a {
+        color: @dark-navy;
+        background-color: transparent;
+        &:hover {
+          color: @green;
+        }
+      }
+      .disabled a {
+        background-color: transparent;
+        &:hover {
+          background-color: transparent;
+          color: @dark-grey;
+        }
+      }
+    }
+    .wizard .steps .done a:hover {
+      background-color: transparent;
+    }
+
+  .body .control-label {
+    font-size: 160%;
+  }
 }
