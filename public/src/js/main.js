@@ -68,8 +68,10 @@ $(document).ready(function() {
       onStepChanging: function (event, currentIndex, newIndex) {
         if (validateTransition(currentIndex) === false)
           return false;
+
         if (currentIndex === 0 && $('input[name=areYouInc]:checked', '#sendRequestForm').val() == false) {
           var form = $(this);
+
           form.submit();
         }
         else
