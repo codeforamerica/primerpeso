@@ -66,7 +66,7 @@ a {
   padding: 20px;
   background-color: #333;
   .pr-logo img {
-    width: 12%;
+    width: 200px;
     padding: 10px;
   }
 }
@@ -196,14 +196,14 @@ a {
   position: absolute;
   left: 0;
   right:0;
-  bottom: 100px;
-  background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 53%, rgba(0,0,0,0) 99%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(53%,rgba(0,0,0,0.65)), color-stop(99%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* IE10+ */
-  background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 53%,rgba(0,0,0,0) 99%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
+  bottom: 300px;
+  text-shadow: 3px 2px 4px #000;
+  img {
+    display: none;
+  }
+  .btn {
+    text-shadow: none;
+  }
   h2 {
     color: @white;
     font-weight: normal;
@@ -743,6 +743,10 @@ a.btn.help-you:last-child {
   background: transparent;
 }
 
+.navbar-brand {
+  background-image: none;
+}
+
 .cart-popover {
   position: fixed;
   top: 50px !important;
@@ -760,7 +764,7 @@ a.btn.help-you:last-child {
   background-color: @dark-navy;
   height: auto;
   padding: 40px;
-  padding-top: 140px;
+  padding-top: 80px;
   .title {
     margin-top: 0;
   }
@@ -770,6 +774,11 @@ a.btn.help-you:last-child {
   background: none;
   position: relative;
   bottom: -25px;
+  img {
+    display: block;
+    width: 50%;
+    margin-bottom: 15px;
+  }
   .btn {
     visibility: hidden;
     margin: 0;
@@ -782,7 +791,6 @@ a.btn.help-you:last-child {
     background-color: @dark-green;
     padding: 15px;
     border-radius: 10px;
-    margin-left: 40px;
   }
 }
 
@@ -793,6 +801,10 @@ section h1.section-title {
 .subtitle {
   display: none;
 }
+
+// #footer .pr-logo img {
+//   width: 50%;
+// }
 }
 
 // Medium Screens
@@ -812,7 +824,7 @@ section h1.section-title {
 @media screen and (max-width: 991px) {
   .row-header h4 {
     display: none;
-  }  
+  }
 }
 
 
@@ -827,23 +839,24 @@ section h1.section-title {
     padding: 0;
   }
   .landing-header {
-    background: transparent;
-    text-shadow: 3px 2px 4px #000;
     h1 {
       font-size: 200%
     }
     h2 {
       font-size: 200%;
     }
-    .btn {
-      text-shadow: none;
-    }
   }
+  // #footer .pr-logo img {
+  //   width: 15%;
+  // }
 }
 
 @media screen and (min-width: 1300px) {
   .landing-header {
     bottom: 300px;
+  }
+  a.btn.help-you:last-child {
+      margin-bottom: 40px;
   }
 }
 
