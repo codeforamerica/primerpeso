@@ -117,6 +117,7 @@ app.use(function(req, res, next) {
   res.locals.CDN = function(relPath) {
     return secrets.staticFilePrefix + relPath;
   }
+  res.locals.gaNum = secrets.gaNum;
   next();
 });
 
