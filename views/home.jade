@@ -9,6 +9,8 @@ html
     meta(name='author', content='')
     title #{title} | PrimerPeso
     link(rel='stylesheet', href=CDN('/css/styles.css'))
+    link(rel='shortcut icon', href=CDN('/favicon.ico'), type='image/x-icon')
+    link(rel='icon', href=CDN('/favicon.ico'), type='image/x-icon')
   body(class=bodyClass)
     #wrap
       include partials/navigation
@@ -23,7 +25,7 @@ html
       section.how-it-works.col-lg-12
           div.brands-credit
             p
-            | Photo of De Hojas courtesy of 
+            | Photo of De Hojas courtesy of
             a(href='http://brandsofpuertorico.com/') Brands of Puerto Rico
           h1.section-title ¿Cómo funciona PrimerPeso?
           .action-words.col-lg-12
