@@ -96,7 +96,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       label: 'Nombre de contacto en Agencia',
       allowNull: false,
-      widget: 'text',
+      widget: 'text'
     },
     agencyContactEmail: {
       type: DataTypes.STRING,

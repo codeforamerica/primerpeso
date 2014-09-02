@@ -22,6 +22,52 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
       }
     },
+    mission: {
+      type: DataTypes.TEXT,
+      label:'Agency Mission',
+      widget: 'textArea',
+    },
+    phone: {
+      type: DataTypes.STRING,
+      label: 'Número de teléfono',
+      widget: 'tel'
+    },
+    fax: {
+      type: DataTypes.STRING,
+      label: 'Número de fax',
+      widget: 'tel'
+    },
+    email: {
+      type: DataTypes.STRING,
+      label: 'Correo electrónico',
+      widget: 'email'
+    },
+    address: {
+      type: DataTypes.STRING,
+      label: 'Dirección postal',
+      widget: 'text'
+    },
+    municipality: {
+      type: DataTypes.STRING,
+      label: 'Municipio / Ciudad',
+      widget: 'text',
+    },
+    state: {
+      type: DataTypes.STRING,
+      label: 'Estado',
+      widget: 'select',
+      choices: choicesList.getFormChoices('statesList'),
+    },
+    zip: {
+      type: DataTypes.STRING,
+      label: 'Código Postal',
+      widget: 'text'
+    },
+    web: {
+      type: DataTypes.STRING,
+      label: 'Web',
+      widget: 'url'
+    },
     // Association
     creatorId: {
       type: DataTypes.INTEGER,
