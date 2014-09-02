@@ -4,6 +4,7 @@ var db = require('../models');
 var sequelize = db.sequelize;
 var S = require('string');
 var url = require('url');
+var Promise = require('Sequelize').Promise;
 
 module.exports = function(app) {
 
@@ -84,8 +85,10 @@ function edit(req, res) {
   });
   var doc = sequelize.model(render.model);
   if (!render.id) {
-    render.formInfo = doc.getFormFields('new', true, instance);
-    return res.render('admin/form', render);
+    doc.getFormFields('new').then(function(formInfo) {
+      render.formInfo = formInfo
+      return res.render('admin/form', render);
+    });
   }
   else {
     doc.find(render.id).success(function(instance) {
@@ -93,8 +96,10 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      render.formInfo = doc.getFormFields('edit', true, instance);
-      return res.render('admin/form', render);
+      doc.getFormFields('edit', instance).then(function(formInfo) {
+        render.formInfo = formInfo
+        return res.render('admin/form', render);
+      });
     });
   }
 }
