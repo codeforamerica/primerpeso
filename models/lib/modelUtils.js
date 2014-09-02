@@ -21,10 +21,6 @@ var fieldBlackList = {
 };
 
 var buildElementValues = function(element, value) {
-  console.log('element');
-  console.log(_.omit(element, 'Model'));
-  console.log('value');
-  console.log(value);
   var isArrayValue = _.isArray(value);
   var valueSet = {
     value: isArrayValue ? [] : null,
@@ -58,17 +54,22 @@ var buildElementValues = function(element, value) {
 
 var classMethods = {
   // Parses raw attributes of model and generates fields based on them as well as operation.
-  getFormFields: function(op, includeValues) {
-    var includeValues = includeValues || false;
+  getFormFields: function(op, includeRefValues, modelInstance) {
+    var includeRefValues = includeRefValues || false;
+    var modelInstance = modelInstance || null;
     var choicesList = new OptionsList();
     var op = op || 'new';
     var blacklist = fieldBlackList[op];
     var fieldList = {};
     var refPromises = [];
+    console.log(this.values);
     _.each(this.rawAttributes, function(element, key) {
-      if (!_.contains(blacklist, key)) {
+      if (!_.contains(blacklist, key) && element.widget !== 'ref') {
         // Set some properties.
         element.name = key;
+	console.log('KEY');
+	console.log(key);
+	console.log('endkey');
 
         // TODO -- this is an abomination.
         element.value = null
@@ -80,18 +81,18 @@ var classMethods = {
 
         // Handle reference fields.
         // TODO -- this only handles belongsTo associations
-        if (element.widget === 'ref') {
+/*        if (element.widget === 'ref') {
           var refedModel = _.find(this.associations, function(association, index) {
             return association.options.foreignKey === element.name;
           });
           refedModel = refedModel.target;
           // Populate the list with available options.
-          if (includeValues)
+	  if (includeRefValues)
             refPromises.push(refedModel.findAll());
-        }
+	}*/
 
-        if (op == 'edit') {
-          var valueSet = buildElementValues(element, model.get(key));
+	if (op == 'edit' && modelInstance) {
+	  var valueSet = buildElementValues(element, modelInstance.get(key));
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
@@ -101,20 +102,17 @@ var classMethods = {
         fieldList[key] = _.omit(element, ['Model', 'type']);
       }
     }, this);
-    Promise.all(refPromises).then(function(results) {
-      console.log(results);
-      console.log('refres!');
+    /*Promise.all(refPromises).then(function(results) {
       console.log('return field list');
       return fieldList;
-    });
+    });*/
+    return fieldList;
   },
 
-  getRefModelFromAttribute: function(attribute) {
-  },
 
   // Gets default fields for a model in a list view.
   getDefaultFields: function() {
-    var formFields = this.getFormFields('new', false);
+    var formFields = this.getFormFields('new');
     return _.mapValues(formFields, function(element, index) {
       return element.label;
     });
@@ -122,10 +120,7 @@ var classMethods = {
 
   // Build the submission from the admin form submitted.
   buildFromAdminForm: function(reqBody) {
-    console.log(reqBody);
-    var fields = this.getFormFields('new', false);
-    console.log('fields');
-    console.log(fields);
+    var fields = this.getFormFields('new');
     var modelData = {};
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(reqBody[fieldKey])) {
@@ -149,7 +144,6 @@ var classMethods = {
         modelData[fieldKey] = value;
       }
     });
-    console.log(modelData);
     var instance = this.build(modelData);
     return instance;
   },
