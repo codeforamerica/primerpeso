@@ -3,16 +3,16 @@ extends ../layout
 block content
   form(method='POST')
     .col-sm-8.col-sm-offset-2
-      h2.subpagetitle Sign In
+      h2.subpagetitle Entrar
       input(type='hidden', name='_csrf', value=_csrf)
       .form-group
         label.control-label(for='email') Email
         input.form-control(type='text', name='email', id='email', placeholder='Email', autofocus=true)
       .form-group
-        label.control-label(for='password') Password
-        input.form-control(type='password', name='password', id='password', placeholder='Password')
+        label.control-label(for='password') Contraseña
+        input.form-control(type='password', name='password', id='password', placeholder='Contraseña')
       .form-group
         button.btn.btn-primary(type='submit')
           i.fa.fa-unlock-alt
-          | Login
-        .btn.btn-primary(href='/forgot') Forgot your password?
+          | Entrar
+        //.btn.btn-primary(href='/forgot') ¿Olvidaste tu contraseña?

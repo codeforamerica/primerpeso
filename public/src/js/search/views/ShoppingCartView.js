@@ -16,7 +16,7 @@ module.exports = function(Backbone, _, SearchShop) {
 
       // Initialize the popover
       $('#toggleCart').popover({
-        title: 'Selected Programs',
+        title: 'Programas Elegidos',
         placement: 'bottom',
         animation: true,
         html: true,
@@ -56,8 +56,19 @@ module.exports = function(Backbone, _, SearchShop) {
       // Give the view a class of empty, and inject new default content
       this.render();
       this.$el.addClass('empty').html(
-        '<div class="row"><div class="col-md-12">Cart is empty</div></div>');
+        '<div class="row"><div class="col-md-12">Carrito vacío</div></div>');
     },
+
+    remove: function( item ) {
+      // Decrease the quantity by 1
+      item.quanity('decrease');
+      this.collection.remove( item );
+
+      // Render the view
+      this.render();
+      $('#toggleCart').popover('show');
+    },
+
 
     add : function( item ) {
       // Remove .empty class from the view
@@ -80,8 +91,7 @@ module.exports = function(Backbone, _, SearchShop) {
         // Render the view
         this.render();
       }
-      $('#toggleCart').popover('toggle');
-      $('#toggleCart').popover('toggle');
+      $('#toggleCart').popover('show');
     },
 
     sendPrograms: function(e) {
@@ -105,7 +115,7 @@ module.exports = function(Backbone, _, SearchShop) {
       // Pass this list views context
       }, this);
       if (this.collection.length > 0) {
-        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Continue</button></div></div>');
+        this.$el.append('<div class="row"><div class="col-md-12"><button type="button" class="btn btn-primary btn-sm btn-send-programs">Finalizar</button></div></div>');
       }
     }
   });

@@ -15,9 +15,9 @@ module.exports = function(app) {
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
-    res.locals.menu = { opportunity: 'opportunity' };
+    res.locals.menu = { opportunity: 'oportunidad' };
     res.locals.isAdminPath = true;
-    res.locals.title = 'Admin Panel - Available Programs';
+    res.locals.title = 'Admin';
     next();
   });
 
@@ -31,6 +31,7 @@ module.exports = function(app) {
   app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
+
 };
 
 function debug(req, res) {
@@ -83,8 +84,7 @@ function edit(req, res) {
   });
   var doc = sequelize.model(render.model);
   if (!render.id) {
-    render.fields = doc.getFormFields('new');
-    //return res.json(render.fields);
+    render.formInfo = doc.getFormFields('new');
     return res.render('admin/form', render);
   }
   else {
@@ -93,7 +93,7 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      render.fields = doc.getFormFields('edit', instance);
+      render.formInfo = doc.getFormFields('edit', instance);
       return res.render('admin/form', render);
     });
   }
@@ -111,7 +111,7 @@ function save(req, res) {
     Model.createInstance(req.body).then(function(instance) {
       return req.user.addOpportunity(instance);
     }).then(function() {
-      req.flash('info', req.params.model + ' Successfully Added');
+      req.flash('info', 'Añadido exitosamente');
       return res.redirect(req.path);
     }).error(function(err) {
       req.flash('errors', err.message);
@@ -157,7 +157,7 @@ function deleteModel (req, res) {
 
   Model.find(req.params.id).success(function(result) {
     result.destroy().success(function() {
-      req.flash('info', 'Successfully Deleted Entry');
+      req.flash('info', 'Programa borrado con éxito');
       res.redirect('/admin/' + render.model);
     });
   });

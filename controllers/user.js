@@ -50,8 +50,8 @@ var getLogin = function(req, res) {
  */
 
 var postLogin = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
+  req.assert('email', 'El email no es válido').isEmail();
+  req.assert('password', 'La contraseña debe ser completada').notEmpty();
 
   var errors = req.validationErrors();
 
@@ -68,7 +68,7 @@ var postLogin = function(req, res, next) {
     }
     req.logIn(user, function(err) {
       if (err) return next(err);
-      req.flash('success', { msg: 'Success! You are logged in.' });
+      req.flash('success', { msg: 'Ya estás logeado/a.' });
       // TODO: User should be redirected to previous page on login.
       res.redirect('/admin');
     });
@@ -93,7 +93,7 @@ var logout = function(req, res) {
 var getSignup = function(req, res) {
   if (req.user) return res.redirect('/');
   res.render('account/signup', {
-    title: 'Create Account'
+    title: 'Crear una Cuenta'
   });
 };
 
@@ -107,7 +107,7 @@ var getSignup = function(req, res) {
 var postSignup = function(req, res, next) {
   // TODO -- try to get rid of multiple validators.  ERGH
  // req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('password', 'La contraseña debe contener al menos 4 caracteres').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
   var errors = req.validationErrors();

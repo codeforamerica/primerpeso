@@ -1,4 +1,6 @@
 var _ = require('lodash');
+var moment = require('moment')
+
 var OptionsList = require('../../lib/OptionsList.js');
 var Promise = require('Sequelize').Promise;
 // TODO this should be implemented in the proper pattern:
@@ -19,12 +21,17 @@ var fieldBlackList = {
 };
 
 var buildElementValues = function(element, value) {
+  console.log('element');
+  console.log(_.omit(element, 'Model'));
+  console.log('value');
+  console.log(value);
   var isArrayValue = _.isArray(value);
   var valueSet = {
     value: isArrayValue ? [] : null,
     otherValue: isArrayValue ? '' : null
   };
 
+  // Deal with other fields.
   if (!element.choiceOther) {
     valueSet.value = value;
     return valueSet;
@@ -88,7 +95,10 @@ var classMethods = {
           element.value = valueSet.value;
           element.otherValue = valueSet.otherValue;
         }
-        fieldList[key] = element;
+        var choices = choicesList.getFormChoices(key);
+        element.choices =  _.isEmpty(choices) ? element.choices : choices;
+        element.widget = element.widget ? element.widget : 'text';
+        fieldList[key] = _.omit(element, ['Model', 'type']);
       }
     }, this);
     Promise.all(refPromises).then(function(results) {
@@ -120,16 +130,21 @@ var classMethods = {
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
-        // Get value from 'other' text fields if necessary
-        if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
-          value = reqBody[fieldKey + 'Other'];
-          value = OptionsList.optionizeValue(value);
-        };
 
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
           value = [value];
         }
+
+        // Get value from 'other' text fields if necessary
+        if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
+          otherVal = reqBody[fieldKey + 'Other'];
+          otherVal = OptionsList.optionizeValue(otherVal);
+          if (fieldInfo.multiple == true || _.isArray(value))
+            value.push(otherVal);
+          else
+            value = reqBody[fieldKey + 'Other'];
+        };
 
         modelData[fieldKey] = value;
       }

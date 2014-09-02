@@ -14,6 +14,7 @@ gulp.task('nodemon', function() {
       "client/*",
       "public/*",
       ".git/*"
-    ]
+    ],
+    ext: "js json jade less css"
   });
 });

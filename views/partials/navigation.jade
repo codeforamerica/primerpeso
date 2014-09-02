@@ -10,10 +10,10 @@
     .collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
         li(class=title=='About'?'active':undefined)
-          a(href='/about') About
-        li(class=title=='Contact'?'contact':undefined)
-          a(href='/contact') Are you an agency?
+          a(href='/about') Sobre PrimerPeso
         if !user
+          li(class=title=='Contact'?'contact':undefined)
+            a(href='/contact') ¿Eres una agencia?
           if displayCart
             li.cartButton
               a(href="#toggleCart" class="toggleCart" id="toggleCart")
@@ -26,4 +26,4 @@
               | #{ user.email || user.id}&nbsp;
               i.caret
             ul.dropdown-menu
-              li: a(href='/logout') Logout
+              li: a(href='/logout') Salir

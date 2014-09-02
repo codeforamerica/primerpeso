@@ -4,14 +4,14 @@ block content
   #list
     #list-top
       h2= title
-      #new
-        a.btn.btn-default(href="#{base}#{path}/new", role="button") New +
+      #Nuevo
+        a.btn.btn-default(href="#{base}#{path}/new", role="button") Nuevo +
 
     table.table.table-striped.table-hover.table-condensed.admin
       thead
         tr
           th
-            | Click to edit / delete
+            | Cliquea para editar / borrar
           each field in fields
             th= field
       tbody.admin
@@ -19,8 +19,8 @@ block content
           each entry in data
             tr
               td
-                a.btn.btn-default.admin-edit(href="#{base}#{path}/#{entry.id}/edit") edit
-                a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") delete
+                a.btn.btn-default.admin-edit(href="#{base}#{path}/#{entry.id}/edit") editar
+                a.btn.btn-default.delete-model.admin-edit(href="#{base}#{path}/#{entry.id}/delete") borrar
               each field, fieldIndex in fields
                 if fieldIndex == 'title'
                   td

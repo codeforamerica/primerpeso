@@ -85,7 +85,7 @@ describe('Opportunity Model', function() {
     Opportunity.createInstance(body).then(function() {
       return Opportunity.find({where: {title: 'Test opp3'} });
     }).then(function(op) {
-      op.purpose.should.deep.equal(['_a_different_purpose']);
+      op.purpose.should.deep.equal(['other', '_a_different_purpose']);
       return done();
     }).error(function(err) {
       return done(err);
