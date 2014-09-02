@@ -87,6 +87,11 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'textArea',
       label: 'Descripción de Beneficio',
     },
+    agencyId: {
+      type: DataTypes.INTEGER,
+      widget: 'ref',
+      label: 'Agency Name'
+    },
     agencyContactName: {
       type: DataTypes.STRING,
       label: 'Nombre de contacto en Agencia',
@@ -183,16 +188,10 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'text',
       label: '¿Cuanto debería invertir?'
     },
-    // Association
     creatorId: {
       type: DataTypes.INTEGER,
-    },
-    agencyId: {
-      type: DataTypes.INTEGER,
-      widget: 'ref',
-      label: 'Agency Name'
     }
-  }
+ }
 
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
