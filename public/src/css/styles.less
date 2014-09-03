@@ -144,10 +144,20 @@ a {
 ul.dropdown-menu {
   padding: 0px;
   li a {
-  padding: 20px 10px !important;
+    padding: 20px 10px !important;
+    &:hover {
+      border-radius: 4px;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+    }
   }
-  &:hover {
-    color: purple;
+}
+
+.home {
+  ul.dropdown-menu li a
+  {
+  color: @dark-green;
+  text-shadow: none;
   }
 }
 
