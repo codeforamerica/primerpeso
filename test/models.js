@@ -7,10 +7,35 @@ var chaiAsPromised = require("chai-as-promised");
 var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
+var agencyMock = require('./mocks/agency.js');
 var opportunityMock = require('./mocks/opportunity.js');
 var userMock = require('./mocks/user.js');
 
 chai.use(chaiAsPromised);
+
+describe('Agency Model', function() {
+
+  it('should create a new agency without optional fields', function(done) {
+    var body = agencyMock();
+    var Agency = sequelize.model('agency');
+    Agency.createInstance(body).success(function() {
+      return done();
+    }).error(function(err) {
+      return done(err);
+    });
+  });
+
+  afterEach(function(done) {
+    var Agency = sequelize.model('agency');
+    var User = sequelize.model('user');
+    Agency.destroy({name: 'My Awesome Agency'}).then(function() {
+      return User.destroy({email: 'clara@example.com'});
+    }).then(function() {
+      return done();
+    });
+  });
+
+});
 
 describe('Opportunity Model', function() {
 

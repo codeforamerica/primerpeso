@@ -5,9 +5,9 @@ mixin makeField(formOptions)
   div(id=formOptions.name class="form-group col-sm-12")
     if formOptions.widget == "textArea"
       +textAreaField(formOptions)
-    else if formOptions.widget == "select" || formOptions.widget == "multiSelect"
+    else if _.contains(["select", "multiSelect", "ref"], formOptions.widget)
       +choiceSelectField(formOptions)
-    else if formOptions.widget == "radio" || formOptions.widget == "checkbox"
+    else if _.contains(["radio", "checkbox"], formOptions.widget)
       +choiceField(formOptions)
     else if formOptions.widget == "arrayTextField"
       +arrayTextField(formOptions)
@@ -56,7 +56,6 @@ mixin dateField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-10 col-md-6")
     - var req = (formOptions.required == true || formOptions.allowNull == false) ? true : false
-    - console.log(formOptions.value);
     - var val = moment(formOptions.value, "ddd MMM DD YYYY HH:mm:ss ZZ").format("YYYY-MM-DD");
     input(type=formOptions.widget required=req name=formOptions.name value=val || '' class="form-control" placeholder=formOptions.placeholder)
 
