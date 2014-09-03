@@ -7,6 +7,7 @@ exports = module.exports = function(overrides) {
     "_doc_id": "",
     "email": "clara@example.com",
     "password": "somecrazyHASHEDpassword",
+    "confirmPassword": "somecrazyHASHEDpassword",
     "firstName": "Coqui",
     "lastName": "Clara",
   }
