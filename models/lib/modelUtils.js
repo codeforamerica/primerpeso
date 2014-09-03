@@ -6,6 +6,12 @@ var Promise = require('Sequelize').Promise;
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {
+  list: [
+    'id',
+    'createdAt',
+    'updatedAt',
+    'creatorId'
+  ],
   edit: [
     'id',
     'createdAt',
@@ -52,8 +58,6 @@ var buildElementValues = function(element, value) {
   return valueSet;
 }
 
-var buildElement = function(element, op, includeRefValues, modelInstance) {
-}
 
 // Handle reference fields.
 // TODO -- this only handles belongsTo associations
@@ -79,8 +83,9 @@ var classMethods = {
   getFormFields: function(op, modelInstance) {
     var op = op || 'list';
     var blacklist = fieldBlackList[op];
+    // TODO -- return as resolved promise?
     if (op === 'list')
-      return _.omit(_.keys(this.rawAttributes), blacklist);
+      return _.omit(this.rawAttributes, blacklist);
 
     var modelInstance = modelInstance || null;
     var choicesList = new OptionsList();
