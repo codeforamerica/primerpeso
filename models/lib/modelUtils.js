@@ -1,8 +1,7 @@
 var _ = require('lodash');
 var moment = require('moment')
-
 var OptionsList = require('../../lib/OptionsList.js');
-var Promise = require('Sequelize').Promise;
+var Promise = require('bluebird');
 // TODO this should be implemented in the proper pattern:
 // http://book.mixu.net/node/ch6.html
 var fieldBlackList = {

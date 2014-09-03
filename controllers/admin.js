@@ -4,7 +4,7 @@ var db = require('../models');
 var sequelize = db.sequelize;
 var S = require('string');
 var url = require('url');
-var Promise = require('Sequelize').Promise;
+var Promise = require('bluebird');
 
 module.exports = function(app) {
 
