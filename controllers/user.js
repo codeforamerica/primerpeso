@@ -123,6 +123,7 @@ var postSignup = function(req, res, next) {
         return res.redirect('/');
     });
   }).error(function(err) {
+    console.log(err);
     if (!_.isUndefined(err.detail))
       req.flash('errors', err.detail);
     else {

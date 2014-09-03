@@ -87,17 +87,16 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'textArea',
       label: 'Descripción de Beneficio',
     },
-    agencyName: {
-      type: DataTypes.STRING,
-      label: 'Nombre de Agencia',
-      allowNull: false,
-      widget: 'text',
+    agencyId: {
+      type: DataTypes.INTEGER,
+      widget: 'ref',
+      label: 'Agency Name'
     },
     agencyContactName: {
       type: DataTypes.STRING,
       label: 'Nombre de contacto en Agencia',
       allowNull: false,
-      widget: 'text',
+      widget: 'text'
     },
     agencyContactEmail: {
       type: DataTypes.STRING,
@@ -189,11 +188,10 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'text',
       label: '¿Cuanto debería invertir?'
     },
-    // Association
     creatorId: {
       type: DataTypes.INTEGER,
     }
-  }
+ }
 
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
@@ -206,7 +204,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     associate: function(sequelize) {
       var User = sequelize.model('user');
-      this.belongsTo(User, { as: 'creator', foreignKey: 'creatorId' });
+      var Agency = sequelize.model('agency');
+      this.belongsTo(User, { as: 'creator' });
+      this.belongsTo(Agency, { as: 'agency'});
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
