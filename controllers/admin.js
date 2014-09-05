@@ -16,7 +16,7 @@ module.exports = function(app) {
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
-    res.locals.menu = { opportunity: 'oportunidad' };
+    res.locals.menu = { opportunity: 'Oportunidad', agency: 'Agencia' };
     res.locals.isAdminPath = true;
     res.locals.title = 'Admin';
     next();
@@ -54,11 +54,11 @@ function dashboard(req, res) {
  * GET list
  */
 function list(req, res) {
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
   var render = _.extend(res.locals, {
-    model: req.params.model
+    model: modelName
   });
-
-  var Model = sequelize.model(render.model);
   var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');
@@ -69,7 +69,10 @@ function list(req, res) {
   }
   else {
     // TODO -- need to abstract this out for admin.
-    req.user.getOpportunities({ attributes: attributes }).success(function(results) {
+    Model.findAll({
+      attributes: attributes,
+      where: { creatorId: req.user.get('id') }
+    }).success(function(results) {
       return res.render('admin/list', { data: results, fields: fields });
     });
   }
@@ -109,12 +112,14 @@ function edit(req, res) {
  */
 function save(req, res) {
   var id = req.params.id || '';
-  var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
 
   // If there is no id we are creating a new instance
   if (!id || _.isEmpty(id)) {
     Model.createInstance(req.body).then(function(instance) {
-      return req.user.addOpportunity(instance);
+      var methodName = 'add' + S(modelName).capitalize().s;
+      return req.user[methodName](instance);
     }).then(function() {
       req.flash('info', 'Añadido exitosamente');
       return res.redirect(req.path);
