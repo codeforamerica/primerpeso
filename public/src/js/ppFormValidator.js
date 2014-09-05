@@ -11,7 +11,7 @@ function FormValidator() {
   this.validator = Validator;
   this.validationFailures = [];
   this.validatorMessages = {
-    notEmpty: "El campo no puede quedar vacío"
+    notEmpty: "Por favor completa el campo"
   }
 }
 

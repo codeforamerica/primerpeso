@@ -17,14 +17,14 @@ module.exports = function(sequelize, DataTypes) {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      label:'Agency Name',
+      label:'Nombre de la Agencia',
       unique: true,
       validate: {
       }
     },
     mission: {
       type: DataTypes.TEXT,
-      label:'Agency Mission',
+      label:'Misión de la Agencia',
       widget: 'textArea',
     },
     phone: {
@@ -65,7 +65,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     web: {
       type: DataTypes.STRING,
-      label: 'Web',
+      label: 'Sitio Web',
       widget: 'url'
     },
     // Association

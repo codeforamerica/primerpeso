@@ -90,7 +90,7 @@ module.exports = function(sequelize, DataTypes) {
     agencyId: {
       type: DataTypes.INTEGER,
       widget: 'ref',
-      label: 'Agency Name'
+      label: 'Nombre de la Agencia'
     },
     agencyContactName: {
       type: DataTypes.STRING,
