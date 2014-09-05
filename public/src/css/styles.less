@@ -843,7 +843,7 @@ section h1.section-title {
   }
 }
 
-@media screen and (max-width: 991px) {
+@media (max-width: 991px) {
   .row-header h4 {
     display: none;
   }
@@ -854,45 +854,53 @@ section h1.section-title {
     .disabled a {
     display: none;
   }
-}
+  }
+  .landing-header {
+    position: relative;
+    display: block;
+    margin-top: 200px;
+    bottom: -100px;
+  }
+  .landing {
+    margin-top: -200px;
+  }
 
-@media (max-width: 991px) {
-    .home {
-      .navbar {
-      background: @dark-navy;
-      }
+  .home {
+    .navbar {
+    background: @dark-navy;
     }
-    .navbar-header {
-        float: none;
-    }
-    .navbar-toggle {
-        display: block;
-    }
-    .navbar-collapse {
-        border-top: 1px solid transparent;
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
-    }
-    .navbar-collapse.collapse {
-        display: none!important;
-    }
-    .navbar-nav {
-        float: none!important;
-        margin: 7.5px -15px;
-    }
-    .navbar-nav>li {
-        float: none;
-    }
-    .navbar-nav>li>a {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-    /* since 3.1.0 */
-    .navbar-collapse.collapse.in {
-        display: block!important;
-    }
-    .collapsing {
-        overflow: hidden!important;
-    }
+  }
+  .navbar-header {
+      float: none;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin: 7.5px -15px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  /* since 3.1.0 */
+  .navbar-collapse.collapse.in {
+      display: block!important;
+  }
+  .collapsing {
+      overflow: hidden!important;
+  }
 }
 
 
@@ -964,5 +972,4 @@ section h1.section-title {
   .body .control-label {
     font-size: 160%;
   }
-}
 }
