@@ -6,8 +6,13 @@ mixin searchResultNav(searchResult)
     li(class="active search-tab")
       a(href="#" id="all") Todos
     each benefitTypeName, benefitTypeMachineName in benefitTypes
-      li.search-tab
-        a(href="#" id=benefitTypeMachineName)= benefitTypeName
+      if (benefitTypeMachineName !== 'other')
+        li.search-tab
+          a(href="#" id=benefitTypeMachineName)= benefitTypeName
+
+    li(class="search-tab")
+      a(href="#" id="other") Otros
+
 
 mixin renderResultList(searchResult)
   - console.log(searchResult);
