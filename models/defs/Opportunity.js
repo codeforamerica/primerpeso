@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     applicationCost: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      label: 'Costo de la aplicación',
+      label: 'Costo de la aplicación - (colocar solo número)',
       widget: 'text',
       validate: {
         isNumeric: true
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       widget: 'text',
-      label: 'Tiempo estimado (desde ___ hasta ___)'
+      label: 'Tiempo estimado de finalización desde  ___ hasta  ___)'
     },
     // TODO -- abstract choices to freaking callbacks.
     benefitType: {
@@ -175,7 +175,7 @@ module.exports = function(sequelize, DataTypes) {
     additionalGeneralInformation: {
       type: DataTypes.TEXT,
       widget: 'textArea',
-      label: 'Información general adicional'
+      label: 'Información general adicional - Incluir leyes, reglamentos y links '
     },
     investingOwnMoney: {
       type: DataTypes.STRING,
