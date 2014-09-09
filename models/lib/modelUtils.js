@@ -143,8 +143,8 @@ var classMethods = {
           value = [value];
         }
 
-	if (fieldInfo.type && fieldInfo.type._typeName && fieldInfo.type._typeName === 'INTEGER')
-	  value = S(value).toInt();
+        if (fieldInfo.type && fieldInfo.type._typeName && fieldInfo.type._typeName === 'INTEGER')
+          value = S(value).toInt();
 
         // Get value from 'other' text fields if necessary
         if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
