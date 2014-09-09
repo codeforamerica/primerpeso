@@ -11,7 +11,8 @@ function FormValidator() {
   this.validator = Validator;
   this.validationFailures = [];
   this.validatorMessages = {
-    notEmpty: "Por favor completa el campo"
+    notEmpty: "Por favor completa el campo",
+    isNumeric: "Por favor entrar solo numero, sin simbolo"
   }
 }
 
