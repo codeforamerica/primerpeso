@@ -4,6 +4,7 @@ var db = require('../models');
 var sequelize = db.sequelize;
 var S = require('string');
 var url = require('url');
+var Promise = require('bluebird');
 
 module.exports = function(app) {
 
@@ -15,7 +16,7 @@ module.exports = function(app) {
   app.use(base, function(req, res, next) {
     res.locals.base = base;
     res.locals.path = req.path || '';
-    res.locals.menu = { opportunity: 'oportunidad' };
+    res.locals.menu = { opportunity: 'Oportunidad', agency: 'Agencia' };
     res.locals.isAdminPath = true;
     res.locals.title = 'Admin';
     next();
@@ -23,15 +24,23 @@ module.exports = function(app) {
 
   app.get(base, dashboard);
 
+  app.get(path.join(base, '/debug'), debug);
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
-  app.get(path.join(base, '/:model/:id'), entry);
+  app.get(path.join(base, '/:model/:id'), view);
   app.post(path.join(base, '/:model/:id'), save);
   app.get(path.join(base, '/:model'), list);
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
 };
+
+function debug(req, res) {
+  var Opportunity = sequelize.model('opportunity');
+  console.log(Opportunity.associations);
+  return res.json(Opportunity.associations);
+}
+
 
 /**
  * Index / Dashboard
@@ -40,19 +49,16 @@ function dashboard(req, res) {
   return res.redirect('/admin/opportunity');
 }
 
-function debug(req, res) {j
-  return res.json(db.sequelize.models);
-}
 
 /**
  * GET list
  */
 function list(req, res) {
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
   var render = _.extend(res.locals, {
-    model: req.params.model
+    model: modelName
   });
-
-  var Model = sequelize.model(render.model);
   var fields = Model.getListFields ? Model.getListFields() : Model.getDefaultFields();
   var attributes = _.keys(fields);
   attributes.push('id');
@@ -63,7 +69,10 @@ function list(req, res) {
   }
   else {
     // TODO -- need to abstract this out for admin.
-    req.user.getOpportunities({ attributes: attributes }).success(function(results) {
+    Model.findAll({
+      attributes: attributes,
+      where: { creatorId: req.user.get('id') }
+    }).success(function(results) {
       return res.render('admin/list', { data: results, fields: fields });
     });
   }
@@ -79,8 +88,10 @@ function edit(req, res) {
   });
   var doc = sequelize.model(render.model);
   if (!render.id) {
-    render.formInfo = doc.getFormFields('new');
-    return res.render('admin/form', render);
+    doc.getFormFields('new').then(function(formInfo) {
+      render.formInfo = formInfo
+      return res.render('admin/form', render);
+    });
   }
   else {
     doc.find(render.id).success(function(instance) {
@@ -88,28 +99,33 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      render.formInfo = doc.getFormFields('edit', instance);
-      return res.render('admin/form', render);
+      doc.getFormFields('edit', instance).then(function(formInfo) {
+        render.formInfo = formInfo
+        return res.render('admin/form', render);
+      });
     });
   }
 }
+
 /**
  * POST Edit / Create
  */
 function save(req, res) {
   var id = req.params.id || '';
-  var Model = sequelize.isDefined(req.params.model) ? sequelize.model(req.params.model) : null;
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
 
   // If there is no id we are creating a new instance
   if (!id || _.isEmpty(id)) {
     Model.createInstance(req.body).then(function(instance) {
-      return req.user.addOpportunity(instance);
+      var methodName = 'add' + S(modelName).capitalize().s;
+      return req.user[methodName](instance);
     }).then(function() {
       req.flash('info', 'Añadido exitosamente');
       return res.redirect(req.path);
     }).error(function(err) {
       req.flash('errors', err.message);
-      return res.json(err);
+      return res.redirect(req.path);
     });
   // If we have an id then we are updating an existing instance
   } else {
@@ -124,7 +140,10 @@ function save(req, res) {
   };
 }
 
-function entry (req, res) {
+/**
+ * GET model/{id}
+ */
+function view(req, res) {
   var render = _.extend(res.locals, {
     model: req.params.model
   });

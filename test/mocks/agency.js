@@ -5,11 +5,7 @@ exports = module.exports = function(overrides) {
   var body = {
     "_csrf": "undefined",
     "_doc_id": "",
-    "email": "clara@example.com",
-    "password": "somecrazyHASHEDpassword",
-    "confirmPassword": "somecrazyHASHEDpassword",
-    "firstName": "Coqui",
-    "lastName": "Clara",
+    "name": "My Awesome Agency"
   }
 
   return _.extend(body, overrides);

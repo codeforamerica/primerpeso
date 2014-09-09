@@ -7,13 +7,20 @@ var validateGivenFields = function(fields) {
   validatorResult = validator.validateFields(fields);
   $('.form-group').removeClass('has-error');
   $('.empty').remove();
-  _.each(validatorResult, function(valRes) {
-    var element = $('label[for="' + valRes.fieldName + '"]');
-    element.parent('.form-group').addClass('has-error');
-    element.after('<div class="empty">' + valRes.message + '</div>');
-  });
+  // Return false if result from validator is NOT empty.
+  if (!_.isEmpty(validatorResult)) {
+    // Scroll into view
+    var firstRes = _.first(validatorResult);
+    $('label[for="' + firstRes.fieldName + '"]')[0].scrollIntoView();
 
-  return _.isEmpty(validatorResult);
+    _.each(validatorResult, function(valRes) {
+      var element = $('label[for="' + valRes.fieldName + '"]');
+      element.parent('.form-group').addClass('has-error');
+      element.after('<div class="empty">' + valRes.message + '</div>');
+    });
+    return false;
+  }
+  return true;
 }
 
 var validateTransition = function(currentIndex, newIndex) {

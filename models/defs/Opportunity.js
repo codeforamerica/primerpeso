@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     applicationCost: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      label: 'Costo de la aplicación',
+      label: 'Costo de la aplicación - (colocar solo número)',
       widget: 'text',
       validate: {
         isNumeric: true
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       widget: 'text',
-      label: 'Tiempo estimado (desde ___ hasta ___)'
+      label: 'Tiempo estimado de finalización desde  ___ hasta  ___)'
     },
     // TODO -- abstract choices to freaking callbacks.
     benefitType: {
@@ -87,17 +87,16 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'textArea',
       label: 'Descripción de Beneficio',
     },
-    agencyName: {
-      type: DataTypes.STRING,
-      label: 'Nombre de Agencia',
-      allowNull: false,
-      widget: 'text',
+    agencyId: {
+      type: DataTypes.INTEGER,
+      widget: 'ref',
+      label: 'Nombre de la Agencia'
     },
     agencyContactName: {
       type: DataTypes.STRING,
       label: 'Nombre de contacto en Agencia',
       allowNull: false,
-      widget: 'text',
+      widget: 'text'
     },
     agencyContactEmail: {
       type: DataTypes.STRING,
@@ -176,7 +175,7 @@ module.exports = function(sequelize, DataTypes) {
     additionalGeneralInformation: {
       type: DataTypes.TEXT,
       widget: 'textArea',
-      label: 'Información general adicional'
+      label: 'Información general adicional - Incluir leyes, reglamentos y links '
     },
     investingOwnMoney: {
       type: DataTypes.STRING,
@@ -189,11 +188,10 @@ module.exports = function(sequelize, DataTypes) {
       widget: 'text',
       label: '¿Cuanto debería invertir?'
     },
-    // Association
     creatorId: {
       type: DataTypes.INTEGER,
     }
-  }
+ }
 
   classMethods = _.extend(modelUtils.classMethods, {
     getListFields: function() {
@@ -206,7 +204,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     associate: function(sequelize) {
       var User = sequelize.model('user');
-      this.belongsTo(User, { as: 'creator', foreignKey: 'creatorId' });
+      var Agency = sequelize.model('agency');
+      this.belongsTo(User, { as: 'creator' });
+      this.belongsTo(Agency, { as: 'agency'});
     }
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});

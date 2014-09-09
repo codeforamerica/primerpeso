@@ -26,6 +26,7 @@ var path = require('path');
 var passport = require('passport');
 var expressValidator = require('express-validator');
 var db = require('./models');
+var favicon = require('serve-favicon');
 
 /**
  * Load controllers.
@@ -75,6 +76,9 @@ i18n.configure({
   updateFiles: true,
   objectNotation: true
 });
+
+
+app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(i18n.init);
 
@@ -194,4 +198,3 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
-
