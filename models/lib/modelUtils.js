@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var moment = require('moment')
+var S = require('string');
 var OptionsList = require('../../lib/OptionsList.js');
 var Promise = require('bluebird');
 // TODO this should be implemented in the proper pattern:
@@ -141,6 +142,9 @@ var classMethods = {
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
           value = [value];
         }
+
+        if (fieldInfo.type && fieldInfo.type._typeName && fieldInfo.type._typeName === 'INTEGER')
+          value = S(value).toInt();
 
         // Get value from 'other' text fields if necessary
         if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
