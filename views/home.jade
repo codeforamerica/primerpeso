@@ -9,18 +9,24 @@ html
     meta(name='author', content='')
     title #{title} | PrimerPeso
     link(rel='stylesheet', href=CDN('/css/styles.css'))
+    link(rel='shortcut icon', href='/favicon.ico', type='image/x-icon')
+    link(rel='icon', href='/favicon.ico', type='image/x-icon')
   body(class=bodyClass)
     #wrap
       include partials/navigation
         include partials/flash
       section.landing
         .landing-header
-          img(src=CDN("/img/logo_beta.png"))
+          img(src=CDN("/img/logo_prueba.png"))
           h1.title <strong>PrimerPeso</strong> te ayuda a empezar o expandir tu negocio.
               h2.subtitle Navegando los más de <strong>$300 millones de dólares disponibles en programas </strong> de Gobierno para <strong>pequeños empresarios </strong> en Puerto Rico.
           a.btn(href='/preguntas') Conoce a cuales programas calificas
 
       section.how-it-works.col-lg-12
+          div.brands-credit
+            p
+            | Photo of De Hojas courtesy of
+            a(href='http://brandsofpuertorico.com/') Brands of Puerto Rico
           h1.section-title ¿Cómo funciona PrimerPeso?
           .action-words.col-lg-12
             .col-lg-4
