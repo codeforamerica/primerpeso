@@ -13,8 +13,6 @@ var validateGivenFields = function(fields) {
     element.after('<div class="empty">' + valRes.message + '</div>');
   });
 
-  var res = _.first(validatorResult);
-  $('label[for="' + res.fieldName + '"]')[0].scrollIntoView();
   return _.isEmpty(validatorResult);
 }
 
