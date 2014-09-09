@@ -139,13 +139,13 @@ var classMethods = {
         var value = reqBody[fieldKey];
 
        if (fieldInfo.type) {
-	  // @TODO -- fix the default value for date.
-	  if (fieldInfo.type.toString() === 'INTEGER')
-	    value = S(value).toInt();
-	  if (S(fieldInfo.type.toString().toLowerCase()).contains('time') &&
-	      !moment(value).isValid())
-	    value = '2019-12-27';
-	}
+          // @TODO -- fix the default value for date.
+          if (fieldInfo.type.toString() === 'INTEGER')
+            value = S(value).toInt();
+          if (S(fieldInfo.type.toString().toLowerCase()).contains('time') &&
+              !moment(value).isValid())
+            value = '2019-12-27';
+        }
 
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
