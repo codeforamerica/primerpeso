@@ -1,4 +1,4 @@
-# Bizwallet!
+# PrimerPeso
 
 # How to Run
 
@@ -6,25 +6,25 @@
 
 ### Cloning the Repository
 
-The first step is to clone the bizwallet source code to your local computer.
+The first step is to clone the PrimerPeso source code to your local computer.
 
 Open an empty terminal window and if you have not done so already clone bizwallet by running.
 
 ```
-git clone git@github.com:CoquiCoders/bizwallet.git
+git clone git@github.com:codeforamerica/primerpeso.git
 ```
 
-Now change directory into bizwallet's source code folder.
+Now change directory into primerpeso's source code folder.
 
 ```
-cd bizwallet
+cd primerpeso
 ```
 
 ### Installing node dependencies
 
-The second step is to install the dependencies and open source libraries bizwallet uses.
+The second step is to install the dependencies and open source libraries primerpeso uses.
 
-Simply run this command while in the bizwallet source code folder:
+Simply run this command while in the primerpeso source code folder:
 
 ```
 npm install
@@ -34,7 +34,7 @@ After it's done your project should have a new folder called *node_modules*.
 
 ### Installing and Initializing the local database
 
-We are using PostgreSQL as our database management system. In order to run bizwallet you need to have a local version of PostgreSQL running on your computer.
+We are using PostgreSQL as our database management system. In order to run primerpeso you need to have a local version of PostgreSQL running on your computer.
 
 For Mac OSX users we reccommend installing [postgresapp](http://postgresapp.com). After installing it run this line to link the database to the `psql` command:
 
@@ -42,7 +42,7 @@ For Mac OSX users we reccommend installing [postgresapp](http://postgresapp.com)
 echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin" >> ~/.bash_profile
 ```
 
-We need a new terminal window for this line to take effect. Go ahead and open a new window and change directory to the bizwallet folder.
+We need a new terminal window for this line to take effect. Go ahead and open a new window and change directory to the primerpeso folder.
 
 Now open the Postgresapp. (You should have a black elephant on your computer's top bar)
 **Note**: If you have the elephant on the top bar Postgres is already running
@@ -57,7 +57,7 @@ psql -f config/init.sql
 Now run this command to load some sample data into the database:
 
 ```
-psql bizwallet < config/dump.sql
+psql primerpeso < config/dump.sql
 ```
 
 ### Installing redis:
@@ -78,7 +78,7 @@ We use environment variables to connect to our local database and tell bizwallet
 * Open the ".env" file in a text editor.
 * Find the "DATABASE_URL" variable, change the part where it says "username" into your terminal username
 
-### Running bizwallet
+### Running PrimerPeso
 
 We use a tool called [gulp](http://gulpjs.com/) to run the project. Let's install that now.
 
@@ -99,10 +99,10 @@ Your project should be available at [localhost:3737](http://localhost:3737)
 In a new terminal window, change directory into the bizwallet folder
 
 ```
-cd path/to/folder/bizwallet
+cd path/to/folder/primerpeso
 ```
 
-After you change directory to the bizwallet folder, run this command:
+After you change directory to the PrimerPeso folder, run this command:
 
 ```
 gulp
@@ -112,6 +112,6 @@ gulp
 
 Some common issues that could give you errors when you run the project, and how to solve them
 
-* New dependencies where added (run `npm install`)
-* Make sure you are in the bizwallet folder (run `cd path/to/bizwallet`)
+* New dependencies were added (run `npm install`)
+* Make sure you are in the primerpeso folder (run `cd path/to/primerpeso`)
 * @MrMaksimize or @chrisrodz broke something (ping us to fix it)
