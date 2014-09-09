@@ -80,11 +80,6 @@ module.exports = function(sequelize, DataTypes) {
         'name': 'Agency Name',
       };
     }
-    /*associate: function(sequelize) {
-      var User = sequelize.model('user');
-      var Opportunity = sequelize.model('opportunity');
-      this.belongsTo(User, { as: 'creator' });
-    }*/
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
 

@@ -202,13 +202,6 @@ module.exports = function(sequelize, DataTypes) {
         'agencyContactName': 'Contacto de la agencia',
       };
     },
-    /*associate: function(sequelize) {
-      var User = sequelize.model('user');
-      var Agency = sequelize.model('agency');
-      var Requirement = sequelize.model('requirement');
-      this.belongsTo(User, { as: 'creator' });
-      this.belongsTo(Agency, { as: 'agency'});
-    }*/
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
 
