@@ -39,12 +39,11 @@ Opportunity.belongsTo(User, { as: 'creator' });
 // Opportunity refs Agency as agency.
 Opportunity.belongsTo(Agency, { as: 'agency'});
 // Opportunity has Many requirements.
-Opportunity.hasMany(Requirement, { as: 'requirements'});
+Opportunity.hasMany(Requirement);
 
 /***** Requirement *****/
 Requirement.belongsTo(User, { as: 'creator' });
 Requirement.hasMany(Opportunity);
-
 
 /***** User *****/
 // User has many Opportunities through the creatorId fk.
