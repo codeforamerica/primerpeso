@@ -78,7 +78,7 @@ i18n.configure({
 });
 
 
-app.use(favicon(__dirname + '/public/src/img/favicon.ico'));
+app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(i18n.init);
 
