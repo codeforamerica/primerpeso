@@ -61,24 +61,24 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
                 div(class=progName + "-inner-text benefit-description")
-                  strong
+                  .description
                     | Descripción:
                   = progDesc.description
                   br
-                  strong
+                  .paperwork
                     | Documentación requerida:
                   = progDesc.paperwork
                   br
-                  strong
+                  .cost
                     | Costo de Aplicación:
                   = progDesc.cost
                   br
-                  strong
+                  .agencyname
                     | Nombre de Agencia:
                   = progDesc.agencyName
                   br
                   if !_.isEmpty(progDesc.info)
-                    strong
+                    .additionalinfo
                       | Información Adicional:
                     = progDesc.info
 

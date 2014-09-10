@@ -47,7 +47,7 @@ module.exports = function(Backbone, _, SearchShop) {
 
       SearchShop.cart.remove(oppInstance);
       $(e.currentTarget)
-        .text('aggregar')
+        .text('agregar')
         .removeClass('removeItem')
         .addClass('addItem');
       return false;

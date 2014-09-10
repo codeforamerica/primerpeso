@@ -478,15 +478,22 @@ section {
 
 .benefit-description {
   display: table;
+  .description, .paperwork, .cost, .agencyname, .additionalinfo {
+    font-weight:bold;
+    font-size: 120%;
+    color: @navy;
+  }
 }
 
 .panel-body {
   padding: 15px 0px;
-  line-height: 1.5;
+  line-height: 1.75;
+  display: table;
 }
 
 .additional-info {
-  font-weight: bold;
+  font-weight: 500;
+  margin-top: 10px !important;
 }
 
 //Shopping Cart Stuff
@@ -671,6 +678,8 @@ a.btn.help-you:last-child {
 .removeItem {
   margin-top: 0px;
   background-color: @red;
+  display: inline;
+  float: left;
   &:hover {
     background-color: @darker-red;
   }
@@ -678,6 +687,10 @@ a.btn.help-you:last-child {
 
 .last-butt {
   margin-bottom: 60px;
+}
+
+.back {
+  margin: 20px 0px;
 }
 
 // Special Messages
