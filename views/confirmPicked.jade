@@ -4,9 +4,11 @@ include mixins/search.jade
 extends layout
 
 block content
+
   div.search-intro.results Estos son los programas que has seleccionado para solicitar más información a las agencias.
   div.opportunities-container
     +renderResultList(pickedResults)
+  a.btn.removeItem.back(href='/results') Volver a programas
   div.send-request-container
     h3.additional-info Necesitamos información adicional sobre ti para enviar a las agencias que manejan los programas que has seleccionado. Esta información será almacenada de forma segura y no será utilizada para ningún otro propósito.
     form#sendRequestForm(action='/sendlead' method="POST")
