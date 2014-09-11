@@ -59,12 +59,26 @@ var buildElementValues = function(element, value) {
 
 
 // Handle reference fields.
-// TODO -- this only handles belongsTo associations
 var buildRefElement = function(element, model) {
-  var refedModel = _.find(model.associations, function(association, index) {
-    return association.options.foreignKey === element.fieldName;
+  var refedAssociation = _.find(model.associations, function(association, index) {
+    // TODO -- make this better.
+    return (
+	     association.options.foreignKey === element.fieldName ||
+	     association.target.name === element.refTarget ||
+	     index === element.refTarget
+	   );
   });
-  refedModel = refedModel.target;
+  _.each(model.associations, function(association, index) {
+    /*console.log('*****************************');
+    console.log(index);
+    console.log(association);
+    console.log('*****************************');*/
+  });
+
+    console.log('*****************************');
+    console.log(refedAssociation);
+    console.log('*****************************');
+  refedModel = refedAssociation.target;
   return refedModel.findAll().success(function(modelInstances) {
     console.log('findall success');
     var instanceList = {};
@@ -78,6 +92,20 @@ var buildRefElement = function(element, model) {
 }
 
 var classMethods = {
+  buildAttributes: function(columnsOnly) {
+    var columnsOnly = columnsOnly || false;
+    var attributes = this._getAttributes();
+    _.each(attributes, function(element, elementIndex) {
+      if (!element.fieldName)
+	element.fieldName = elementIndex;
+    });
+    if (columnsOnly === true) {
+      return _.omit(attributes, function(attributeData, attributeName) {
+	return _.isEmpty(attributeData.type);
+      });
+    }
+    return attributes;
+  },
   // Parses raw attributes of model and generates fields based on them as well as operation.
   getFormFields: function(op, modelInstance) {
     var op = op || 'list';
@@ -90,7 +118,8 @@ var classMethods = {
     var choicesList = new OptionsList();
     var refPromises = [];
 
-    var fieldList = _.mapValues(this.rawAttributes, function(element, index) {
+    //var fieldList = _.mapValues(this.rawAttributes, function(element, index) {
+    var fieldList = _.mapValues(this.buildAttributes(false), function(element, index) {
       element.widget = element.widget ? element.widget : 'text';
       element.name = element.fieldName;
       element.value = null;
