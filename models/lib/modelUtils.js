@@ -63,10 +63,10 @@ var buildRefElement = function(element, model) {
   var refedAssociation = _.find(model.associations, function(association, index) {
     // TODO -- make this better.
     return (
-	     association.options.foreignKey === element.fieldName ||
-	     association.target.name === element.refTarget ||
-	     index === element.refTarget
-	   );
+             association.options.foreignKey === element.fieldName ||
+             association.target.name === element.refTarget ||
+             index === element.refTarget
+           );
   });
   _.each(model.associations, function(association, index) {
     /*console.log('*****************************');
@@ -97,11 +97,11 @@ var classMethods = {
     var attributes = this._getAttributes();
     _.each(attributes, function(element, elementIndex) {
       if (!element.fieldName)
-	element.fieldName = elementIndex;
+        element.fieldName = elementIndex;
     });
     if (columnsOnly === true) {
       return _.omit(attributes, function(attributeData, attributeName) {
-	return _.isEmpty(attributeData.type);
+        return _.isEmpty(attributeData.type);
       });
     }
     return attributes;
