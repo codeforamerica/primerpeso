@@ -85,12 +85,12 @@ describe('Search Query', function() {
     var agencyBody = agencyMock();
     Agency.createInstance(agencyBody).success(function(agency) {
       _.each(oppOverrideSet, function(overrides, index) {
-	overrides.agencyId = agency.id;
-	oppOverrideSet[index].agencyId = agency.id;
-	oppPromises.push(createOpportunity(overrides, done));
+        overrides.agencyId = agency.id;
+        oppOverrideSet[index].agencyId = agency.id;
+        oppPromises.push(createOpportunity(overrides, done));
       });
       Promise.all(oppPromises).then(function() {
-	return done();
+        return done();
       });
     }).error(function(err) {
       return done(err);
