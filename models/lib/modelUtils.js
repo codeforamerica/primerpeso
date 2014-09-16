@@ -57,40 +57,6 @@ var buildElementValues = function(element, value) {
   return valueSet;
 }
 
-
-// Handle reference fields.
-var buildRefElement = function(element, model) {
-  var refedAssociation = _.find(model.associations, function(association, index) {
-    // TODO -- make this better.
-    return (
-             association.options.foreignKey === element.fieldName ||
-             association.target.name === element.refTarget ||
-             index === element.refTarget
-           );
-  });
-  _.each(model.associations, function(association, index) {
-    /*console.log('*****************************');
-    console.log(index);
-    console.log(association);
-    console.log('*****************************');*/
-  });
-
-    console.log('*****************************');
-    console.log(refedAssociation);
-    console.log('*****************************');
-  refedModel = refedAssociation.target;
-  return refedModel.findAll().success(function(modelInstances) {
-    console.log('findall success');
-    var instanceList = {};
-    _.each(modelInstances, function(modelInstance, index) {
-      // TODO -- not sustainable to call by name.
-      instanceList[modelInstance.get('id')] = modelInstance.get('name');
-    });
-    element.choices = instanceList;
-    return element;
-  });
-}
-
 var classMethods = {
   buildAttributes: function(columnsOnly) {
     var columnsOnly = columnsOnly || false;
@@ -116,7 +82,6 @@ var classMethods = {
 
     var modelInstance = modelInstance || null;
     var choicesList = new OptionsList();
-    var refPromises = [];
 
     //var fieldList = _.mapValues(this.rawAttributes, function(element, index) {
     var fieldList = _.mapValues(this.buildAttributes(false), function(element, index) {
@@ -135,19 +100,7 @@ var classMethods = {
       return _.omit(element, ['Model', 'type']);
     }, this);
 
-    // Get reference options.
-    _.each(_.where(fieldList, { 'widget': 'ref' }), function(refElement) {
-      refPromises.push(buildRefElement(refElement, this));
-    }, this);
-
-    return Promise.all(refPromises).then(function(refElementsWithChoices) {
-      console.log('all promiss fulfill');
-      // Override all previous elements with the ones returned from promise.
-      _.each(refElementsWithChoices, function(element) {
-        fieldList[element.name] = element;
-      });
-      return _.omit(fieldList, blacklist);
-    });
+    return _.omit(fieldList, blacklist);
   },
 
   // Gets default fields for a model in a list view.
@@ -162,6 +115,7 @@ var classMethods = {
   buildFromAdminForm: function(reqBody) {
     var fields = this.getFormFields('list');
     var modelData = {};
+    var refs = {};
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
@@ -181,20 +135,33 @@ var classMethods = {
             value = reqBody[fieldKey + 'Other'];
         };
 
-        modelData[fieldKey] = value;
+	// Associations.
+	if (fieldInfo.widget !== 'ref')
+	  modelData[fieldKey] = value;
+	else
+	  refs[fieldKey] = value;
+
       }
     });
     var instance = this.build(modelData);
+    instance.refs = refs;
     return instance;
   },
   // Create instance based on admin form submission.
   createInstance: function(body) {
     // We can depend on this because it's getting covered in another test.
     var instance = this.buildFromAdminForm(body);
-    // NOW THIS IS HOW YOU DO PROMISES!
     return instance.validate().then(function(err) {
       if (err) throw(err);
       return instance.save();
+    }).then(function(err) {
+      var refPromises = [];
+      if (instance.refs) {
+	_.each(instance.refs, function(refField, refId) {
+
+	});
+      }
+      return instance;
     });
   }
 };
@@ -219,6 +186,9 @@ var instanceMethods = {
       }
     });
     return formatedValues;
+  },
+
+  setAssociations: function() {
   }
 
 };

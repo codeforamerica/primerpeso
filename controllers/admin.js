@@ -9,6 +9,7 @@ var Promise = require('bluebird');
 module.exports = function(app) {
 
   var base = '/admin';
+  var baseAPI = '/api';
 
 
   app.use(base, require('../policies/admin'));
@@ -24,7 +25,7 @@ module.exports = function(app) {
 
   app.get(base, dashboard);
 
-  app.get(path.join(base, '/debug'), debug);
+  app.get(path.join(base, '/debug/:model'), debug);
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
@@ -33,12 +34,50 @@ module.exports = function(app) {
   app.get(path.join(base, '/:model'), list);
   app.get(path.join(base, '/:model/:id/delete'), deleteModel);
 
+  // TODO -- need these in a separate file.
+  app.get(path.join(baseAPI, '/:model'), apiGetModelList);
+  app.get(path.join(baseAPI, '/:model/:id'), apiGetModel);
+
+
+
 };
 
+
+// API
+function apiGetModelList(req, res) {
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
+  Model.findAll().success(function(result) {
+    return res.json(result);
+  });
+}
+
+function apiGetModel(req, res) {
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
+  var id = req.params.id;
+  if (!Model || S(id).isNumeric() === false)
+    return res.status(404).send('Not Found');
+
+
+  Model.find({where: { id: id }}).success(function(result) {
+    return res.json(result);
+  });
+}
+
 function debug(req, res) {
-  var Opportunity = sequelize.model('opportunity');
-  console.log(Opportunity.associations);
-  return res.json(Opportunity.associations);
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
+  var assocData = Model.associations;
+  var assocRet = _.mapValues(assocData, function(assocInfo, assocKey) {
+    assocInfo.options = _.omit(assocInfo.options, ['sequelize']);
+    assocInfo.foreignKeyAttribute = _.omit(assocInfo.foreignKeyAttribute, ['sequelize', 'Model']);
+    var resN =  _.omit(assocInfo, ['source', 'target', 'through', 'targetAssociation', 'sequelize']);
+    return resN;
+  });
+    //assocInfo.options = _.omit(assocInfo.options, ['sequelize']);
+  return res.json(assocRet);
+
 }
 
 
@@ -88,10 +127,8 @@ function edit(req, res) {
   });
   var doc = sequelize.model(render.model);
   if (!render.id) {
-    doc.getFormFields('new').then(function(formInfo) {
-      render.formInfo = formInfo
-      return res.render('admin/form', render);
-    });
+    render.formInfo = doc.getFormFields('new');
+    return res.render('admin/form', render);
   }
   else {
     doc.find(render.id).success(function(instance) {
@@ -99,10 +136,8 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      doc.getFormFields('edit', instance).then(function(formInfo) {
-        render.formInfo = formInfo
-        return res.render('admin/form', render);
-      });
+      render.formInfo = doc.getFormFields('edit');
+      return res.render('admin/form', render);
     });
   }
 }

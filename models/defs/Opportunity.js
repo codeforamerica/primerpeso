@@ -104,7 +104,7 @@ function Opportunity(sequelize, DataTypes) {
           refTarget: 'agency',
           label: 'Nombre de la Agencia'
         },
-        opportunitiesrequirements: {
+	requirementsRef: {
           type: null, // NULL types will be excluded from the columns.
           widget: 'ref',
           label: 'Requirements or Whatever',
