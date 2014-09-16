@@ -53,7 +53,7 @@ module.exports = function(sequelize, DataTypes) {
     applicationCost: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      label: 'Costo de la aplicación - (colocar solo número)',
+      label: 'Costo de la solicitud - (colocar solo número)',
       widget: 'text',
       validate: {
         isNumeric: true
