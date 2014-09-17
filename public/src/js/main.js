@@ -113,17 +113,35 @@ $(document).ready(function() {
     minimumInputLength: 0,
     ajax: {
       url: function() {
-	return '/api/' + $(this).data('reftarget');
+        return '/api/' + $(this).data('reftarget');
       },
       dataType: 'json',
       results: function(data, page) {
-	var res = _.map(data, function(agency, index) {
-	  return { id: agency.id, text: agency.name };
-	});
-	return { results: res };
+        var res = _.map(data, function(dataPiece, index) {
+          return { id: dataPiece.id, text: dataPiece.name };
+        });
+        return { results: res };
       },
     },
     initSelection: function(element, callback) {
+      var id = $(element).val();
+      if (id && id !== "")
+      $.ajax({
+        dataType: 'json',
+        url: '/api/' + $(element).data('reftarget') + '/' + id,
+      }).done(function(data) {
+        var result;
+        if ($(element).attr('multiple')) {
+          var retData = _.isArray(data) ? data : new Array(data);
+          result = _.map(retData, function(selectedValue) {
+            return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
+          });
+        }
+        else
+          result = { id: data.id, text: data.title || data.name };
+
+        callback(result);
+      });
     }
   });
   $('select').on('change', function() {

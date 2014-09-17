@@ -38,15 +38,15 @@ mixin choiceSelectField(formOptions)
       name=formOptions.name
       multiple=(formOptions.widget == "multiSelect"))
       if (formOptions.choices)
-	each choice, cVal in formOptions.choices
-	  // TODO look at exploding classes
-	  if _.isArray(formOptions.value)
-	    if typeof(formOptions.value[0]) === 'number'
-	      option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
-	    else
-	      option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
+        each choice, cVal in formOptions.choices
+          // TODO look at exploding classes
+          if _.isArray(formOptions.value)
+            if typeof(formOptions.value[0]) === 'number'
+              option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
+            else
+              option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
           else
-	    option(value=cVal selected=(formOptions.value == cVal)) #{choice}
+            option(value=cVal selected=(formOptions.value == cVal)) #{choice}
 
 mixin choiceField(formOptions)
   +fieldLabel(formOptions)

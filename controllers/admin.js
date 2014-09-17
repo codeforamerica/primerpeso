@@ -134,12 +134,12 @@ function edit(req, res) {
     return res.render('admin/form', render);
   }
   else {
-    Model.find(render.id).success(function(instance) {
+    Model.loadFull(render.id).success(function(instance) {
       if (!instance) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      render.formInfo = Model.getFormFields('edit');
+      render.formInfo = Model.getFormFields('edit', instance);
       return res.render('admin/form', render);
     });
   }

@@ -16,34 +16,34 @@ module.exports = function(sequelize, DataTypes) {
     },
     _getAttributes: function() {
       return {
-	id: {
-	  type: DataTypes.INTEGER,
-	  primaryKey: true,
-	  unique: true,
-	  autoIncrement: true
-	},
-	name: {
-	  type: DataTypes.STRING,
-	  allowNull: false,
-	  label:'Nombre del Requisito',
-	  unique: true,
-	  validate: {
-	  }
-	},
-	link: {
-	  type: DataTypes.TEXT,
-	  label:'Links',
-	  widget: 'textArea',
-	},
-	cost: {
-	  type: DataTypes.INTEGER,
-	  label: 'Cost',
-	  widget: 'text'
-	},
-	// Association
-	creatorId: {
-	  type: DataTypes.INTEGER,
-	}
+        id: {
+          type: DataTypes.INTEGER,
+          primaryKey: true,
+          unique: true,
+          autoIncrement: true
+        },
+        name: {
+          type: DataTypes.STRING,
+          allowNull: false,
+          label:'Nombre del Requisito',
+          unique: true,
+          validate: {
+          }
+        },
+        link: {
+          type: DataTypes.TEXT,
+          label:'Links',
+          widget: 'textArea',
+        },
+        cost: {
+          type: DataTypes.INTEGER,
+          label: 'Cost',
+          widget: 'text'
+        },
+        // Association
+        creatorId: {
+          type: DataTypes.INTEGER,
+        }
       }
     }
   });

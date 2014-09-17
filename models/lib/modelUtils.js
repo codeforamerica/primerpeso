@@ -26,7 +26,7 @@ var fieldBlackList = {
 };
 
 
-var buildElementValues = function(element, value) {
+var buildElementValues = function(element, value, modelInstance) {
   var isArrayValue = _.isArray(value);
   var valueSet = {
     value: isArrayValue ? [] : null,
@@ -40,7 +40,7 @@ var buildElementValues = function(element, value) {
   }
 
   if (element.choiceOther == true) {
-    if (!isArrayValue){
+    if (!isArrayValue) {
       if (!_.isUndefined(element.choices[value]))
         valueSet.value = value;
       else
@@ -112,7 +112,7 @@ var classMethods = {
       var choices = choicesList.getFormChoices(index);
       element.choices =  _.isEmpty(choices) ? element.choices : choices;
       if (op == 'edit' && modelInstance) {
-        var valueSet = buildElementValues(element, modelInstance.get(index));
+        var valueSet = buildElementValues(element, modelInstance.get(index), modelInstance);
         element.value = valueSet.value;
         element.otherValue = valueSet.otherValue;
       }
@@ -155,11 +155,11 @@ var classMethods = {
             value = reqBody[fieldKey + 'Other'];
         };
 
-	if (fieldInfo.widget !== 'ref')
-	  modelData[fieldKey] = value;
-	// Associations.
-	else
-	  refs[fieldKey] = { value: value, fieldInfo: _.omit(fieldInfo, ['Model', 'values']) };
+        if (fieldInfo.widget !== 'ref')
+          modelData[fieldKey] = value;
+        // Associations.
+        else
+          refs[fieldKey] = { value: value, fieldInfo: _.omit(fieldInfo, ['Model', 'values']) };
       }
     });
     var instance = this.build(modelData);
