@@ -24,6 +24,7 @@ fs
   })
 
 // Run associate here:
+console.log('RUN ASSOC');
 var User = sequelize.model('user');
 var Opportunity = sequelize.model('opportunity');
 var Agency = sequelize.model('agency');

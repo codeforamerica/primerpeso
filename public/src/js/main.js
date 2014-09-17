@@ -98,17 +98,34 @@ $(document).ready(function() {
     }
   });
 
-  $('select').each(function(index, sel) {
+  /*$('select').each(function(index, sel) {
     if ($(this).attr("multiple") == "multiple") {
       $(this).select2($(this).val());
     } else{
       $(this).select2();
     };
-  });
+  });*/
 
   // For admin page
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
+  $('.model-form input.ref').select2({
+    minimumInputLength: 0,
+    ajax: {
+      url: function() {
+	return '/api/' + $(this).data('reftarget');
+      },
+      dataType: 'json',
+      results: function(data, page) {
+	var res = _.map(data, function(agency, index) {
+	  return { id: agency.id, text: agency.name };
+	});
+	return { results: res };
+      },
+    },
+    initSelection: function(element, callback) {
+    }
+  });
   $('select').on('change', function() {
     var name = $(this).attr('name');
     if ($('option:selected', this).attr('value') == 'other') {

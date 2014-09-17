@@ -24,9 +24,9 @@ mixin makeField(formOptions)
 mixin choiceRefField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-4")
-    - var fieldVal = formOptions.value;
     input(type="hidden" class="form-control " + formOptions.widget
       name=formOptions.name
+      value = formOptions.value || ''
       data-reftarget=(formOptions.refTarget || '')
       multiple=(formOptions.widget == "multiSelect"))
 

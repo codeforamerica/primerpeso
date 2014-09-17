@@ -59,8 +59,11 @@ function apiGetModel(req, res) {
   if (!Model || S(id).isNumeric() === false)
     return res.status(404).send('Not Found');
 
+  /*Model.findAll({ include: [{model: Agency, as: 'agency' }], where: { id: id } }).success(function(result) {
+    return res.json(result);
+  });*/
 
-  Model.find({where: { id: id }}).success(function(result) {
+  Model.loadFull({ where: { id: id } }).success(function(result) {
     return res.json(result);
   });
 }
@@ -125,18 +128,18 @@ function edit(req, res) {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  var doc = sequelize.model(render.model);
+  var Model = sequelize.model(render.model);
   if (!render.id) {
-    render.formInfo = doc.getFormFields('new');
+    render.formInfo = Model.getFormFields('new');
     return res.render('admin/form', render);
   }
   else {
-    doc.find(render.id).success(function(instance) {
+    Model.find(render.id).success(function(instance) {
       if (!instance) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      render.formInfo = doc.getFormFields('edit');
+      render.formInfo = Model.getFormFields('edit');
       return res.render('admin/form', render);
     });
   }
@@ -150,6 +153,8 @@ function save(req, res) {
   var modelName = req.params.model || '';
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
 
+
+  // TODO -- use findOrCreate
   // If there is no id we are creating a new instance
   if (!id || _.isEmpty(id)) {
     Model.createInstance(req.body).then(function(instance) {

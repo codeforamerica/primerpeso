@@ -36,6 +36,7 @@ module.exports = function(sequelize, DataTypes) {
     //resetPasswordExpires: Date
   };
 
+  // TODO -- write me in the same pattern as the other model defs.
   classMethods = _.extend(modelUtils.classMethods, {
     createInstance: function(body) {
       console.log(body);

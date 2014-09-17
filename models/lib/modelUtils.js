@@ -25,6 +25,7 @@ var fieldBlackList = {
   ],
 };
 
+
 var buildElementValues = function(element, value) {
   var isArrayValue = _.isArray(value);
   var valueSet = {
@@ -55,6 +56,25 @@ var buildElementValues = function(element, value) {
     }
   }
   return valueSet;
+}
+
+var setAssociations = function(instance, nextFn) {
+  // TODO -- am I being vulnerable because i'm not validating id of ref?
+  // Return quick if no refs.
+  if (!instance.refs)
+    return nextFn(null, instance);
+
+  var refPromises = [];
+  _.each(instance.refs, function(fieldData, fieldIndex) {
+    var associationKey = fieldData.fieldInfo.assocName || fieldData.fieldInfo.refTarget;
+    var setter = instance.Model.associations[associationKey].accessors.set;
+    refPromises.push(instance[setter](fieldData.value));
+  });
+  Promise.all(refPromises).then(function(){
+    nextFn(null, instance);
+  }).catch(function(e) {
+    nextFn(e.message, instance);
+  });
 }
 
 var classMethods = {
@@ -135,12 +155,11 @@ var classMethods = {
             value = reqBody[fieldKey + 'Other'];
         };
 
-	// Associations.
 	if (fieldInfo.widget !== 'ref')
 	  modelData[fieldKey] = value;
+	// Associations.
 	else
-	  refs[fieldKey] = value;
-
+	  refs[fieldKey] = { value: value, fieldInfo: _.omit(fieldInfo, ['Model', 'values']) };
       }
     });
     var instance = this.build(modelData);
@@ -154,15 +173,10 @@ var classMethods = {
     return instance.validate().then(function(err) {
       if (err) throw(err);
       return instance.save();
-    }).then(function(err) {
-      var refPromises = [];
-      if (instance.refs) {
-	_.each(instance.refs, function(refField, refId) {
-
-	});
-      }
-      return instance;
     });
+  },
+  loadFull: function(options, queryOptions) {
+    return this.find(options, queryOptions);
   }
 };
 
@@ -186,14 +200,18 @@ var instanceMethods = {
       }
     });
     return formatedValues;
-  },
-
-  setAssociations: function() {
   }
-
 };
 
-var hooks = {};
+var hooks = {
+  afterCreate: function(instance, nextFn) {
+    setAssociations(instance, nextFn);
+  },
+  // TODO only run if changed.
+  afterUpdate: function(instance, nextFn) {
+    setAssociations(instance, nextFn);
+  }
+}
 
 var utils = {
   classMethods: classMethods,
