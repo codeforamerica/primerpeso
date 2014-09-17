@@ -139,6 +139,7 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
+      return res.json(instance.toJSON());
       render.formInfo = Model.getFormFields('edit', instance);
       return res.render('admin/form', render);
     });
@@ -152,7 +153,6 @@ function save(req, res) {
   var id = req.params.id || '';
   var modelName = req.params.model || '';
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
-
 
   // TODO -- use findOrCreate
   // If there is no id we are creating a new instance
