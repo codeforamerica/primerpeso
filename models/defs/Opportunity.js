@@ -113,12 +113,14 @@ function Opportunity(sequelize, DataTypes) {
           refTarget: 'agency',
           label: 'Nombre de la Agencia'
         },
-        /*requirementsRef: {
+        requirementsRef: {
           type: null, // NULL types will be excluded from the columns.
           widget: 'ref',
+          refTarget: 'requirement',
           label: 'Requirements or Whatever',
-          assocName: 'opportunitiesrequirements'
-        },*/
+          assocName: 'opportunitiesrequirements',
+          multiple: true
+        },
         agencyContactName: {
           type: DataTypes.STRING,
           label: 'Nombre de contacto en Agencia',

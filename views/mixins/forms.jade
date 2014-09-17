@@ -23,12 +23,13 @@ mixin makeField(formOptions)
 
 mixin choiceRefField(formOptions)
   +fieldLabel(formOptions)
+  - var isMultiple = formOptions.multiple ? "multiple" : "";
   div(class=formOptions.fieldClasses || "col-sm-4")
-    input(type="hidden" class="form-control " + formOptions.widget
+    input(type="hidden" class="form-control " + formOptions.widget + " " + isMultiple
       name=formOptions.name
       value = formOptions.value || ''
       data-reftarget=(formOptions.refTarget || '')
-      multiple=(formOptions.widget == "multiSelect"))
+      multiple=isMultiple)
 
 
 mixin choiceSelectField(formOptions)

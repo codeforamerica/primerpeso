@@ -109,41 +109,44 @@ $(document).ready(function() {
   // For admin page
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
-  $('.model-form input.ref').select2({
-    minimumInputLength: 0,
-    ajax: {
-      url: function() {
-        return '/api/' + $(this).data('reftarget');
-      },
-      dataType: 'json',
-      results: function(data, page) {
-        var res = _.map(data, function(dataPiece, index) {
-          return { id: dataPiece.id, text: dataPiece.name };
-        });
-        return { results: res };
-      },
-    },
-    initSelection: function(element, callback) {
-      var id = $(element).val();
-      if (id && id !== "")
-      $.ajax({
+  $('.model-form input.ref').each(function(index, element) {
+    var multiple = $(element).hasClass('multiple');
+    $(element).select2({
+      minimumInputLength: 0,
+      multiple: multiple,
+      ajax: {
         dataType: 'json',
-        url: '/api/' + $(element).data('reftarget') + '/' + id,
-      }).done(function(data) {
-        var result;
-        if ($(element).attr('multiple')) {
-          var retData = _.isArray(data) ? data : new Array(data);
-          result = _.map(retData, function(selectedValue) {
-            return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
+        url: function() { return '/api/' + $(this).data('reftarget'); },
+        results: function(data, page) {
+          var res = _.map(data, function(dataPiece, index) {
+            return { id: dataPiece.id, text: dataPiece.name };
           });
-        }
-        else
-          result = { id: data.id, text: data.title || data.name };
+          return { results: res };
+        },
+      },
+      initSelection: function(element, callback) {
+        var id = $(element).val();
+        if (id && id !== "")
+        $.ajax({
+          dataType: 'json',
+          url: '/api/' + $(element).data('reftarget') + '/' + id,
+        }).done(function(data) {
+          var result;
+          if ($(element).hasClass('multiple')) {
+            var retData = _.isArray(data) ? data : new Array(data);
+            result = _.map(retData, function(selectedValue) {
+              return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
+            });
+          }
+          else
+            result = { id: data.id, text: data.title || data.name };
 
-        callback(result);
-      });
-    }
+          callback(result);
+        });
+      }
+    });
   });
+
   $('select').on('change', function() {
     var name = $(this).attr('name');
     if ($('option:selected', this).attr('value') == 'other') {
