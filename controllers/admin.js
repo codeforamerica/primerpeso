@@ -139,7 +139,6 @@ function edit(req, res) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      return res.json(instance.toJSON());
       render.formInfo = Model.getFormFields('edit', instance);
       return res.render('admin/form', render);
     });
@@ -169,15 +168,15 @@ function save(req, res) {
     });
   // If we have an id then we are updating an existing instance
   } else {
-    var instance = Model.buildFromAdminForm(req.body);
-    delete instance.dataValues.id;
-    var newFields = instance.dataValues;
-    Model.find(req.params.id).success(function(result) {
-      result.updateAttributes(newFields).success(function() {
-        res.redirect(req.path);
-      });
+    Model.updateInstance(id, req.body).then(function(instance) {
+      req.flash('info', 'Añadido exitosamente');
+      return res.redirect(req.path);
+    }).error(function(err) {
+      throw err;
+      req.flash('errors', err.message);
+      return res.redirect(req.path);
     });
-  };
+  }
 }
 
 /**

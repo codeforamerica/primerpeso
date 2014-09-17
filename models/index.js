@@ -11,6 +11,7 @@ var fs        = require('fs')
     dialect: 'postgres',
     sync: { force: false },
     language: 'en'
+ //   logging: false
   });
 
 fs

@@ -58,23 +58,20 @@ var buildElementValues = function(element, value, modelInstance) {
   return valueSet;
 }
 
-var setAssociations = function(instance, nextFn) {
+var setAssociations = function(instance, refs) {
   // TODO -- am I being vulnerable because i'm not validating id of ref?
   // Return quick if no refs.
-  if (!instance.refs)
-    return nextFn(null, instance);
-
+  console.log('SET ASSOC');
+  var refs = refs || {};
   var refPromises = [];
-  _.each(instance.refs, function(fieldData, fieldIndex) {
+  console.log(refs);
+  _.each(refs, function(fieldData, fieldIndex) {
     var associationKey = fieldData.fieldInfo.assocName || fieldData.fieldInfo.refTarget;
     var setter = instance.Model.associations[associationKey].accessors.set;
-    refPromises.push(instance[setter](fieldData.value));
+    var value = _.isEmpty(fieldData.value) ? [] : fieldData.value;
+    refPromises.push(instance[setter](value));
   });
-  Promise.all(refPromises).then(function(){
-    nextFn(null, instance);
-  }).catch(function(e) {
-    nextFn(e.message, instance);
-  });
+  return Promise.all(refPromises);
 }
 
 var classMethods = {
@@ -97,8 +94,9 @@ var classMethods = {
     var op = op || 'list';
     var blacklist = fieldBlackList[op];
     // TODO -- return as resolved promise?
-    if (op === 'list')
-      return _.omit(this.rawAttributes, blacklist);
+    // Columns only = true if not listAll
+    if (op === 'list' || op === 'listAll')
+      return _.omit(this.buildAttributes(op === 'list'), blacklist);
 
     var modelInstance = modelInstance || null;
     var choicesList = new OptionsList();
@@ -133,7 +131,7 @@ var classMethods = {
 
   // Build the submission from the admin form submitted.
   buildFromAdminForm: function(reqBody) {
-    var fields = this.getFormFields('list');
+    var fields = this.getFormFields('listAll');
     var modelData = {};
     var refs = {};
     _.each(fields, function(fieldInfo, fieldKey) {
@@ -162,17 +160,32 @@ var classMethods = {
           refs[fieldKey] = { value: value, fieldInfo: _.omit(fieldInfo, ['Model', 'values']) };
       }
     });
-    var instance = this.build(modelData);
-    instance.refs = refs;
-    return instance;
+    //var instance = this.build(modelData);
+    //console.log(refs);
+    //instance.refs = refs;
+    return { modelData: modelData, refs: refs };
   },
   // Create instance based on admin form submission.
   createInstance: function(body) {
     // We can depend on this because it's getting covered in another test.
-    var instance = this.buildFromAdminForm(body);
+    var builtFromForm = this.buildFromAdminForm(body);
+    var instance = this.build(builtFromForm.modelData);
     return instance.validate().then(function(err) {
       if (err) throw(err);
       return instance.save();
+    }).then(function(instance) {
+      return setAssociations(currentInstance, builtFromForm.refs);
+    });
+  },
+  // Update instance based on admin form submission.
+  updateInstance: function(id, body) {
+    // We can depend on this because it's getting covered in another test.
+    var Model = this;
+    var builtFromForm = Model.buildFromAdminForm(body);
+    return Model.find(id).then(function(currentInstance) {
+      return currentInstance.updateAttributes(builtFromForm.modelData);
+    }).then(function(currentInstance) {
+      return setAssociations(currentInstance, builtFromForm.refs);
     });
   },
   loadFull: function(options, queryOptions) {
@@ -203,20 +216,10 @@ var instanceMethods = {
   }
 };
 
-var hooks = {
-  afterCreate: function(instance, nextFn) {
-    setAssociations(instance, nextFn);
-  },
-  // TODO only run if changed.
-  afterUpdate: function(instance, nextFn) {
-    setAssociations(instance, nextFn);
-  }
-}
-
 var utils = {
   classMethods: classMethods,
   instanceMethods: instanceMethods,
-  hooks: hooks,
+  hooks: {},
   fieldBlackList: fieldBlackList,
 }
 exports = module.exports = utils;
