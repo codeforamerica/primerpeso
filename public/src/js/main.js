@@ -99,7 +99,7 @@ $(document).ready(function() {
   }
 
   $('.delete-model').on('click', function(e){
-    var conf = confirm('Are you sure you want to delete this entry?');
+    var conf = confirm('¿Estas seguro que quieres borrar esta entrada?');
     if (!conf) {
       e.preventDefault();
     }

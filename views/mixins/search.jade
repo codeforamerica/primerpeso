@@ -60,28 +60,14 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
               i.fa.fa-sort-desc
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
+                // TODO these need to be LI
                 div(class=progName + "-inner-text benefit-description")
-                  .description
-                    | Descripción:
-                  = progDesc.description
-                  br
-                  .paperwork
-                    | Documentación requerida:
-                  = progDesc.paperwork
-                  br
-                  .cost
-                    | Costo de Aplicación:
-                  = progDesc.cost
-                  br
-                  .agencyname
-                    | Nombre de Agencia:
-                  = progDesc.agencyName
-                  br
-                  if !_.isEmpty(progDesc.info)
-                    .additionalinfo
-                      | Información Adicional:
-                    = progDesc.info
-
+                  ul(class="benefit-info-list accordion-panel-render-list")
+                    each panelSectionTitle, panelSectionKey in accordionPanelRenderList
+                      if progDesc[panelSectionKey]
+                        li
+                          h4= panelSectionTitle
+                          = progDesc[panelSectionKey]
           div(class="col-md-2 col-deadline col-" + progName)
             div(class=progName + "-inner-text")= progDesc.deadline
 
