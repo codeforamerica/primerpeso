@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
           widget: 'textArea',
         },
         cost: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.TEXT,
           label: 'Cost',
           widget: 'text'
         },
