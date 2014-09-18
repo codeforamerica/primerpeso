@@ -117,7 +117,6 @@ var classMethods = {
     var modelInstance = modelInstance || null;
     var choicesList = new OptionsList();
 
-    //var fieldList = _.mapValues(this.rawAttributes, function(element, index) {
     var fieldList = _.mapValues(this.buildAttributes(false), function(element, index) {
       element.widget = element.widget ? element.widget : 'text';
       element.name = element.fieldName;

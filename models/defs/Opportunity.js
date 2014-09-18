@@ -2,7 +2,7 @@ var modelUtils = require('../lib/modelUtils.js');
 var _ = require('lodash');
 var OptionsList = require('../../lib/OptionsList');
 
-function Opportunity(sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   var choicesList = new OptionsList();
   var classMethods = {};
   var instanceMethods = {};
@@ -239,6 +239,5 @@ function Opportunity(sequelize, DataTypes) {
       classMethods: classMethods,
       instanceMethods: instanceMethods
   });
-}
+};
 
-module.exports = Opportunity;
