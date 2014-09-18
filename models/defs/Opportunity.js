@@ -40,7 +40,7 @@ function Opportunity(sequelize, DataTypes) {
         },
         title:  {
           type: DataTypes.STRING,
-	  allownull: false,
+          allownull: false,
           label:'Nombre del Programa',
           unique: true,
           validate: {
@@ -48,7 +48,7 @@ function Opportunity(sequelize, DataTypes) {
         },
         purpose: {
           type: DataTypes.ARRAY(DataTypes.TEXT),
-	  allownull: false,
+          allownull: false,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('purpose'),
           validate: {
@@ -59,7 +59,7 @@ function Opportunity(sequelize, DataTypes) {
         },
         eligibleBusinessLocation: {
           type: DataTypes.ARRAY(DataTypes.STRING),
-	  allownull: false,
+          allownull: false,
           multiple: true,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('eligibleBusinessLocation'),
@@ -72,11 +72,11 @@ function Opportunity(sequelize, DataTypes) {
           widget: 'arrayTextField',
           label: 'Documentación requerida',
           multiple: true,
-	  allownull: false
+          allownull: false
         },
         /*applicationCost: {
           type: DataTypes.INTEGER,
-	  allownull: false,
+          allownull: false,
           label: 'Costo de la aplicación - (colocar solo número)',
           widget: 'text',
           validate: {
@@ -85,20 +85,20 @@ function Opportunity(sequelize, DataTypes) {
         },
         applicationDeadline: {
           type: DataTypes.DATE,
-	  allownull: false,
+          allownull: false,
           widget: 'date',
           label: 'Fecha de expiración'
         },*/
         avgApplicationTime: {
           type: DataTypes.STRING,
-	  allownull: false,
+          allownull: false,
           widget: 'text',
           label: 'Tiempo estimado de finalización desde  ___ hasta  ___)'
         },
         // TODO -- abstract choices to freaking callbacks.
         benefitType: {
           type: DataTypes.ARRAY(DataTypes.STRING),
-	  allownull: false,
+          allownull: false,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('benefitType'),
           label: 'Tipo de Beneficio',
@@ -107,7 +107,7 @@ function Opportunity(sequelize, DataTypes) {
         },
         benefitDescription: {
           type: DataTypes.TEXT,
-	  allownull: false,
+          allownull: false,
           widget: 'textArea',
           label: 'Descripción de Beneficio',
         },
@@ -128,24 +128,24 @@ function Opportunity(sequelize, DataTypes) {
         agencyContactName: {
           type: DataTypes.STRING,
           label: 'Nombre de contacto en Agencia',
-	  allownull: false,
+          allownull: false,
           widget: 'text'
         },
         agencyContactEmail: {
           type: DataTypes.STRING,
           label: 'Email de contacto',
-	  allownull: false,
+          allownull: false,
           widget: 'text',
         },
         agencyContactPhone: {
           type: DataTypes.STRING,
           label: 'Teléfono de contacto en Agencia',
-	  allownull: false,
+          allownull: false,
           widget: 'text',
         },
         minimumYearsInBusiness: {
           type: DataTypes.INTEGER,
-	  allownull: false,
+          allownull: false,
           label: 'Mínimo de años en Negocio',
           widget: 'select',
           choices: choicesList.getFormChoices('yearsInBusiness'),
@@ -153,7 +153,7 @@ function Opportunity(sequelize, DataTypes) {
         eligibleEntityTypes: {
           type: DataTypes.ARRAY(DataTypes.STRING),
           widget: 'checkbox',
-	  allownull: false,
+          allownull: false,
           multiple: true,
           choices: choicesList.getFormChoices('eligibleEntityTypes'),
           label: 'Tipo de entidades elegibles'
@@ -162,7 +162,7 @@ function Opportunity(sequelize, DataTypes) {
           type: DataTypes.ARRAY(DataTypes.STRING),
           widget: 'multiSelect',
           multiple: true,
-	  allownull: false,
+          allownull: false,
           choices: choicesList.getFormChoices('currentEmployeesRequired'),
           label: 'Número de empleados requeridos',
         },
@@ -171,13 +171,13 @@ function Opportunity(sequelize, DataTypes) {
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('annualRevenue'),
           multiple: true,
-	  allownull: false,
+          allownull: false,
           label: 'Ganancia anual requerida',
         },
         eligibleIndustries: {
           type: DataTypes.ARRAY(DataTypes.STRING),
           multiple: true,
-	  allownull: false,
+          allownull: false,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('eligibleIndustries'),
           label: 'Industrias elegibles',
@@ -185,14 +185,14 @@ function Opportunity(sequelize, DataTypes) {
         },
         gender: {
           type: DataTypes.STRING,
-	  allownull: false,
+          allownull: false,
           label: 'Género',
           widget: 'select',
           choices: choicesList.getFormChoices('gender')
         },
         age: {
           type: DataTypes.ARRAY(DataTypes.INTEGER),
-	  allownull: false,
+          allownull: false,
           label: 'Edad',
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('age'),
