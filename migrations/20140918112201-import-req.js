@@ -30,8 +30,8 @@ module.exports = {
         reqPromises.push(Req.create(reqData));
       });
       return Promise.all(reqPromises);
-    //}).success(function() {
-    //  return done();
+    }).success(function() {
+      return done();
     }).error(function(err) {
       return done(err)
     });
