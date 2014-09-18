@@ -85,7 +85,10 @@ var setAssociations = function(instance, refs) {
   _.each(refs, function(fieldData, fieldIndex) {
     var associationKey = fieldData.fieldInfo.assocName || fieldData.fieldInfo.refTarget;
     var setter = instance.Model.associations[associationKey].accessors.set;
-    var value = _.isEmpty(fieldData.value) ? [] : fieldData.value;
+    var value = fieldData.value;
+    if (fieldData.multiple || _.isEqual(fieldData.value, ['[]']) || fieldData.value === '[]')
+      value = [];
+
     refPromises.push(instance[setter](value));
   });
   return Promise.all(refPromises);
@@ -165,9 +168,13 @@ var classMethods = {
 
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
-          value = [value];
+	  // Handle multiples in refs hidden input fields.
+	  // TODO make this better.
+	  if (fieldInfo.widget === 'ref')
+	    value = (value.replace(/\[\],?/g, "")).split(",");
+	  else
+	    value = [value];
         }
-
 
         // Get value from 'other' text fields if necessary
         if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
@@ -186,9 +193,6 @@ var classMethods = {
           refs[fieldKey] = { value: value, fieldInfo: _.omit(fieldInfo, ['Model', 'values']) };
       }
     });
-    //var instance = this.build(modelData);
-    //console.log(refs);
-    //instance.refs = refs;
     return { modelData: modelData, refs: refs };
   },
   // Create instance based on admin form submission.
