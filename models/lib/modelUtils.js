@@ -26,7 +26,11 @@ var fieldBlackList = {
 };
 
 
-var buildElementValues = function(element, value, modelInstance) {
+var buildElementValues = function(element, modelInstance) {
+  var value = modelInstance.get(element.name);
+  if (!value && element.widget === 'ref') {
+    value = getAssociation(element, modelInstance);
+  }
   var isArrayValue = _.isArray(value);
   var valueSet = {
     value: isArrayValue ? [] : null,
@@ -58,13 +62,25 @@ var buildElementValues = function(element, value, modelInstance) {
   return valueSet;
 }
 
+var getAssociation = function(fieldInfo, modelInstance) {
+  // TODO -- build in assoc for eager loads.
+  var associationKey = fieldInfo.assocName || fieldInfo.refTarget;
+  var getKey = modelInstance.Model.associations[associationKey].as;
+  var associatedObjects = modelInstance[getKey];
+  if (_.isArray(associatedObjects)) {
+    return _.map(associatedObjects, function(object, index){
+      return { id: object.id, text: object.name };
+    });
+  }
+  return associatedObjects;
+}
+
 var setAssociations = function(instance, refs) {
   // TODO -- am I being vulnerable because i'm not validating id of ref?
   // Return quick if no refs.
   console.log('SET ASSOC');
   var refs = refs || {};
   var refPromises = [];
-  console.log(refs);
   _.each(refs, function(fieldData, fieldIndex) {
     var associationKey = fieldData.fieldInfo.assocName || fieldData.fieldInfo.refTarget;
     var setter = instance.Model.associations[associationKey].accessors.set;
@@ -110,7 +126,7 @@ var classMethods = {
       var choices = choicesList.getFormChoices(index);
       element.choices =  _.isEmpty(choices) ? element.choices : choices;
       if (op == 'edit' && modelInstance) {
-        var valueSet = buildElementValues(element, modelInstance.get(index), modelInstance);
+        var valueSet = buildElementValues(element, modelInstance);
         element.value = valueSet.value;
         element.otherValue = valueSet.otherValue;
       }

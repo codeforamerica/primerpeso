@@ -134,7 +134,7 @@ function edit(req, res) {
     return res.render('admin/form', render);
   }
   else {
-    Model.loadFull(render.id).success(function(instance) {
+    Model.loadFull({ where: { id: render.id } }).success(function(instance) {
       if (!instance) {
         res.status(404);
         return res.render('admin/404', { url: req.url });

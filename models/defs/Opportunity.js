@@ -14,7 +14,10 @@ function Opportunity(sequelize, DataTypes) {
   classMethods = _.extend(modelUtils.classMethods, {
     loadFull: function(options, queryOptions) {
       var findOptions = _.extend(options, {
-        include: [{ model: sequelize.model('agency'), as: 'agency' }]
+        include: [
+          { model: sequelize.model('agency'), as: 'agency' },
+          { model: sequelize.model('requirement'), as: 'requirements' }
+        ]
       });
       var findQueryOptions = _.extend(queryOptions, {});
       return this.find(findOptions, findQueryOptions);

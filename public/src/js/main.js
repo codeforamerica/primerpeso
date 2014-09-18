@@ -125,24 +125,28 @@ $(document).ready(function() {
         },
       },
       initSelection: function(element, callback) {
-        var id = $(element).val();
-        if (id && id !== "")
-        $.ajax({
-          dataType: 'json',
-          url: '/api/' + $(element).data('reftarget') + '/' + id,
-        }).done(function(data) {
-          var result;
-          if ($(element).hasClass('multiple')) {
-            var retData = _.isArray(data) ? data : new Array(data);
-            result = _.map(retData, function(selectedValue) {
-              return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
-            });
-          }
-          else
-            result = { id: data.id, text: data.title || data.name };
-
-          callback(result);
-        });
+        var id = $.parseJSON($(element).val());
+        console.log(id);
+        if(_.isArray(id)) {
+          callback(id);
+        }
+        else if (id && id !== "") {
+          $.ajax({
+            dataType: 'json',
+            url: '/api/' + $(element).data('reftarget') + '/' + id,
+          }).done(function(data) {
+            var result;
+            if ($(element).hasClass('multiple')) {
+              var retData = _.isArray(data) ? data : new Array(data);
+              result = _.map(retData, function(selectedValue) {
+                return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
+              });
+            }
+            else
+              result = { id: data.id, text: data.title || data.name };
+            callback(result);
+          });
+        }
       }
     });
   });
