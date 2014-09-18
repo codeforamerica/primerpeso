@@ -38,6 +38,7 @@ var oppQueryExecute = function(req, res, next) {
   var query = req.query;
   var searcher = new Searcher(query);
   searcher.execute().success(function() {
+    return res.json(searcher.result);
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
     return res.render('searchResults', {
