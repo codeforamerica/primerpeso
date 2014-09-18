@@ -59,10 +59,6 @@ function apiGetModel(req, res) {
   if (!Model || S(id).isNumeric() === false)
     return res.status(404).send('Not Found');
 
-  /*Model.findAll({ include: [{model: Agency, as: 'agency' }], where: { id: id } }).success(function(result) {
-    return res.json(result);
-  });*/
-
   Model.loadFull({ where: { id: id } }).success(function(result) {
     return res.json(result);
   });

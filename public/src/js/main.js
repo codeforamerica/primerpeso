@@ -98,13 +98,13 @@ $(document).ready(function() {
     }
   });
 
-  /*$('select').each(function(index, sel) {
+  $('select').each(function(index, sel) {
     if ($(this).attr("multiple") == "multiple") {
       $(this).select2($(this).val());
     } else{
       $(this).select2();
     };
-  });*/
+  });
 
   // For admin page
   $('.choiceOther').hide();
