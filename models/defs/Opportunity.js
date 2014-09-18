@@ -10,7 +10,6 @@ module.exports = function(sequelize, DataTypes) {
   var defaultScope = {};
   var scopes = {};
 
-
   classMethods = _.extend(modelUtils.classMethods, {
     loadFull: function(options, queryOptions) {
       var findOptions = _.extend(options, {
@@ -25,9 +24,9 @@ module.exports = function(sequelize, DataTypes) {
     getListFields: function() {
       return {
         'title': 'Título',
-//        'applicationDeadline': 'Vencimiento del programa',
-//        'benefitType': 'Tipo de beneficio',
-//        'agencyContactName': 'Contacto de la agencia',
+        'applicationDeadline': 'Vencimiento del programa',
+        'benefitType': 'Tipo de beneficio',
+        'agencyContactName': 'Contacto de la agencia',
       };
     },
     _getAttributes: function() {

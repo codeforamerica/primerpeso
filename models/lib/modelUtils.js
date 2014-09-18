@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var moment = require('moment')
+var S = require('string');
 var OptionsList = require('../../lib/OptionsList.js');
 var Promise = require('bluebird');
 // TODO this should be implemented in the proper pattern:
@@ -153,10 +154,20 @@ var classMethods = {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
 
+       if (fieldInfo.type) {
+          // @TODO -- fix the default value for date.
+          if (fieldInfo.type.toString() === 'INTEGER')
+            value = S(value).toInt();
+          if (S(fieldInfo.type.toString().toLowerCase()).contains('time') &&
+              !moment(value).isValid())
+            value = '2019-12-27';
+        }
+
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
           value = [value];
         }
+
 
         // Get value from 'other' text fields if necessary
         if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {

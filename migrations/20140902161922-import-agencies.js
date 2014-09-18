@@ -25,12 +25,18 @@ module.exports = {
       parsedData = _.map(parsedData, function(agencyData) {
         return _.extend(agencyData, { creatorId: defaultCreator.id });
       });
-      return Agency.bulkCreate(parsedData);
+
+      var agencyPromises = [];
+      _.each(parsedData, function(agencyData, index) {
+        agencyPromises.push(Agency.create(agencyData));
+      });
+      return Promise.all(agencyPromises);
     }).success(function() {
       return done();
     }).error(function(err) {
       return done(err)
     });
+
   },
   down: function(migration, DataTypes, done) {
     // add reverting commands here, calling 'done' when finished

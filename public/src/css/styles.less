@@ -76,6 +76,7 @@ a {
 
 .navbar {
   margin-bottom: 0px;
+  border-radius: 0px;
 }
 
 .navbar-default {
@@ -112,7 +113,7 @@ a {
 }
 
 .navbar-brand {
-  background-image: url(../img/logo_beta.png);
+  background-image: url(../img/logo_pp.png);
   background-repeat: no-repeat;
   background-size: 75px;
   background-position: left center;
@@ -136,6 +137,29 @@ a {
 
 .navbar-default .navbar-collapse {
   border-color: transparent;
+}
+
+// Dropdown Styles
+// -------------------------
+
+ul.dropdown-menu {
+  padding: 0px;
+  li a {
+    padding: 20px 10px !important;
+    &:hover {
+      border-radius: 4px;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+    }
+  }
+}
+
+.home {
+  ul.dropdown-menu li a
+  {
+  color: @dark-green;
+  text-shadow: none;
+  }
 }
 
 // Landing Page
@@ -163,7 +187,7 @@ a {
   -o-background-size: cover;
   background-size: cover;
   min-height: 650px;
-  margin-top: -100px;
+  margin-top: -300px;
   text-align: center;
   font-family: @font-family-secondary;
   .title {
@@ -193,10 +217,12 @@ a {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  position: absolute;
+  position: relative;
+  display: block;
   left: 0;
   right:0;
-  bottom: 300px;
+  bottom: -300px;
+  margin-top: 200px;
   text-shadow: 3px 2px 4px #000;
   img {
     display: none;
@@ -223,6 +249,12 @@ section {
     margin: 0px 0px 30px;
     padding-top: 70px;
   }
+}
+
+.brands-credit {
+  margin: 15px 10% 0 0;
+  text-align: right;
+  font-size: 95%;
 }
 
 .how-it-works, .who-have-we-helped {
@@ -445,16 +477,27 @@ section {
 }
 
 .benefit-description {
-  display: table;
+  ul.benefit-info-list {
+    list-style-type: none;
+    padding-left: 0px;
+    li h4 {
+      font-weight:bold;
+      font-size: 120%;
+      color: @navy;
+    }
+  }
 }
 
 .panel-body {
   padding: 15px 0px;
-  line-height: 1.5;
+  line-height: 1.75;
+  display: table;
 }
 
 .additional-info {
-  font-weight: bold;
+  display: inline-block;
+  font-weight: 500;
+  margin-top: 10px !important;
 }
 
 //Shopping Cart Stuff
@@ -554,8 +597,6 @@ td {
   }
 }
 
-
-
 // Confirmation Page - Send Lead
 // -------------------------
 
@@ -641,6 +682,8 @@ a.btn.help-you:last-child {
 .removeItem {
   margin-top: 0px;
   background-color: @red;
+  display: inline;
+  float: left;
   &:hover {
     background-color: @darker-red;
   }
@@ -650,6 +693,9 @@ a.btn.help-you:last-child {
   margin-bottom: 60px;
 }
 
+.back {
+  margin: 20px 0px;
+}
 
 // Special Messages
 // -------------------------
@@ -773,7 +819,7 @@ a.btn.help-you:last-child {
 .landing-header {
   background: none;
   position: relative;
-  bottom: -25px;
+  bottom: 75px;
   img {
     display: block;
     width: 50%;
@@ -808,18 +854,68 @@ section h1.section-title {
 
 @media screen and (max-width: 767px) {
   .home {
-    .navbar {
-    background: @dark-navy;
-      li a {
+    .navbar li a {
         text-shadow: none;
-      }
     }
   }
 }
 
-@media screen and (max-width: 991px) {
+@media (max-width: 991px) {
   .row-header h4 {
     display: none;
+  }
+  .wizard .steps{
+    a, a:active {
+    font: 250%;
+  }
+    .disabled a {
+    display: none;
+  }
+  }
+  .landing-header {
+    position: relative;
+    display: block;
+    margin-top: 200px;
+  }
+  .landing {
+    margin-top: -200px;
+  }
+
+  .home {
+    .navbar {
+    background: @dark-navy;
+    }
+  }
+  .navbar-header {
+      float: none;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin: 7.5px -15px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  /* since 3.1.0 */
+  .navbar-collapse.collapse.in {
+      display: block!important;
+  }
+  .collapsing {
+      overflow: hidden!important;
   }
 }
 
@@ -845,9 +941,6 @@ section h1.section-title {
 }
 
 @media screen and (min-width: 1300px) {
-  .landing-header {
-    bottom: 300px;
-  }
   a.btn.help-you:last-child {
       margin-bottom: 40px;
   }
