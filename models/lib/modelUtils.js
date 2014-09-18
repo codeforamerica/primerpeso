@@ -168,12 +168,12 @@ var classMethods = {
 
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
-	  // Handle multiples in refs hidden input fields.
-	  // TODO make this better.
-	  if (fieldInfo.widget === 'ref')
-	    value = (value.replace(/\[\],?/g, "")).split(",");
-	  else
-	    value = [value];
+          // Handle multiples in refs hidden input fields.
+          // TODO make this better.
+          if (fieldInfo.widget === 'ref')
+            value = (value.replace(/\[\],?/g, "")).split(",");
+          else
+            value = [value];
         }
 
         // Get value from 'other' text fields if necessary
