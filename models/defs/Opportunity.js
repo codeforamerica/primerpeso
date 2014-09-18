@@ -73,7 +73,7 @@ module.exports = function(sequelize, DataTypes) {
           multiple: true,
           allownull: false
         },
-        /*applicationCost: {
+        applicationCost: {
           type: DataTypes.INTEGER,
           allownull: false,
           label: 'Costo de la aplicación - (colocar solo número)',
@@ -87,7 +87,7 @@ module.exports = function(sequelize, DataTypes) {
           allownull: false,
           widget: 'date',
           label: 'Fecha de expiración'
-        },*/
+        },
         avgApplicationTime: {
           type: DataTypes.STRING,
           allownull: false,
