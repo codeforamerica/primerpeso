@@ -125,7 +125,7 @@ module.exports = function(sequelize, DataTypes) {
           type: DataTypes.INTEGER,
           widget: 'ref',
           refTarget: 'agency',
-          label: 'Nombre de la Agencia'
+          label: 'Nombre de la agencia'
         },
         requirementsRef: {
           type: null, // NULL types will be excluded from the columns.
@@ -137,7 +137,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         agencyContactName: {
           type: DataTypes.STRING,
-          label: 'Nombre de contacto en Agencia',
+          label: 'Nombre de contacto en agencia',
           allownull: false,
           widget: 'text'
         },
@@ -149,7 +149,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         agencyContactPhone: {
           type: DataTypes.STRING,
-          label: 'Teléfono de contacto en Agencia',
+          label: 'Teléfono de contacto en agencia',
           allownull: false,
           widget: 'text',
         },
@@ -182,7 +182,7 @@ module.exports = function(sequelize, DataTypes) {
           choices: choicesList.getFormChoices('annualRevenue'),
           multiple: true,
           allownull: false,
-          label: 'Ganancia anual requerida',
+          label: 'Volumen anual requerido',
         },
         eligibleIndustries: {
           type: DataTypes.ARRAY(DataTypes.STRING),

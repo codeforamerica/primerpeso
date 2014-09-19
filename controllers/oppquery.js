@@ -119,7 +119,7 @@ var accordionPanelRenderList = {
   opportunity: {
     benefitDescription: 'Descripción',
     paperworkRequired: 'Documentación requerida',
-    applicationCost: 'Costo de Aplicación',
+    applicationCost: 'Costo de Solicitud',
     additionalGeneralInformation: 'Informacion Adicional'
   },
   agency: {
