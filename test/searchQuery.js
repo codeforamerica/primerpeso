@@ -57,13 +57,8 @@ var oppOverrideSet = [
 function createOpportunity(overrides, done) {
   var body = oppMock(overrides);
   // We can depend on this because it's getting covered in another test.
-  var instance = Opportunity.buildFromAdminForm(body);
-  // NOW THIS IS HOW YOU DO PROMISES!
-  return instance.validate().then(function(err) {
-    if (err) throw(err);
-      return instance.save();
-  }).then(function(savedInstance) {
-    // This section is probably not needed.
+  return Opportunity.createInstance(body).then(function(savedInstance) {
+    console.log('INSTANCE CREATED');
     return savedInstance;
   })
   .catch(function(err) {

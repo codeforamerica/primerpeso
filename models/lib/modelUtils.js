@@ -91,7 +91,9 @@ var setAssociations = function(instance, refs) {
 
     refPromises.push(instance[setter](value));
   });
-  return Promise.all(refPromises);
+  return Promise.all(refPromises).then(function(setRes) {
+    return instance;
+  });
 }
 
 var classMethods = {
@@ -171,7 +173,7 @@ var classMethods = {
           // Handle multiples in refs hidden input fields.
           // TODO make this better.
           if (fieldInfo.widget === 'ref')
-            value = (value.replace(/\[\],?/g, "")).split(",");
+	    value = (value.replace(/(\[\]|null),?/g, "")).split(",");
           else
             value = [value];
         }
@@ -204,7 +206,7 @@ var classMethods = {
       if (err) throw(err);
       return instance.save();
     }).then(function(instance) {
-      return setAssociations(currentInstance, builtFromForm.refs);
+      return setAssociations(instance, builtFromForm.refs);
     });
   },
   // Update instance based on admin form submission.
