@@ -70,8 +70,8 @@ var getAssociation = function(fieldInfo, modelInstance) {
   var associatedObjects = modelInstance[getKey];
   if (_.isArray(associatedObjects)) {
     return _.map(associatedObjects, function(object, index){
-      return { id: object.id, text: object.name };
-    });
+      return object.id;
+    }).join(',');
   }
   return associatedObjects;
 }
@@ -173,7 +173,7 @@ var classMethods = {
           // Handle multiples in refs hidden input fields.
           // TODO make this better.
           if (fieldInfo.widget === 'ref')
-            value = (value.replace(/(\[\]|null),?/g, "")).split(",");
+            value = value.split(",");
           else
             value = [value];
         }
@@ -220,6 +220,7 @@ var classMethods = {
       return setAssociations(currentInstance, builtFromForm.refs);
     });
   },
+  // TODO THIS DOES NOT WORK RIGHT __ THE EXTENDING
   loadFull: function(options, queryOptions) {
     return this.find(options, queryOptions);
   },
