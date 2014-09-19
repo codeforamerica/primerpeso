@@ -49,7 +49,6 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
     +renderResultListHeader
 
   div(class="panel-group" id="accordion")
-      - var oppCount = 0;
     each progDesc, progName in benefitProgList
       - oppCount++;
       div(class="panel panel-default")

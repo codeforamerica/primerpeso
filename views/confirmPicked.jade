@@ -4,7 +4,7 @@ include mixins/search.jade
 extends layout
 
 block content
-
+  - var oppCount = 0;
   div.search-intro.results Estos son los programas que has seleccionado para solicitar más información a las agencias.
   div.opportunities-container
     +renderResultList(pickedResults)
