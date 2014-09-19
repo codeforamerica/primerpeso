@@ -28,7 +28,7 @@ exports = module.exports = function(overrides) {
     "gender": "any",
     "age": ["0"],
     "additionalGeneralInformation": "",
-    "moneyInvested": ""
+    "moneyInvested": "",
   }
 
   return _.extend(body, overrides);

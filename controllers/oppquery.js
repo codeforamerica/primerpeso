@@ -40,13 +40,13 @@ var oppQueryExecute = function(req, res, next) {
   searcher.execute().success(function() {
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
-
     return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',
       displayCart: true,
       searchResult: searchResult,
       benefitTypes: benefitTypes,
+      accordionPanelRenderList: accordionPanelRenderList,
       meta: { type: 'searchResults' }
     });
   });
@@ -83,6 +83,7 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
     bodyClass: 'confirmPickedResults',
     pickedResults: cartContents,
     benefitTypes: pickedBenefitTypes,
+    accordionPanelRenderList: accordionPanelRenderList,
     form: sendRequestForm.getFormConfig(true), // Deep.
     formInfo: sendRequestForm.getFormConfig(false), // Shallow.
     meta: { type: 'confirmPicked' }
@@ -114,14 +115,21 @@ var oppQuerySendLead = function(req, res, next) {
   });
 }
 
-var buildLeadDataForConfirmPage = function(leadData) {
-  // Extract all selections and normalize them.
-  var selections = {};
-  _.each(leadData.selectedPrograms, function(progsOfType, typeName) {
-    _.each(progsOfType, function(programData, programName) {
-      selections[programData.agencyName] = selections[programData.agencyName] || {};
-      selections[programData.agencyName][programName] = programData;
-    });
-  });
-  leadData.selectedPrograms = selections;
-}
+var accordionPanelRenderList = {
+  opportunity: {
+    benefitDescription: 'Descripción',
+    paperworkRequired: 'Documentación requerida',
+    applicationCost: 'Costo de Solicitud',
+    additionalGeneralInformation: 'Informacion Adicional'
+  },
+  agency: {
+    name: 'Nombre De Agencia',
+    web: 'Sitio Web de Agencia',
+    phone: 'Numero de Telefono de Agencia',
+  },
+  requirements: {
+    link: 'Sitio Web Para Obtener Requisito',
+    cost: 'Costo del Requisito'
+  }
+};
+
