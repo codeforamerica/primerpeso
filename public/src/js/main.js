@@ -132,23 +132,24 @@ $(document).ready(function() {
         },
       },
       initSelection: function(element, callback) {
-	var cVal = $(element).val();
-
-	$.ajax({
-	  dataType: 'json',
-	  url: '/api/' + $(element).data('reftarget') + '/' + id,
-	}).done(function(data) {
-	  var result;
-	  if ($(element).hasClass('multiple')) {
-	    var retData = _.isArray(data) ? data : new Array(data);
-	    result = _.map(retData, function(selectedValue) {
-	      return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
-	    });
-	  }
-	  else
-	    result = { id: data.id, text: data.title || data.name };
-	  callback(result);
-	});
+        var cVal = $(element).val();
+        $.ajax({
+          dataType: 'json',
+          url: '/api/' + $(element).data('reftarget') + '?id=' + cVal,
+        }).done(function(data) {
+          var result;
+          if ($(element).hasClass('multiple')) {
+            var retData = _.isArray(data) ? data : new Array(data);
+            result = _.map(retData, function(selectedValue) {
+              return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
+            });
+          }
+          else {
+            data = _.first(data);
+            result = { id: data.id, text: data.title || data.name };
+          }
+          callback(result);
+        });
       }
     });
   });
