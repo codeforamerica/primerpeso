@@ -129,7 +129,6 @@ var accordionPanelRenderList = {
     phone: 'Numero de Telefono de Agencia',
   },
   requirements: {
-    name: 'Nombre Del Requisito',
     link: 'Sitio Web Para Obtener Requisito',
     cost: 'Costo del Requisito'
   }
