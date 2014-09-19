@@ -21,6 +21,17 @@ module.exports = function(sequelize, DataTypes) {
       var findQueryOptions = _.extend(queryOptions, {});
       return this.find(findOptions, findQueryOptions);
     },
+    // TODO -- add this to modelUtils and DRY UP.
+    findAllFull: function(options, queryOptions) {
+      var findOptions = _.extend(options, {
+        include: [
+          { model: sequelize.model('agency'), as: 'agency' },
+          { model: sequelize.model('requirement'), as: 'requirements' }
+        ]
+      });
+      var findQueryOptions = _.extend(queryOptions, {});
+      return this.findAll(findOptions, findQueryOptions);
+    },
     getListFields: function() {
       return {
         'title': 'Título',

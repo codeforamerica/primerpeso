@@ -63,11 +63,28 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
               div(class="panel-body")
                 div(class=progName + "-inner-text benefit-description")
                   ul(class="benefit-info-list accordion-panel-render-list")
-                    each panelSectionTitle, panelSectionKey in accordionPanelRenderList
+                    // Opportunity
+                    each panelSectionTitle, panelSectionKey in accordionPanelRenderList.opportunity
                       if progDesc[panelSectionKey]
                         li
                           h4= panelSectionTitle
                           div.panel-section-inner!= AUTOLINK(progDesc[panelSectionKey])
+                    // Agency
+                    each panelSectionTitle, panelSectionKey in accordionPanelRenderList.agency
+                      if progDesc.agency[panelSectionKey]
+                        li
+                          h4= panelSectionTitle
+                          div.panel-section-inner!= AUTOLINK(progDesc.agency[panelSectionKey])
+                    // Requirements
+                    each requirementData, reqKey in progDesc.requirements
+                      li
+                        h4= requirementData.name
+                      each panelSectionTitle, panelSectionKey in accordionPanelRenderList.requirements
+                        if requirementData[panelSectionKey]
+                          li
+                            h5= panelSectionTitle
+                            div.panel-section-inner!= AUTOLINK(requirementData[panelSectionKey])
+
           div(class="col-md-2 col-deadline col-" + progName)
             div(class=progName + "-inner-text")= progDesc.deadline
 

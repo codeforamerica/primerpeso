@@ -38,9 +38,9 @@ var oppQueryExecute = function(req, res, next) {
   var query = req.query;
   var searcher = new Searcher(query);
   searcher.execute().success(function() {
-    return res.json(searcher.result);
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
+    //return res.json(searchResult);
     return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',
@@ -117,12 +117,21 @@ var oppQuerySendLead = function(req, res, next) {
 }
 
 var accordionPanelRenderList = {
-  description: 'Descripción',
-  paperwork: 'Documentación requerida',
-  cost: 'Costo de Aplicación',
-  agencyName: 'Nombre De Agencia',
-  agencyWeb: 'Sitio Web de Agencia',
-  agencyPhone: 'Numero de Telefono de Agencia',
-  info: 'Informacion Adicional'
+  opportunity: {
+    benefitDescription: 'Descripción',
+    paperworkRequired: 'Documentación requerida',
+    applicationCost: 'Costo de Aplicación',
+    additionalGeneralInformation: 'Informacion Adicional'
+  },
+  agency: {
+    name: 'Nombre De Agencia',
+    web: 'Sitio Web de Agencia',
+    phone: 'Numero de Telefono de Agencia',
+  },
+  requirements: {
+    name: 'Nombre Del Requisito',
+    link: 'Sitio Web Para Obtener Requisito',
+    cost: 'Costo del Requisito'
+  }
 };
 

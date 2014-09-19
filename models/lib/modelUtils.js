@@ -220,7 +220,11 @@ var classMethods = {
   },
   loadFull: function(options, queryOptions) {
     return this.find(options, queryOptions);
+  },
+  findAllFull: function(options, queryOptions) {
+    return this.find(options, queryOptions);
   }
+
 };
 
 var instanceMethods = {
