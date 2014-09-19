@@ -90,11 +90,11 @@ module.exports = function(sequelize, DataTypes) {
     agencyId: {
       type: DataTypes.INTEGER,
       widget: 'ref',
-      label: 'Nombre de la Agencia'
+      label: 'Nombre de la agencia'
     },
     agencyContactName: {
       type: DataTypes.STRING,
-      label: 'Nombre de contacto en Agencia',
+      label: 'Nombre de contacto en agencia',
       allowNull: false,
       widget: 'text'
     },
@@ -106,7 +106,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     agencyContactPhone: {
       type: DataTypes.STRING,
-      label: 'Teléfono de contacto en Agencia',
+      label: 'Teléfono de contacto en agencia',
       allowNull: false,
       widget: 'text',
     },
@@ -139,7 +139,7 @@ module.exports = function(sequelize, DataTypes) {
       choices: choicesList.getFormChoices('annualRevenue'),
       multiple: true,
       allowNull: false,
-      label: 'Ganancia anual requerida',
+      label: 'Volumen anual requerido',
     },
     eligibleIndustries: {
       type: DataTypes.ARRAY(DataTypes.STRING),
