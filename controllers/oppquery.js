@@ -116,12 +116,20 @@ var oppQuerySendLead = function(req, res, next) {
 }
 
 var accordionPanelRenderList = {
-  description: 'Descripción',
-  paperwork: 'Documentación requerida',
-  cost: 'Costo de Aplicación',
-  agencyName: 'Nombre De Agencia',
-  agencyWeb: 'Sitio Web de Agencia',
-  agencyPhone: 'Numero de Telefono de Agencia',
-  info: 'Informacion Adicional'
+  opportunity: {
+    benefitDescription: 'Descripción',
+    paperworkRequired: 'Documentación requerida',
+    applicationCost: 'Costo de Aplicación',
+    additionalGeneralInformation: 'Informacion Adicional'
+  },
+  agency: {
+    name: 'Nombre De Agencia',
+    web: 'Sitio Web de Agencia',
+    phone: 'Numero de Telefono de Agencia',
+  },
+  requirements: {
+    link: 'Sitio Web Para Obtener Requisito',
+    cost: 'Costo del Requisito'
+  }
 };
 

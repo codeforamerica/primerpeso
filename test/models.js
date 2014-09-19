@@ -152,7 +152,7 @@ describe('Opportunity Model', function() {
     }).then(function(op) {
       return user.addOpportunity(op);
     }).then(function() {
-      return user.getOpportunities( {attributes: ['title'] });
+      return user.getOpportunities( { attributes: ['title'] });
     }).then(function(results) {
       should.exist(results);
       return done();

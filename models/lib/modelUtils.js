@@ -26,7 +26,12 @@ var fieldBlackList = {
   ],
 };
 
-var buildElementValues = function(element, value) {
+
+var buildElementValues = function(element, modelInstance) {
+  var value = modelInstance.get(element.name);
+  if (!value && element.widget === 'ref') {
+    value = getAssociation(element, modelInstance);
+  }
   var isArrayValue = _.isArray(value);
   var valueSet = {
     value: isArrayValue ? [] : null,
@@ -40,7 +45,7 @@ var buildElementValues = function(element, value) {
   }
 
   if (element.choiceOther == true) {
-    if (!isArrayValue){
+    if (!isArrayValue) {
       if (!_.isUndefined(element.choices[value]))
         valueSet.value = value;
       else
@@ -58,40 +63,67 @@ var buildElementValues = function(element, value) {
   return valueSet;
 }
 
-
-// Handle reference fields.
-// TODO -- this only handles belongsTo associations
-var buildRefElement = function(element, model) {
-  var refedModel = _.find(model.associations, function(association, index) {
-    return association.options.foreignKey === element.fieldName;
-  });
-  refedModel = refedModel.target;
-  return refedModel.findAll().success(function(modelInstances) {
-    console.log('findall success');
-    var instanceList = {};
-    _.each(modelInstances, function(modelInstance, index) {
-      // TODO -- not sustainable to call by name.
-      instanceList[modelInstance.get('id')] = modelInstance.get('name');
+var getAssociation = function(fieldInfo, modelInstance) {
+  // TODO -- build in assoc for eager loads.
+  var associationKey = fieldInfo.assocName || fieldInfo.refTarget;
+  var getKey = modelInstance.Model.associations[associationKey].as;
+  var associatedObjects = modelInstance[getKey];
+  if (_.isArray(associatedObjects)) {
+    return _.map(associatedObjects, function(object, index){
+      return { id: object.id, text: object.name };
     });
-    element.choices = instanceList;
-    return element;
+  }
+  return associatedObjects;
+}
+
+var setAssociations = function(instance, refs) {
+  // TODO -- am I being vulnerable because i'm not validating id of ref?
+  // Return quick if no refs.
+  console.log('SET ASSOC');
+  var refs = refs || {};
+  var refPromises = [];
+  _.each(refs, function(fieldData, fieldIndex) {
+    var associationKey = fieldData.fieldInfo.assocName || fieldData.fieldInfo.refTarget;
+    var setter = instance.Model.associations[associationKey].accessors.set;
+    var value = fieldData.value;
+    if (fieldData.multiple || _.isEqual(fieldData.value, ['[]']) || fieldData.value === '[]')
+      value = [];
+
+    refPromises.push(instance[setter](value));
+  });
+  return Promise.all(refPromises).then(function(setRes) {
+    return instance;
   });
 }
 
 var classMethods = {
+  buildAttributes: function(columnsOnly) {
+    var columnsOnly = columnsOnly || false;
+    var attributes = this._getAttributes();
+    _.each(attributes, function(element, elementIndex) {
+      if (!element.fieldName)
+        element.fieldName = elementIndex;
+    });
+    if (columnsOnly === true) {
+      return _.omit(attributes, function(attributeData, attributeName) {
+        return _.isEmpty(attributeData.type);
+      });
+    }
+    return attributes;
+  },
   // Parses raw attributes of model and generates fields based on them as well as operation.
   getFormFields: function(op, modelInstance) {
     var op = op || 'list';
     var blacklist = fieldBlackList[op];
     // TODO -- return as resolved promise?
-    if (op === 'list')
-      return _.omit(this.rawAttributes, blacklist);
+    // Columns only = true if not listAll
+    if (op === 'list' || op === 'listAll')
+      return _.omit(this.buildAttributes(op === 'list'), blacklist);
 
     var modelInstance = modelInstance || null;
     var choicesList = new OptionsList();
-    var refPromises = [];
 
-    var fieldList = _.mapValues(this.rawAttributes, function(element, index) {
+    var fieldList = _.mapValues(this.buildAttributes(false), function(element, index) {
       element.widget = element.widget ? element.widget : 'text';
       element.name = element.fieldName;
       element.value = null;
@@ -99,7 +131,7 @@ var classMethods = {
       var choices = choicesList.getFormChoices(index);
       element.choices =  _.isEmpty(choices) ? element.choices : choices;
       if (op == 'edit' && modelInstance) {
-        var valueSet = buildElementValues(element, modelInstance.get(index));
+        var valueSet = buildElementValues(element, modelInstance);
         element.value = valueSet.value;
         element.otherValue = valueSet.otherValue;
       }
@@ -107,19 +139,7 @@ var classMethods = {
       return _.omit(element, ['Model', 'type']);
     }, this);
 
-    // Get reference options.
-    _.each(_.where(fieldList, { 'widget': 'ref' }), function(refElement) {
-      refPromises.push(buildRefElement(refElement, this));
-    }, this);
-
-    return Promise.all(refPromises).then(function(refElementsWithChoices) {
-      console.log('all promiss fulfill');
-      // Override all previous elements with the ones returned from promise.
-      _.each(refElementsWithChoices, function(element) {
-        fieldList[element.name] = element;
-      });
-      return _.omit(fieldList, blacklist);
-    });
+    return _.omit(fieldList, blacklist);
   },
 
   // Gets default fields for a model in a list view.
@@ -132,8 +152,9 @@ var classMethods = {
 
   // Build the submission from the admin form submitted.
   buildFromAdminForm: function(reqBody) {
-    var fields = this.getFormFields('list');
+    var fields = this.getFormFields('listAll');
     var modelData = {};
+    var refs = {};
     _.each(fields, function(fieldInfo, fieldKey) {
       if(!_.isUndefined(reqBody[fieldKey])) {
         var value = reqBody[fieldKey];
@@ -149,9 +170,13 @@ var classMethods = {
 
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
-          value = [value];
+          // Handle multiples in refs hidden input fields.
+          // TODO make this better.
+          if (fieldInfo.widget === 'ref')
+            value = (value.replace(/(\[\]|null),?/g, "")).split(",");
+          else
+            value = [value];
         }
-
 
         // Get value from 'other' text fields if necessary
         if (value == 'other' && !_.isEmpty(reqBody[fieldKey + 'Other'])) {
@@ -163,22 +188,45 @@ var classMethods = {
             value = reqBody[fieldKey + 'Other'];
         };
 
-        modelData[fieldKey] = value;
+        if (fieldInfo.widget !== 'ref')
+          modelData[fieldKey] = value;
+        // Associations.
+        else
+          refs[fieldKey] = { value: value, fieldInfo: _.omit(fieldInfo, ['Model', 'values']) };
       }
     });
-    var instance = this.build(modelData);
-    return instance;
+    return { modelData: modelData, refs: refs };
   },
   // Create instance based on admin form submission.
   createInstance: function(body) {
     // We can depend on this because it's getting covered in another test.
-    var instance = this.buildFromAdminForm(body);
-    // NOW THIS IS HOW YOU DO PROMISES!
+    var builtFromForm = this.buildFromAdminForm(body);
+    var instance = this.build(builtFromForm.modelData);
     return instance.validate().then(function(err) {
       if (err) throw(err);
       return instance.save();
+    }).then(function(instance) {
+      return setAssociations(instance, builtFromForm.refs);
     });
+  },
+  // Update instance based on admin form submission.
+  updateInstance: function(id, body) {
+    // We can depend on this because it's getting covered in another test.
+    var Model = this;
+    var builtFromForm = Model.buildFromAdminForm(body);
+    return Model.find(id).then(function(currentInstance) {
+      return currentInstance.updateAttributes(builtFromForm.modelData);
+    }).then(function(currentInstance) {
+      return setAssociations(currentInstance, builtFromForm.refs);
+    });
+  },
+  loadFull: function(options, queryOptions) {
+    return this.find(options, queryOptions);
+  },
+  findAllFull: function(options, queryOptions) {
+    return this.find(options, queryOptions);
   }
+
 };
 
 var instanceMethods = {
@@ -202,15 +250,12 @@ var instanceMethods = {
     });
     return formatedValues;
   }
-
 };
-
-var hooks = {};
 
 var utils = {
   classMethods: classMethods,
   instanceMethods: instanceMethods,
-  hooks: hooks,
+  hooks: {},
   fieldBlackList: fieldBlackList,
 }
 exports = module.exports = utils;

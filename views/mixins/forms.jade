@@ -5,8 +5,10 @@ mixin makeField(formOptions)
   div(id=formOptions.name class="form-group col-sm-12")
     if formOptions.widget == "textArea"
       +textAreaField(formOptions)
-    else if _.contains(["select", "multiSelect", "ref"], formOptions.widget)
+    else if _.contains(["select", "multiSelect"], formOptions.widget)
       +choiceSelectField(formOptions)
+    else if _.contains(["ref"], formOptions.widget)
+      +choiceRefField(formOptions)
     else if _.contains(["radio", "checkbox"], formOptions.widget)
       +choiceField(formOptions)
     else if formOptions.widget == "arrayTextField"
@@ -19,19 +21,34 @@ mixin makeField(formOptions)
     div(id=formOptions.name + "Other" class="choiceOther form-group col-sm-12")
       +choiceOther(formOptions)
 
+mixin choiceRefField(formOptions)
+  +fieldLabel(formOptions)
+  - var isMultiple = formOptions.multiple ? "multiple" : "";
+  - var val = _.isString(formOptions.value) ? formOptions.value : JSON.stringify(formOptions.value);
+  div(class=formOptions.fieldClasses || "col-sm-4")
+    input(type="hidden" class="form-control " + formOptions.widget + " " + isMultiple
+      name=formOptions.name
+      value = val
+      data-reftarget=(formOptions.refTarget || '')
+      multiple=isMultiple)
+
+
 mixin choiceSelectField(formOptions)
   +fieldLabel(formOptions)
   div(class=formOptions.fieldClasses || "col-sm-4")
-    select(class="form-control" name=formOptions.name multiple=(formOptions.widget == "multiSelect"))
-      each choice, cVal in formOptions.choices
-        // TODO look at exploding classes
-        if _.isArray(formOptions.value)
-          if typeof(formOptions.value[0]) === 'number'
-            option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
+    select(class="form-control " + formOptions.widget
+      name=formOptions.name
+      multiple=(formOptions.widget == "multiSelect"))
+      if (formOptions.choices)
+        each choice, cVal in formOptions.choices
+          // TODO look at exploding classes
+          if _.isArray(formOptions.value)
+            if typeof(formOptions.value[0]) === 'number'
+              option(value=cVal selected=(_.contains(formOptions.value, parseInt(cVal)))) #{choice}
+            else
+              option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
           else
-            option(value=cVal selected=(_.contains(formOptions.value, cVal))) #{choice}
-        else
-          option(value=cVal selected=(formOptions.value == cVal)) #{choice}
+            option(value=cVal selected=(formOptions.value == cVal)) #{choice}
 
 mixin choiceField(formOptions)
   +fieldLabel(formOptions)
