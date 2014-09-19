@@ -173,7 +173,7 @@ var classMethods = {
           // Handle multiples in refs hidden input fields.
           // TODO make this better.
           if (fieldInfo.widget === 'ref')
-	    value = (value.replace(/(\[\]|null),?/g, "")).split(",");
+            value = (value.replace(/(\[\]|null),?/g, "")).split(",");
           else
             value = [value];
         }

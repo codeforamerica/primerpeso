@@ -58,7 +58,6 @@ function createOpportunity(overrides, done) {
   var body = oppMock(overrides);
   // We can depend on this because it's getting covered in another test.
   return Opportunity.createInstance(body).then(function(savedInstance) {
-    console.log('INSTANCE CREATED');
     return savedInstance;
   })
   .catch(function(err) {
