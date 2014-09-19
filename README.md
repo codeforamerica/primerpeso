@@ -108,6 +108,17 @@ After you change directory to the PrimerPeso folder, run this command:
 gulp
 ```
 
+## Importing and Exporting DB.
+
+### Dump
+
+* `pg_dump bizwallet --format=c --file=db_dump_a.tar.gz --no-owner`
+
+### Restore
+
+* From Heroku = `dropdb bizwallet; heroku pg:pull DATABASE_URL bizwallet; gulp migrate`
+* From Dump = `dropdb bizwallet; createdb bizwallet; pg_restore db_dump_a.tar.gz --clean --dbname=bizwallet --create`
+
 ## Common Issues
 
 Some common issues that could give you errors when you run the project, and how to solve them
