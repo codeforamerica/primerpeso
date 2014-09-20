@@ -24,11 +24,10 @@ mixin makeField(formOptions)
 mixin choiceRefField(formOptions)
   +fieldLabel(formOptions)
   - var isMultiple = formOptions.multiple ? "multiple" : "";
-  - var val = _.isString(formOptions.value) ? formOptions.value : JSON.stringify(formOptions.value);
   div(class=formOptions.fieldClasses || "col-sm-4")
     input(type="hidden" class="form-control " + formOptions.widget + " " + isMultiple
       name=formOptions.name
-      value = val
+      value = formOptions.value || ''
       data-reftarget=(formOptions.refTarget || '')
       multiple=isMultiple)
 

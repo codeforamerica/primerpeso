@@ -47,7 +47,13 @@ module.exports = function(app) {
 function apiGetModelList(req, res) {
   var modelName = req.params.model || '';
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
-  Model.findAll().success(function(result) {
+  // Only lock down to id based query params.
+  searchQuery = {};
+  if (req.query && req.query.id) {
+    var idIN = req.query.id.split(',');
+    searchQuery = { where: { id: { in: idIN } } };
+  }
+  Model.findAll(searchQuery).success(function(result) {
     return res.json(result);
   });
 }
@@ -149,6 +155,7 @@ function save(req, res) {
   var modelName = req.params.model || '';
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
 
+  console.log(req.body);
 
   // TODO -- use findOrCreate
   // If there is no id we are creating a new instance
