@@ -36,14 +36,8 @@ module.exports = function(sequelize, DataTypes) {
     //resetPasswordExpires: Date
   };
 
+  // TODO -- write me in the same pattern as the other model defs.
   classMethods = _.extend(modelUtils.classMethods, {
-    associate: function(sequelize) {
-      // TODO - clean?
-      var Opportunity = sequelize.model('opportunity');
-      var Agency = sequelize.model('agency');
-      this.hasMany(Opportunity, { foreignKey: 'creatorId' });
-      this.hasMany(Agency, { foreignKey: 'creatorId' });
-    },
     createInstance: function(body) {
       console.log(body);
       if (body.password !== body.confirmPassword)

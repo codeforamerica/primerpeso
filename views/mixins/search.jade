@@ -50,7 +50,7 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
 
   div(class="panel-group" id="accordion")
     each progDesc, progName in benefitProgList
-      - oppCount = oppCount + 1
+      - oppCount++;
       div(class="panel panel-default")
         div(class="row row-" + benefitTypeMachineName)
           div(class="col-md-8 col-description col-" + progName)
@@ -61,27 +61,29 @@ mixin renderResultSubset(benefitProgList, benefitTypeName, benefitTypeMachineNam
             div(id=oppCount class="panel-collapse collapse")
               div(class="panel-body")
                 div(class=progName + "-inner-text benefit-description")
-                  .description
-                    | Descripción:
-                  = progDesc.description
-                  br
-                  .paperwork
-                    | Documentación requerida:
-                  = progDesc.paperwork
-                  br
-                  .cost
-                    | Costo de Aplicación:
-                  = progDesc.cost
-                  br
-                  .agencyname
-                    | Nombre de Agencia:
-                  = progDesc.agencyName
-                  br
-                  if !_.isEmpty(progDesc.info)
-                    .additionalinfo
-                      | Información Adicional:
-                    = progDesc.info
-
+                 ul(class="benefit-info-list accordion-panel-render-list")
+                    // Opportunity
+                    each panelSectionTitle, panelSectionKey in accordionPanelRenderList.opportunity
+                      if progDesc[panelSectionKey]
+                        li
+                          h4= panelSectionTitle
+                          div.panel-section-inner!= AUTOLINK(progDesc[panelSectionKey])
+                    // Agency
+                    each panelSectionTitle, panelSectionKey in accordionPanelRenderList.agency
+                      if progDesc.agency[panelSectionKey]
+                        li
+                          h4= panelSectionTitle
+                          div.panel-section-inner!= AUTOLINK(progDesc.agency[panelSectionKey])
+                    // Requirements
+                    if progDesc.requirements
+                      h3 Requisitos
+                      ol
+                        each requirementData, reqKey in progDesc.requirements
+                          li
+                            h4= requirementData.name
+                            each panelSectionTitle, panelSectionKey in accordionPanelRenderList.requirements
+                              if requirementData[panelSectionKey]
+                                  div.panel-section-inner!= AUTOLINK(requirementData[panelSectionKey])
           div(class="col-md-2 col-deadline col-" + progName)
             div(class=progName + "-inner-text")= progDesc.deadline
 

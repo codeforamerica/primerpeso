@@ -8,14 +8,16 @@ var should = chai.should();
 var db = require('../models');
 var sequelize = db.sequelize;
 var Opportunity = sequelize.model('opportunity');
+var Agency = sequelize.model('agency');
 var Searcher = require('../lib/SearchQuery');
 var searchQueryMock = require('./mocks/searchQuery');
 //var searchResultMock = require('./mocks/searchResults');
 var oppMock = require('./mocks/opportunity.js');
+var agencyMock = require('./mocks/agency.js');
 
 chai.use(chaiAsPromised);
 
-var modelOverrideSet = [
+var oppOverrideSet = [
   // Match
   {
     title:   "TEST: Opportunity Match",
@@ -55,13 +57,7 @@ var modelOverrideSet = [
 function createOpportunity(overrides, done) {
   var body = oppMock(overrides);
   // We can depend on this because it's getting covered in another test.
-  var instance = Opportunity.buildFromAdminForm(body);
-  // NOW THIS IS HOW YOU DO PROMISES!
-  return instance.validate().then(function(err) {
-    if (err) throw(err);
-      return instance.save();
-  }).then(function(savedInstance) {
-    // This section is probably not needed.
+  return Opportunity.createInstance(body).then(function(savedInstance) {
     return savedInstance;
   })
   .catch(function(err) {
@@ -78,21 +74,32 @@ describe('Search Query', function() {
   // Setup.
   before(function(done) {
     // Initialize and save opportunity mocks to run searches against.
+    // Create mock agency.
     var oppPromises = [];
-    _.each(modelOverrideSet, function(overrides, index) {
-      oppPromises.push(createOpportunity(overrides, done));
+    var agencyBody = agencyMock();
+    Agency.createInstance(agencyBody).success(function(agency) {
+      _.each(oppOverrideSet, function(overrides, index) {
+        overrides.agencyId = agency.id;
+        oppOverrideSet[index].agencyId = agency.id;
+        oppPromises.push(createOpportunity(overrides, done));
+      });
+      Promise.all(oppPromises).then(function() {
+        return done();
+      });
+    }).error(function(err) {
+      return done(err);
     });
-    Promise.all(oppPromises).then(function() {
-      return done();
-    });
+
   });
 
   // TearDown.
   after(function(done) {
     var oppPromises = [];
-    _.each(modelOverrideSet, function(overrides, index) {
+    _.each(oppOverrideSet, function(overrides, index) {
       oppPromises.push(Opportunity.destroy({ title: overrides.title }));
     });
+    // Destroy agency.
+    oppPromises.push(Agency.destroy({ id: oppOverrideSet[0].agencyId }));
     Promise.all(oppPromises).then(function() {
       return done();
     });

@@ -477,11 +477,14 @@ section {
 }
 
 .benefit-description {
-  display: table;
-  .description, .paperwork, .cost, .agencyname, .additionalinfo {
-    font-weight:bold;
-    font-size: 120%;
-    color: @navy;
+  ul.benefit-info-list {
+    list-style-type: none;
+    padding-left: 0px;
+    li h4 {
+      font-weight:bold;
+      font-size: 120%;
+      color: @navy;
+    }
   }
 }
 

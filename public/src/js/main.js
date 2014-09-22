@@ -99,7 +99,7 @@ $(document).ready(function() {
   }
 
   $('.delete-model').on('click', function(e){
-    var conf = confirm('Are you sure you want to delete this entry?');
+    var conf = confirm('¿Estas seguro que quieres borrar esta entrada?');
     if (!conf) {
       e.preventDefault();
     }
@@ -116,6 +116,44 @@ $(document).ready(function() {
   // For admin page
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
+  $('.model-form input.ref').each(function(index, element) {
+    var multiple = $(element).hasClass('multiple');
+    $(element).select2({
+      minimumInputLength: 0,
+      multiple: multiple,
+      ajax: {
+        dataType: 'json',
+        url: function() { return '/api/' + $(this).data('reftarget'); },
+        results: function(data, page) {
+          var res = _.map(data, function(dataPiece, index) {
+            return { id: dataPiece.id, text: dataPiece.name };
+          });
+          return { results: res };
+        },
+      },
+      initSelection: function(element, callback) {
+        var cVal = $(element).val();
+        $.ajax({
+          dataType: 'json',
+          url: '/api/' + $(element).data('reftarget') + '?id=' + cVal,
+        }).done(function(data) {
+          var result;
+          if ($(element).hasClass('multiple')) {
+            var retData = _.isArray(data) ? data : new Array(data);
+            result = _.map(retData, function(selectedValue) {
+              return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };
+            });
+          }
+          else {
+            data = _.first(data);
+            result = { id: data.id, text: data.title || data.name };
+          }
+          callback(result);
+        });
+      }
+    });
+  });
+
   $('select').on('change', function() {
     var name = $(this).attr('name');
     if ($('option:selected', this).attr('value') == 'other') {
