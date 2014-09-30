@@ -2,6 +2,13 @@
 
 # How to Run
 
+# Dependencies
+* Postgresql 9.3 - DB
+* NodeJS 0.10
+* Redis - Sessions
+* Mandrill - E-Mail
+* TravisCI - CI
+
 ## Fresh Install
 
 ### Cloning the Repository
@@ -126,3 +133,4 @@ Some common issues that could give you errors when you run the project, and how 
 * New dependencies were added (run `npm install`)
 * Make sure you are in the primerpeso folder (run `cd path/to/primerpeso`)
 * @MrMaksimize or @chrisrodz broke something (ping us to fix it)
+

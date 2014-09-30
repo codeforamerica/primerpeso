@@ -32,6 +32,7 @@ module.exports = {
       });
       return Promise.all(agencyPromises);
     }).success(function() {
+      console.log('AGENCY DONE');
       return done();
     }).error(function(err) {
       return done(err)
