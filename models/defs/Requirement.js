@@ -27,8 +27,19 @@ module.exports = function(sequelize, DataTypes) {
           allowNull: false,
           label:'Nombre del Requisito',
           unique: true,
-          validate: {
-          }
+          validate: {}
+        },
+        description: {
+          type: DataTypes.STRING,
+          allowNull: true,
+          label:'Provedor',
+          validate: {}
+        },
+        reqProvider: {
+          type: DataTypes.STRING,
+          allowNull: true,
+          label:'Provedor',
+          validate: {}
         },
         link: {
           type: DataTypes.TEXT,
@@ -38,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
         cost: {
           type: DataTypes.TEXT,
           label: 'Cost',
-          widget: 'text'
+          widget: 'textArea'
         },
         // Association
         creatorId: {

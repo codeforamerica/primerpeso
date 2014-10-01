@@ -10,8 +10,8 @@ var fs        = require('fs')
   var sequelize = new Sequelize(secrets.pg, {
     dialect: 'postgres',
     sync: { force: false },
-    language: 'en'
- //   logging: false
+    language: 'en',
+    logging: false
   });
 
 fs
