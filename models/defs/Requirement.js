@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
   var instanceMethods = {};
 
   classMethods = _.extend(modelUtils.classMethods, {
+    // TODO -- this comes from model utils and doesnt need to be here once the caching of indexjs is gone.
+    loadFull: function(options, queryOptions) {
+      return this.find(options, queryOptions);
+    },
     getListFields: function() {
       return {
         'name': 'Requirement Name',

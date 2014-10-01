@@ -25,7 +25,6 @@ fs
   })
 
 // Run associate here:
-console.log('RUN ASSOC');
 var User = sequelize.model('user');
 var Opportunity = sequelize.model('opportunity');
 var Agency = sequelize.model('agency');
@@ -54,6 +53,8 @@ User.hasMany(Opportunity, { foreignKey: 'creatorId' });
 User.hasMany(Agency, { foreignKey: 'creatorId' });
 // User has many Requirements through the creatorId fk.
 User.hasMany(Requirement, { foreignKey: 'creatorId' });
+
+// TODO -- this needs to be rewritten not to follow the caching pattern.
 
 
 
