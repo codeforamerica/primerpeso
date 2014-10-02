@@ -12,7 +12,7 @@ describe('Options List', function() {
 
     // Test Array.
     var ageChoices = optList.getFormChoices('age');
-    var ageChoicesControl = ['Cualquier', '16-25', '26-40', '41-64', '65+'];
+    var ageChoicesControl = ['Cualquier', '16-26', '27-35', '36-44', '45-54', '55-64', '65+'];
     var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
     ageChoices.should.eql(ageChoicesControl);
     return done();
@@ -27,7 +27,7 @@ describe('Options List', function() {
 
     // Test Array.
     var ageChoices = optList.getFormChoices('age');
-    var ageChoicesControl = ['Cualquier', '16-25', '26-40', '41-64', '65+'];
+    var ageChoicesControl = ['Cualquier', '16-26', '27-35', '36-44', '45-54', '55-64', '65+'];
     var ageChoicesControl = _.zipObject(_.keys(ageChoicesControl), ageChoicesControl);
     // Delete to simulate override.
     delete ageChoicesControl['0'];
