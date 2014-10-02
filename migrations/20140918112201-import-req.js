@@ -31,6 +31,7 @@ module.exports = {
       });
       return Promise.all(reqPromises);
     }).success(function() {
+      console.log('REQ DONE');
       return done();
     }).error(function(err) {
       return done(err)
