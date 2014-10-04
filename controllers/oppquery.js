@@ -122,7 +122,8 @@ var oppQuerySendLeadTest = function(req, res, next) {
   //return res.json(leadData);
   var locals = _.extend(res.locals, {
     emailTitle: 'Lead Something',
-    leadData: leadData
+    leadData: _.omit(leadData, ['_csrf', 'selectedPrograms']),
+    selectedPrograms: leadData.selectedPrograms || {}
   });
   mailBoss.send({
     subject: "Formulario de solicitud de PrimerPeso",

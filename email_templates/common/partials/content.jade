@@ -5,21 +5,14 @@ tr
         tr
           td.mobile-padding(align="left", style="padding:20px")
             br.mobile-hide
-            div
-              b Bob Bobber,
-              br
-              | 1001 Jasper Ave.
-              br
-              | Victoria, B.C.
-              br
-              | T5T 3S2
-              br
-              br
-              | Phone: 1 (222) 233-2231
-              br
-              br
-              | Please review invoice below or click to view account.
-            br
+	    each value, key in leadData
+	      - var key = __n(key, key, 1);
+	      if value
+		div
+		  strong #{key}:
+		  |  #{value}
+
+	  // Image to the right
           td.mobile-hide(style="padding-top:20px;padding-bottom:0; vertical-align:bottom;", valign="bottom")
             table(cellspacing="0", cellpadding="0", width="100%")
               tr
