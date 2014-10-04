@@ -5,14 +5,14 @@ tr
         tr
           td.mobile-padding(align="left", style="padding:20px")
             br.mobile-hide
-	    each value, key in leadData
-	      - var key = __n(key, key, 1);
-	      if value
-		div
-		  strong #{key}:
-		  |  #{value}
+            each value, key in leadData
+              - var key = __n(key, key, 1);
+              if value
+                div
+                  strong #{key}:
+                  |  #{value}
 
-	  // Image to the right
+          // Image to the right
           td.mobile-hide(style="padding-top:20px;padding-bottom:0; vertical-align:bottom;", valign="bottom")
             table(cellspacing="0", cellpadding="0", width="100%")
               tr

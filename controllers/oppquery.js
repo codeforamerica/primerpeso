@@ -100,7 +100,6 @@ var oppQuerySendLead = function(req, res, next) {
   leadData.selectedPrograms = req.session.cart.programs || {};
   mailBoss.send({
     subject: "Formulario de solicitud de PrimerPeso",
-    //text: JSON.stringify(leadData, null, 4)
     locals: leadData
   }, function(err, info) {
       console.log(err);
