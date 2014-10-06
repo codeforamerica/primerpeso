@@ -140,7 +140,6 @@ var oppQuerySendLead = function(req, res, next) {
 
 var oppQuerySendLeadTest = function(req, res, next) {
   var leadData = require('../test/mocks/leadData.js')();
-  return res.json(leadData);
   var Submission = sequelize.model('submission');
   var subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
   subSaveData.purpose = _.isArray(subSaveData.purpose) ? subSaveData.purpose : new Array(subSaveData.purpose);
@@ -158,6 +157,7 @@ var oppQuerySendLeadTest = function(req, res, next) {
     });
     mailBoss.send({
       subject: "Formulario de solicitud de PrimerPeso",
+      template: "sendlead-agency",
       locals: locals
     }, function(err, info) {
       return res.send(info);
