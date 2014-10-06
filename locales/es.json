@@ -22,5 +22,13 @@
   "%s other": {
     "one": "%s Otro",
     "other": "%s Otros"
+  },
+  "%s financing": {
+    "one": "%s financing",
+    "other": "%s financing"
+  },
+  "%s credit_line": {
+    "one": "%s credit_line",
+    "other": "%s credit_line"
   }
 }
