@@ -37,6 +37,7 @@ var oppQueryCreate = function(req, res, next) {
  */
 var oppQueryExecute = function(req, res, next) {
   var query = req.query;
+  return res.json(query);
   var searcher = new Searcher(query);
   searcher.execute().success(function() {
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
