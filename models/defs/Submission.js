@@ -117,7 +117,80 @@ module.exports = function(sequelize, DataTypes) {
           tooltip: 'Selecciona el último año activo.',
           widget: 'radio',
           choices: choicesList.getFormChoices('annualRevenue')
-        }
+        },
+        // Stuff from Send Request Form
+        name: {
+          type: DataTypes.STRING,
+          label: 'Nombre',
+          widget: 'text'
+        },
+        phone: {
+          type: DataTypes.STRING,
+          label: 'Número de teléfono',
+          widget: 'text'
+        },
+        email: {
+          type: DataTypes.STRING,
+          label: 'Correo electrónico',
+          widget: 'email'
+        },
+        address: {
+          type: DataTypes.STRING,
+          label: 'Dirección postal',
+          widget: 'text'
+        },
+        municipality: {
+          type: DataTypes.STRING,
+          label: 'Municipio / Ciudad',
+          widget: 'text',
+        },
+        state: {
+          type: DataTypes.STRING,
+          label: 'Estado',
+          widget: 'select',
+          choices: choicesList.getFormChoices('statesList'),
+          value: 'PR'
+        },
+        zip: {
+          type: DataTypes.STRING,
+          label: 'Código Postal',
+          widget: 'text'
+        },
+        areYouInc: {
+          type: DataTypes.STRING,
+          required: true,
+          label: '¿Estas incorporado?',
+          widget: 'radio',
+          choices: { 0: "No", 1: "Si" }
+        },
+        legalCompanyName: {
+          type: DataTypes.STRING,
+          label: 'Nombre legal de la Compañía',
+          widget: 'text'
+        },
+        bizAddress: {
+          type: DataTypes.STRING,
+          label: 'Dirección postal',
+          widget: 'text'
+        },
+        bizMunicipality: {
+          type: DataTypes.STRING,
+          label: 'Municipio',
+          widget: 'text',
+        },
+        bizState: {
+          type: DataTypes.STRING,
+          label: 'Estado',
+          widget: 'select',
+          choices: choicesList.getFormChoices('statesList'),
+          value: 'PR'
+        },
+        bizZip: {
+          type: DataTypes.STRING,
+          label: 'Código Postal',
+          widget: 'text'
+        },
+
       }
     }
   });
