@@ -23,6 +23,10 @@ module.exports = function(app) {
 var oppQueryCreate = function(req, res, next) {
   var options = options || {};
   var oppQueryForm = new OppQueryForm();
+/*  return res.json({
+    form: oppQueryForm.getFormConfig(true), // Deep.
+    formInfo: oppQueryForm.getFormConfig(false) // Shallow.
+  });*/
   res.render('fundmeWizard', {
     title: 'Preguntas',
     bodyClass: 'fundmeWizard',
