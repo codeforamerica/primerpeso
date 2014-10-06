@@ -82,5 +82,57 @@
   "bizZip": {
     "one": "bizZip",
     "other": "bizZip"
+  },
+  "_csrf": {
+    "one": "_csrf",
+    "other": "_csrf"
+  },
+  "gender": {
+    "one": "gender",
+    "other": "gender"
+  },
+  "age": {
+    "one": "age",
+    "other": "age"
+  },
+  "purpose": {
+    "one": "purpose",
+    "other": "purpose"
+  },
+  "purposeOther": {
+    "one": "purposeOther",
+    "other": "purposeOther"
+  },
+  "investingOwnMoney": {
+    "one": "investingOwnMoney",
+    "other": "investingOwnMoney"
+  },
+  "moneyInvested": {
+    "one": "moneyInvested",
+    "other": "moneyInvested"
+  },
+  "businessType": {
+    "one": "businessType",
+    "other": "businessType"
+  },
+  "industry": {
+    "one": "industry",
+    "other": "industry"
+  },
+  "businessLocation": {
+    "one": "businessLocation",
+    "other": "businessLocation"
+  },
+  "employeeNumber": {
+    "one": "employeeNumber",
+    "other": "employeeNumber"
+  },
+  "yearsInBusiness": {
+    "one": "yearsInBusiness",
+    "other": "yearsInBusiness"
+  },
+  "annualRevenue": {
+    "one": "annualRevenue",
+    "other": "annualRevenue"
   }
 }
