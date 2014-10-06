@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
         description: {
           type: DataTypes.STRING,
           allowNull: true,
-          label:'Provedor',
+          label: 'Descripcion',
           validate: {}
         },
         reqProvider: {

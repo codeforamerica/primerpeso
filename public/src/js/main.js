@@ -117,17 +117,35 @@ $(document).ready(function() {
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
   $('.model-form input.ref').each(function(index, element) {
-    var multiple = $(element).hasClass('multiple');
+    //var multiple = $(element).hasClass('multiple');
+    var multiple = $(element).attr('multiple') === 'multiple' ? true : false;
+    var separateBy = $(element).data('separateby') || null;
     $(element).select2({
       minimumInputLength: 0,
       multiple: multiple,
       ajax: {
         dataType: 'json',
-        url: function() { return '/api/' + $(this).data('reftarget'); },
+        url: function() {
+          var urlString =  '/api/' + $(this).data('reftarget');
+          if (separateBy)
+            urlString += '?separateby=' + separateBy;
+          return urlString;
+        },
         results: function(data, page) {
-          var res = _.map(data, function(dataPiece, index) {
-            return { id: dataPiece.id, text: dataPiece.name };
-          });
+          var res = [];
+          var mapper = function (dataToMap) {
+            return _.map(dataToMap, function(dataPiece, index) {
+              return { id: dataPiece.id, text: dataPiece.name };
+            });
+          }
+          if (separateBy) {
+            _.each(data, function(sepChildren, sepParent) {
+              res.push({ text: sepParent, children: mapper(sepChildren) });
+            });
+          }
+          else
+            res = mapper(data);
+
           return { results: res };
         },
       },
