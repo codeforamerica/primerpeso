@@ -190,7 +190,6 @@ module.exports = function(sequelize, DataTypes) {
           label: 'Código Postal',
           widget: 'text'
         },
-
       }
     }
   });

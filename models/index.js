@@ -29,6 +29,7 @@ var User = sequelize.model('user');
 var Opportunity = sequelize.model('opportunity');
 var Agency = sequelize.model('agency');
 var Requirement = sequelize.model('requirement');
+var Submission = sequelize.model('submission');
 
 /***** Agency *****/
 // Agency refs user as creator
@@ -41,7 +42,11 @@ Opportunity.belongsTo(User, { as: 'creator' });
 Opportunity.belongsTo(Agency, { as: 'agency'});
 // Opportunity has Many requirements.
 Opportunity.hasMany(Requirement);
+// Opportunity has Many Submissions where its selected.
+Opportunity.hasMany(Submission);
 
+/***** Submission *****/
+Submission.hasMany(Opportunity);
 /***** Requirement *****/
 Requirement.belongsTo(User, { as: 'creator' });
 Requirement.hasMany(Opportunity);
