@@ -13,6 +13,7 @@ module.exports = function(app) {
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
   app.get('/sendlead', oppQuerySendLead);
+  app.get('/sendLeadTest3337', oppQuerySendLeadTest);
 };
 
 /**
@@ -36,6 +37,7 @@ var oppQueryCreate = function(req, res, next) {
  */
 var oppQueryExecute = function(req, res, next) {
   var query = req.query;
+  return res.json(query);
   var searcher = new Searcher(query);
   searcher.execute().success(function() {
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
@@ -99,7 +101,7 @@ var oppQuerySendLead = function(req, res, next) {
   leadData.selectedPrograms = req.session.cart.programs || {};
   mailBoss.send({
     subject: "Formulario de solicitud de PrimerPeso",
-    text: JSON.stringify(leadData, null, 4)
+    locals: leadData
   }, function(err, info) {
       console.log(err);
       console.log(info);
@@ -112,6 +114,22 @@ var oppQuerySendLead = function(req, res, next) {
         meta: { type: 'leadSentConfirmation' },
         leadData: leadData
       });
+  });
+}
+
+var oppQuerySendLeadTest = function(req, res, next) {
+  var leadData = {"_csrf":"480s45jYCF0ENyh1PGnqSxkI7tQxbD47qF7c4=","name":"Maksim Pecherskiy","phone":"17736777755","email":"maxp37@maxp37.com","address":"1134 Wildberry Ct","municipality":"Wheeling","state":"IL","zip":"60090","areYouInc":"0","legalCompanyName":"","bizAddress":"","bizMunicipality":"","bizState":"PR","bizZip":"","selectedPrograms":[{"benefitName":9,"benefitType":["incentive"],"id":9,"title":"Incentivos contributivos","gender":"any","estimatedTime":"30 days","deadline":"Jan 29th 2017","description":"The new Incentives Code provides fiscal benefits for activities developed in specific areas such as the special development zone of the Traditional Urban Center and the Special Development Corridors, among others which due to their potential for growth and their impact on the economy as a whole are considered a priority. In addition, it provides benefits to more than 21 types of eligible units or businesses.\r\n","purpose":["open_location","export","keep_employees","relocate_business"],"paperwork":["To attract and retain new companies already established in the city.","Please contact office for requirements"],"cost":200,"info":"Disqualifying factors: companies already established in the city that are not planning to grow.  ","name":"IncentivosContributivos","agencyId":1,"agencyName":"Secretaria de Desarrollo Económico de Caguas","agencyWeb":null,"agencyPhone":null,"quantity":1}]};
+  //return res.json(leadData);
+  var locals = _.extend(res.locals, {
+    emailTitle: 'Lead Something',
+    leadData: _.omit(leadData, ['_csrf', 'selectedPrograms']),
+    selectedPrograms: leadData.selectedPrograms || {}
+  });
+  mailBoss.send({
+    subject: "Formulario de solicitud de PrimerPeso",
+    locals: locals
+  }, function(err, info) {
+    return res.send(info);
   });
 }
 

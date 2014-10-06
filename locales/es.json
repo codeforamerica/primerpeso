@@ -30,5 +30,57 @@
   "%s credit_line": {
     "one": "%s credit_line",
     "other": "%s credit_line"
+  },
+  "name": {
+    "one": "Nombre",
+    "other": "name"
+  },
+  "phone": {
+    "one": "Telephono",
+    "other": "phone"
+  },
+  "email": {
+    "one": "email",
+    "other": "email"
+  },
+  "address": {
+    "one": "address",
+    "other": "address"
+  },
+  "municipality": {
+    "one": "municipality",
+    "other": "municipality"
+  },
+  "state": {
+    "one": "state",
+    "other": "state"
+  },
+  "zip": {
+    "one": "zip",
+    "other": "zip"
+  },
+  "areYouInc": {
+    "one": "areYouInc",
+    "other": "areYouInc"
+  },
+  "legalCompanyName": {
+    "one": "legalCompanyName",
+    "other": "legalCompanyName"
+  },
+  "bizAddress": {
+    "one": "bizAddress",
+    "other": "bizAddress"
+  },
+  "bizMunicipality": {
+    "one": "bizMunicipality",
+    "other": "bizMunicipality"
+  },
+  "bizState": {
+    "one": "bizState",
+    "other": "bizState"
+  },
+  "bizZip": {
+    "one": "bizZip",
+    "other": "bizZip"
   }
 }
