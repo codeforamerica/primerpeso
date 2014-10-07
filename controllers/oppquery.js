@@ -14,8 +14,8 @@ module.exports = function(app) {
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
-  app.get('/sendlead', oppQuerySendLead);
-  app.get('/sendLeadTest3337', oppQuerySendLeadTest);
+  //app.get('/sendlead', oppQuerySendLead);
+  app.get('/debug/email-template/:template', oppQuerySendLeadDebug);
 };
 
 /**
@@ -154,44 +154,24 @@ var oppQuerySendLead = function(req, res, next) {
   });
 }
 
-var oppQuerySendLeadTest = function(req, res, next) {
-  var leadData = require('../test/mocks/leadData.js')();
+
+var oppQuerySendLeadDebug = function(req, res, next) {
   var Submission = sequelize.model('submission');
-  var subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
-  subSaveData.purpose = _.isArray(subSaveData.purpose) ? subSaveData.purpose : new Array(subSaveData.purpose);
-  var createdSubscription;
-  Submission.create(subSaveData).then(function(createdSub) {
-    createdSubscription = createdSub;
-    return createdSub.setOpportunities(_.map(leadData.selectedPrograms, function(program) {
-      return program.id;
-    }));
-  }).then(function() {
+  var leadData = require('../test/mocks/emailData')(req.params.emailTemplate);
     var dispatchMailOptionsSet = [];
-    // Let's dispatch some emails.
-    var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
-      return program.agencyContactEmail;
-    }));
     console.log('--dispatching--');
     // First send to default receivers and all the heads;
     var locals = _.extend(res.locals, {
       emailTitle: 'Formulario de solicitud de PrimerPeso',
-      leadData: subSaveData,
+      leadData: leadData.subSaveData,
       selectedPrograms: leadData.selectedPrograms
     });
     dispatchMailOptionsSet.push({
-      subject: "Formulario de solicitud de PrimerPeso",
-      template: "sendlead-agency",
+      subject: "Test Subject",
+      template: req.params.emailTemplate,
       locals: locals,
-      to: agencyEmails,
       sendToDefaults: true
     });
-    dispatchMailOptionsSet.push({
-      subject: "Gracias de PrimerPeso",
-      template: "sendlead-customer",
-      locals: locals,
-      to: new Array(subSaveData.email)
-    });
-
 
     mailBoss.dispatch(dispatchMailOptionsSet, function(err, info) {
       return res.send(info);
