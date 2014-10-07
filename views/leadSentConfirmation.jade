@@ -3,12 +3,14 @@ extends layout
 block content
   div.congratulations-message
     h2 ¡Felicitaciones, #{leadData.name}!
-    h2 Has solicitado información para los siguientes programas:
+    h3 Has solicitado información para los siguientes programas:
       ul
         each progData, pIndex in leadData.selectedPrograms
             li= progData.title
 
-    h2 Un empleado de la agencia que maneja el programa se contactará contigo en la próxima semana.
+    h3 Muchas gracias! Hemos recibido tu información y la enviaremos a las agencias.
+    h5 PrimerPeso esta temporariamente en BETA con planes de lanzar en Noviembre y es por ello que el proceso aun esta siendo testeado y puede demorar un poco mas de lo previsto.
+    h5 Muchas gracias por tu paciencia..
   div.additional-options
     h3 Si quieres ver otros programas &nbsp;
       a(href="/preguntas") empieza nuevamente.
