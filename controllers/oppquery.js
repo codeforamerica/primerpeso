@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
   //app.get('/sendlead', oppQuerySendLead);
-  app.get('/debug/email-template/:emailTemplate', oppQuerySendLeadDebug);
+  app.get('/debug/email-template/:emailTemplate/:emailOp', oppQuerySendLeadDebug);
 };
 
 /**
@@ -154,12 +154,14 @@ var oppQuerySendLead = function(req, res, next) {
   });
 }
 
-
+// Template = name of template from email_templates_folder;
+// emailOp = name of email operation = send or render;
 var oppQuerySendLeadDebug = function(req, res, next) {
   var Submission = sequelize.model('submission');
-  var leadData = require('../test/mocks/emailData')(req.params.emailTemplate);
+  var emailTemplate = req.params.emailTemplate;
+  var emailOp = req.params.emailOp;
+  var leadData = require('../test/mocks/emailData')(emailTemplate);
   var dispatchMailOptionsSet = [];
-  console.log('--dispatching--');
   var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
     return program.agencyContactEmail;
   }));
@@ -171,18 +173,27 @@ var oppQuerySendLeadDebug = function(req, res, next) {
   });
   dispatchMailOptionsSet.push({
     subject: "Test Subject",
-    template: req.params.emailTemplate,
+    template: emailTemplate,
     locals: locals,
     sendToDefaults: true
   });
   dispatchMailOptionsSet.push({
     subject: "Test Subject 2",
-    template: 'sendlead-customer',
+    template: emailTemplate,
     locals: locals
   });
-  mailBoss.dispatch(dispatchMailOptionsSet).then(function(data) {
-    return res.json(data);
-  });
+
+  if (req.params.emailOp === 'send') {
+    mailBoss.dispatch(dispatchMailOptionsSet).then(function(data) {
+      return res.json(data);
+    });
+  }
+  else {
+    var renderOnly = true;
+    mailBoss.dispatch(_.first(dispatchMailOptionsSet), renderOnly).then(function(html) {
+      return res.send(_.first(html));
+    });
+  }
 }
 
 var accordionPanelRenderList = {
