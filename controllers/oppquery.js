@@ -100,34 +100,49 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  * Handler for sending lead.  Returns confirm page
  */
 var oppQuerySendLead = function(req, res, next) {
-  var createdSubscription;
+  var createdSubmission;
+  var Submission = sequelize.model('submission');
   var leadData = {
     selectedPrograms: req.session.cart.programs || {},
     query: req.session.query || {},
     submitter: req.body
   };
-  return res.json(leadData);
-  var Submission = sequelize.model('submission');
   var subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
   subSaveData.purpose =
     _.isArray(subSaveData.purpose) ? subSaveData.purpose : new Array(subSaveData.purpose);
   // Create submission.
   Submission.create(subSaveData).then(function(createdSub) {
-    createdSubscription = createdSub;
-    return createdSubscription.setOpportunities(_.map(leadData.selectedPrograms, function(program) {
+    createdSubmission = createdSub;
+    return createdSub.setOpportunities(_.map(leadData.selectedPrograms, function(program) {
       return program.id;
     }));
   }).then(function() {
+    var dispatchMailOptionsSet = [];
+    // Let's dispatch some emails.
+    var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
+      return program.agencyContactEmail;
+    }));
+    console.log('--dispatching--');
+    // First send to default receivers and all the heads;
     var locals = _.extend(res.locals, {
       emailTitle: 'Formulario de solicitud de PrimerPeso',
       leadData: subSaveData,
       selectedPrograms: leadData.selectedPrograms
     });
-    mailBoss.send({
+    dispatchMailOptionsSet.push({
       subject: "Formulario de solicitud de PrimerPeso",
-      locals: locals
-    }, function(err, info) {
-      //return res.send(info);
+      template: "sendlead-agency",
+      locals: locals,
+      to: agencyEmails,
+      sendToDefaults: true
+    });
+    dispatchMailOptionsSet.push({
+      subject: "Gracias de PrimerPeso",
+      template: "sendlead-customer",
+      locals: locals,
+      to: new Array(subSaveData.email)
+    });
+    mailBoss.dispatch(dispatchMailOptionsSet, function(err, info) {
       return res.render('leadSentConfirmation', {
         title: 'Solicitud Enviada',
         bodyClass: 'leadSentConfirmation',
