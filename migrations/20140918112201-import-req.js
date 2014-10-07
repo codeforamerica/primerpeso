@@ -13,14 +13,13 @@ module.exports = {
     var User = sequelize.model('user');
     var Req = sequelize.model('requirement');
     var defaultCreator;
-
     User.find({ where: { email: 'clara@codeforamerica.org' } }).then(function(user) {
       // Set user.
       defaultCreator = user;
       return fs.readFileAsync(__dirname + '/../data_import/reqs.csv', { encoding: 'utf8' });
     }).then(function(data) {
       var parsedData = new CSV(data, {
-        header: ['name', 'link', 'cost']
+        header: ['name','reqProvider', 'link', 'cost']
       }).parse();
       parsedData = _.map(parsedData, function(reqData) {
         return _.extend(reqData, { creatorId: defaultCreator.id });

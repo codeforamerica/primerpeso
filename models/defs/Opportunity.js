@@ -131,9 +131,10 @@ module.exports = function(sequelize, DataTypes) {
           type: null, // NULL types will be excluded from the columns.
           widget: 'ref',
           refTarget: 'requirement',
-          label: 'Requirements or Whatever',
+          label: 'Requisitos',
           assocName: 'opportunitiesrequirements',
-          multiple: true
+          multiple: true,
+          separateBy: 'reqProvider', // Directive to separate into parents and children.
         },
         agencyContactName: {
           type: DataTypes.STRING,
