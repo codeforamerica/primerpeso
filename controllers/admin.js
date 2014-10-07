@@ -49,11 +49,15 @@ function apiGetModelList(req, res) {
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
   // Only lock down to id based query params.
   searchQuery = {};
+  if (req.query.orderby)
+    searchQuery.order = [req.query.orderby];
   if (req.query && req.query.id) {
     var idIN = req.query.id.split(',');
-    searchQuery = { where: { id: { in: idIN } } };
+    searchQuery.where = { id: { in: idIN } };
   }
   Model.findAll(searchQuery).success(function(result) {
+    if (req.query.separateby)
+      result = _.groupBy(result, function(element, index) { return element[req.query.separateby]; });
     return res.json(result);
   });
 }
