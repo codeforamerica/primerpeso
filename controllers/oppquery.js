@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
   //app.get('/sendlead', oppQuerySendLead);
-  app.get('/debug/email-template/:template', oppQuerySendLeadDebug);
+  app.get('/debug/email-template/:emailTemplate', oppQuerySendLeadDebug);
 };
 
 /**
@@ -158,24 +158,30 @@ var oppQuerySendLead = function(req, res, next) {
 var oppQuerySendLeadDebug = function(req, res, next) {
   var Submission = sequelize.model('submission');
   var leadData = require('../test/mocks/emailData')(req.params.emailTemplate);
-    var dispatchMailOptionsSet = [];
-    console.log('--dispatching--');
-    // First send to default receivers and all the heads;
-    var locals = _.extend(res.locals, {
-      emailTitle: 'Formulario de solicitud de PrimerPeso',
-      leadData: leadData.subSaveData,
-      selectedPrograms: leadData.selectedPrograms
-    });
-    dispatchMailOptionsSet.push({
-      subject: "Test Subject",
-      template: req.params.emailTemplate,
-      locals: locals,
-      sendToDefaults: true
-    });
-
-    mailBoss.dispatch(dispatchMailOptionsSet, function(err, info) {
-      return res.send(info);
-    });
+  var dispatchMailOptionsSet = [];
+  console.log('--dispatching--');
+  var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
+    return program.agencyContactEmail;
+  }));
+  // First send to default receivers and all the heads;
+  var locals = _.extend(res.locals, {
+    emailTitle: 'Formulario de solicitud de PrimerPeso',
+    leadData: leadData.subSaveData,
+    selectedPrograms: leadData.selectedPrograms
+  });
+  dispatchMailOptionsSet.push({
+    subject: "Test Subject",
+    template: req.params.emailTemplate,
+    locals: locals,
+    sendToDefaults: true
+  });
+  dispatchMailOptionsSet.push({
+    subject: "Test Subject 2",
+    template: 'sendlead-customer',
+    locals: locals
+  });
+  mailBoss.dispatch(dispatchMailOptionsSet).then(function(data) {
+    return res.json(data);
   });
 }
 
