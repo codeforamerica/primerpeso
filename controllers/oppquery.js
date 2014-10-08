@@ -14,7 +14,6 @@ module.exports = function(app) {
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
-  //app.get('/sendlead', oppQuerySendLead);
   app.get('/debug/email-template/:emailTemplate/:emailOp', oppQuerySendLeadDebug);
 };
 
