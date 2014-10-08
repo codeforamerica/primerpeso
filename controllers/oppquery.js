@@ -37,16 +37,13 @@ var oppQueryCreate = function(req, res, next) {
  * Get the query request, execute, and redner the results page
  */
 var oppQueryExecute = function(req, res, next) {
-  var Submission = sequelize.model('submission');
   var query = req.query;
-  var searcher = new Searcher(query);
-  var builtQuery = Submission.buildFromAdminForm(req.query);
-  return res.json(builtQuery);
+  var builtQuery = sequelize.model('submission').buildFromAdminForm(req.query);
+  var searcher = new Searcher(builtQuery);
   searcher.execute().success(function() {
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
-    // Store query in session.
-    req.session.query = query;
+    req.session.query = builtQuery;
     return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',

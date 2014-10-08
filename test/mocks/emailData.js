@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var Submission = require('../../models').sequelize.model('submission');
 
 exports = module.exports = function(emailTemplate, overrides) {
   var overrides = overrides || {};
@@ -608,10 +609,8 @@ exports = module.exports = function(emailTemplate, overrides) {
 
   // Allow mock switches.
   if (emailTemplate === 'sendlead-agency' || emailTemplate === 'sendlead-customer') {
-    console.log('PASS');
     var subSaveData = _.extend(sendLead.query, _.omit(sendLead.submitter, ['_csrf']));
-    subSaveData.purpose = _.isArray(subSaveData.purpose) ? subSaveData.purpose : new Array(subSaveData.purpose);
-    sendLead.subSaveData = subSaveData;
+    sendLead.subSaveData = Submission.buildFromAdminForm(subSaveData).modelData;
     body = sendLead;
   }
 
