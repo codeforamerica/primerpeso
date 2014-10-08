@@ -163,7 +163,7 @@ app.use(function(req, res, next) {
 });
 
 // Access Policy;
-//app.use('/admin', require('./policies/admin'));
+app.use('/admin', require('./policies/admin'));
 
 /**
  * Sub Apps

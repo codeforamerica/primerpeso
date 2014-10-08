@@ -37,8 +37,11 @@ var oppQueryCreate = function(req, res, next) {
  * Get the query request, execute, and redner the results page
  */
 var oppQueryExecute = function(req, res, next) {
+  var Submission = sequelize.model('submission');
   var query = req.query;
   var searcher = new Searcher(query);
+  var builtQuery = Submission.buildFromAdminForm(req.query);
+  return res.json(builtQuery);
   searcher.execute().success(function() {
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
@@ -66,7 +69,7 @@ var oppQueryPickResults = function(req, res, next) {
   // Don't re-format.
   var pickedBenefitTypes = Searcher.extractBenefitTypes(req.body);
   req.session.cart = { programs: req.body };
-  return res.json(200, {status: 'ok'});
+  return res.json(200, { status: 'ok' });
 }
 /**
  * GET /results/picked/confirm
