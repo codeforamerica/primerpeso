@@ -44,7 +44,13 @@ var oppQueryExecute = function(req, res, next) {
     var original_result = _.clone(searcher.result);
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
-    return res.json({sq: builtQuery, or: original_result, nr: searchResult, bt: benefitTypes});
+   // DEBUG
+   /* return res.json({
+      builtQuery: builtQuery,
+      originalResult: original_result,
+      newResult: searchResult,
+      benefitTypes: benefitTypes
+    });*/
     req.session.query = builtQuery;
     return res.render('searchResults', {
       title: 'Ver Resultados',
