@@ -38,11 +38,13 @@ var oppQueryCreate = function(req, res, next) {
  */
 var oppQueryExecute = function(req, res, next) {
   var query = req.query;
-  var builtQuery = sequelize.model('submission').buildFromAdminForm(req.query);
+  var builtQuery = sequelize.model('submission').buildFromAdminForm(req.query).modelData;
   var searcher = new Searcher(builtQuery);
   searcher.execute().success(function() {
+    var original_result = _.clone(searcher.result);
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
+    return res.json({or: original_result, nr: searchResult, bt: benefitTypes});
     req.session.query = builtQuery;
     return res.render('searchResults', {
       title: 'Ver Resultados',
