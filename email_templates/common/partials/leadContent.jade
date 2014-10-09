@@ -3,7 +3,7 @@ tr
     center
       table.w320(cellpadding="0", cellspacing="0", width="600")
         tr
-          td.mobile-padding(align="left", style="padding:20px")
+          td.mobile-padding(align="left")
             br.mobile-hide
             each value, key in leadData
               - var key = __n(key, key, 1);
@@ -18,4 +18,3 @@ tr
               tr
                 td(align="right", valign="bottom", style="padding-bottom:0; vertical-align:bottom;")
                   img(style="vertical-align:bottom;", src=CDN('/img/clip.gif'), width="174", height="294")
-

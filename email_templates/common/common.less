@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 /* Take care of image borders and formatting */
 
@@ -17,11 +18,16 @@ a img {
   border: none;
 }
 
+.logo img {
+  float: left;
+  margin-right: 20px;
+}
+
 /* General styling */
 
 td, h1, h2, h3  {
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  font-family: Montserrat, Open Sans, Helvetica, Arial, sans-serif;
+  font-weight: 700;
 }
 
 td {
@@ -69,6 +75,10 @@ h4 {
   font-weight: normal;
 }
 
+h2.email-title {
+  padding-top: 15px;
+}
+
 .important-font {
   color: #21BEB4;
   font-weight: bold;
@@ -89,16 +99,14 @@ td.desktop-hide {
   color: #ffffff;
 }
 
+  @media screen {
+    @import url(http://fonts.googleapis.com/css?family=Open+Sans:400);
 
-
-    @media screen {
-      @import url(http://fonts.googleapis.com/css?family=Open+Sans:400);
-
-      /* Thanks Outlook 2013! http://goo.gl/XLxpyl */
-      td, h1, h2, h3 {
-        font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif !important;
-      }
+    /* Thanks Outlook 2013! http://goo.gl/XLxpyl */
+    td, h1, h2, h3 {
+      font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif !important;
     }
+  }
 
   /* Mobile styles */
   @media only screen and (max-width: 600px) {
