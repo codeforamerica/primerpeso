@@ -122,7 +122,7 @@ app.use(function(req, res, next) {
     return secrets.staticFilePrefix + relPath;
   };
   res.locals.AUTOLINK = function(text) {
-    var autolinker = new Autolinker({ truncate: 25, className: 'autoLinked'});
+    var autolinker = new Autolinker({ truncate: 55, className: 'autoLinked'});
     if (_.isString(text))
       return autolinker.link(text);
     return text;
