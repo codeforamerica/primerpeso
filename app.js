@@ -177,6 +177,7 @@ require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
+require('./controllers/api')(app);
 require('./controllers/contact')(app);
 
 
