@@ -38,12 +38,20 @@ var oppQueryCreate = function(req, res, next) {
  */
 var oppQueryExecute = function(req, res, next) {
   var query = req.query;
-  var searcher = new Searcher(query);
+  var builtQuery = sequelize.model('submission').buildFromAdminForm(req.query).modelData;
+  var searcher = new Searcher(builtQuery);
   searcher.execute().success(function() {
+    var original_result = _.clone(searcher.result);
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
-    // Store query in session.
-    req.session.query = query;
+   // DEBUG
+   /* return res.json({
+      builtQuery: builtQuery,
+      originalResult: original_result,
+      newResult: searchResult,
+      benefitTypes: benefitTypes
+    });*/
+    req.session.query = builtQuery;
     return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',
@@ -66,7 +74,7 @@ var oppQueryPickResults = function(req, res, next) {
   // Don't re-format.
   var pickedBenefitTypes = Searcher.extractBenefitTypes(req.body);
   req.session.cart = { programs: req.body };
-  return res.json(200, {status: 'ok'});
+  return res.json(200, { status: 'ok' });
 }
 /**
  * GET /results/picked/confirm

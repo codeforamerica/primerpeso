@@ -34,7 +34,8 @@ module.exports = function(sequelize, DataTypes) {
           tooltip: 'Puedes escoger más de una opción',
           choiceOther: true,
           choices: choicesList.getFormChoices('purpose'),
-          widget: 'multiSelect'
+          widget: 'multiSelect',
+          multiple: true,
         },
         investingOwnMoney: {
           type: DataTypes.STRING,
@@ -61,12 +62,13 @@ module.exports = function(sequelize, DataTypes) {
           widget: 'select'
         },
         age: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.ARRAY(DataTypes.INTEGER),
           required: true,
           label: '¿Cuál es la edad de los propietarios?',
           tooltip: 'Selecciona varios rangos de edades si hubiese propietarios de diferentes edades',
           choices: choicesList.getFormChoices('age'),
-          widget: 'checkbox'
+          widget: 'checkbox',
+          multiple: true
         },
         businessType: {
           type: DataTypes.STRING,
@@ -86,12 +88,13 @@ module.exports = function(sequelize, DataTypes) {
           choiceOther: true
         },
         businessLocation: {
-          type: DataTypes.STRING,
+          type: DataTypes.ARRAY(DataTypes.STRING),
           required: true,
           label: '¿Cuál es la ubicación del negocio?',
           tooltip: 'Si aún no tienes elige los que quieras',
           widget: 'multiSelect',
-          choices: choicesList.getFormChoices('eligibleBusinessLocation')
+          choices: choicesList.getFormChoices('eligibleBusinessLocation'),
+          multiple: true
         },
         employeeNumber: {
           type: DataTypes.STRING,
@@ -191,7 +194,7 @@ module.exports = function(sequelize, DataTypes) {
           widget: 'text'
         },
       }
-    }
+    },
   });
   instanceMethods = _.extend(modelUtils.instanceMethods, {});
 
