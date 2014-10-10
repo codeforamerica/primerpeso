@@ -136,12 +136,14 @@ module.exports = function(sequelize, DataTypes) {
         phone: {
           type: DataTypes.STRING,
           label: 'Número de teléfono',
-          widget: 'text'
+          widget: 'text',
+          validate: { isPhone: 'isPhone' }
         },
         email: {
           type: DataTypes.STRING,
           label: 'Correo electrónico',
-          widget: 'email'
+          widget: 'email',
+          validate: { isEmail: 'isEmail' }
         },
         address: {
           type: DataTypes.STRING,
