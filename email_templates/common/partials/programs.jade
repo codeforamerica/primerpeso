@@ -1,0 +1,18 @@
+tr
+  td.mobile-padding(valign="top", style="padding:20px; padding: 40px 100px 40px 120px;")
+    table(cellspacing="0", cellpadding="0", width="100%")
+      tr
+        td(style="padding-right:20px")
+          b Program Title
+        td(style="padding-right:20px")
+          b Something
+        td
+          b Something
+      each program, key in selectedPrograms
+        tr
+          td(style="padding-top:5px;padding-right:20px; border-top:1px solid #E7E7E7; ")
+            | #{program.title}
+          td(style="padding-top:5px;padding-right:20px; border-top:1px solid #E7E7E7;")
+            | #{program.agencyName}
+          td.mobile(style="padding-top:5px; border-top:1px solid #E7E7E7;")
+            | #{program.agencyName}

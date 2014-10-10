@@ -5,6 +5,8 @@ var searchResults = require('../test/mocks/searchResults');
 var Searcher = require('../lib/SearchQuery');
 var MailBoss = require('../lib/MailBoss');
 var mailBoss = new MailBoss();
+var db = require('../models');
+var sequelize = db.sequelize;
 
 module.exports = function(app) {
   app.get('/preguntas', oppQueryCreate);
@@ -12,7 +14,7 @@ module.exports = function(app) {
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
-  app.get('/sendlead', oppQuerySendLead);
+  app.get('/debug/email-template/:emailTemplate/:emailOp', oppQuerySendLeadDebug);
 };
 
 /**
@@ -40,6 +42,8 @@ var oppQueryExecute = function(req, res, next) {
   searcher.execute().success(function() {
     var benefitTypes = Searcher.extractBenefitTypes(searcher.result);
     var searchResult = Searcher.structureResultByBenefitType(benefitTypes, searcher.formatResult());
+    // Store query in session.
+    req.session.query = query;
     return res.render('searchResults', {
       title: 'Ver Resultados',
       bodyClass: 'searchResults',
@@ -71,7 +75,7 @@ var oppQueryPickResults = function(req, res, next) {
  */
 
 var oppQueryConfirmPickedResults = function(req, res, next) {
-  if (_.isEmpty(req.session.cart.programs))
+  if (_.isEmpty(req.session.cart) || _.isEmpty(req.session.query) || _.isEmpty(req.session.cart.programs))
     return res.redirect('/preguntas');
 
   var pickedBenefitTypes = Searcher.extractBenefitTypes(req.session.cart.programs);
@@ -95,24 +99,100 @@ var oppQueryConfirmPickedResults = function(req, res, next) {
  * Handler for sending lead.  Returns confirm page
  */
 var oppQuerySendLead = function(req, res, next) {
-  var leadData = req.body;
-  leadData.selectedPrograms = req.session.cart.programs || {};
-  mailBoss.send({
-    subject: "Formulario de solicitud de PrimerPeso",
-    text: JSON.stringify(leadData, null, 4)
-  }, function(err, info) {
-      console.log(err);
-      console.log(info);
-      if (err)
-        req.flash('errors', { msg: err.message });
-
+  var createdSubmission;
+  var Submission = sequelize.model('submission');
+  var leadData = {
+    selectedPrograms: req.session.cart.programs || {},
+    query: req.session.query || {},
+    submitter: req.body
+  };
+  var subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
+  subSaveData.purpose =
+    _.isArray(subSaveData.purpose) ? subSaveData.purpose : new Array(subSaveData.purpose);
+  // Create submission.
+  Submission.create(subSaveData).then(function(createdSub) {
+    createdSubmission = createdSub;
+    return createdSub.setOpportunities(_.map(leadData.selectedPrograms, function(program) {
+      return program.id;
+    }));
+  }).then(function() {
+    var dispatchMailOptionsSet = [];
+    // Let's dispatch some emails.
+    var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
+      return program.agencyContactEmail;
+    }));
+    console.log('--dispatching--');
+    // First send to default receivers and all the heads;
+    var locals = _.extend(res.locals, {
+      emailTitle: 'Formulario de solicitud de PrimerPeso',
+      leadData: subSaveData,
+      selectedPrograms: leadData.selectedPrograms
+    });
+    dispatchMailOptionsSet.push({
+      subject: "Formulario de solicitud de PrimerPeso",
+      template: "sendlead-agency",
+      locals: locals,
+      to: agencyEmails,
+      sendToDefaults: true
+    });
+    dispatchMailOptionsSet.push({
+      subject: "Gracias de PrimerPeso",
+      template: "sendlead-customer",
+      locals: locals,
+      to: new Array(subSaveData.email)
+    });
+    mailBoss.dispatch(dispatchMailOptionsSet, function(err, info) {
       return res.render('leadSentConfirmation', {
         title: 'Solicitud Enviada',
         bodyClass: 'leadSentConfirmation',
         meta: { type: 'leadSentConfirmation' },
-        leadData: leadData
+        leadData: subSaveData,
+        selectedPrograms: leadData.selectedPrograms
       });
+    });
   });
+}
+
+// Template = name of template from email_templates_folder;
+// emailOp = name of email operation = send or render;
+var oppQuerySendLeadDebug = function(req, res, next) {
+  var Submission = sequelize.model('submission');
+  var emailTemplate = req.params.emailTemplate;
+  var emailOp = req.params.emailOp;
+  var leadData = require('../test/mocks/emailData')(emailTemplate);
+  var dispatchMailOptionsSet = [];
+  var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
+    return program.agencyContactEmail;
+  }));
+  // First send to default receivers and all the heads;
+  var locals = _.extend(res.locals, {
+    emailTitle: 'Formulario de solicitud de PrimerPeso',
+    leadData: leadData.subSaveData,
+    selectedPrograms: leadData.selectedPrograms
+  });
+  dispatchMailOptionsSet.push({
+    subject: "Test Subject",
+    template: emailTemplate,
+    locals: locals,
+    sendToDefaults: true
+  });
+  dispatchMailOptionsSet.push({
+    subject: "Test Subject 2",
+    template: emailTemplate,
+    locals: locals
+  });
+
+  if (req.params.emailOp === 'send') {
+    mailBoss.dispatch(dispatchMailOptionsSet).then(function(data) {
+      return res.json(data);
+    });
+  }
+  else {
+    var renderOnly = true;
+    mailBoss.dispatch(_.first(dispatchMailOptionsSet), renderOnly).then(function(html) {
+      return res.send(_.first(html));
+    });
+  }
 }
 
 var accordionPanelRenderList = {

@@ -30,5 +30,109 @@
   "%s credit_line": {
     "one": "%s credit_line",
     "other": "%s credit_line"
+  },
+  "name": {
+    "one": "Nombre",
+    "other": "name"
+  },
+  "phone": {
+    "one": "Telephono",
+    "other": "phone"
+  },
+  "email": {
+    "one": "email",
+    "other": "email"
+  },
+  "address": {
+    "one": "address",
+    "other": "address"
+  },
+  "municipality": {
+    "one": "municipalidad",
+    "other": "municipality"
+  },
+  "state": {
+    "one": "state",
+    "other": "state"
+  },
+  "zip": {
+    "one": "zip",
+    "other": "zip"
+  },
+  "areYouInc": {
+    "one": "areYouInc",
+    "other": "areYouInc"
+  },
+  "legalCompanyName": {
+    "one": "legalCompanyName",
+    "other": "legalCompanyName"
+  },
+  "bizAddress": {
+    "one": "bizAddress",
+    "other": "bizAddress"
+  },
+  "bizMunicipality": {
+    "one": "bizMunicipality",
+    "other": "bizMunicipality"
+  },
+  "bizState": {
+    "one": "bizState",
+    "other": "bizState"
+  },
+  "bizZip": {
+    "one": "bizZip",
+    "other": "bizZip"
+  },
+  "_csrf": {
+    "one": "_csrf",
+    "other": "_csrf"
+  },
+  "gender": {
+    "one": "gender",
+    "other": "gender"
+  },
+  "age": {
+    "one": "age",
+    "other": "age"
+  },
+  "purpose": {
+    "one": "purpose",
+    "other": "purpose"
+  },
+  "purposeOther": {
+    "one": "purposeOther",
+    "other": "purposeOther"
+  },
+  "investingOwnMoney": {
+    "one": "investingOwnMoney",
+    "other": "investingOwnMoney"
+  },
+  "moneyInvested": {
+    "one": "moneyInvested",
+    "other": "moneyInvested"
+  },
+  "businessType": {
+    "one": "businessType",
+    "other": "businessType"
+  },
+  "industry": {
+    "one": "industry",
+    "other": "industry"
+  },
+  "businessLocation": {
+    "one": "businessLocation",
+    "other": "businessLocation"
+  },
+  "employeeNumber": {
+    "one": "employeeNumber",
+    "other": "employeeNumber"
+  },
+  "yearsInBusiness": {
+    "one": "yearsInBusiness",
+    "other": "yearsInBusiness"
+  },
+  "annualRevenue": {
+    "one": "annualRevenue",
+    "other": "annualRevenue"
   }
 }

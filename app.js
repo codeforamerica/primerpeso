@@ -173,7 +173,6 @@ app.use(function(req, res, next) {
 /**
  * Application routes.
  */
-
 require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
