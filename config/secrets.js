@@ -15,4 +15,9 @@ module.exports = {
     user: process.env.MANDRILL_USER || '',
     apiKey: process.env.MANDRILL_APIKEY || ''
   },
+
+  keen: {
+    projectId: process.env.KEEN_PROJECT_ID,
+    writeKey: process.env.KEEN_WRITE_KEY
+  }
 };

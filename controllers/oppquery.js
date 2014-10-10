@@ -5,6 +5,8 @@ var searchResults = require('../test/mocks/searchResults');
 var Searcher = require('../lib/SearchQuery');
 var MailBoss = require('../lib/MailBoss');
 var mailBoss = new MailBoss();
+var KeenBoss = require('../lib/KeenBoss');
+var keenBoss = new KeenBoss();
 var db = require('../models');
 var sequelize = db.sequelize;
 
@@ -14,6 +16,7 @@ module.exports = function(app) {
   app.get('/results/picked/confirm', oppQueryConfirmPickedResults);
   app.post('/results/pick', oppQueryPickResults);
   app.post('/sendlead', oppQuerySendLead);
+  app.get('/debug/keen', oppQuerySendLeadKeenDebug);
   app.get('/debug/email-template/:emailTemplate/:emailOp', oppQuerySendLeadDebug);
 };
 
@@ -115,8 +118,6 @@ var oppQuerySendLead = function(req, res, next) {
     submitter: req.body
   };
   var subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
-  subSaveData.purpose =
-    _.isArray(subSaveData.purpose) ? subSaveData.purpose : new Array(subSaveData.purpose);
   // Create submission.
   Submission.create(subSaveData).then(function(createdSub) {
     createdSubmission = createdSub;
@@ -129,7 +130,6 @@ var oppQuerySendLead = function(req, res, next) {
     var agencyEmails = _.keys(_.groupBy(leadData.selectedPrograms, function(program) {
       return program.agencyContactEmail;
     }));
-    console.log('--dispatching--');
     // First send to default receivers and all the heads;
     var locals = _.extend(res.locals, {
       emailTitle: 'Formulario de solicitud de PrimerPeso',
@@ -149,13 +149,18 @@ var oppQuerySendLead = function(req, res, next) {
       locals: locals,
       to: new Array(subSaveData.email)
     });
-    mailBoss.dispatch(dispatchMailOptionsSet, function(err, info) {
-      return res.render('leadSentConfirmation', {
-        title: 'Solicitud Enviada',
-        bodyClass: 'leadSentConfirmation',
-        meta: { type: 'leadSentConfirmation' },
-        leadData: subSaveData,
-        selectedPrograms: leadData.selectedPrograms
+    mailBoss.dispatch(dispatchMailOptionsSet).then(function(dispatchResult) {
+      // Finally, dispatch to keen and render.
+      //return res.json({ssd: subSaveData, sp: leadData.selectedPrograms});
+      keenBoss.addEvent('submissions', _.omit(leadData, ['submitter', 'query']))
+      .then(function(movedEvent) {
+        return res.render('leadSentConfirmation', {
+          title: 'Solicitud Enviada',
+          bodyClass: 'leadSentConfirmation',
+          meta: { type: 'leadSentConfirmation' },
+          leadData: subSaveData,
+          selectedPrograms: leadData.selectedPrograms
+        });
       });
     });
   });
@@ -201,6 +206,14 @@ var oppQuerySendLeadDebug = function(req, res, next) {
       return res.send(_.first(html));
     });
   }
+}
+
+var oppQuerySendLeadKeenDebug = function(req, res, next) {
+  var Submission = sequelize.model('submission');
+  var leadData = require('../test/mocks/emailData')('sendlead-agency');
+  keenBoss.addEvent('submissions', _.omit(leadData, ['submitter', 'query'])).then(function(movedEvent) {
+    return res.json(movedEvent);
+  });
 }
 
 var accordionPanelRenderList = {
