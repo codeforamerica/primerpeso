@@ -12,9 +12,9 @@ module.exports = function(sequelize, DataTypes) {
     // TODO -- this comes from model utils and doesnt need to be here once the caching of indexjs is gone.
     loadFull: function(options, queryOptions) {
       var findOptions = _.extend(options, {
-	include: [
-	  { model: sequelize.model('opportunity'), as: 'opportunities' }
-	]
+        include: [
+          { model: sequelize.model('opportunity'), as: 'opportunities' }
+        ]
       });
       var findQueryOptions = _.extend(queryOptions, {});
       return this.find(findOptions, findQueryOptions);
