@@ -25,63 +25,63 @@
   },
   "%s financing": {
     "one": "%s financing",
-    "other": "%s financing"
+    "other": "%s financiamiento"
   },
   "%s credit_line": {
     "one": "%s credit_line",
-    "other": "%s credit_line"
+    "other": "%s línea de crédito"
   },
   "name": {
     "one": "Nombre",
-    "other": "name"
+    "other": "nombre"
   },
   "phone": {
     "one": "Telephono",
-    "other": "phone"
+    "other": "teléfono"
   },
   "email": {
     "one": "email",
-    "other": "email"
+    "other": "dirección de email"
   },
   "address": {
     "one": "address",
-    "other": "address"
+    "other": "dirección postal"
   },
   "municipality": {
     "one": "municipalidad",
-    "other": "municipality"
+    "other": "municipalidad"
   },
   "state": {
     "one": "state",
-    "other": "state"
+    "other": "estado"
   },
   "zip": {
     "one": "zip",
-    "other": "zip"
+    "other": "código postal"
   },
   "areYouInc": {
     "one": "areYouInc",
-    "other": "areYouInc"
+    "other": "¿estas incorporado?"
   },
   "legalCompanyName": {
     "one": "legalCompanyName",
-    "other": "legalCompanyName"
+    "other": "nombre legal de la compañía"
   },
   "bizAddress": {
     "one": "bizAddress",
-    "other": "bizAddress"
+    "other": "dirección de la compañía"
   },
   "bizMunicipality": {
     "one": "bizMunicipality",
-    "other": "bizMunicipality"
+    "other": "municipio de la compañía"
   },
   "bizState": {
     "one": "bizState",
-    "other": "bizState"
+    "other": "estado"
   },
   "bizZip": {
     "one": "bizZip",
-    "other": "bizZip"
+    "other": "código postal de la compañía"
   },
   "_csrf": {
     "one": "_csrf",
@@ -89,50 +89,50 @@
   },
   "gender": {
     "one": "gender",
-    "other": "gender"
+    "other": "género"
   },
   "age": {
     "one": "age",
-    "other": "age"
+    "other": "edad"
   },
   "purpose": {
     "one": "purpose",
-    "other": "purpose"
+    "other": "propósito"
   },
   "purposeOther": {
     "one": "purposeOther",
-    "other": "purposeOther"
+    "other": "otro propósito"
   },
   "investingOwnMoney": {
     "one": "investingOwnMoney",
-    "other": "investingOwnMoney"
+    "other": "invertir dinero propio"
   },
   "moneyInvested": {
     "one": "moneyInvested",
-    "other": "moneyInvested"
+    "other": "dinero invertido"
   },
   "businessType": {
     "one": "businessType",
-    "other": "businessType"
+    "other": "tipo de negocio"
   },
   "industry": {
     "one": "industry",
-    "other": "industry"
+    "other": "industria"
   },
   "businessLocation": {
     "one": "businessLocation",
-    "other": "businessLocation"
+    "other": "ubicación del negocio"
   },
   "employeeNumber": {
     "one": "employeeNumber",
-    "other": "employeeNumber"
+    "other": "número de empleados"
   },
   "yearsInBusiness": {
     "one": "yearsInBusiness",
-    "other": "yearsInBusiness"
+    "other": "años en negocio"
   },
   "annualRevenue": {
     "one": "annualRevenue",
-    "other": "annualRevenue"
+    "other": "volumen de ventas"
   }
 }
