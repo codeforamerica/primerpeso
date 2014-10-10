@@ -106,11 +106,20 @@ $(document).ready(function() {
   });
 
   $('select').each(function(index, sel) {
-    if ($(this).attr("multiple") == "multiple") {
-      $(this).select2($(this).val());
-    } else{
-      $(this).select2();
-    };
+    var config = {};
+    if ($(this).attr('name') == 'eligibleIndustries' || $(this).attr('name') == 'industry') {
+      config.sortResults = function(results, container, query) {
+        var newResults = [];
+        _.each(results, function(element, index) {
+          if (element.id !== 'any')
+            newResults.push(element);
+          else
+            newResults.unshift(element);
+        });
+        return newResults;
+      }
+    }
+    $(this).select2(config);
   });
 
   // For admin page

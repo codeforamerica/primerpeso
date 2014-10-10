@@ -121,7 +121,6 @@ function save(req, res) {
   var modelName = req.params.model || '';
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
 
-  console.log(req.body);
 
   // TODO -- use findOrCreate
   // If there is no id we are creating a new instance
