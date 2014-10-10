@@ -117,9 +117,9 @@ var oppQuerySendLead = function(req, res, next) {
     query: req.session.query || {},
     submitter: req.body
   };
-  var subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
+  leadData.subSaveData = _.extend(leadData.query, _.omit(leadData.submitter, ['_csrf']));
   // Create submission.
-  Submission.create(subSaveData).then(function(createdSub) {
+  Submission.create(leadData.subSaveData).then(function(createdSub) {
     createdSubmission = createdSub;
     return createdSub.setOpportunities(_.map(leadData.selectedPrograms, function(program) {
       return program.id;
@@ -133,7 +133,7 @@ var oppQuerySendLead = function(req, res, next) {
     // First send to default receivers and all the heads;
     var locals = _.extend(res.locals, {
       emailTitle: 'Formulario de solicitud de PrimerPeso',
-      leadData: subSaveData,
+      leadData: leadData.subSaveData,
       selectedPrograms: leadData.selectedPrograms
     });
     dispatchMailOptionsSet.push({
@@ -147,7 +147,7 @@ var oppQuerySendLead = function(req, res, next) {
       subject: "Gracias de PrimerPeso",
       template: "sendlead-customer",
       locals: locals,
-      to: new Array(subSaveData.email)
+      to: new Array(leadData.subSaveData.email)
     });
     mailBoss.dispatch(dispatchMailOptionsSet).then(function(dispatchResult) {
       // Finally, dispatch to keen and render.
