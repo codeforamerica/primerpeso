@@ -7,12 +7,20 @@ Validator.extend('notEmpty', function(str) {
   return !str.match(/^[\s\t\r\n]*$/);
 });
 
+Validator.extend('isPhone', function(str) {
+  if (str.match(/\d{10}/))
+    return str;
+  return false;
+});
+
 function FormValidator() {
   this.validator = Validator;
   this.validationFailures = [];
   this.validatorMessages = {
     notEmpty: "Por favor completa el campo",
-    isNumeric: "Por favor entrar solo numero, sin simbolo"
+    isNumeric: "Por favor entrar solo numero, sin simbolo",
+    isEmail: "Por favor, entrar solo email",
+    isPhone: "Por favor, entra numero telephone en formato como 1234567890"
   }
 }
 

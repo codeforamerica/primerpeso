@@ -11,7 +11,13 @@ module.exports = function(sequelize, DataTypes) {
   classMethods = _.extend(modelUtils.classMethods, {
     // TODO -- this comes from model utils and doesnt need to be here once the caching of indexjs is gone.
     loadFull: function(options, queryOptions) {
-      return this.find(options, queryOptions);
+      var findOptions = _.extend(options, {
+        include: [
+          { model: sequelize.model('opportunity'), as: 'opportunities' }
+        ]
+      });
+      var findQueryOptions = _.extend(queryOptions, {});
+      return this.find(findOptions, findQueryOptions);
     },
     getListFields: function() {
       return {
@@ -130,12 +136,14 @@ module.exports = function(sequelize, DataTypes) {
         phone: {
           type: DataTypes.STRING,
           label: 'Número de teléfono',
-          widget: 'text'
+          widget: 'text',
+          validate: { isPhone: 'isPhone' }
         },
         email: {
           type: DataTypes.STRING,
           label: 'Correo electrónico',
-          widget: 'email'
+          widget: 'email',
+          validate: { isEmail: 'isEmail' }
         },
         address: {
           type: DataTypes.STRING,
