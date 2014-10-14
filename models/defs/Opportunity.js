@@ -125,7 +125,7 @@ module.exports = function(sequelize, DataTypes) {
           allowNull: false,
           widget: 'ref',
           refTarget: 'requirement',
-	  label: 'Documentación requerida',
+          label: 'Documentación requerida',
           assocName: 'opportunitiesrequirements',
           multiple: true,
           separateBy: 'reqProvider', // Directive to separate into parents and children.
