@@ -137,7 +137,13 @@ module.exports = function(sequelize, DataTypes) {
           type: DataTypes.STRING,
           label: 'Número de teléfono',
           widget: 'text',
-          validate: { isPhone: 'isPhone' }
+          validate: {
+            isPhone: function(str) {
+              if (str.match(/\d{10}/))
+                return str;
+              return false;
+            }
+          }
         },
         email: {
           type: DataTypes.STRING,

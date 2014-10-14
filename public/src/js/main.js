@@ -2,6 +2,7 @@ var _ = require('lodash');
 var SearchShop = require('./searchShop.js');
 var FormValidator = require('./ppFormValidator.js');
 
+
 var validateGivenFields = function(fields) {
   var validator = new FormValidator();
   validatorResult = validator.validateFields(fields);
@@ -29,6 +30,9 @@ var validateTransition = function(currentIndex, newIndex) {
     var fieldSets = _.keys(formInfo.options.fieldSets);
     var currentFieldSet = fieldSets[currentIndex];
     var currentFields = formInfo.fields[currentFieldSet];
+    // HACK
+    if (currentFields.phone)
+      currentFields.phone.validate.isPhone = 'isPhone';
     return validateGivenFields(currentFields);
   }
   return true;
