@@ -36,7 +36,7 @@
     "other": "nombre"
   },
   "phone": {
-    "one": "Telephono",
+    "one": "teléfono",
     "other": "teléfono"
   },
   "email": {
@@ -88,15 +88,15 @@
     "other": "_csrf"
   },
   "gender": {
-    "one": "gender",
+    "one": "género",
     "other": "género"
   },
   "age": {
-    "one": "age",
+    "one": "edad",
     "other": "edad"
   },
   "purpose": {
-    "one": "purpose",
+    "one": "propósito",
     "other": "propósito"
   },
   "purposeOther": {
@@ -116,7 +116,7 @@
     "other": "tipo de negocio"
   },
   "industry": {
-    "one": "industry",
+    "one": "industria",
     "other": "industria"
   },
   "businessLocation": {
