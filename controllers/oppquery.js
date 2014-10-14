@@ -158,7 +158,7 @@ var oppQuerySendLead = function(req, res, next) {
           title: 'Solicitud Enviada',
           bodyClass: 'leadSentConfirmation',
           meta: { type: 'leadSentConfirmation' },
-          leadData: subSaveData,
+          leadData: leadData.subSaveData,
           selectedPrograms: leadData.selectedPrograms
         });
       });

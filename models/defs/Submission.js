@@ -122,7 +122,7 @@ module.exports = function(sequelize, DataTypes) {
         annualRevenue: {
           type: DataTypes.STRING,
           required: true,
-          label: '¿Cuál es tu Volumen anual?',
+          label: '¿Cuál es tu Volumen anual de venta?',
           tooltip: 'Selecciona el último año activo.',
           widget: 'radio',
           choices: choicesList.getFormChoices('annualRevenue')
@@ -137,7 +137,13 @@ module.exports = function(sequelize, DataTypes) {
           type: DataTypes.STRING,
           label: 'Número de teléfono',
           widget: 'text',
-          validate: { isPhone: 'isPhone' }
+          validate: {
+            isPhone: function(str) {
+              if (str.match(/\d{10}/))
+                return str;
+              return false;
+            }
+          }
         },
         email: {
           type: DataTypes.STRING,

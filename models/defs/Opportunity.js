@@ -77,13 +77,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         // TODO: These need to be separate inputs on the UI that get joined
         // in the backend.
-        paperworkRequired: {
-          type: DataTypes.ARRAY(DataTypes.TEXT),
-          widget: 'arrayTextField',
-          label: 'Documentación requerida',
-          multiple: true,
-          allowNull: false
-        },
         applicationCost: {
           type: DataTypes.INTEGER,
           allowNull: false,
@@ -132,7 +125,7 @@ module.exports = function(sequelize, DataTypes) {
           allowNull: false,
           widget: 'ref',
           refTarget: 'requirement',
-          label: 'Requisitos',
+          label: 'Documentación requerida',
           assocName: 'opportunitiesrequirements',
           multiple: true,
           separateBy: 'reqProvider', // Directive to separate into parents and children.
