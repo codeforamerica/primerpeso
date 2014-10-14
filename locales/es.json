@@ -134,5 +134,17 @@
   "annualRevenue": {
     "one": "annualRevenue",
     "other": "volumen de ventas"
+  },
+  "senderName": {
+    "one": "senderName",
+    "other": "senderName"
+  },
+  "senderMail": {
+    "one": "senderMail",
+    "other": "senderMail"
+  },
+  "message": {
+    "one": "message",
+    "other": "message"
   }
 }
