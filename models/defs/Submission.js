@@ -122,7 +122,7 @@ module.exports = function(sequelize, DataTypes) {
         annualRevenue: {
           type: DataTypes.STRING,
           required: true,
-          label: '¿Cuál es tu Volumen anual?',
+          label: '¿Cuál es tu Volumen anual de venta?',
           tooltip: 'Selecciona el último año activo.',
           widget: 'radio',
           choices: choicesList.getFormChoices('annualRevenue')

@@ -44,7 +44,7 @@
     "other": "dirección de email"
   },
   "address": {
-    "one": "address",
+    "one": "dirección postal",
     "other": "dirección postal"
   },
   "municipality": {
@@ -52,35 +52,35 @@
     "other": "municipalidad"
   },
   "state": {
-    "one": "state",
+    "one": "estado",
     "other": "estado"
   },
   "zip": {
-    "one": "zip",
+    "one": "código postal",
     "other": "código postal"
   },
   "areYouInc": {
-    "one": "areYouInc",
+    "one": "¿estas incorporado?",
     "other": "¿estas incorporado?"
   },
   "legalCompanyName": {
-    "one": "legalCompanyName",
+    "one": "nombre legal de la compañía",
     "other": "nombre legal de la compañía"
   },
   "bizAddress": {
-    "one": "bizAddress",
+    "one": "dirección de la compañía",
     "other": "dirección de la compañía"
   },
   "bizMunicipality": {
-    "one": "bizMunicipality",
+    "one": "municipio de la compañía",
     "other": "municipio de la compañía"
   },
   "bizState": {
-    "one": "bizState",
+    "one": "estado",
     "other": "estado"
   },
   "bizZip": {
-    "one": "bizZip",
+    "one": "código postal de la compañía",
     "other": "código postal de la compañía"
   },
   "_csrf": {
@@ -104,15 +104,15 @@
     "other": "otro propósito"
   },
   "investingOwnMoney": {
-    "one": "investingOwnMoney",
+    "one": "invertir dinero propio",
     "other": "invertir dinero propio"
   },
   "moneyInvested": {
-    "one": "moneyInvested",
+    "one": "dinero invertido",
     "other": "dinero invertido"
   },
   "businessType": {
-    "one": "businessType",
+    "one": "tipo de negocio",
     "other": "tipo de negocio"
   },
   "industry": {
@@ -120,31 +120,31 @@
     "other": "industria"
   },
   "businessLocation": {
-    "one": "businessLocation",
+    "one": "ubicación del negocio",
     "other": "ubicación del negocio"
   },
   "employeeNumber": {
-    "one": "employeeNumber",
+    "one": "número de empleados",
     "other": "número de empleados"
   },
   "yearsInBusiness": {
-    "one": "yearsInBusiness",
+    "one": "años en negocio",
     "other": "años en negocio"
   },
   "annualRevenue": {
-    "one": "annualRevenue",
+    "one": "volumen de ventas",
     "other": "volumen de ventas"
   },
   "senderName": {
-    "one": "senderName",
-    "other": "senderName"
+    "one": "Nombre de Usuario",
+    "other": "Nombre de Usuario"
   },
   "senderMail": {
-    "one": "senderMail",
-    "other": "senderMail"
+    "one": "E-Mail de Usuario",
+    "other": "E-Mail de Usuario"
   },
   "message": {
-    "one": "message",
-    "other": "message"
+    "one": "Mensaje",
+    "other": "Mensaje"
   }
 }
