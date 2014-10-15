@@ -18,15 +18,16 @@ html
       section.landing
         .landing-header
           img(src=CDN("/img/logo_pp.png"))
-          h1.title <strong>PrimerPeso</strong> te ayuda a empezar o expandir tu negocio.
-              h2.subtitle Navegando los más de <strong>$300 millones de dólares disponibles en programas </strong> de Gobierno para <strong>pequeños empresarios </strong> en Puerto Rico.
-          a.btn(href='/preguntas') Conoce a cuales programas calificas
+          h1.title <strong>PrimerPeso</strong> te ayuda a crear o expandir tu negocio.
+              h2.subtitle Navegando los más de $300 millones de dólares disponibles en programas de Gobierno para pequeños empresarios en Puerto Rico.
+              h2.subtitle Estamos en BETA y apreciamos tus comentarios. Lanzaremos oficialmente en Nov 2014.
+          a.btn(href='/preguntas') Participar del sitio beta
 
       section.how-it-works.col-lg-12
           div.brands-credit
             p
             | Photo of De Hojas courtesy of
-            a(href='http://brandsofpuertorico.com/') Brands of Puerto Rico
+            a(href='http://brandsofpuertorico.com/')  Brands of Puerto Rico
           h1.section-title ¿Cómo funciona PrimerPeso?
           .action-words.col-lg-12
             .col-lg-4
@@ -44,7 +45,7 @@ html
       section.how-can-we-help.col-lg-12
         h1.section-title ¿Cómo te podemos ayudar?
         .options
-          a.btn.help-you(href='/preguntas') Quiero empezar un negocio
+          a.btn.help-you(href='/preguntas') Quiero crear un negocio
           a.btn.help-you(href='/preguntas') Quiero aprender sobre los incentivos contributivos
           a.btn.help-you(href='/preguntas') Quiero abrir un nuevo local
           a.btn.help-you(href='/preguntas') Quiero exportar mis productos
@@ -78,28 +79,30 @@ html
                 | Licencia bajo&nbsp;
                 a(href='http://opensource.org/licenses/mit-license.html') MIT
               div
-                a(href='https://github.com/') GitHub Project
+                a(href='https://github.com/codeforamerica/primerpeso') GitHub Project
                 |  ·&nbsp;
-                a(href='https://github.com/') Issues
-
-                .pr-logo
+                a(href='https://github.com/codeforamerica/primerpeso/issues') Issues
+              div.pr-logo
+                a(href='http://pr.gov')
                   img(src=CDN("/img/prgov.png"))
+                a(href='http://codeforamerica.org')
+                  img(src=CDN("/img/cfa-logo.png"))
 
 
 
       script(type='text/javascript', src=CDN('/js/vendor.min.js'))
       script(type='text/javascript', src=CDN('/js/main.js'))
       script.
-        var _gaq = _gaq || [];
-        var gaNum = '#{gaNum}';
-        _gaq.push(['_setAccount', gaNum]);
-        _gaq.push(['_trackPageview']);
+         var _gaq = _gaq || [];
+         var gaNum = '#{gaNum}';
+         _gaq.push(['_setAccount', gaNum]);
+         _gaq.push(['_trackPageview']);
 
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+         (function() {
+           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
       script.
         // Include the UserVoice JavaScript SDK (only needed once on a page)
         UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/dbTEoOlonw9YMGT5FRT1xw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();

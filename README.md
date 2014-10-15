@@ -2,6 +2,13 @@
 
 # How to Run
 
+# Dependencies
+* Postgresql 9.3 - DB
+* NodeJS 0.10
+* Redis - Sessions
+* Mandrill - E-Mail
+* TravisCI - CI
+
 ## Fresh Install
 
 ### Cloning the Repository
@@ -108,6 +115,17 @@ After you change directory to the PrimerPeso folder, run this command:
 gulp
 ```
 
+## Importing and Exporting DB.
+
+### Dump
+
+* `pg_dump bizwallet --format=c --file=db_dump_a.tar.gz --no-owner`
+
+### Restore
+
+* From Heroku = `dropdb bizwallet; heroku pg:pull DATABASE_URL bizwallet; gulp migrate`
+* From Dump = `dropdb bizwallet; createdb bizwallet; pg_restore db_dump_a.tar.gz --clean --dbname=bizwallet --create`
+
 ## Common Issues
 
 Some common issues that could give you errors when you run the project, and how to solve them
@@ -115,3 +133,4 @@ Some common issues that could give you errors when you run the project, and how 
 * New dependencies were added (run `npm install`)
 * Make sure you are in the primerpeso folder (run `cd path/to/primerpeso`)
 * @MrMaksimize or @chrisrodz broke something (ping us to fix it)
+

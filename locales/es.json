@@ -22,5 +22,129 @@
   "%s other": {
     "one": "%s Otro",
     "other": "%s Otros"
+  },
+  "%s financing": {
+    "one": "%s financing",
+    "other": "%s financiamiento"
+  },
+  "%s credit_line": {
+    "one": "%s credit_line",
+    "other": "%s línea de crédito"
+  },
+  "name": {
+    "one": "Nombre",
+    "other": "nombre"
+  },
+  "phone": {
+    "one": "teléfono",
+    "other": "teléfono"
+  },
+  "email": {
+    "one": "email",
+    "other": "dirección de email"
+  },
+  "address": {
+    "one": "dirección postal",
+    "other": "dirección postal"
+  },
+  "municipality": {
+    "one": "municipalidad",
+    "other": "municipalidad"
+  },
+  "state": {
+    "one": "estado",
+    "other": "estado"
+  },
+  "zip": {
+    "one": "código postal",
+    "other": "código postal"
+  },
+  "areYouInc": {
+    "one": "¿estas incorporado?",
+    "other": "¿estas incorporado?"
+  },
+  "legalCompanyName": {
+    "one": "nombre legal de la compañía",
+    "other": "nombre legal de la compañía"
+  },
+  "bizAddress": {
+    "one": "dirección de la compañía",
+    "other": "dirección de la compañía"
+  },
+  "bizMunicipality": {
+    "one": "municipio de la compañía",
+    "other": "municipio de la compañía"
+  },
+  "bizState": {
+    "one": "estado",
+    "other": "estado"
+  },
+  "bizZip": {
+    "one": "código postal de la compañía",
+    "other": "código postal de la compañía"
+  },
+  "_csrf": {
+    "one": "_csrf",
+    "other": "_csrf"
+  },
+  "gender": {
+    "one": "género",
+    "other": "género"
+  },
+  "age": {
+    "one": "edad",
+    "other": "edad"
+  },
+  "purpose": {
+    "one": "propósito",
+    "other": "propósito"
+  },
+  "purposeOther": {
+    "one": "purposeOther",
+    "other": "otro propósito"
+  },
+  "investingOwnMoney": {
+    "one": "invertir dinero propio",
+    "other": "invertir dinero propio"
+  },
+  "moneyInvested": {
+    "one": "dinero invertido",
+    "other": "dinero invertido"
+  },
+  "businessType": {
+    "one": "tipo de negocio",
+    "other": "tipo de negocio"
+  },
+  "industry": {
+    "one": "industria",
+    "other": "industria"
+  },
+  "businessLocation": {
+    "one": "ubicación del negocio",
+    "other": "ubicación del negocio"
+  },
+  "employeeNumber": {
+    "one": "número de empleados",
+    "other": "número de empleados"
+  },
+  "yearsInBusiness": {
+    "one": "años en negocio",
+    "other": "años en negocio"
+  },
+  "annualRevenue": {
+    "one": "volumen de ventas",
+    "other": "volumen de ventas"
+  },
+  "senderName": {
+    "one": "Nombre de Usuario",
+    "other": "Nombre de Usuario"
+  },
+  "senderMail": {
+    "one": "E-Mail de Usuario",
+    "other": "E-Mail de Usuario"
+  },
+  "message": {
+    "one": "Mensaje",
+    "other": "Mensaje"
   }
 }

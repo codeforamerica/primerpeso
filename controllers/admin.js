@@ -24,7 +24,7 @@ module.exports = function(app) {
 
   app.get(base, dashboard);
 
-  app.get(path.join(base, '/debug'), debug);
+  app.get(path.join(base, '/debug/:model'), debug);
   app.get(path.join(base, '/:model/:id/edit'), edit);
   app.get(path.join(base, '/:model/new'), edit);
   app.post(path.join(base, '/:model'), save);
@@ -35,10 +35,20 @@ module.exports = function(app) {
 
 };
 
+
 function debug(req, res) {
-  var Opportunity = sequelize.model('opportunity');
-  console.log(Opportunity.associations);
-  return res.json(Opportunity.associations);
+  var modelName = req.params.model || '';
+  var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
+  var assocData = Model.associations;
+  var assocRet = _.mapValues(assocData, function(assocInfo, assocKey) {
+    assocInfo.options = _.omit(assocInfo.options, ['sequelize']);
+    assocInfo.foreignKeyAttribute = _.omit(assocInfo.foreignKeyAttribute, ['sequelize', 'Model']);
+    var resN =  _.omit(assocInfo, ['source', 'target', 'through', 'targetAssociation', 'sequelize']);
+    return resN;
+  });
+    //assocInfo.options = _.omit(assocInfo.options, ['sequelize']);
+  return res.json(assocRet);
+
 }
 
 
@@ -86,23 +96,20 @@ function edit(req, res) {
     model: req.params.model || '',
     id: req.params.id || ''
   });
-  var doc = sequelize.model(render.model);
+  var Model = sequelize.model(render.model);
   if (!render.id) {
-    doc.getFormFields('new').then(function(formInfo) {
-      render.formInfo = formInfo
-      return res.render('admin/form', render);
-    });
+    render.formInfo = Model.getFormFields('new');
+    return res.render('admin/form', render);
   }
   else {
-    doc.find(render.id).success(function(instance) {
+
+    Model.loadFull({ where: { id: render.id } }).success(function(instance) {
       if (!instance) {
         res.status(404);
         return res.render('admin/404', { url: req.url });
       }
-      doc.getFormFields('edit', instance).then(function(formInfo) {
-        render.formInfo = formInfo
-        return res.render('admin/form', render);
-      });
+      render.formInfo = Model.getFormFields('edit', instance);
+      return res.render('admin/form', render);
     });
   }
 }
@@ -115,6 +122,8 @@ function save(req, res) {
   var modelName = req.params.model || '';
   var Model = sequelize.isDefined(modelName) ? sequelize.model(modelName) : null;
 
+
+  // TODO -- use findOrCreate
   // If there is no id we are creating a new instance
   if (!id || _.isEmpty(id)) {
     Model.createInstance(req.body).then(function(instance) {
@@ -129,15 +138,15 @@ function save(req, res) {
     });
   // If we have an id then we are updating an existing instance
   } else {
-    var instance = Model.buildFromAdminForm(req.body);
-    delete instance.dataValues.id;
-    var newFields = instance.dataValues;
-    Model.find(req.params.id).success(function(result) {
-      result.updateAttributes(newFields).success(function() {
-        res.redirect(req.path);
-      });
+    Model.updateInstance(id, req.body).then(function(instance) {
+      req.flash('info', 'Añadido exitosamente');
+      return res.redirect(req.path);
+    }).error(function(err) {
+      throw err;
+      req.flash('errors', err.message);
+      return res.redirect(req.path);
     });
-  };
+  }
 }
 
 /**

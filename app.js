@@ -7,6 +7,7 @@ var dotenv = require('dotenv');
 dotenv.load();
 
 var _ = require('lodash');
+var Autolinker = require('autolinker');
 var express = require('express');
 var i18n = require('i18n');
 var http = require('http');
@@ -117,10 +118,15 @@ app.use(function(req, res, next) {
   res.locals.env  = app.get('env');
   res.locals._ = require('lodash');
   res.locals.moment = require('moment');
-  res.locals.oppCount = 0;
   res.locals.CDN = function(relPath) {
     return secrets.staticFilePrefix + relPath;
-  }
+  };
+  res.locals.AUTOLINK = function(text) {
+    var autolinker = new Autolinker({ truncate: 55, className: 'autoLinked'});
+    if (_.isString(text))
+      return autolinker.link(text);
+    return text;
+  };
   res.locals.gaNum = secrets.gaNum;
   next();
 });
@@ -157,7 +163,7 @@ app.use(function(req, res, next) {
 });
 
 // Access Policy;
-//app.use('/admin', require('./policies/admin'));
+app.use('/admin', require('./policies/admin'));
 
 /**
  * Sub Apps
@@ -167,11 +173,11 @@ app.use(function(req, res, next) {
 /**
  * Application routes.
  */
-
 require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
+require('./controllers/api')(app);
 require('./controllers/contact')(app);
 
 
