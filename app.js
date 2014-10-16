@@ -128,6 +128,7 @@ app.use(function(req, res, next) {
     return text;
   };
   res.locals.gaNum = secrets.gaNum;
+  res.locals.puertoRicoGaNum = secrets.puertoRicoGaNum;
   next();
 });
 

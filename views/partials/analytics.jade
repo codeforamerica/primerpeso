@@ -9,9 +9,15 @@ script.
   UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/dbTEoOlonw9YMGT5FRT1xw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
 
   // Send PageView
-  var gaNum = '#{gaNum}'
+  var gaNum = '#{gaNum}';
+  var puertoRicoGaNum = '#{puertoRicoGaNum}';
+  // Initialize trackers
   ga('create', gaNum, 'auto');
+  ga('create', puertoRicoGaNum, 'auto', {'name': 'puertoRicoGaTracker'});
+  // Send to CoquiCoders.
   ga('send', 'pageview');
+  // Send to PR.
+  ga('puertoRicoGaTracker.send', 'pageview');
 
   // Set colors for UserVoice
   UserVoice.push(['set', {
