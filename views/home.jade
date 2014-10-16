@@ -88,36 +88,6 @@ html
                 a(href='http://codeforamerica.org')
                   img(src=CDN("/img/cfa-logo.png"))
 
-
-
       script(type='text/javascript', src=CDN('/js/vendor.min.js'))
       script(type='text/javascript', src=CDN('/js/main.js'))
-      script.
-         var _gaq = _gaq || [];
-         var gaNum = '#{gaNum}';
-         _gaq.push(['_setAccount', gaNum]);
-         _gaq.push(['_trackPageview']);
-
-         (function() {
-           var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-           ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-         })();
-      script.
-        // Include the UserVoice JavaScript SDK (only needed once on a page)
-        UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/dbTEoOlonw9YMGT5FRT1xw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
-        // Set colors
-        UserVoice.push(['set', {
-          accent_color: '#18bc9c',
-          trigger_color: 'white',
-          trigger_background_color: '#18bc9c',
-          locale: 'es'
-        }]);
-
-        // Add default trigger to the bottom-right corner of the window:
-        UserVoice.push(['addTrigger', {
-          mode: 'contact',
-          trigger_position: 'right',
-          trigger_style: 'tab',
-          locale: 'es'
-        }]);
+      include partials/analytics.jade
