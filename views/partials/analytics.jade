@@ -1,0 +1,36 @@
+script.
+  // Include Analytics
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  // Include User Voice
+  UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/dbTEoOlonw9YMGT5FRT1xw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+  // Send PageView
+  var gaNum = '#{gaNum}';
+  var puertoRicoGaNum = '#{puertoRicoGaNum}';
+  // Initialize trackers
+  ga('create', gaNum, 'auto');
+  ga('create', puertoRicoGaNum, 'auto', {'name': 'puertoRicoGaTracker'});
+  // Send to CoquiCoders.
+  ga('send', 'pageview');
+  // Send to PR.
+  ga('puertoRicoGaTracker.send', 'pageview');
+
+  // Set colors for UserVoice
+  UserVoice.push(['set', {
+    accent_color: '#18bc9c',
+    trigger_color: 'white',
+    trigger_background_color: '#18bc9c',
+    locale: 'es'
+  }]);
+
+  // Add default trigger to the bottom-right corner of the window for userVoice:
+  UserVoice.push(['addTrigger', {
+    mode: 'contact',
+    trigger_position: 'right',
+    trigger_style: 'tab',
+    locale: 'es'
+  }]);
