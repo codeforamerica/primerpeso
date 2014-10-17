@@ -6,13 +6,13 @@
 @import (less) "lib/select2.css";
 @import (less) "lib/select2-bootstrap.css";
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,600,700,800);
 
+//Fonts
 @font-family: 'Montserrat', sans-serif;
 @font-family-secondary: 'Open Sans', sans serif;
 
-//BizWallet Colors
+//PrimerPeso Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
 @darker-green: #128d75;
@@ -74,67 +74,49 @@ a {
 // Navbar
 // -------------------------
 
-.navbar {
+.navbar.navbar-default {
   margin-bottom: 0px;
   border-radius: 0px;
-}
-
-.navbar-default {
   background-color: transparent;
   border: none;
   border-bottom: 3px solid @green;
   font-size: 24px;
-  .navbar-nav {
-    background-color: transparent;
-    li a {
-      color: @dark-green;
-      text-decoration: none;
-      padding-top: 40px;
+    .navbar-toggle {
+      border-color: transparent;
+      background-color: @dark-green;
     }
-    .open a:focus {
-      color: @dark-green;
+    a.navbar-brand {
+      background-image: url(../img/logo_pp.png);
+      background-repeat: no-repeat;
+      background-size: 75px;
+      background-position: left center;
+      padding-left: 100px;
+      margin-left: 15px;
+      height: 100px;
+      font-size: 24px;
     }
-    .active a {
-      color: @dark-navy;
-      text-decoration: none;
-    a:focus, &:hover, &:focus {
-      color: @dark-navy;
+  .collapse .navbar-collapse {
+    border-top: 3px solid transparent;
+    border-color: transparent;
+    .navbar-nav {
+      background-color: transparent;
+      li a {
+        color: @dark-green;
+        text-decoration: none;
+        padding-top: 40px;
+      }
+      .open a:focus {
+        color: @dark-green;
+      }
+      .active a {
+        color: @dark-navy;
+        text-decoration: none;
+      a:focus, &:hover, &:focus {
+        color: @dark-navy;
+        }
       }
     }
   }
-}
-
-.navbar-nav .profile-image {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px 0;
-}
-
-.navbar-brand {
-  background-image: url(../img/logo_pp.png);
-  background-repeat: no-repeat;
-  background-size: 75px;
-  background-position: left center;
-  padding-left: 100px;
-  margin-left: 15px;
-  height: 100px;
-  font-size: 24px;
-}
-
-.navbar-toggle {
-  background-color: @dark-green;
-}
-
-.navbar-default .navbar-toggle {
-  border-color: transparent;
-}
-
-.navbar-collapse {
-  border-top: 3px solid transparent;
-}
-
-.navbar-default .navbar-collapse {
-  border-color: transparent;
 }
 
 // Dropdown Styles
