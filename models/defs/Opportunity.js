@@ -50,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         title:  {
           type: DataTypes.STRING,
-          allownull: false,
+          allowNull: false,
           label:'Nombre del Programa',
           unique: true,
           validate: {
@@ -58,7 +58,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         purpose: {
           type: DataTypes.ARRAY(DataTypes.TEXT),
-          allownull: false,
+          allowNull: false,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('purpose'),
           validate: {
@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         eligibleBusinessLocation: {
           type: DataTypes.ARRAY(DataTypes.STRING),
-          allownull: false,
+          allowNull: false,
           multiple: true,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('eligibleBusinessLocation'),
@@ -77,16 +77,9 @@ module.exports = function(sequelize, DataTypes) {
         },
         // TODO: These need to be separate inputs on the UI that get joined
         // in the backend.
-        paperworkRequired: {
-          type: DataTypes.ARRAY(DataTypes.TEXT),
-          widget: 'arrayTextField',
-          label: 'Documentación requerida',
-          multiple: true,
-          allownull: false
-        },
         applicationCost: {
           type: DataTypes.INTEGER,
-          allownull: false,
+          allowNull: false,
           label: 'Costo de la aplicación - (colocar solo número)',
           widget: 'text',
           validate: {
@@ -95,20 +88,20 @@ module.exports = function(sequelize, DataTypes) {
         },
         applicationDeadline: {
           type: DataTypes.DATE,
-          allownull: false,
+          allowNull: false,
           widget: 'date',
           label: 'Fecha de expiración'
         },
         avgApplicationTime: {
           type: DataTypes.STRING,
-          allownull: false,
+          allowNull: false,
           widget: 'text',
           label: 'Tiempo estimado de finalización desde  ___ hasta  ___)'
         },
         // TODO -- abstract choices to freaking callbacks.
         benefitType: {
           type: DataTypes.ARRAY(DataTypes.STRING),
-          allownull: false,
+          allowNull: false,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('benefitType'),
           label: 'Tipo de Beneficio',
@@ -117,7 +110,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         benefitDescription: {
           type: DataTypes.TEXT,
-          allownull: false,
+          allowNull: false,
           widget: 'textArea',
           label: 'Descripción de Beneficio',
         },
@@ -129,33 +122,35 @@ module.exports = function(sequelize, DataTypes) {
         },
         requirementsRef: {
           type: null, // NULL types will be excluded from the columns.
+          allowNull: false,
           widget: 'ref',
           refTarget: 'requirement',
-          label: 'Requirements or Whatever',
+          label: 'Documentación requerida',
           assocName: 'opportunitiesrequirements',
-          multiple: true
+          multiple: true,
+          separateBy: 'reqProvider', // Directive to separate into parents and children.
         },
         agencyContactName: {
           type: DataTypes.STRING,
           label: 'Nombre de contacto en agencia',
-          allownull: false,
+          allowNull: false,
           widget: 'text'
         },
         agencyContactEmail: {
           type: DataTypes.STRING,
           label: 'Email de contacto',
-          allownull: false,
+          allowNull: false,
           widget: 'text',
         },
         agencyContactPhone: {
           type: DataTypes.STRING,
           label: 'Teléfono de contacto en agencia',
-          allownull: false,
+          allowNull: false,
           widget: 'text',
         },
         minimumYearsInBusiness: {
           type: DataTypes.INTEGER,
-          allownull: false,
+          allowNull: false,
           label: 'Mínimo de años en Negocio',
           widget: 'select',
           choices: choicesList.getFormChoices('yearsInBusiness'),
@@ -163,7 +158,7 @@ module.exports = function(sequelize, DataTypes) {
         eligibleEntityTypes: {
           type: DataTypes.ARRAY(DataTypes.STRING),
           widget: 'checkbox',
-          allownull: false,
+          allowNull: false,
           multiple: true,
           choices: choicesList.getFormChoices('eligibleEntityTypes'),
           label: 'Tipo de entidades elegibles'
@@ -172,7 +167,7 @@ module.exports = function(sequelize, DataTypes) {
           type: DataTypes.ARRAY(DataTypes.STRING),
           widget: 'multiSelect',
           multiple: true,
-          allownull: false,
+          allowNull: false,
           choices: choicesList.getFormChoices('currentEmployeesRequired'),
           label: 'Número de empleados requeridos',
         },
@@ -181,13 +176,13 @@ module.exports = function(sequelize, DataTypes) {
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('annualRevenue'),
           multiple: true,
-          allownull: false,
+          allowNull: false,
           label: 'Volumen anual requerido',
         },
         eligibleIndustries: {
           type: DataTypes.ARRAY(DataTypes.STRING),
           multiple: true,
-          allownull: false,
+          allowNull: false,
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('eligibleIndustries'),
           label: 'Industrias elegibles',
@@ -195,14 +190,14 @@ module.exports = function(sequelize, DataTypes) {
         },
         gender: {
           type: DataTypes.STRING,
-          allownull: false,
+          allowNull: false,
           label: 'Género',
           widget: 'select',
           choices: choicesList.getFormChoices('gender')
         },
         age: {
           type: DataTypes.ARRAY(DataTypes.INTEGER),
-          allownull: false,
+          allowNull: false,
           label: 'Edad',
           widget: 'multiSelect',
           choices: choicesList.getFormChoices('age'),

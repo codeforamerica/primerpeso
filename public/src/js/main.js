@@ -2,6 +2,7 @@ var _ = require('lodash');
 var SearchShop = require('./searchShop.js');
 var FormValidator = require('./ppFormValidator.js');
 
+
 var validateGivenFields = function(fields) {
   var validator = new FormValidator();
   validatorResult = validator.validateFields(fields);
@@ -29,6 +30,9 @@ var validateTransition = function(currentIndex, newIndex) {
     var fieldSets = _.keys(formInfo.options.fieldSets);
     var currentFieldSet = fieldSets[currentIndex];
     var currentFields = formInfo.fields[currentFieldSet];
+    // HACK
+    if (currentFields.phone)
+      currentFields.phone.validate.isPhone = 'isPhone';
     return validateGivenFields(currentFields);
   }
   return true;
@@ -106,28 +110,55 @@ $(document).ready(function() {
   });
 
   $('select').each(function(index, sel) {
-    if ($(this).attr("multiple") == "multiple") {
-      $(this).select2($(this).val());
-    } else{
-      $(this).select2();
-    };
+    var config = {};
+    if ($(this).attr('name') == 'eligibleIndustries' || $(this).attr('name') == 'industry') {
+      config.sortResults = function(results, container, query) {
+        var newResults = [];
+        _.each(results, function(element, index) {
+          if (element.id !== 'any')
+            newResults.push(element);
+          else
+            newResults.unshift(element);
+        });
+        return newResults;
+      }
+    }
+    $(this).select2(config);
   });
 
   // For admin page
   $('.choiceOther').hide();
   $('div#eligibleIndustries').next().show();
   $('.model-form input.ref').each(function(index, element) {
-    var multiple = $(element).hasClass('multiple');
+    //var multiple = $(element).hasClass('multiple');
+    var multiple = $(element).attr('multiple') === 'multiple' ? true : false;
+    var separateBy = $(element).data('separateby') || null;
     $(element).select2({
       minimumInputLength: 0,
       multiple: multiple,
       ajax: {
         dataType: 'json',
-        url: function() { return '/api/' + $(this).data('reftarget'); },
+        url: function() {
+          var urlString =  '/api/' + $(this).data('reftarget');
+          if (separateBy)
+            urlString += '?separateby=' + separateBy;
+          return urlString;
+        },
         results: function(data, page) {
-          var res = _.map(data, function(dataPiece, index) {
-            return { id: dataPiece.id, text: dataPiece.name };
-          });
+          var res = [];
+          var mapper = function (dataToMap) {
+            return _.map(dataToMap, function(dataPiece, index) {
+              return { id: dataPiece.id, text: dataPiece.name };
+            });
+          }
+          if (separateBy) {
+            _.each(data, function(sepChildren, sepParent) {
+              res.push({ text: sepParent, children: mapper(sepChildren) });
+            });
+          }
+          else
+            res = mapper(data);
+
           return { results: res };
         },
       },
@@ -138,7 +169,7 @@ $(document).ready(function() {
           url: '/api/' + $(element).data('reftarget') + '?id=' + cVal,
         }).done(function(data) {
           var result;
-          if ($(element).hasClass('multiple')) {
+          if (multiple === true) {
             var retData = _.isArray(data) ? data : new Array(data);
             result = _.map(retData, function(selectedValue) {
               return { id: selectedValue.id, text: selectedValue.title || selectedValue.name };

@@ -122,12 +122,13 @@ app.use(function(req, res, next) {
     return secrets.staticFilePrefix + relPath;
   };
   res.locals.AUTOLINK = function(text) {
-    var autolinker = new Autolinker({ truncate: 25, className: 'autoLinked'});
+    var autolinker = new Autolinker({ truncate: 55, className: 'autoLinked'});
     if (_.isString(text))
       return autolinker.link(text);
     return text;
   };
   res.locals.gaNum = secrets.gaNum;
+  res.locals.puertoRicoGaNum = secrets.puertoRicoGaNum;
   next();
 });
 
@@ -163,7 +164,7 @@ app.use(function(req, res, next) {
 });
 
 // Access Policy;
-//app.use('/admin', require('./policies/admin'));
+app.use('/admin', require('./policies/admin'));
 
 /**
  * Sub Apps
@@ -173,11 +174,11 @@ app.use(function(req, res, next) {
 /**
  * Application routes.
  */
-
 require('./controllers/user')(app);
 require('./controllers/home')(app);
 require('./controllers/oppquery')(app);
 require('./controllers/admin')(app);
+require('./controllers/api')(app);
 require('./controllers/contact')(app);
 
 

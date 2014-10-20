@@ -10,8 +10,8 @@ var fs        = require('fs')
   var sequelize = new Sequelize(secrets.pg, {
     dialect: 'postgres',
     sync: { force: false },
-    language: 'en'
- //   logging: false
+    language: 'en',
+    //logging: false
   });
 
 fs
@@ -25,11 +25,11 @@ fs
   })
 
 // Run associate here:
-console.log('RUN ASSOC');
 var User = sequelize.model('user');
 var Opportunity = sequelize.model('opportunity');
 var Agency = sequelize.model('agency');
 var Requirement = sequelize.model('requirement');
+var Submission = sequelize.model('submission');
 
 /***** Agency *****/
 // Agency refs user as creator
@@ -42,7 +42,11 @@ Opportunity.belongsTo(User, { as: 'creator' });
 Opportunity.belongsTo(Agency, { as: 'agency'});
 // Opportunity has Many requirements.
 Opportunity.hasMany(Requirement);
+// Opportunity has Many Submissions where its selected.
+Opportunity.hasMany(Submission);
 
+/***** Submission *****/
+Submission.hasMany(Opportunity);
 /***** Requirement *****/
 Requirement.belongsTo(User, { as: 'creator' });
 Requirement.hasMany(Opportunity);
@@ -54,6 +58,8 @@ User.hasMany(Opportunity, { foreignKey: 'creatorId' });
 User.hasMany(Agency, { foreignKey: 'creatorId' });
 // User has many Requirements through the creatorId fk.
 User.hasMany(Requirement, { foreignKey: 'creatorId' });
+
+// TODO -- this needs to be rewritten not to follow the caching pattern.
 
 
 

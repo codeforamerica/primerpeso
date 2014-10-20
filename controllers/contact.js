@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var secrets = require('../config/secrets');
 var MailBoss = require('../lib/MailBoss');
 var mailBoss = new MailBoss();
@@ -38,19 +39,19 @@ function postContact(req, res) {
     req.flash('errors', errors);
     return res.redirect('/contact');
   }
-  mailBoss.send({
-    from: req.body.email,
+  mailBoss.dispatch([{
     subject: "Formulario de contacto de PrimerPeso",
-    text: req.body.message,
-    }, function(err, info) {
-      console.log(err);
-      console.log(info);
-      if (err) {
-        req.flash('errors', { msg: err.message });
-        return res.redirect('/contact');
+    template: 'agency-contactform',
+    from: req.body.email,
+    locals: _.extend(res.locals, {
+      content: {
+        senderName: req.body.name,
+        senderMail: req.body.email,
+        message: req.body.message
       }
+    }),
+  }]).then(function(dispatchResult) {
       req.flash('success', { msg: 'Email fue enviado con éxito!' });
       res.redirect('/contact');
   });
-
 };

@@ -170,6 +170,7 @@ var classMethods = {
 
         // Wrap val if needed for multiple fields.
         if (fieldInfo.multiple == true && !_.isArray(value) && !_.isEmpty(value)) {
+
           // Handle multiples in refs hidden input fields.
           // TODO make this better.
           if (fieldInfo.widget === 'ref')

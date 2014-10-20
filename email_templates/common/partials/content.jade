@@ -1,0 +1,13 @@
+tr
+  td(style="border-bottom:1px solid #e7e7e7; padding: 20px 100px 20px 120px;")
+    center
+      table.w320(cellpadding="0", cellspacing="0", width="100%")
+        tr
+          td.mobile-padding(align="left")
+            br.mobile-hide
+            each value, key in content
+              - var key = __n(key, key, 1);
+              if value
+                div
+                  strong #{key}:
+                  |  #{value}
