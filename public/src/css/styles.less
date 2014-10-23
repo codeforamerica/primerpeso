@@ -23,7 +23,6 @@
 @white: #ffffff;
 @red: #db4e4d;
 @darker-red: #ad2121;
-@white: #ffffff;
 
 //Greys
 @dark-grey: #4A4A4A;
@@ -115,24 +114,21 @@ a {
 }
 }
 
-.home .navbar { //not working
+.home {
+  .navbar.navbar-default {
   border-bottom: none;
-  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
-  ul .nav .navbar-nav .navbar-right li a{
-    li a { //not working
-    color: #fff;
-    text-shadow: 3px 2px 4px #000;
+  .collapse.navbar-collapse {
+    ul.navbar-nav.navbar-right {
+      li a {
+      color: #fff;
+      text-shadow: 3px 2px 4px #000;
+      }
     }
   }
 }
+}
 
-// Dropdown Styles
+// Dropdown Styles (when logged in as an agency)
 // -------------------------
 
 ul.dropdown-menu {
