@@ -51,6 +51,7 @@ p {
 
 a {
   color: @dark-green;
+  text-decoration: none;
   &:hover {
     color: @darker-green;
   }
@@ -88,6 +89,7 @@ a {
       }
       a.navbar-brand {
         background: url(../img/logo_pp.png) no-repeat left center;
+        -webkit-background-composite: url(../img/logo_pp.png) no-repeat left center;
         background-size: 75px;
         padding-left: 100px;
         margin-left: 15px;
@@ -101,7 +103,6 @@ a {
       background-color: transparent;
       li a {
         color: @dark-green;
-        text-decoration: none;
         padding-top: 40px;
         &:focus, &:hover {
           color: @darker-green;
@@ -353,7 +354,6 @@ section {
     border-left: 2px solid @lighter-grey;
   }
   li a {
-    text-decoration: none;
     color: @light-grey;
     border: 2px solid @lighter-grey;
     border-left: transparent;
@@ -422,6 +422,7 @@ section {
   color: @dark-green;
   font-size: 130%;
   text-transform: capitalize;
+  text-decoration: underline;
   &:hover {
     text-decoration: none;
   }
