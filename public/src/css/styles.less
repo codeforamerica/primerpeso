@@ -107,8 +107,31 @@ a {
       li a {
         color: @dark-green;
         padding-top: 40px;
+        &:active { //can't get this to work
+          color: purple;
+        }
         &:focus, &:hover {
           color: @darker-green;
+        }
+      }
+      li.dropdown.open { //dropdown styles when logged in as an agency
+        a.dropdown-toggle {
+          color: @dark-navy;
+          background-color: transparent;
+        }
+        ul.dropdown-menu {
+          padding: 0px;
+          li a {
+            font-size: 22px;
+            padding: 20px 10px;
+            &:hover {
+              border-radius: 4px;
+              border-top-right-radius: 0;
+              border-top-left-radius: 0;
+              background-color: transparent;
+              color: @dark-navy;
+            }
+          }
         }
       }
     }
@@ -119,29 +142,6 @@ a {
 .home {
   .navbar.navbar-default {
   border-bottom: none;
-  }
-}
-
-// Dropdown Styles (when logged in as an agency)
-// -------------------------
-
-ul.dropdown-menu {
-  padding: 0px;
-  li a {
-    padding: 20px 10px !important;
-    &:hover {
-      border-radius: 4px;
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-    }
-  }
-}
-
-.home {
-  ul.dropdown-menu li a
-  {
-  color: @dark-green;
-  text-shadow: none;
   }
 }
 
