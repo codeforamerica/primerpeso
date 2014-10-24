@@ -119,12 +119,12 @@ gulp
 
 ### Dump
 
-* `pg_dump primerpeso --format=c --file=db_dump_a.tar.gz --no-owner`
+* `pg_dump bizwallet --format=c --file=db_dump_a.tar.gz --no-owner`
 
 ### Restore
 
-* From Heroku = `dropdb primerpeso; heroku pg:pull DATABASE_URL primerpeso; gulp migrate`
-* From Dump = `dropdb primerpeso; createdb primerpeso; pg_restore db_dump_a.tar.gz --clean --dbname=primerpeso --create`
+* From Heroku = `dropdb bizwallet; heroku pg:pull DATABASE_URL bizwallet; gulp migrate`
+* From Dump = `dropdb bizwallet; createdb bizwallet; pg_restore db_dump_a.tar.gz --clean --dbname=bizwallet --create`
 
 ## Common Issues
 
