@@ -15,7 +15,7 @@
 
 The first step is to clone the PrimerPeso source code to your local computer.
 
-Open an empty terminal window and if you have not done so already clone bizwallet by running.
+Open an empty terminal window and if you have not done so already clone primerpeso by running.
 
 ```
 git clone git@github.com:codeforamerica/primerpeso.git
@@ -77,7 +77,7 @@ brew install redis
 
 ### Creating your environment variables file
 
-We use environment variables to connect to our local database and tell bizwallet to run in "Development" mode. We specify these things in a special file named ".env" (Yes, with the period):
+We use environment variables to connect to our local database and tell primerpeso to run in "Development" mode. We specify these things in a special file named ".env" (Yes, with the period):
 
 * Create an empty file named ".env" `touch .env`
 * Copy the contents of ".env_example" into it  `cat .env_example > .env`
@@ -103,7 +103,7 @@ Your project should be available at [localhost:3737](http://localhost:3737)
 
 ## Already Installed
 
-In a new terminal window, change directory into the bizwallet folder
+In a new terminal window, change directory into the primerpeso folder
 
 ```
 cd path/to/folder/primerpeso
@@ -119,12 +119,12 @@ gulp
 
 ### Dump
 
-* `pg_dump bizwallet --format=c --file=db_dump_a.tar.gz --no-owner`
+* `pg_dump primerpeso --format=c --file=db_dump_a.tar.gz --no-owner`
 
 ### Restore
 
-* From Heroku = `dropdb bizwallet; heroku pg:pull DATABASE_URL bizwallet; gulp migrate`
-* From Dump = `dropdb bizwallet; createdb bizwallet; pg_restore db_dump_a.tar.gz --clean --dbname=bizwallet --create`
+* From Heroku = `dropdb primerpeso; heroku pg:pull DATABASE_URL primerpeso; gulp migrate`
+* From Dump = `dropdb primerpeso; createdb primerpeso; pg_restore db_dump_a.tar.gz --clean --dbname=primerpeso --create`
 
 ## Common Issues
 
