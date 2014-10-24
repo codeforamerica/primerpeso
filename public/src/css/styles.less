@@ -86,6 +86,9 @@ a {
       .navbar-toggle {
         border-color: transparent;
         background-color: @dark-green;
+        &:focus, &:hover {
+          background-color: @darker-green;
+        }
       }
       a.navbar-brand {
         background: url(../img/logo_pp.png) no-repeat left center;
@@ -116,15 +119,18 @@ a {
 .home {
   .navbar.navbar-default {
   border-bottom: none;
-  .collapse.navbar-collapse {
-    ul.navbar-nav.navbar-right {
-      li a {
-      color: #fff;
-      text-shadow: 3px 2px 4px #000;
+    .collapse.navbar-collapse {
+      ul.navbar-nav.navbar-right {
+        li a {
+        color: #fff;
+        text-shadow: 3px 2px 4px #000;
+        &:focus, &:hover {
+          color: @dark-green;
+          }
+        }
       }
     }
   }
-}
 }
 
 // Dropdown Styles (when logged in as an agency)
@@ -154,26 +160,19 @@ ul.dropdown-menu {
 // -------------------------
 
 .landing {
-  background: url(../img/dehojas.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  min-height: 650px;
-  margin-top: -300px;
-  text-align: center;
-  font-family: @font-family-secondary;
+  padding: 40px;
+  padding-top: 60px;
   .title {
     margin-top: 50px;
+    font-family: @font-family;
   }
   p {
     font-size: 150%;
   }
   .subtitle {
-    color: @white;
     font-size: 200%;
     max-width: 800px;
-    font-weight: 300;
+    color: @dark-grey;
   }
   h2 {
     font-size: 270%;
@@ -185,32 +184,7 @@ ul.dropdown-menu {
   }
 }
 
-.landing-header {
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  position: relative;
-  display: block;
-  left: 0;
-  right:0;
-  bottom: -300px;
-  margin-top: 200px;
-  text-shadow: 3px 2px 4px #000;
-  img {
-    display: none;
-  }
-  .btn {
-    text-shadow: none;
-  }
-  h2 {
-    color: @white;
-    font-weight: normal;
-  }
-}
-
 h1.title{
-  color: @white;
   font-size: 275%;
   font-weight: 300;
 }
@@ -782,10 +756,10 @@ a.btn.help-you:last-child {
   background-image: none;
   background-color: @dark-navy;
   height: auto;
-  padding: 40px;
-  padding-top: 80px;
   .title {
-    margin-top: 0;
+    margin-top: 20px;
+    color: @white;
+    font-size: 215%;
   }
 }
 
@@ -797,19 +771,6 @@ a.btn.help-you:last-child {
     display: block;
     width: 50%;
     margin-bottom: 15px;
-  }
-  .btn {
-    visibility: hidden;
-    margin: 0;
-  }
-  .btn:after {
-    content: 'Averigua tus opciones';
-    visibility: visible;
-    display: block;
-    position: absolute;
-    background-color: @dark-green;
-    padding: 15px;
-    border-radius: 10px;
   }
 }
 
@@ -843,10 +804,6 @@ section h1.section-title {
     position: relative;
     display: block;
     margin-top: 200px;
-  }
-
-  .landing {
-    margin-top: -200px;
   }
 
   .home {
