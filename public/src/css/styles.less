@@ -149,10 +149,8 @@ ul.dropdown-menu {
 // -------------------------
 
 .landing {
-  padding: 40px;
-  padding-top: 60px;
   .title {
-    margin-top: 50px;
+    margin-top: 35px;
     font-family: @font-family;
   }
   p {
@@ -166,10 +164,6 @@ ul.dropdown-menu {
   h2 {
     font-size: 270%;
     margin: 20px auto;
-  }
-  img {
-    margin: auto;
-    display: block;
   }
 }
 
@@ -719,10 +713,6 @@ a.btn.help-you:last-child {
   background: transparent;
 }
 
-.navbar-brand {
-  background-image: none;
-}
-
 .cart-popover {
   position: fixed;
   top: 50px !important;
@@ -735,25 +725,12 @@ a.btn.help-you:last-child {
 }
 
 .landing {
-  min-height: 500px;
-  background-image: none;
   background-color: @dark-navy;
   height: auto;
   .title {
     margin-top: 20px;
     color: @white;
     font-size: 215%;
-  }
-}
-
-.landing-header {
-  background: none;
-  position: relative;
-  bottom: 75px;
-  img {
-    display: block;
-    width: 50%;
-    margin-bottom: 15px;
   }
 }
 
@@ -783,18 +760,16 @@ section h1.section-title {
     }
   }
 
-  .landing-header {
-    position: relative;
-    display: block;
-    margin-top: 200px;
+  .landing img {
+    padding-top: 20px;
   }
 
   .home {
     .navbar {
     background: @dark-navy;
-      li a {
-        text-shadow: none;
-      }
+    }
+    .navbar-brand {
+      background-image: none !important;
     }
   }
 
