@@ -230,21 +230,26 @@ section {
   .body {
     position: relative !important;
     padding: 1.5% 0;
+    .control-label {}
   }
   .form-group {
     padding-left: 0px;
   }
 }
 
-.wizard .steps ul li {
-  width: auto;
-  font-size: 19px;
+.body .control-label { //leaving this out here because when nested,
+  font-size: 24px;  //there's a delay in loading the style.
+  color: @navy;
 }
 
 .wizard {
   .actions a {
     background-color: @dark-green;
     padding: 15px 35px;
+    &:hover {
+      background-color: @dark-navy;
+      padding: 15px 35px;
+    }
   }
   .actions {
     text-align: left;
@@ -255,34 +260,27 @@ section {
   }
 }
 
-.wizard .actions a:hover {
-  background-color: @dark-navy;
-  padding: 15px 35px;
-}
-
-.wizard .steps{
+.wizard .steps {
   margin-top: 23px;
+  ul li {
+    width: auto;
+    font-size: 19px;
+  }
   a, a:hover {
     margin: 0 0.5em 1.2em;
   }
   .current a {
     background-color: @dark-green;
     &:hover {
-      background-color: @navy;
+      background-color: @dark-navy;
     }
   }
   .done a {
     background-color: @green;
+    &:hover {
+      background-color: @dark-navy;
+    }
   }
-}
-
-.wizard .steps .done a:hover {
-  background-color: @navy;
-}
-
-.body .control-label {
-  font-size: 24px;
-  color: @navy;
 }
 
 .mandatory {
