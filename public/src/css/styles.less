@@ -71,6 +71,11 @@ a {
   }
 }
 
+.title{
+  font-size: 275%;
+  font-weight: 300;
+}
+
 // Navbar
 // -------------------------
 
@@ -145,18 +150,17 @@ a {
   }
 }
 
-// Landing Page
+// Landing Page - this section has no container to enable full-width colors
 // -------------------------
 
-.landing {
-  .title {
+.header {
+  .header-title {
     margin-top: 35px;
     font-family: @font-family;
+    font-size: 275%;
+    margin: 20px auto;
   }
-  p {
-    font-size: 150%;
-  }
-  .subtitle {
+  .header-subtitle {
     font-size: 200%;
     max-width: 800px;
     color: @dark-grey;
@@ -167,14 +171,9 @@ a {
   }
 }
 
-h1.title{
-  font-size: 275%;
-  font-weight: 300;
-}
-
 section {
   text-align: center;
-  h1.section-title {
+  .section-title {
     font-family: @font-family;
     margin: 0px 0px 30px;
     padding-top: 70px;
@@ -188,13 +187,14 @@ section {
   padding-right: 0;
 }
 
-.action-words {
-  margin: 50px 0px 0px;
-  padding-bottom: 80px;
-}
-
-.how-it-works img {
-  padding-bottom: 15px;
+.how-it-works {
+  .action-words {
+    margin: 50px 0px 0px;
+    padding-bottom: 80px;
+  }
+  img {
+    padding-bottom: 15px;
+  }
 }
 
 .how-can-we-help {
