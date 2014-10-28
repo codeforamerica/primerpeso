@@ -1,4 +1,4 @@
-# PrimerPeso
+﻿# PrimerPeso
 
 # How to Run
 
@@ -31,11 +31,34 @@ cd primerpeso
 
 The second step is to install the dependencies and open source libraries primerpeso uses.
 
+#### For Mac OSX
+
 Simply run this command while in the primerpeso source code folder:
 
 ```
 npm install
+
 ```
+
+#### For Ubuntu 14.04
+
+For the distro stable version, run:
+
+
+```
+sudo apt-get update
+sudo apt-get install nodejs
+```
+
+There is a naming clonfict in ubuntu for the node.js package. Run the following to create a symlink to avoid issues.
+
+```
+ln -s /usr/bin/nodejs /usr/bin/node
+```
+
+For alternate install methods, please refer [here](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server).
+
+___
 
 After it's done your project should have a new folder called *node_modules*.
 
@@ -43,7 +66,9 @@ After it's done your project should have a new folder called *node_modules*.
 
 We are using PostgreSQL as our database management system. In order to run primerpeso you need to have a local version of PostgreSQL running on your computer.
 
-For Mac OSX users we reccommend installing [postgresapp](http://postgresapp.com). After installing it run this line to link the database to the `psql` command:
+#### For Mac OSX
+
+We reccommend installing [postgresapp](http://postgresapp.com). After installing it run this line to link the database to the `psql` command:
 
 ```
 echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.3/bin" >> ~/.bash_profile
@@ -67,12 +92,63 @@ Now run this command to load some sample data into the database:
 psql primerpeso < config/dump.sql
 ```
 
+#### For Ubuntu 14.04
+
+Install: 
+
+```
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+```
+
+Log in as the 'postgres' user, that is associated with the PostgreSQL Role:
+```
+sudo -i -u postgres
+```
+
+Copy the file config/dump.sql to a directory such as /tmp, where the postgres user has access to. Switch to that directory.
+
+
+Logged in as the 'postgres' user, you can use the pg_dump tool to load some sample data into the database:
+```
+createdb primerpeso
+pg_dump primerpeso < config/dump.sql
+```
+
+
 ### Installing redis:
 
-We need to install Redis, make sure you have [Homebrew](http://brew.sh/) installed and run this command in a terminal window:
+#### For Mac OSX
+Make sure you have [Homebrew](http://brew.sh/) installed and run this command in a terminal window:
 
 ```
 brew install redis
+```
+
+#### For Ubuntu 14.04
+
+Please refer to documentation [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-redis). In summary:
+
+Download packagage and Redis tar ball:
+```
+sudo apt-get install build-essential
+sudo apt-get install tcl8.5
+wget http://download.redis.io/releases/redis-2.8.9.tar.gz
+ 
+```
+
+In desired directory, unzip, make and install:
+```
+tar xzf redis-2.8.9.tar.gz
+cd redis-2.8.9
+make
+sudo make install
+```
+
+To run:
+```
+cd utils
+sudo ./install_server.sh
 ```
 
 ### Creating your environment variables file
@@ -133,4 +209,3 @@ Some common issues that could give you errors when you run the project, and how 
 * New dependencies were added (run `npm install`)
 * Make sure you are in the primerpeso folder (run `cd path/to/primerpeso`)
 * @MrMaksimize or @chrisrodz broke something (ping us to fix it)
-
