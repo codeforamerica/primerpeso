@@ -6,13 +6,13 @@
 @import (less) "lib/select2.css";
 @import (less) "lib/select2-bootstrap.css";
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,600,700,800);
 
+//Fonts
 @font-family: 'Montserrat', sans-serif;
 @font-family-secondary: 'Open Sans', sans serif;
 
-//BizWallet Colors
+//PrimerPeso Colors
 @green: #97e8c1;
 @dark-green: #18bc9c;
 @darker-green: #128d75;
@@ -23,7 +23,6 @@
 @white: #ffffff;
 @red: #db4e4d;
 @darker-red: #ad2121;
-@white: #ffffff;
 
 //Greys
 @dark-grey: #4A4A4A;
@@ -52,6 +51,7 @@ p {
 
 a {
   color: @dark-green;
+  text-decoration: none;
   &:hover {
     color: @darker-green;
   }
@@ -71,190 +71,113 @@ a {
   }
 }
 
+.title{
+  font-size: 275%;
+  font-weight: 300;
+}
+
 // Navbar
 // -------------------------
 
-.navbar {
+.navbar.navbar-default {
   margin-bottom: 0px;
   border-radius: 0px;
-}
-
-.navbar-default {
   background-color: transparent;
   border: none;
   border-bottom: 3px solid @green;
   font-size: 24px;
-  .navbar-nav {
-    li a {
-      color: @dark-green;
-      text-decoration: none;
-      padding-top: 40px;
+  .container {
+    .navbar-header {
+      .navbar-toggle {
+        border-color: transparent;
+        background-color: @dark-green;
+        &:focus, &:hover {
+          background-color: @darker-green;
+        }
+      }
+      a.navbar-brand {
+        background: url(../img/logo_pp.png) no-repeat left center;
+        -webkit-background-composite: url(../img/logo_pp.png) no-repeat left center;
+        background-size: 75px;
+        padding-left: 100px;
+        margin-left: 15px;
+        height: 100px;
+      }
     }
-    .open a:focus {
+  .collapse.navbar-collapse {
+    border-top: 3px solid transparent;
+    border-color: transparent;
+    ul.navbar-nav.navbar-right {
       background-color: transparent;
-      color: @dark-green;
-    }
-    .active a {
-      background-color: transparent;
-      color: @dark-navy;
-      text-decoration: none;
-    a:focus, &:hover, &:focus {
-      background-color: transparent;
-      color: @dark-navy;
+      li a {
+        color: @dark-green;
+        padding-top: 40px;
+        &:active { //can't get this to work
+          color: purple;
+        }
+        &:focus, &:hover {
+          color: @darker-green;
+        }
+      }
+      li.dropdown.open { //dropdown styles when logged in as an agency
+        a.dropdown-toggle {
+          color: @dark-navy;
+          background-color: transparent;
+        }
+        ul.dropdown-menu {
+          padding: 0px;
+          li a {
+            font-size: 22px;
+            padding: 20px 10px;
+            &:hover {
+              border-radius: 4px;
+              border-top-right-radius: 0;
+              border-top-left-radius: 0;
+              background-color: transparent;
+              color: @dark-navy;
+            }
+          }
+        }
       }
     }
   }
 }
-
-.navbar-nav .profile-image {
-  width: 30px;
-  height: 30px;
-  margin: -15px 15px -15px 0;
-}
-
-.navbar-brand {
-  background-image: url(../img/logo_pp.png);
-  background-repeat: no-repeat;
-  background-size: 75px;
-  background-position: left center;
-  padding-left: 100px;
-  margin-left: 15px;
-  height: 100px;
-  font-size: 24px;
-}
-
-.navbar-toggle {
-  background-color: @dark-green;
-}
-
-.navbar-default .navbar-toggle {
-  border-color: transparent;
-}
-
-.navbar-collapse {
-  border-top: 3px solid transparent;
-}
-
-.navbar-default .navbar-collapse {
-  border-color: transparent;
-}
-
-// Dropdown Styles
-// -------------------------
-
-ul.dropdown-menu {
-  padding: 0px;
-  li a {
-    padding: 20px 10px !important;
-    &:hover {
-      border-radius: 4px;
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
-    }
-  }
 }
 
 .home {
-  ul.dropdown-menu li a
-  {
-  color: @dark-green;
-  text-shadow: none;
+  .navbar.navbar-default {
+  border-bottom: none;
   }
 }
 
-// Landing Page
+// Landing Page - this section has no container to enable full-width colors
 // -------------------------
 
-.home .navbar {
-  border-bottom: none;
-  background: -moz-linear-gradient(top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.65)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-  background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
-  li a {
-    color: #fff;
-    text-shadow: 3px 2px 4px #000;
+.header {
+  .header-title {
+    margin-top: 35px;
+    font-family: @font-family;
+    font-size: 275%;
+    margin: 20px auto;
   }
-}
-
-.landing {
-  background: url(../img/dehojas.jpg) no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  min-height: 650px;
-  margin-top: -300px;
-  text-align: center;
-  font-family: @font-family-secondary;
-  .title {
-    margin-top: 50px;
-  }
-  p {
-    font-size: 150%;
-  }
-  .subtitle {
-    color: @white;
+  .header-subtitle {
     font-size: 200%;
     max-width: 800px;
-    font-weight: 300;
+    color: @dark-grey;
   }
   h2 {
     font-size: 270%;
     margin: 20px auto;
   }
-  img {
-    margin: auto;
-    display: block;
-  }
-}
-
-.landing-header {
-  width: 75%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  position: relative;
-  display: block;
-  left: 0;
-  right:0;
-  bottom: -300px;
-  margin-top: 200px;
-  text-shadow: 3px 2px 4px #000;
-  img {
-    display: none;
-  }
-  .btn {
-    text-shadow: none;
-  }
-  h2 {
-    color: @white;
-    font-weight: normal;
-  }
-}
-
-h1.title{
-  color: @white;
-  font-size: 275%;
-  font-weight: 300;
 }
 
 section {
   text-align: center;
-  h1.section-title {
+  .section-title {
     font-family: @font-family;
     margin: 0px 0px 30px;
     padding-top: 70px;
   }
-}
-
-.brands-credit {
-  margin: 15px 10% 0 0;
-  text-align: right;
-  font-size: 95%;
 }
 
 .how-it-works, .who-have-we-helped {
@@ -264,13 +187,14 @@ section {
   padding-right: 0;
 }
 
-.action-words {
-  margin: 50px 0px 0px;
-  padding-bottom: 80px;
-}
-
-.how-it-works img {
-  padding-bottom: 15px;
+.how-it-works {
+  .action-words {
+    margin: 50px 0px 0px;
+    padding-bottom: 80px;
+  }
+  img {
+    padding-bottom: 15px;
+  }
 }
 
 .how-can-we-help {
@@ -306,21 +230,26 @@ section {
   .body {
     position: relative !important;
     padding: 1.5% 0;
+    .control-label {}
   }
   .form-group {
     padding-left: 0px;
   }
 }
 
-.wizard .steps ul li {
-  width: auto;
-  font-size: 19px;
+.body .control-label { //leaving this out here because when nested,
+  font-size: 24px;  //there's a delay in loading the style.
+  color: @navy;
 }
 
 .wizard {
   .actions a {
     background-color: @dark-green;
     padding: 15px 35px;
+    &:hover {
+      background-color: @dark-navy;
+      padding: 15px 35px;
+    }
   }
   .actions {
     text-align: left;
@@ -331,34 +260,27 @@ section {
   }
 }
 
-.wizard .actions a:hover {
-  background-color: @dark-navy;
-  padding: 15px 35px;
-}
-
-.wizard .steps{
+.wizard .steps {
   margin-top: 23px;
+  ul li {
+    width: auto;
+    font-size: 19px;
+  }
   a, a:hover {
     margin: 0 0.5em 1.2em;
   }
   .current a {
     background-color: @dark-green;
     &:hover {
-      background-color: @navy;
+      background-color: @dark-navy;
     }
   }
   .done a {
     background-color: @green;
+    &:hover {
+      background-color: @dark-navy;
+    }
   }
-}
-
-.wizard .steps .done a:hover {
-  background-color: @navy;
-}
-
-.body .control-label {
-  font-size: 24px;
-  color: @navy;
 }
 
 .mandatory {
@@ -381,7 +303,6 @@ section {
     border-left: 2px solid @lighter-grey;
   }
   li a {
-    text-decoration: none;
     color: @light-grey;
     border: 2px solid @lighter-grey;
     border-left: transparent;
@@ -450,6 +371,7 @@ section {
   color: @dark-green;
   font-size: 130%;
   text-transform: capitalize;
+  text-decoration: underline;
   &:hover {
     text-decoration: none;
   }
@@ -626,7 +548,6 @@ td {
   margin: 20px;
   padding: 15px;
   border: none;
-  text-decoration: none !important;
   &:hover {
     background-color: @darker-green;
   }
@@ -785,138 +706,105 @@ a.btn.help-you:last-child {
 // -------------------------
 
 @media screen and (max-width: 480px) {
-.home .navbar {
-  background: transparent;
-}
 
-.navbar-brand {
-  background-image: none;
-}
+  .cart-popover {
+    position: fixed;
+    top: 50px !important;
+    left: 50% !important;
+    max-width: 185px;
+    .btn-send-programs {
+      font-size: 130%;
+      padding: 10px;
+    }
+  }
 
-.cart-popover {
-  position: fixed;
-  top: 50px !important;
-  left: 50% !important;
-  max-width: 185px;
-  .btn-send-programs {
-    font-size: 130%;
-    padding: 10px;
+  .landing {
+    background-color: @dark-navy;
+    height: auto;
+    .title {
+      margin-top: 20px;
+      color: @white;
+      font-size: 215%;
+    }
   }
-}
 
-.landing {
-  min-height: 500px;
-  background-image: none;
-  background-color: @dark-navy;
-  height: auto;
-  padding: 40px;
-  padding-top: 80px;
-  .title {
-    margin-top: 0;
+  .section-title {
+    padding-right: 15px;
+    padding-left: 15px;
   }
-}
 
-.landing-header {
-  background: none;
-  position: relative;
-  bottom: 75px;
-  img {
-    display: block;
-    width: 50%;
-    margin-bottom: 15px;
+  .subtitle {
+    display: none;
   }
-  .btn {
-    visibility: hidden;
-    margin: 0;
-  }
-  .btn:after {
-    content: 'Averigua tus opciones';
-    visibility: visible;
-    display: block;
-    position: absolute;
-    background-color: @dark-green;
-    padding: 15px;
-    border-radius: 10px;
-  }
-}
-
-section h1.section-title {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-.subtitle {
-  display: none;
-}
 }
 
 // Medium Screens
 // -------------------------
 
-@media screen and (max-width: 767px) {
-  .home {
-    .navbar li a {
-        text-shadow: none;
-    }
-  }
-}
-
 @media (max-width: 991px) {
-  .row-header h4 {
-    display: none;
-  }
-  .wizard .steps{
-    a, a:active {
-    font: 250%;
-  }
-    .disabled a {
-    display: none;
-  }
-  }
-  .landing-header {
-    position: relative;
-    display: block;
-    margin-top: 200px;
-  }
-  .landing {
-    margin-top: -200px;
-  }
-
   .home {
     .navbar {
     background: @dark-navy;
     }
+    .navbar-brand {
+      background-image: none !important;
+    }
   }
+
   .navbar-header {
-      float: none;
-  }
-  .navbar-toggle {
+    float: none;
+    .navbar-toggle {
       display: block;
+    }
   }
-  .navbar-collapse {
+
+  .navbar-collapse .collapse {
       border-top: 1px solid transparent;
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
   }
+
   .navbar-collapse.collapse {
       display: none!important;
   }
+
   .navbar-nav {
-      float: none!important;
-      margin: 7.5px -15px;
-  }
-  .navbar-nav>li {
+    float: none!important;
+    margin: 7.5px -15px;
+    li {
       float: none;
+      a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
   }
-  .navbar-nav>li>a {
-      padding-top: 10px;
-      padding-bottom: 10px;
+
+  .landing img {
+    padding-top: 20px;
   }
+
+  .row-header h4 {
+    display: none;
+  }
+
+  .wizard .steps{
+    a, a:active {
+    font: 250%;
+    }
+    .disabled a {
+    display: none;
+    }
+  }
+
   /* since 3.1.0 */
   .navbar-collapse.collapse.in {
       display: block!important;
   }
+
   .collapsing {
       overflow: hidden!important;
   }
+
 }
 
 
@@ -929,14 +817,6 @@ section h1.section-title {
   }
   #wrap {
     padding: 0;
-  }
-  .landing-header {
-    h1 {
-      font-size: 200%
-    }
-    h2 {
-      font-size: 200%;
-    }
   }
 }
 
